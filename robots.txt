@@ -1,0 +1,10 @@
+# hexo robots.txt
+User-agent: *
+Allow: /
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /categories/
+Disallow: /tags/
+Sitemap: http://nullpointer/sitemap.xml
+Sitemap: http://nullpointer/baidusitemap.xml

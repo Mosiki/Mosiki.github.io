@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/Nginx配置资源下载目录.html">
+    
+    
+    <title>Nginx配置资源下载目录 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nginx,资源下载">
+    <meta name="description" content="之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。">
+<meta name="keywords" content="nginx,资源下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx配置资源下载目录">
+<meta property="og:url" content="http://nullpointer.pw/Nginx配置资源下载目录.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171027/055339109.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171027/061943005.png">
+<meta property="og:updated_time" content="2017-10-26T22:29:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx配置资源下载目录">
+<meta name="twitter:description" content="之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171027/055339109.png">
+    
+        <link rel="alternative" href="/atom.xml" title="WeJan&#39;s Blog" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx配置资源下载目录</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx配置资源下载目录</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-26T22:25:24.000Z" itemprop="datePublished" class="page-time">
+  2017-10-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-Nginx"><span class="post-toc-text">安装 Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置资源存储路径"><span class="post-toc-text">设置资源存储路径</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-text">修改配置文件</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Nginx配置资源下载目录"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx配置资源下载目录</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年10月27日 6:25" datetime="2017-10-26T22:25:24.000Z"  itemprop="datePublished">2017-10-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。<br><a id="more"></a><br>图片详情：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171027/055339109.png" alt="mark" title="">
+                </div>
+                <div class="image-caption">mark</div>
+            </figure>
+<h2 id="安装-Nginx"><a href="#安装-Nginx" class="headerlink" title="安装 Nginx"></a>安装 Nginx</h2><p><a href="http://nullpointer.pw/2017/08/20/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE/">参考这篇教程的 Nginx 环境搭建部分</a></p>
+<h2 id="设置资源存储路径"><a href="#设置资源存储路径" class="headerlink" title="设置资源存储路径"></a>设置资源存储路径</h2><p>1、 资源准备  </p>
+<p>在 <strong>home</strong> 的用户目录下，建立文件夹，如 <strong>softs</strong> ,在 <strong>softs</strong> 目录中放入文件内容。</p>
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><p>2、 修改 Nginx 配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim conf/nginx.conf</span><br></pre></td></tr></table></figure>
+<p>添加 server </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  down.vcmq.com;</span><br><span class="line">        #sendfile        on;</span><br><span class="line">        location / &#123;</span><br><span class="line">            alias  /home/softs/;</span><br><span class="line">            sendfile on;</span><br><span class="line">            autoindex on;</span><br><span class="line">            autoindex_exact_size off;</span><br><span class="line">            autoindex_localtime on;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>alias 设置为第一步中的资源目录，我这里是 <strong>/home/softs/</strong></p>
+<p>3、 访问测试<br>将本机 hosts 指向服务器，<br>访问地址 down.vcmq.com  显示目录列表  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171027/061943005.png" alt="mark">  </p>
+<p><strong>注意不能是/root 目录下的文件路径 ，会显示403无权限</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-10-26T22:29:40.000Z" itemprop="dateUpdated">2017年10月27日 6:29</time>
+</span><br>
+
+
+        本文链接：<a href="/Nginx配置资源下载目录.html" target="_blank" rel="external">http://nullpointer.pw/Nginx配置资源下载目录.html</a>
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/资源下载/">资源下载</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Nginx配置资源下载目录.html&title=《Nginx配置资源下载目录》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Nginx配置资源下载目录.html&title=《Nginx配置资源下载目录》 — WeJan's Blog&source=之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Nginx配置资源下载目录.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx配置资源下载目录》 — WeJan's Blog&url=http://nullpointer.pw/Nginx配置资源下载目录.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Nginx配置资源下载目录.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/Nginx图片防盗链【实战】.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx图片防盗链【实战】</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/如何记笔记？.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何做笔记？</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+<section class="comments" id="comments">
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'Mosiki',
+  repo: 'Mosiki.github.io',
+  oauth: {
+    client_id: '3b2cde9586810b1a2423',
+    client_secret: '67f784a4655470a5584ea795fee462f952174531',
+  },
+})
+gitment.render('container')
+</script>
+</section>
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>WeJan's Blog &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Nginx配置资源下载目录.html&title=《Nginx配置资源下载目录》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Nginx配置资源下载目录.html&title=《Nginx配置资源下载目录》 — WeJan's Blog&source=之前在网上找 CentOs 的镜像的时候，发现了阿里云的这个镜像源，速度蛮快的。今天也来搭建一个类似的站，使用 nginx 作为资源下载服务器。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Nginx配置资源下载目录.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx配置资源下载目录》 — WeJan's Blog&url=http://nullpointer.pw/Nginx配置资源下载目录.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Nginx配置资源下载目录.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aS27DMAxF0ex/0+60RWDlPlINYPF6FKSurOMBw49eL3xdb9f797+/ef9cW23zJUOGjMcyruW13u56o3thd/fIkCFjDiPdCvkvvj4J3x/WlCFDhozlI0lKR+6XIUOGjO8HXP4i+OuTIUPGZAYpYtMN8TKVlMrbanEZMmQ8kMG77t///C/zDRkyZDyKcYUXQZIg29/JnzVlyJBxNIMHON4g44ygQCX7kSFDxtGMWut/XWqmxW16pON2TRkyZAxg8I2S1linncfHmTJkyDibwZOwdHjJG/2ccfssGTJkHM3YlpDhVJJ/T34GZMiQMYfBB5a1QBw0y/CYQYYMGTMZfOl0JLkhdC5TTxkyZJzN4GkZfzwpUGvJX3BmRIYMGQcx0uXScjcNuCkmfosyZMh4LIMH3DQ4bshY+7mtDBkyjmB00sFr69VJMWXIkHE2I00H0wYZGYhyHjo5IkOGjEMZZDDAwSSZ4zyUFMqQIWMAo3/Yggw7W3krqcVlyJAxjFEbau5qwMUNOxkyZAxg8DEA+Ss/HtFv5MmQIWMaI00Za62xWgsPDQZkyJBxHKMzYkybcSSY1saoMmTIOJtRG0ambbj01fBGngwZMuYwePnKk7z+sDMOuDJkyBjASANf2ibb9TvwoZSVIUOGjHbTrRay426cDBkyxjNIApfC+CGP2ztlyJAxgJEepOAP6LTYSOopQ4aMCYxa3lVrlnVSzA1DTRkyZDyP8QOznEupkDvUVwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

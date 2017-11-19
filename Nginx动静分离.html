@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/Nginx动静分离.html">
+    
+    
+    <title>Nginx动静分离 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nginx,动静分离">
+    <meta name="description" content="前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。">
+<meta name="keywords" content="nginx,动静分离">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx动静分离">
+<meta property="og:url" content="http://nullpointer.pw/Nginx动静分离.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/131159884.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/130334830.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/174007494.png">
+<meta property="og:updated_time" content="2017-08-20T02:26:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx动静分离">
+<meta name="twitter:description" content="前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png">
+    
+        <link rel="alternative" href="/atom.xml" title="WeJan&#39;s Blog" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx动静分离</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx动静分离</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-19T09:44:23.000Z" itemprop="datePublished" class="page-time">
+  2017-08-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么要实现动静分离"><span class="post-toc-text">为什么要实现动静分离</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境介绍"><span class="post-toc-text">环境介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-Nginx"><span class="post-toc-text">配置 Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#拷贝项目中资源文件到指定的资源目录"><span class="post-toc-text">拷贝项目中资源文件到指定的资源目录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试静态资源获取"><span class="post-toc-text">测试静态资源获取</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Nginx动静分离"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx动静分离</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年08月19日 17:44" datetime="2017-08-19T09:44:23.000Z"  itemprop="datePublished">2017-08-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。  </p>
+<a id="more"></a>
+<h2 id="为什么要实现动静分离"><a href="#为什么要实现动静分离" class="headerlink" title="为什么要实现动静分离"></a>为什么要实现动静分离</h2><p>为什么要将静态资源文件与动态请求进行分离？ 为了降低 Tomcat 服务器的负载，可以通过本文设置并结合 CDN 来实现来更彻底地降低服务器的负载。  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png" alt="mark"></p>
+<p>如图所示，所有的请求都压到了同一台服务器上， 无论静态还是动态的请求，这样流量大的话势必会造成服务器的负载过高，因为动静分离是必不可少的。</p>
+<h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>首先这是我们项目的目录结构， <strong>resource</strong> 目录和 <strong>_res</strong> 目录中都是静态资源文件，存放比如 js/css/img 等资源。这两个目录下的文件有所不同，<strong>_res</strong> 目录下面是压缩版本的，比如压缩的js/css。通过 Git 或者 SVN 将项目上传到服务器上后，配置 Nginx 来完成静态资源的分离。  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/131159884.png" alt="mark"></p>
+<p>首先看一张图(图的来源是：<a href="http://www.cnblogs.com/xiaoblog/p/4241086.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaoblog/p/4241086.html</a>)  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/130334830.png" alt="mark"></p>
+<p>当请求经过 Nginx 时，如果是静态资源的请求，就直接返回主机上静态资源即可， 如果是动态请求，则去请求 Tomcat 服务器后再返回。如果流量不是很大，静态资源可以和 Tomcat 服务器放在同一台主机上，否则需要将静态资源与 Tomcat 服务器分开。</p>
+<p>我司对于资源文件的做法是新建一个二级域名，该域名只用于加载静态资源文件。如 <strong>res.domain.com</strong>，这样做的好处是简化了在 Nginx 的 配置。</p>
+<h2 id="配置-Nginx"><a href="#配置-Nginx" class="headerlink" title="配置 Nginx"></a>配置 Nginx</h2><p>首先需要安装 Nginx， 可以参考我的另外一篇文章 <a href="http://nullpointer.pw/2017/05/05/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4/">Nginx实现Tomcat集群</a>。这里只需要参考到安装 Nginx 即可。</p>
+<p>Nginx 静态资源配置</p>
+<p>打开 Nginx 配置文件</p>
+<p><code>vim /usr/local/nginx/conf/nginx.conf</code></p>
+<p>添加 server</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">	<span class="comment"># 只接收静态资源请求</span></span><br><span class="line">	listen       80;</span><br><span class="line">	server_name   res.domain.com;</span><br><span class="line">	charset utf8;</span><br><span class="line"></span><br><span class="line">	default_type            text/plain;</span><br><span class="line">	add_header Access-Control-Allow-Origin *;</span><br><span class="line">	<span class="comment">#access_log logs/heiyan.image.access.log  click;</span></span><br><span class="line"></span><br><span class="line">	location ~* \.(zip|rar|gz|tar.gz|gz|exe)$ &#123;</span><br><span class="line">		<span class="built_in">return</span> 500;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">		<span class="comment">#资源文件的目录</span></span><br><span class="line">		root /home/resources;</span><br><span class="line">		index index.html;</span><br><span class="line"></span><br><span class="line">		expires 30d;</span><br><span class="line">		default_type      text/plain;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	<span class="comment"># 接收动态请求</span></span><br><span class="line">	listen       80;</span><br><span class="line">	server_name  www.domain.com;</span><br><span class="line">	charset utf8;</span><br><span class="line"></span><br><span class="line">	access_log logs/access.log  main;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">		proxy_pass http://127.0.0.1:8080;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="拷贝项目中资源文件到指定的资源目录"><a href="#拷贝项目中资源文件到指定的资源目录" class="headerlink" title="拷贝项目中资源文件到指定的资源目录"></a>拷贝项目中资源文件到指定的资源目录</h2><p>在 Nginx 的配置文件中指定了资源文件的目录为 <strong>/home/resources</strong> ，所以需要将资源拷贝到该目录下，进入上文下载的项目的目录中，将资源目录（我这里是<strong>_res</strong>目录)拷贝到 <strong>/home/resources</strong>目录下面。</p>
+<p><code>cp -rf _res /home/resources</code></p>
+<p>拷贝完成后的目录应该是： <code>/home/resources/_res</code></p>
+<p>在 <strong>/home/resources/_res</strong> 目录下放一张图片 a.jpg ，用于测试。</p>
+<h2 id="测试静态资源获取"><a href="#测试静态资源获取" class="headerlink" title="测试静态资源获取"></a>测试静态资源获取</h2><p>启动 Nginx</p>
+<p>打开浏览器访问： <code>http://res.domain.com/_res/a.jpg</code></p>
+<p>如果是动态请求，则使用 <code>http://www.domain.com</code> 域名</p>
+<p>返回结果：  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/174007494.png" alt="mark"></p>
+<p>因为静态资源文件包含 css/js 等文件，修改提交后需要拷贝增量与修改的文件到 <strong>/home/resources</strong> 目录下，如果嫌麻烦，可以直接在 Nginx 配置文件中，配置 路径为项目的资源文件夹根路径，比如 <strong>/home/wide-api/src/main/java/resources/_res</strong>， 这种在更新代码之后，可以直接请求到新的资源文件。之后会写一篇通过阿里云CDN来完成静态分离。</p>
+<p>注： 由于我的是在虚拟机上的 Nginx 进行测试，也没有域名，且是minimal版本系统，没有桌面环境，所以需要配置宿主机的hosts， 在宿主机的浏览器中访问。在真实服务器且有自己绑定到服务器上域名的就直接测试即可。</p>
+<p>使用 <em>SwitchHosts</em> 软件 配置 hosts，我的虚拟机 ip 为192.168.200.129</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.129 www.domain.com res.domain.com</span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-20T02:26:10.000Z" itemprop="dateUpdated">2017年8月20日 10:26</time>
+</span><br>
+
+
+        本文链接：<a href="/Nginx动静分离.html" target="_blank" rel="external">http://nullpointer.pw/Nginx动静分离.html</a>
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动静分离/">动静分离</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Nginx动静分离.html&title=《Nginx动静分离》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Nginx动静分离.html&title=《Nginx动静分离》 — WeJan's Blog&source=前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。  " data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Nginx动静分离.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx动静分离》 — WeJan's Blog&url=http://nullpointer.pw/Nginx动静分离.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Nginx动静分离.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/阿里云CDN实现网站文件动静分离.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">阿里云CDN实现网站文件动静分离</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/CentOS快速安装.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">CentOS快速安装</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+<section class="comments" id="comments">
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'Mosiki',
+  repo: 'Mosiki.github.io',
+  oauth: {
+    client_id: '3b2cde9586810b1a2423',
+    client_secret: '67f784a4655470a5584ea795fee462f952174531',
+  },
+})
+gitment.render('container')
+</script>
+</section>
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>WeJan's Blog &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Nginx动静分离.html&title=《Nginx动静分离》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Nginx动静分离.html&title=《Nginx动静分离》 — WeJan's Blog&source=前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。  " data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Nginx动静分离.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx动静分离》 — WeJan's Blog&url=http://nullpointer.pw/Nginx动静分离.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Nginx动静分离.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3aS47DMAwE0dz/0s4JJFdTSgBR5dUg49h6WRD8fT74egYXuZPfM//WhkuGDBnHMp7pNXrB/Lj8CRz28gPJkCHjAsYogvFX8oBbo76cWYYMGTLCIMjZ/L0yZMiQkT5uHnDJt/hPIEOGDBnrATRtsZEE8Ye1uAwZMg5k8K77///+yXxDhgwZRzGe8KqlhunT4lPJkCGjNYMHuFpCxtNNUlS/nEeGDBkXMFYaYXxFgySd5AlxLS5DhoxjGSSNWxlq1g4aF7cyZMhozag9KF2kSH8gniYOU0MZMmQ0YvDyki9k7P0EtflkyJDRmpGuXKR4nrmtNPVkyJDRm8FbY7XjrpSywfllyJDRmpHWuyup3sqYc8OyhQwZMloweNMtfT0vjPn9aBIrQ4aMRoxaVchTSZTYlcYDaKgpQ4aMwxkrw0geiNOFDL7egXZGZMiQcTiDB8FaW79WvqZPkCFDRm9GGnBT9ram//xzGTJktGaQF/OVixopHaMO75EhQ8aVjLSJlhbAtcD9smwhQ4aM1oy9yxBpmVpbs5AhQ8adDF5w1saNtbbatrmrDBkyDmQ84cXXL9IFLx6Ch4MBGTJkNGWkbfp1cA0ZL1vIkCGjHaO29MDbautLGHHXUIYMGU0ZpLjlYXElBPPQH1fVMmTIuIZRyy5rI8yg9SZDhgwZOLzOP0/TSp68ypAh4wbGykrE3rForcSVIUNGbwZP7Ph/9zbsam07GTJktGB8Abrr0T9rXNhUAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
