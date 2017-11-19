@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/">
+    
+    
+    <title>阿里云CDN实现网站文件动静分离 | wejan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="动静分离">
+    <meta name="description" content="前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会到 主机上给主机带来压力，因此本文通过利用阿里云的 CDN 技术来更加彻底地降低应用访问的负载。">
+<meta name="keywords" content="动静分离">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阿里云CDN实现网站文件动静分离">
+<meta property="og:url" content="http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/index.html">
+<meta property="og:site_name" content="wejan&#39;s Blog">
+<meta property="og:description" content="前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会到 主机上给主机带来压力，因此本文通过利用阿里云的 CDN 技术来更加彻底地降低应用访问的负载。">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070050098.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070354748.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/071213172.png">
+<meta property="og:updated_time" content="2017-08-19T23:26:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="阿里云CDN实现网站文件动静分离">
+<meta name="twitter:description" content="前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会到 主机上给主机带来压力，因此本文通过利用阿里云的 CDN 技术来更加彻底地降低应用访问的负载。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070050098.png">
+    
+        <link rel="alternative" href="/atom.xml" title="wejan&#39;s Blog" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wejan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">阿里云CDN实现网站文件动静分离</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">阿里云CDN实现网站文件动静分离</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-19T23:21:04.000Z" itemprop="datePublished" class="page-time">
+  2017-08-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阿里云/">阿里云</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置静态资源域名"><span class="post-toc-text">配置静态资源域名</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-Nginx-静态资源设置"><span class="post-toc-text">配置 Nginx  静态资源设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阿里云-CDN-配置"><span class="post-toc-text">阿里云 CDN 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DNS-配置"><span class="post-toc-text">DNS 配置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-阿里云CDN实现网站文件动静分离"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">阿里云CDN实现网站文件动静分离</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年08月20日 7:21" datetime="2017-08-19T23:21:04.000Z"  itemprop="datePublished">2017-08-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阿里云/">阿里云</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会到 主机上给主机带来压力，因此本文通过利用阿里云的 CDN 技术来更加彻底地降低应用访问的负载。</p>
+<a id="more"></a>
+<h2 id="配置静态资源域名"><a href="#配置静态资源域名" class="headerlink" title="配置静态资源域名"></a>配置静态资源域名</h2><p>建立一个只用于请求静态资源文件的二级域名，将动态请求与静态请求分离开。</p>
+<p>比如静态资源请求的域名是 <strong>res.domain.com</strong> ， 动态请求的域名是 <strong>www.domain.com</strong></p>
+<h2 id="配置-Nginx-静态资源设置"><a href="#配置-Nginx-静态资源设置" class="headerlink" title="配置 Nginx  静态资源设置"></a>配置 Nginx  静态资源设置</h2><p>参考我的上一篇文章 <a href="http://nullpointer.pw/2017/08/19/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB/">Nginx动静分离</a></p>
+<h2 id="阿里云-CDN-配置"><a href="#阿里云-CDN-配置" class="headerlink" title="阿里云 CDN 配置"></a>阿里云 CDN 配置</h2><p>登录阿里云 CDN 控制台，添加域名。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070050098.png" alt="mark" title="">
+                </div>
+                <div class="image-caption">mark</div>
+            </figure>
+<p>需要注意的是资源文件只需要放到一台主机上即可，方便管理。</p>
+<p>添加 CDN 域名成功后，回到域名管理页面， 在域名列表中找到新加的域名，光标悬浮到该域名上，会出现一个 <strong>复制 CNAME</strong> 的按钮，选择复制，会得到一个类似于 <strong>res.domain.com.w.kunlunle.com</strong> 的域名。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070354748.png" alt="mark" title="">
+                </div>
+                <div class="image-caption">mark</div>
+            </figure>
+<h2 id="DNS-配置"><a href="#DNS-配置" class="headerlink" title="DNS 配置"></a>DNS 配置</h2><p>进入你的域名的 DNS 服务提供商控制台，我这里是 <a href="https://www.dnspod.cn/" target="_blank" rel="noopener">DNSPOD</a> ， 找到静态资源域名，我的是 <strong>res.domain.com</strong> 修改记录类型为 CNAME ，记录值修改为上一步复制的 域名，如 <strong>res.domain.com.w.kunlunle.com。</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/071213172.png" alt="mark" title="">
+                </div>
+                <div class="image-caption">mark</div>
+            </figure>
+<p>选择保存，等待几分钟 DNS 生效后，访问域名试试吧！</p>
+<p>比如我的 <strong>res.domain.com/_res/a.jpg</strong> （需要事先在资源服务器上事先放置该静态文件） 如果访问不到说明配置有误或者缓存还未生效。这里有一个坑就是，自己的电脑有可能因为缓存没刷新访问不到该路径静态资源，而别人的电脑可以，可以换一台电脑尝试访问，或者通过手机浏览器访问尝试。</p>
+<p>End。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-08-19T23:26:55.000Z" itemprop="dateUpdated">2017年8月20日 7:26</time>
+</span><br>
+
+
+        本文链接：<a href="/2017/08/20/阿里云CDN实现网站文件动静分离/" target="_blank" rel="external">http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/</a>
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="wejan">
+            wejan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动静分离/">动静分离</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&title=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&title=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&source=前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/08/20/Nginx缓存配置/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Nginx缓存配置</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/19/Nginx动静分离/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Nginx动静分离</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+<section class="comments" id="comments">
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'Mosiki',
+  repo: 'Mosiki.github.io',
+  oauth: {
+    client_id: '3b2cde9586810b1a2423',
+    client_secret: '67f784a4655470a5584ea795fee462f952174531',
+  },
+})
+gitment.render('container')
+</script>
+</section>
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>wejan's Blog &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&title=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&title=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&source=前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《阿里云CDN实现网站文件动静分离》 — wejan's Blog&url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/2017/08/20/阿里云CDN实现网站文件动静分离/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpklEQVR42u3a0U7DQAwEwP7/TxeJN4Ro1vY5LdLkqaIoyRzSnVn78Yiv5/f11+ff1+Se8zuXLzw8PLzWq7++Xf6Tv+75+on5IubvjIeHh7fNSzbuObv6lGQhLix4eHh4b+Ulxe5ko0+qYjw8PLz/zku2+KTInocXeHh4ePfz5tt9L02tFtaLWQseHh5ezJs3wO7/fGt/Dw8PDy8+EpImVhIZJG2wXqR78bZ4eHh4C7y8kd9rj+XNs/xZedSLh4eHt8HLt+akXk3W8vXy5W2w5N3w8PDw9njzcahe22we114cM3h4eHgLvF5hPdnQe0MJPSoeHh7eBq+3iVcbY/nSVJf4IsjAw8PDW+BV49peGFFtpPVIF8U0Hh4e3gIv37Kr232+lVeL6WYbDA8PD2/A6w1O5XHqJFCo4qMGGB4eHt4CL9+gq5heJNE7HsrrgYeHhxfzqnFqvky9Max58+yiv4eHh4d3lJcA8nmEavsqL+Unwwd4eHh4p3jzCCB/rXk8UX0fPDw8vLO8eTibF7KTU6sZjuDh4eEt8Dbyz6SY7kUGefFd/l8BDw8PL+blYWtvCarfzt+qPHSFh4eHV+T1Ctb8wOhFtHnUG0UneHh4eGu8vGU1Pyqq0QMeHh7ep/GqLzFZjuqxkTe9Lv4MeHh4eId4edFcHRqYtMcmRwIeHh7enbyVQvZQoysPRH58xsPDw1vgVTfivLmVj5yemnTAw8PDu4f3LF55RFte12CJq0cFHh4e3gbv7FjVRgstZ/SOEzw8PLweLz8MesHu5MColtp4eHh4d/Kqj58PAZwqkS9+Hw8PD++tvEk7qneH/EDCw8PD+2TeBJBHCcfaZnh4eHhrvDyMyL/No9vqUuaBLx4eHt4G79TEVjX8rY5qHevm4eHh4fV5XyhAkpe+LshvAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>

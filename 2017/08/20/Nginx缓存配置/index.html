@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/2017/08/20/Nginx缓存配置/">
+    
+    
+    <title>Nginx缓存配置 | wejan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nginx,缓存">
+    <meta name="description" content="前言 本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。">
+<meta name="keywords" content="nginx,缓存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx缓存配置">
+<meta property="og:url" content="http://nullpointer.pw/2017/08/20/Nginx缓存配置/index.html">
+<meta property="og:site_name" content="wejan&#39;s Blog">
+<meta property="og:description" content="前言 本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/133616261.png">
+<meta property="og:updated_time" content="2017-09-10T14:42:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nginx缓存配置">
+<meta name="twitter:description" content="前言 本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png">
+    
+        <link rel="alternative" href="/atom.xml" title="wejan&#39;s Blog" type="application/atom+xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <script>window.lazyScripts=[]</script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">wejan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Nginx缓存配置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Nginx缓存配置</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-08-20T08:09:08.000Z" itemprop="datePublished" class="page-time">
+  2017-08-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础环境"><span class="post-toc-text">基础环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境搭建"><span class="post-toc-text">环境搭建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置-Nginx-缓存"><span class="post-toc-text">设置 Nginx 缓存</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-Nginx"><span class="post-toc-text">启动 Nginx</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#启动-Tomcat"><span class="post-toc-text">启动 Tomcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试-Nginx-缓存"><span class="post-toc-text">测试 Nginx 缓存</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Nginx缓存配置"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Nginx缓存配置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017年08月20日 16:09" datetime="2017-08-20T08:09:08.000Z"  itemprop="datePublished">2017-08-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="基础环境"><a href="#基础环境" class="headerlink" title="基础环境"></a>基础环境</h2><ul>
+<li><a href="http://nullpointer.pw/2017/08/19/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85">CentOS 6.8 minimal</a></li>
+<li><a href="http://nginx.org/download/nginx-1.12.1.tar.gz" target="_blank" rel="noopener">Nginx 1.12.1</a></li>
+<li><a href="http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz" target="_blank" rel="noopener">ngx_cache_purge-2.3</a></li>
+</ul>
+<h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p>Nginx 与 nginx_ngx_cache_purge 下载解压</p>
+<p>安装 <em>wget</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install wget</span><br></pre></td></tr></table></figure>
+<p>下载 <em>Nginx</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  http://nginx.org/download/nginx-1.12.1.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压 <em>Nginx</em> 到 <em>/usr/local/src/</em> 目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.8.1.tar.gz -C /usr/local/src/</span><br></pre></td></tr></table></figure>
+<p>下载 <em>ngx_cache_purge</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://labs.frickle.com/files/ngx_cache_purge-2.3.tar.gz</span><br></pre></td></tr></table></figure>
+<p>解压到 Nginx 同一级目录  </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf ngx_cache_purge-2.3.tar.gz -C /usr/local/src/</span><br></pre></td></tr></table></figure>
+<p>目录结构为<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">---/usr/local/src</span><br><span class="line">   --nginx-1.8.1</span><br><span class="line">   --ngx_cache_purge-2.3</span><br></pre></td></tr></table></figure></p>
+<p>进入 Nginx 解压目录<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd nginx-1.8.1</span><br></pre></td></tr></table></figure></p>
+<p>安装必要依赖<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install gcc pcre-devel openssl openssl-devel</span><br></pre></td></tr></table></figure></p>
+<p>检查安装环境,并指定将来要安装的路径和要安装的插件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx/ --with-http_realip_module --add-module=../ngx_cache_purge-2.3</span><br></pre></td></tr></table></figure></p>
+<p>参数说明：<br>–prefix： 将 nginx 安装到此目录<br>–with-http_realip_module 启用获取用户真实 IP 模块<br>–add-module=../ngx_cache_purge-2.3 添加 ngx_cache_purge 模块，用于缓存  </p>
+<p>进行编译安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p>编译完成后，没有出现 error 为编译安装成功</p>
+<h2 id="设置-Nginx-缓存"><a href="#设置-Nginx-缓存" class="headerlink" title="设置 Nginx 缓存"></a>设置 Nginx 缓存</h2><p>编辑 <em>nginx.conf</em> 配置文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /usr/local/nginx/conf/nginx.conf</span><br></pre></td></tr></table></figure></p>
+<p>添加如下配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 需要在 /tmp 目录下创建 cache 文件夹！</span></span><br><span class="line"><span class="meta">#</span><span class="bash">设置缓存区的名称为 tmpcache，内存缓存空间大小为 200MB，1 天没有被访问的内容自动清除，硬盘缓存空间大小为 5GB， 如果访问频率不高的话， inactive 时间可以设置长一些。</span></span><br><span class="line">proxy_cache_path /tmp/cache levels=1:2 keys_zone=tmpcache:200m inactive=1d max_size=5g;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen       80;</span><br><span class="line">	server_name  www.domain.com;#你的域名</span><br><span class="line">	charset utf8;</span><br><span class="line"></span><br><span class="line">	proxy_set_header        Host            $host;</span><br><span class="line">	proxy_set_header        X-Real-IP       $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	proxy_set_header        X-Up-Calling-Line-Id $http_x_up_calling_line_id;</span><br><span class="line">	proxy_ignore_headers    X-Accel-Expires Expires Cache-Control Set-Cookie;</span><br><span class="line"></span><br><span class="line">	access_log logs/access.log  main;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">			proxy_pass http://127.0.0.1:8080;</span><br><span class="line"><span class="meta">			#</span><span class="bash">proxy_cache 的值是 proxy_cache_path 中的 keys_zone 的值</span></span><br><span class="line">			proxy_cache tmpcache;</span><br><span class="line"><span class="meta">			#</span><span class="bash">缓存 key 的值</span></span><br><span class="line">			proxy_cache_key $host$uri$is_args$args;</span><br><span class="line">			proxy_cache_valid 200 301 5m;</span><br><span class="line">			proxy_cache_use_stale updating error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line"></span><br><span class="line">			expires 1m;</span><br><span class="line"><span class="meta">			#</span><span class="bash"> 将缓存的状态添加到 Header 中</span></span><br><span class="line">			add_header X-Cache '$upstream_cache_status';</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="启动-Nginx"><a href="#启动-Nginx" class="headerlink" title="启动 Nginx"></a>启动 Nginx</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<h2 id="启动-Tomcat"><a href="#启动-Tomcat" class="headerlink" title="启动 Tomcat"></a>启动 Tomcat</h2><p>可以使用自己的项目，或者使用我提供的项目来进行测试。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://ojt4b2cr5.bkt.clouddn.com/SpringDemo.war</span><br></pre></td></tr></table></figure>
+<p>将下载的 war 包放到 Tomcat 的 webapps 目录下，修改 war 包名称为 ROOT.war ，启动 Tomcat。</p>
+<h2 id="测试-Nginx-缓存"><a href="#测试-Nginx-缓存" class="headerlink" title="测试 Nginx 缓存"></a>测试 Nginx 缓存</h2><p>缓存之前</p>
+<p>查看 <strong>/tmp/cache</strong> 目录， 目录下面没有任何文件</p>
+<p>修改本机（windows）的 hosts 文件，将配置的域名指向服务器 IP</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.129 www.domain.com</span><br></pre></td></tr></table></figure>
+<p>打开浏览器访问 <strong>www.domain.com/testpage1</strong> </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png" alt="mark"></p>
+<p>发现 <strong>X-Cache</strong> 的状态为 <strong>MISS</strong> ，说明没有缓存。</p>
+<p>再次刷新页面后  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/133616261.png" alt="mark"></p>
+<p><strong>X-Cache</strong> 的状态已经变成了 <strong>HIT</strong></p>
+<p>同时在服务器上查看 <strong>/tmp/cache</strong> 目录</p>
+<p><code>cd /tmp/cache/</code></p>
+<p>发现该目录下面已经多了文件目录，进去之后打开文件，发现正是刚刚访问页面的源码，说明 Nginx 的缓存已经配置成功了。只要是配置的域名下面的页面， 如果没有进行过滤，都会缓存到服务器。当第二次访问的时候，请求经过 Nginx 服务器时，Nginx 直接返回已经缓存的静态页面，这样将大大降低应用服务器 Tomcat 的负载。</p>
+<p><strong>需要注意的是：并不是该域名下的所有页面都需要进行缓存，如果缓存有误，会出现很严重的问题。比如不正确的将域名下的用户中心进行了缓存，当其他用户也进入页面的时候，显示的全部都是第一个进入该页面用户的信息。因此建议做缓存时，最好根据域名来做， 根据用户不同显示不同的页面的地址就不要做缓存。当然，如果接口地址规范，亦可以通过 Nginx 正则匹配路径的方式，只将某些匹配的路径做缓存。</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-09-10T14:42:11.000Z" itemprop="dateUpdated">2017年9月10日 22:42</time>
+</span><br>
+
+
+        本文链接：<a href="/2017/08/20/Nginx缓存配置/" target="_blank" rel="external">http://nullpointer.pw/2017/08/20/Nginx缓存配置/</a>
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="wejan">
+            wejan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/缓存/">缓存</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&title=《Nginx缓存配置》 — wejan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&title=《Nginx缓存配置》 — wejan's Blog&source=前言
+本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/2017/08/20/Nginx缓存配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx缓存配置》 — wejan's Blog&url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/09/04/为什么我们会感觉到倦怠？/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">为什么我们会感觉到倦怠?</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/08/20/阿里云CDN实现网站文件动静分离/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">阿里云CDN实现网站文件动静分离</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+<section class="comments" id="comments">
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'Mosiki',
+  repo: 'Mosiki.github.io',
+  oauth: {
+    client_id: '3b2cde9586810b1a2423',
+    client_secret: '67f784a4655470a5584ea795fee462f952174531',
+  },
+})
+gitment.render('container')
+</script>
+</section>
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>wejan's Blog &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&title=《Nginx缓存配置》 — wejan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&title=《Nginx缓存配置》 — wejan's Blog&source=前言
+本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN ..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/2017/08/20/Nginx缓存配置/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Nginx缓存配置》 — wejan's Blog&url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/2017/08/20/Nginx缓存配置/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACGUlEQVR42u3ay26DMBAF0P7/T6fbSk3IvZ60EvbxCiEEHC9G8/DXV7weP1Zy5/d69bbrd354YWBg3JaRfP7Vnfa3EtLa1mBgYJzAeBXBrj9/HSiTsJuE9et/w8DAwEiuk9WGYAwMDIx5wL2+Py+DMTAwMNaK2ByQFL1t0vmxWhwDA+OGjDxc/v/1n8w3MDAwbsV4lGtCTQL04l9hYGBszcgDXH4wYo3dFsYYGBjnMNqDDmtHKNqmXr1ZGBgYBzDahlqe9iWbMtkIDAyMMxnt69qjEvngoWi9YWBgbM3Iy8vJWLFNQPPGHAYGxjmMNr1rr+dbgIGBgTEpLJMCtU0ck5D95HkMDIytGXlwbBtnOWztYAcGBsaZjDwpHDXCPtqqw8DAOJPRtsaST+ap5wdKWQwMjI0Y8/HkWuE6Odjx5D0YGBgHMPJGfzvUzH99MhbFwMDAyNtkbVLYBtmX38XAwNiaMf+tZKzYJqDt+AEDA+MExqR91h6/mITaN89gYGAcwGiPYbWNuUmKOZqIYmBgbMSYlJ3Fsa04oaz/EwMDY1PGo1yLI8alJwsqBgbG1ox85Y22vH22tjWLiSMGBsbNGUmQzQNisk8tOCqMMTAwDmCsHXpYa6jlwbcYbWJgYGDERyiSZHFy501FjoGBgbHU3J+PEyISBgbGAYykiM1b/2sttlEZjIGBsTUjD4Vtarj2znY4gYGBsTXjG5FVapivq1DqAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.4.7"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.4.7" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+</body>
+</html>
