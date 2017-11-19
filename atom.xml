@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>wejan&#39;s Blog</title>
+  <title>WeJan&#39;s Blog</title>
   
   <subtitle>实战为王，记录在工作中技术使用的点点滴滴。</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -10,7 +10,7 @@
   <id>http://nullpointer.pw/</id>
   
   <author>
-    <name>wejan</name>
+    <name>WeJan</name>
     
   </author>
   
