@@ -45,11 +45,15 @@
 <meta name="twitter:description" content="前言上一篇文章介绍了如何利用 Nginx 来实现静态资源请求与动态请求的分离，虽然不是所有的请求都压到 Tomcat 应用服务器，但是静态资源请求还是都会到 主机上给主机带来压力，因此本文通过利用阿里云的 CDN 技术来更加彻底地降低应用访问的负载。">
 <meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/070050098.png">
     
-        <link rel="alternative" href="/atom.xml" title="WeJan&#39;s Blog" type="application/atom+xml">
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
@@ -60,7 +64,7 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
           <img src="/img/avatar.jpg">
@@ -126,7 +130,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -158,10 +162,18 @@
 
     
 
+
 </header>
 
 
 <div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置静态资源域名"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置静态资源域名</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#配置-Nginx-静态资源设置"><span class="post-toc-number">3.</span> <span class="post-toc-text">配置 Nginx  静态资源设置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阿里云-CDN-配置"><span class="post-toc-number">4.</span> <span class="post-toc-text">阿里云 CDN 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#DNS-配置"><span class="post-toc-number">5.</span> <span class="post-toc-text">DNS 配置</span></a></li></ol>
+        </nav>
+    </aside>
     
 <article id="post-阿里云CDN实现网站文件动静分离"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -169,7 +181,7 @@
     <div class="post-card">
         <h1 class="post-card-title">阿里云CDN实现网站文件动静分离</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017年08月20日 7:21" datetime="2017-08-19T23:21:04.000Z"  itemprop="datePublished">2017-08-20</time>
+            <time class="post-time" title="2017-08-20 07:21:04" datetime="2017-08-19T23:21:04.000Z"  itemprop="datePublished">2017-08-20</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阿里云/">阿里云</a></li></ul>
@@ -181,8 +193,6 @@
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
-
-            
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
@@ -226,11 +236,13 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-19T23:26:55.000Z" itemprop="dateUpdated">2017年8月20日 7:26</time>
+    Last updated: <time datetime="2017-08-19T23:26:55.000Z" itemprop="dateUpdated">2017-08-20 07:26:55</time>
 </span><br>
 
 
+        
         本文链接：<a href="/阿里云CDN实现网站文件动静分离.html" target="_blank" rel="external">http://nullpointer.pw/阿里云CDN实现网站文件动静分离.html</a>
+        
     </div>
     <footer>
         <a href="http://nullpointer.pw">
@@ -327,23 +339,36 @@
 
 
 
-<section class="comments" id="comments">
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  owner: 'Mosiki',
-  repo: 'Mosiki.github.io',
-  oauth: {
-    client_id: '3b2cde9586810b1a2423',
-    client_secret: '67f784a4655470a5584ea795fee462f952174531',
-  },
-})
-gitment.render('container')
-</script>
-</section>
 
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
 
 
 
@@ -359,23 +384,27 @@ gitment.render('container')
         
 <p>
     <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客：<span id="busuanzi_value_site_uv"></span>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
     <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问：<span id="busuanzi_value_site_pv"></span>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
 
 
         <p>
-            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
-        <p>
-            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
-            <span>WeJan's Blog &copy; 2016 - 2017</span>
+        <p><span>WeJan &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
         </p>
     </div>
 </footer>
@@ -436,10 +465,9 @@ gitment.render('container')
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
-
 </script>
 
-<script src="/js/main.min.js?v=1.4.7"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -459,7 +487,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.4.7" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
@@ -467,6 +495,26 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
 
 
 </body>

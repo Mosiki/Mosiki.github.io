@@ -48,11 +48,15 @@
 <meta name="twitter:description" content="前言最近学习过程中需要使用到 Linux 系统，但是并没有服务器，因此通过虚拟机来完成。本文不从头开始介绍虚拟机的安装，只讲解 虚拟机自制镜像 备份的快速还原，如果你需要从头开始安装的，请另寻教程。本文中涉及的镜像会提供下载地址，以供参考。 学习过程中安装虚拟机时总是会遇到一些需要花费大量时间才能解决的问题，比如不能联网、数据库连接不上、ssh 连接不了等问题，为了便于学习，本人将安装好的系统导出">
 <meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/070316487.png">
     
-        <link rel="alternative" href="/atom.xml" title="WeJan&#39;s Blog" type="application/atom+xml">
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
     <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.4.7">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
 </head>
 
 <body>
@@ -63,7 +67,7 @@
     <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
         <i class="icon icon-lg icon-close"></i>
     </a>
-    <div class="brand-wrap">
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
       <div class="brand">
         <a href="/" class="avatar waves-effect waves-circle waves-light">
           <img src="/img/avatar.jpg">
@@ -129,7 +133,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -161,10 +165,18 @@
 
     
 
+
 </header>
 
 
 <div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VMware-配置"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">VMware 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#导入镜像文件"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">导入镜像文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#虚拟机网络配置"><span class="post-toc-number">1.4.</span> <span class="post-toc-text">虚拟机网络配置</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
     
 <article id="post-CentOS快速安装"
   class="post-article article-type-post fade" itemprop="blogPost">
@@ -172,7 +184,7 @@
     <div class="post-card">
         <h1 class="post-card-title">CentOS快速安装</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017年08月19日 7:40" datetime="2017-08-18T23:40:27.000Z"  itemprop="datePublished">2017-08-19</time>
+            <time class="post-time" title="2017-08-19 07:40:27" datetime="2017-08-18T23:40:27.000Z"  itemprop="datePublished">2017-08-19</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/服务器/">服务器</a></li></ul>
@@ -184,8 +196,6 @@
     <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
 </span>
 
-
-            
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
@@ -250,11 +260,13 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-19T09:46:49.000Z" itemprop="dateUpdated">2017年8月19日 17:46</time>
+    Last updated: <time datetime="2017-08-19T09:46:49.000Z" itemprop="dateUpdated">2017-08-19 17:46:49</time>
 </span><br>
 
 
+        
         本文链接：<a href="/CentOS快速安装.html" target="_blank" rel="external">http://nullpointer.pw/CentOS快速安装.html</a>
+        
     </div>
     <footer>
         <a href="http://nullpointer.pw">
@@ -351,23 +363,36 @@
 
 
 
-<section class="comments" id="comments">
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  owner: 'Mosiki',
-  repo: 'Mosiki.github.io',
-  oauth: {
-    client_id: '3b2cde9586810b1a2423',
-    client_secret: '67f784a4655470a5584ea795fee462f952174531',
-  },
-})
-gitment.render('container')
-</script>
-</section>
 
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "mm",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
 
 
 
@@ -383,23 +408,27 @@ gitment.render('container')
         
 <p>
     <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客：<span id="busuanzi_value_site_uv"></span>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
     </span>
     <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问：<span id="busuanzi_value_site_pv"></span>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
     </span>
 </p>
 
 
         <p>
-            <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            <span>博客内容遵循 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0协议</a></span>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
-        <p>
-            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
-            <span>WeJan's Blog &copy; 2016 - 2017</span>
+        <p><span>WeJan &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
         </p>
     </div>
 </footer>
@@ -460,10 +489,9 @@ gitment.render('container')
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
-
 </script>
 
-<script src="/js/main.min.js?v=1.4.7"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -483,7 +511,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.4.7" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
@@ -491,6 +519,26 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
 
 
 </body>
