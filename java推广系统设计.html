@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/java推广系统设计.html">
+    
+    
+    <title>java推广系统设计 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="推广系统,推广,链接推广">
+    <meta name="description" content="前言公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于使用，所以每种推广方式的配置需要保持足够明了简单。">
+<meta name="keywords" content="推广系统,推广,链接推广">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java推广系统设计">
+<meta property="og:url" content="http://nullpointer.pw/java推广系统设计.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于使用，所以每种推广方式的配置需要保持足够明了简单。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171203151228872026958.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171203151228736175519.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171203151228877937882.png">
+<meta property="og:updated_time" content="2017-12-03T08:13:14.638Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java推广系统设计">
+<meta name="twitter:description" content="前言公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于使用，所以每种推广方式的配置需要保持足够明了简单。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171203151228872026958.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">java推广系统设计</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">java推广系统设计</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-03T08:06:26.000Z" itemprop="datePublished" class="page-time">
+  2017-12-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#聊聊推广"><span class="post-toc-number">2.</span> <span class="post-toc-text">聊聊推广</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#推广系统实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">推广系统实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推广链接的生成"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">推广链接的生成</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推广链接的跳转"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">推广链接的跳转</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#推广关系的绑定"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">推广关系的绑定</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">4.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-java推广系统设计"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">java推广系统设计</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-03 16:06:26" datetime="2017-12-03T08:06:26.000Z"  itemprop="datePublished">2017-12-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于使用，所以每种推广方式的配置需要保持足够明了简单。</p>
+<a id="more"></a>
+<h2 id="聊聊推广"><a href="#聊聊推广" class="headerlink" title="聊聊推广"></a>聊聊推广</h2><p>常见的推广套路就是针对一个推广员生成推广链接，推广员然后其他用户通过推广链接点击进来注册，但是不可能推广的页面是注册页面，所以需要先记录下用户的来源。注册成功的同时，绑定用户与推广员的关系，便于日后通过用户的充值消费统计推广员的推广费用，以下为推广的简单流程图。</p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/20171203151228872026958.png" alt="20171203151228872026958.png"></p>
+<h2 id="推广系统实现"><a href="#推广系统实现" class="headerlink" title="推广系统实现"></a>推广系统实现</h2><h3 id="推广链接的生成"><a href="#推广链接的生成" class="headerlink" title="推广链接的生成"></a>推广链接的生成</h3><p>整个推广流程最主要的地方就是推广链接的生成与使用，为了方便推广链接的管理，需要将生成的推广链接进行保存。首先进行推广链接表的设计。最后提供给推广员的推广链接格式如：<code>http://m.domain.com/cp?code=xx</code>，其中 code 的值为推广链接的 ID。</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th style="text-align:center">字段类型</th>
+<th>字段描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td style="text-align:center">int</td>
+<td>推广链接自增主键</td>
+</tr>
+<tr>
+<td>title</td>
+<td style="text-align:center">varcahr</td>
+<td>推广标题</td>
+</tr>
+<tr>
+<td>partner_id</td>
+<td style="text-align:center">int</td>
+<td>推广员ID</td>
+</tr>
+<tr>
+<td>params</td>
+<td style="text-align:center">text</td>
+<td>推广参数</td>
+</tr>
+<tr>
+<td>type</td>
+<td style="text-align:center">tinyint</td>
+<td>推广类型</td>
+</tr>
+<tr>
+<td>url_type</td>
+<td style="text-align:center">tinyint</td>
+<td>URL类型</td>
+</tr>
+<tr>
+<td>create_time</td>
+<td style="text-align:center">timestamp</td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>update_time</td>
+<td style="text-align:center">timestamp</td>
+<td>更新时间</td>
+</tr>
+<tr>
+<td>status</td>
+<td style="text-align:center">tinyint</td>
+<td>启用状态</td>
+</tr>
+</tbody>
+</table>
+<p>字段解读：  </p>
+<ol>
+<li><p>我这里的 id 直接设置为了自增主键的值，当然为了安全点，也可以设置为其他的值，比如 UUID；  </p>
+</li>
+<li><p>title 对于同一个推广员，可能会生成多条推广链接，用于区别。</p>
+</li>
+<li><p>partner_id 这个就不必多说，表明推广链接属于哪一个推广员</p>
+</li>
+<li><p>params 注意这个参数类型为 <strong>text</strong>， 因为为了方便扩展业务参数，因此此字段存储的是一段 JSON，若使用 varchar 长度会不够用。业务参数在我司，可以是：赠送 VIP 天数，赠送阅读券数量，推广费用等。这个字段可以自由发挥，在绑定用户的时候获取该字段，解析成 JSON 对象，读取对应的业务参数，进行相对应的设置。</p>
+</li>
+<li><p>因为运营同学的脑洞一般都很大，因此推广方式会有很多种，也是为了日后分析推广效果，因此加上 type 字段用于区分推广类型，推广类型有比如： CPS推广、微信公众推广等；</p>
+</li>
+<li><p>url_type 用于区分需要推广的页面是相对路径还是绝对路径。</p>
+</li>
+<li><p>status 用于标记此推广链接是否有效，比如终止推广合作，就可以设置为关闭，不再将用户绑定到此链接。</p>
+</li>
+</ol>
+<p>后台推广链接生成页面参考：  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/20171203151228736175519.png" alt="20171203151228736175519.png"></p>
+<h3 id="推广链接的跳转"><a href="#推广链接的跳转" class="headerlink" title="推广链接的跳转"></a>推广链接的跳转</h3><p>首先再看看推广的流程</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171203151228877937882.png" alt="20171203151228877937882.png" title="">
+                </div>
+                <div class="image-caption">20171203151228877937882.png</div>
+            </figure>
+<p>首先用户通过点击推广链接，进入了推广的页面，我司就是小说的某一免费章节的阅读页面，之后到收费章节的时候，就会提示用户进行登录。<br>注册的用户，如何知道是从哪一个链接过来的呢？这就需要在用户注册之前就将推广链接的标记进行存储，最好的方式就是写入 Cookie。之前公司项目写 Cookie 是在前端进行，但是运行之后，发现不太可靠，因此我们将写 Cookie 的操作放在后端进行。</p>
+<p>推广链接地址是 <code>http://m.domain.com/cp?code=xx</code>，访问如下接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于推广链接的统一跳转</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span> (value = <span class="string">"/cp"</span>, method = RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">companionRedirect</span><span class="params">(String code,</span></span></span><br><span class="line"><span class="function"><span class="params">            HttpServletRequest request, Model m, HttpServletResponse response)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> id = Integer.parseInt(code);</span><br><span class="line">            <span class="comment">// 查询出推广链接记录</span></span><br><span class="line">            CompanionLink link = companionService.getCompanionLink(id);</span><br><span class="line">            <span class="keyword">if</span> (link != <span class="keyword">null</span> &amp;&amp; link.getStatus() != Constants.STATUS_DELETE) &#123;</span><br><span class="line">                JSONObject obj = JSONObject.parseObject(link.getParams());</span><br><span class="line">                <span class="comment">// 获取推广页面的地址</span></span><br><span class="line">                String url = obj.getString(<span class="string">"url"</span>);</span><br><span class="line">                <span class="comment">// 将 code 值即推广链接的 id 写入Cookie 中， EXP为有效期 3 天</span></span><br><span class="line">                CookieUtil.setCookie(request, response, Constants.COMPANION_COOKIE_NAME, code, EXP);</span><br><span class="line"></span><br><span class="line">                <span class="comment">// 跳转到推广页面</span></span><br><span class="line">                <span class="keyword">if</span> (link.getUrlType==Constants.ABS) &#123;</span><br><span class="line">                    <span class="comment">// 绝对路径直接跳转</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="string">"redirect:"</span> + url;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// 相对路径拼接域名后跳转</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="string">"redirect:"</span> + Constants.MOBILE_SERVER_DOMAIN + url;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NumberFormatException e) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 出现异常，跳转到首页</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"redirect:"</span> + Constants.MOBILE_SERVER_DOMAIN;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>写这篇文章的时候，发现之前设计推广链接的时候有所疏漏，有的推广方式是相对路径，而有的是绝对路径。<br>而我在代码中是通过 String 的 Contains方法是否包含域名来判断是相对的还是绝对的路径，其实没有必要，完全可以添加一个推广链接的 url 的路径类型。判断类型即可，如果是绝对路径直接跳转，否则拼接域名后跳转。</p>
+<h3 id="推广关系的绑定"><a href="#推广关系的绑定" class="headerlink" title="推广关系的绑定"></a>推广关系的绑定</h3><p>用户浏览器的 Cookie 中已经保存好了推广链接的 code 值，绑定关系就好办了，可以在用户注册的时候，读取浏览器的 Cookie，获取这个 Cookie，得到推广链接的 id, 将用户的 id 与推广的 partner_id 进行绑定，保存到绑定关系的表中即可，比如我司的赠送操作也一在绑定后执行。</p>
+<p>至于绑定关系的表设计，主要将 partner_id 与 user_id 作为联合主键保存，其他字段如绑定时间就不用多说了吧。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>如果你看完觉得有什么疑问，可以留言评论，有需要改进的地方也请提出，共同进步！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-03T08:13:14.638Z" itemprop="dateUpdated">2017-12-03 16:13:14</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/java推广系统设计.html" target="_blank" rel="external">http://nullpointer.pw/java推广系统设计.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推广/">推广</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推广系统/">推广系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/链接推广/">链接推广</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/java推广系统设计.html&title=《java推广系统设计》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/java推广系统设计.html&title=《java推广系统设计》 — WeJan's Blog&source=前言公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/java推广系统设计.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java推广系统设计》 — WeJan's Blog&url=http://nullpointer.pw/java推广系统设计.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/java推广系统设计.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Maven 私服上传jar包.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Maven 私服上传jar包</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/java推广系统设计.html&title=《java推广系统设计》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/java推广系统设计.html&title=《java推广系统设计》 — WeJan's Blog&source=前言公司新站由于运营需求，需要开发一套推广系统，用于网站用户引流，衍生出的推广套路目前便已经有四种，为了降低运营上手推广系统的难度，因此推广系统务必要便于..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/java推广系统设计.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《java推广系统设计》 — WeJan's Blog&url=http://nullpointer.pw/java推广系统设计.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/java推广系统设计.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3awY6DMAxF0f7/T9PtSKOk99m0Es5lNaIMcFg8xXZeL3xci2N/zd/z/Mr/1992yJAh47GMa3vsH0zusCKR+5N7ypAh4xzGKsH2oUnO7GN0H7jkv2TIkCGDk/rBTZ4lQ4YMGZyBlmsL6r5klSFDhoxOEcuXhp3y9eu1uAwZMh7I4F333//9lfmGDBkyHsW4woMPGu+6Hr2VDBkyRjN4wPHGWW1xmQauDBkyzmTUIi94TKkBF5SsMmTIGM1AbXfcyu8E9M2FrgwZMgYxeJu+NhLohGwQtTJkyBjNSFM5HXnya/jTg9iVIUPGwxnpJi2yECQtNhLKAU+GDBmHMdK2FzlTi/VgnCBDhozRDPKKKSb9HLVf0QhThgwZIxh8M0QKTl+Rx/GH3SIyZMgYx0jLWt5iq22VIGUtWlbKkCFjEIOPKkn88YEB/7pBu02GDBlDGWkJ2o9p/iF4S06GDBnnMNKH1UgcxktfGTJknMDgL022t3YWoP1ElSFDxlQGKT7To//qcWktQ4aMAxjpwi4tRNORZNyAkyFDxgGMWqMtXVZ27h/vbpMhQ8YIxhUeaOsDOMMDutgvlCFDxiBGLex4S+6u0UK88UKGDBnjGJ2QrY0bCSMOehkyZBzACBpbYYrXPlM6MJAhQ4YMEqydUO5swpAhQ4aM/jW8iOUbLJbzDRkyZIxm9DdM8GgOFny1SawMGTLGMdJ1F79FbfBZGxvIkCFjKOMNc8O8KnuC3/wAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

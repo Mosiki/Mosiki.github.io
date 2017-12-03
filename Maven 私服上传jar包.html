@@ -46,7 +46,7 @@
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/114351967.png?imageslim">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/133357044.png?imageslim">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171130151204689848191.png">
-<meta property="og:updated_time" content="2017-11-30T13:15:15.885Z">
+<meta property="og:updated_time" content="2017-11-30T13:25:27.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven 私服上传jar包">
 <meta name="twitter:description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）😂">
@@ -228,23 +228,11 @@
 <h3 id="设置上传-Jar-包信息"><a href="#设置上传-Jar-包信息" class="headerlink" title="设置上传 Jar 包信息"></a>设置上传 Jar 包信息</h3><p>在这里选择要上传的仓库，以及设置 “GAV” 参数  </p>
 <p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113157073.png?imageslim" alt="mark"></p>
 <p>由于支付宝的 Jar 包名称太长了，所以我这里精简了不必要的信息。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113402039.png?imageslim" alt="mark" title="">
-                </div>
-                <div class="image-caption">mark</div>
-            </figure>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113402039.png?imageslim" alt="mark"></p>
 <p>设置完之后，点击完成即可。</p>
-<h3 id="查找上传-Jar-的-Maven-坐标"><a href="#查找上传-Jar-的-Maven-坐标" class="headerlink" title="查找上传 Jar 的 Maven 坐标"></a>查找上传 Jar 的 Maven 坐标</h3><p>找到刚才保存的库，找到上传的 Jar 包</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113450326.png?imageslim" alt="mark" title="">
-                </div>
-                <div class="image-caption">mark</div>
-            </figure>
-<p>点击 对应的 pom 文件，查看 Maven 坐标 </p>
+<h3 id="查找上传-Jar-的-Maven-坐标"><a href="#查找上传-Jar-的-Maven-坐标" class="headerlink" title="查找上传 Jar 的 Maven 坐标"></a>查找上传 Jar 的 Maven 坐标</h3><p>找到刚才保存的库，找到上传的 Jar 包  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113450326.png?imageslim" alt="mark"></p>
+<p>点击 对应的 pom 文件，查看 Maven 坐标   </p>
 <p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113512171.png?imageslim" alt="mark"></p>
 <p>将此坐标写入 pom.xml 中即可，需要先将私服的地址写到 pom.xml 文件中。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>repos<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.1.222:8088/artifactory/repos<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -262,7 +250,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-11-30T13:15:15.885Z" itemprop="dateUpdated">2017-11-30 21:15:15</time>
+    最后更新时间：<time datetime="2017-11-30T13:25:27.283Z" itemprop="dateUpdated">2017-11-30 21:25:27</time>
 </span><br>
 
 
@@ -339,7 +327,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/java推广系统设计.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">java推广系统设计</h4>
+      </a>
+    </div>
   
 
   
