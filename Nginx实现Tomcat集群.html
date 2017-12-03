@@ -38,7 +38,7 @@
 <meta property="og:description" content="本文介绍了利用nginx搭建了一个简单的负载均衡。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170505/220704835.png">
-<meta property="og:updated_time" content="2017-08-19T09:51:43.000Z">
+<meta property="og:updated_time" content="2017-12-03T11:02:55.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx实现Tomcat集群">
 <meta name="twitter:description" content="本文介绍了利用nginx搭建了一个简单的负载均衡。">
@@ -136,7 +136,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -205,7 +205,7 @@
             <p>本文介绍了利用nginx搭建了一个简单的负载均衡。</p>
 <a id="more"></a>
 <h2 id="一、准备工作"><a href="#一、准备工作" class="headerlink" title="一、准备工作"></a>一、准备工作</h2><p>Linux系统: CentOS 7 x64</p>
-<p>Nginx版本:1.12.0 </p>
+<p>Nginx版本:1.12.0</p>
 <p>Tomcat版本: 7.0.77</p>
 <h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><h3 id="CentOS-快速安装，见我另外一篇文章CentOS快速安装"><a href="#CentOS-快速安装，见我另外一篇文章CentOS快速安装" class="headerlink" title="CentOS 快速安装，见我另外一篇文章CentOS快速安装"></a>CentOS 快速安装，见我另外一篇文章<a href="http://nullpointer.pw/2017/08/19/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85/">CentOS快速安装</a></h3><h3 id="安装Nginx依赖"><a href="#安装Nginx依赖" class="headerlink" title="安装Nginx依赖"></a>安装Nginx依赖</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> gcc 用来编译nginx</span></span><br><span class="line">yum install gcc-c++</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> PCRE nginx的http模块使用pcre来解析正则表达式</span></span><br><span class="line">yum -y install pcre*</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> zlib nginx使用zlib对http的内容进行gzip压缩</span></span><br><span class="line">yum install -y zlib zlib-devel</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> openssl https支持</span></span><br><span class="line">yum -y install openssl</span><br></pre></td></tr></table></figure>
 <h3 id="下载Nginx"><a href="#下载Nginx" class="headerlink" title="下载Nginx"></a>下载Nginx</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装wget</span></span><br><span class="line">yum install wget</span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载nginx</span></span><br><span class="line">wget http://nginx.org/download/nginx-1.12.0.tar.gz</span><br></pre></td></tr></table></figure>
@@ -216,9 +216,9 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170505/220704835.png" alt="mark" title="">
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170505/220704835.png" alt="" title="">
                 </div>
-                <div class="image-caption">mark</div>
+                <div class="image-caption"></div>
             </figure>
 <h3 id="启动tomcat"><a href="#启动tomcat" class="headerlink" title="启动tomcat"></a>启动tomcat</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">  启动两个tomcat</span></span><br><span class="line">./tomat2/bin/startup.sh</span><br><span class="line">./tomat1/bin/startup.sh</span><br></pre></td></tr></table></figure>
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>外部访问虚拟机</p>
@@ -231,7 +231,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-08-19T09:51:43.000Z" itemprop="dateUpdated">2017-08-19 17:51:43</time>
+    最後更新時間：<time datetime="2017-12-03T11:02:55.140Z" itemprop="dateUpdated">2017-12-03 19:02:55</time>
 </span><br>
 
 
@@ -391,7 +391,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">

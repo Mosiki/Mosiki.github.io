@@ -39,7 +39,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170910/223443897.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170911/055142311.png">
-<meta property="og:updated_time" content="2017-09-10T22:19:11.000Z">
+<meta property="og:updated_time" content="2017-12-03T11:02:42.786Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx缓存配置之手动清除缓存">
 <meta name="twitter:description" content="前言 前文介绍了利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，并设置了缓存时间为一天。 但是如果前端修改了页面，比如首页，由于 Nginx 缓存的存在，网站首页并不会立即生效，而是要等到缓存过期。这样明显不是我们想要的结果，所以需要进行手动使 Nginx 缓存失效。以下为操作详解。">
@@ -137,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -220,11 +220,11 @@
 <li>手机版（WAP）的 Nginx 配置文件，可以命名为 <strong>nginx_wap.conf</strong></li>
 <li>安卓的 Nginx 配置文件，可以命名为 <strong>nginx_apk.conf</strong></li>
 <li>苹果的 Nginx 配置文件，可以命名为 <strong>nginx_ios.conf</strong></li>
-<li>清除缓存的配置文件，可以命名为 <strong>purge.conf</strong> </li>
+<li>清除缓存的配置文件，可以命名为 <strong>purge.conf</strong></li>
 </ul>
 <p>在 <strong>/usr/local/nginx/conf/nginx.conf</strong> 中引入拆分的配置文件， 在配置文件中的 <strong>http</strong> 节点下进行引入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash">......</span></span><br><span class="line">  </span><br><span class="line"><span class="meta">  #</span><span class="bash"> 注意 purge.conf 必须要第一个引用！！！</span></span><br><span class="line">  include include/purge.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 引入其他配置文件</span></span><br><span class="line">  include include/nginx_web.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_wap.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_apk.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_ios.conf;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置缓存清除"><a href="#配置缓存清除" class="headerlink" title="配置缓存清除"></a>配置缓存清除</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/include</span><br><span class="line">vi purge.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">purge.conf 文件内容为：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name 192.168.200.129;# 此处我配置的是本机ip</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    location ~ /purge(/.*) &#123;</span><br><span class="line">        allow   all;# 访问此接口的白名单，all代表所有人都可以访问该路径</span><br><span class="line">        # tmpcache 为前文中 proxy_cache_path 里配置的 keys_zone 的值</span><br><span class="line">        # www.domain.com$1$is_args$args 表示缓存key的名称，清除某一域名下的缓存,可以指定参数 </span><br><span class="line">        # $1 代表正则匹配中的第一组</span><br><span class="line">        proxy_cache_purge cachefile www.domain.com$1$is_args$args;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存 purge.conf 文件</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash">......</span></span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash"> 注意 purge.conf 必须要第一个引用！！！</span></span><br><span class="line">  include include/purge.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 引入其他配置文件</span></span><br><span class="line">  include include/nginx_web.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_wap.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_apk.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_ios.conf;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置缓存清除"><a href="#配置缓存清除" class="headerlink" title="配置缓存清除"></a>配置缓存清除</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/include</span><br><span class="line">vi purge.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">purge.conf 文件内容为：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name 192.168.200.129;# 此处我配置的是本机ip</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    location ~ /purge(/.*) &#123;</span><br><span class="line">        allow   all;# 访问此接口的白名单，all代表所有人都可以访问该路径</span><br><span class="line">        # tmpcache 为前文中 proxy_cache_path 里配置的 keys_zone 的值</span><br><span class="line">        # www.domain.com$1$is_args$args 表示缓存key的名称，清除某一域名下的缓存,可以指定参数</span><br><span class="line">        # $1 代表正则匹配中的第一组</span><br><span class="line">        proxy_cache_purge cachefile www.domain.com$1$is_args$args;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存 purge.conf 文件</span></span><br></pre></td></tr></table></figure>
 <h2 id="测试清除缓存"><a href="#测试清除缓存" class="headerlink" title="测试清除缓存"></a>测试清除缓存</h2><p>如果要进行缓存清除，首先需要有缓存文件，此处参照前文 <a href="http://nullpointer.pw/2017/08/20/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE/">Nginx缓存配置</a> 中，访问 <strong>www.domain.com/testpage2</strong>  ，刷新页面，直到缓存已经生成，即 <strong>X-Cache</strong> 的状态为 <strong>HIT</strong>。</p>
 <p>进入 <strong>cd /tmp/cache/</strong> ，查看已经生成了缓存文件</p>
 <figure class="image-bubble">
@@ -234,11 +234,11 @@
                 </div>
                 <div class="image-caption">mark</div>
             </figure>  
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试 nginx 配置是否正确</span></span><br><span class="line">/usr/local/nginx/sbin/nginx -t</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果提示 is ok，说明配置没有问题，否则需要修改</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启 Nginx </span></span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试 nginx 配置是否正确</span></span><br><span class="line">/usr/local/nginx/sbin/nginx -t</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果提示 is ok，说明配置没有问题，否则需要修改</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启 Nginx</span></span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
 <p>浏览器访问（也可以通过 curl 命令来访问）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 清除key为 www.domain.com/ 的缓存</span></span><br><span class="line">192.168.200.129/purge/    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 清除 key 为 www.domain.com/testpage2 页面缓存</span></span><br><span class="line">192.168.200.129/purge/testpage2</span><br></pre></td></tr></table></figure>
 <p>如果返回  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170911/055142311.png" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170911/055142311.png" alt="">  </p>
 <p>则表示清除成功。</p>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://ojt4b2cr5.bkt.clouddn.com/conf.zip" target="_blank" rel="noopener">示例nginx配置文件</a></p>
 
@@ -248,7 +248,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-09-10T22:19:11.000Z" itemprop="dateUpdated">2017-09-11 06:19:11</time>
+    最後更新時間：<time datetime="2017-12-03T11:02:42.786Z" itemprop="dateUpdated">2017-12-03 19:02:42</time>
 </span><br>
 
 
@@ -410,7 +410,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">

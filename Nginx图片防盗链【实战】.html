@@ -43,7 +43,7 @@
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140828400.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/141839955.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/142030191.png">
-<meta property="og:updated_time" content="2017-11-08T14:22:42.000Z">
+<meta property="og:updated_time" content="2017-12-03T11:03:22.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx图片防盗链【实战】">
 <meta name="twitter:description" content="前言博主目前在一家原创小说网站公司工作，由于站内的作品全部是原创，于是乎不可避免地会被一些盗版网站爬取盗版，对于防盗版一直没有很好的对策，让公司很是苦恼。最近去一些盗版网站上搜索我们网站作品时，发现他们所用的封面图片的来源是我们网站的地址，即所谓的盗链，这对于我们网站服务器的带宽是一种损失，因此需要采取对应的手段应对。">
@@ -141,7 +141,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -225,7 +225,7 @@
 <li><strong>blocked</strong> refer 来源不为空，但是里面的值被代理或者防火墙删除了</li>
 <li><strong>server_names</strong> refer 来源包含当前的 <code>server_names</code> 即 <code>location</code> 的父节点 <code>server</code> 节点的 <code>server_name</code> 的值。</li>
 <li><strong>字符串</strong> 定义服务器名称，比如 <code>*.test1.com</code>，配置后，来源是从 <code>test1.com</code> 就会被认为是合法的请求。</li>
-<li><strong>正则表达式</strong> 匹配合法请求来源， 如 <code>~\.test2\.</code> </li>
+<li><strong>正则表达式</strong> 匹配合法请求来源， 如 <code>~\.test2\.</code></li>
 </ul>
 <p>当请求的 <code>refer</code> 是合法的，即可以被后面任一参数所匹配， <code>$invalid_referer</code> 的值为0， 若不匹配则值为 1， 进入 <code>if</code> 的代码中。我这里的设置是，如果是不合法的请求，就统一返回一张图片，也可以直接返回 <code>403</code>。</p>
 <h3 id="二、配置-html-文件"><a href="#二、配置-html-文件" class="headerlink" title="二、配置 html 文件"></a>二、配置 html 文件</h3><p>1.在 <code>/home</code> 目录下创建目录 <code>resources</code> ,在 <code>/home/resources</code> 目录下放入一张图片 <strong>test.png</strong>。  </p>
@@ -233,9 +233,9 @@
 <p>3.启动 nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure></p>
 <p>4.以上所有配置是对于服务器 A 的配置，以下讲解服务器 B 的配置  </p>
 <ol>
-<li>服务器 B 和 服务器 A一样安装好 nginx </li>
+<li>服务器 B 和 服务器 A一样安装好 nginx</li>
 <li><p>修改 nginx.conf 配置文件, 添加两个 server</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.test1.com;</span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen  80; </span><br><span class="line">    server_name www.test2.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root html;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.test1.com;</span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  logs/host.access.log  main;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen  80;</span><br><span class="line">    server_name www.test2.com;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root html;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>修改服务器 B  Nginx 安装目录下 html 目录中的 index.html 文件,同样添加 img 标签。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;http://www.vcmq.com/test.png&quot; /&gt;</span><br></pre></td></tr></table></figure>
@@ -253,13 +253,13 @@
 <ol>
 <li>浏览器访问 www.vcmq.com，图片正常加载  </li>
 </ol>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/130449251.png" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/130449251.png" alt="">  </p>
 <ol>
 <li>浏览器访问 <code>www.test1.com</code> 与 <code>www.test2.com</code> 还有直接访问图片 <code>http://www.vcmq.com/test.png</code> 都正常加载   </li>
 </ol>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140651035.png" alt="mark">  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140624686.png" alt="mark">  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140828400.png" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140651035.png" alt="">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140624686.png" alt="">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/140828400.png" alt="">  </p>
 <ol>
 <li>修改 服务器 A 的 nginx.conf 配置文件</li>
 </ol>
@@ -271,16 +271,16 @@
 <p>再次分别访问 ,<strong>注意需要使用 ctrl+F5 刷新一下缓存</strong></p>
 <p><code>www.vcmq.com</code>、<code>www.test1.com</code>、<code>www.test2.com</code>、<code>http://www.vcmq.com/test.png</code>。</p>
 <p>发现只有 <code>www.vcmq.com</code> 与 <code>http://www.vcmq.com/test.png</code> 正常显示，其他请求皆返回 rewrite 的图片  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/141839955.png" alt="mark"></p>
-<p>同理再次修改 nginx.conf 文件, 允许来自 test1 的访问请求 </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/141839955.png" alt=""></p>
+<p>同理再次修改 nginx.conf 文件, 允许来自 test1 的访问请求</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">valid_referers none server_names *.test1.com;</span><br></pre></td></tr></table></figure>
 <p>结果发现<br><code>www.test1.com</code>可以获取正常图片，而<code>www.test2.com</code>还是 rewrite 之后的图片</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/142030191.png" alt="mark" title="">
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171029/142030191.png" alt="" title="">
                 </div>
-                <div class="image-caption">mark</div>
+                <div class="image-caption"></div>
             </figure>
 <p>至此，已经实现了基于 Nginx 的简单图片防盗链。  </p>
 <p>实际应用中，可以设置允许来自公司下的域名与空 refer 的请求通过。  </p>
@@ -298,7 +298,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-11-08T14:22:42.000Z" itemprop="dateUpdated">2017-11-08 22:22:42</time>
+    最後更新時間：<time datetime="2017-12-03T11:03:22.644Z" itemprop="dateUpdated">2017-12-03 19:03:22</time>
 </span><br>
 
 
@@ -458,7 +458,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">

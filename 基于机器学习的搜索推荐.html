@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170515/153203429.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/213926061.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/214709478.png">
-<meta property="og:updated_time" content="2017-05-27T13:24:35.000Z">
+<meta property="og:updated_time" content="2017-12-03T10:59:28.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于机器学习的搜索推荐">
 <meta name="twitter:description" content="公司以前搜索使用的是封装luncene代码，由于有索引，查询速度很快，但有不足之处，需要提高搜索的准确性。">
@@ -140,7 +140,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -209,16 +209,18 @@
             <p>公司以前搜索使用的是封装luncene代码，由于有索引，查询速度很快，但有不足之处，需要提高搜索的准确性。</p>
 <a id="more"></a>
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>笔者所在公司是一家小说公司，我们将小说的名称以及作者的名称生成索引便于搜索，但是通过分析用户访问日志发现，有一些用户会搜索章节名称，或者小说主人公名称或者某些指定关键字，但是这些并没有生成索引，因此无法搜索到。为了提高搜索准确性，最开始列出了几种方案:<br>①针对每本书添加关键字并生成索引<br>②对所有书的章节名称生成索引<br>但是以上两种方案都不可取，第一种方案增加了我们公司编辑的工作量，并且效率低下效果也未必会好。<br>第二种方案也不行，因为用户搜索的都是当下热门的作品，而对所有的作品的章节名称生成索引，无疑是一种空间浪费。<br>最后，采取了阿里与的机器学习来完成搜索的相关匹配，在原有搜索结果的基础上，作为辅助选项，提高搜索的准确性。<br>注:当用户即使未登录，对于服务器也有唯一标识，笔者公司使用的是nginx的 ngx_http_userid_module针对客户端生成的唯一标识，以下简称为uc。</p>
-<h1 id="主要步骤流程"><a href="#主要步骤流程" class="headerlink" title="主要步骤流程"></a>主要步骤流程</h1><p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/211637090.png" alt="mark"></p>
+<h1 id="主要步骤流程"><a href="#主要步骤流程" class="headerlink" title="主要步骤流程"></a>主要步骤流程</h1><p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/211637090.png" alt=""></p>
 <hr>
-<p><strong>①读取最近三天的用户访问日志到一张ODPS表中</strong><br><figure class="image-bubble">
+<p><strong>①读取最近三天的用户访问日志到一张ODPS表中</strong></p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/211718468.png" alt="mark" title="">
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/211718468.png" alt="" title="">
                 </div>
-                <div class="image-caption">mark</div>
-            </figure>  </p>
-<p><strong>②通过机器学习统计</strong><br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170515/153203429.png" alt="mark"></p>
+                <div class="image-caption"></div>
+            </figure>  
+<p><strong>②通过机器学习统计</strong>  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170515/153203429.png" alt=""></p>
 <p><strong>1. 读取三天内的访问日志</strong><br><strong>2. 将日志根据用户端(电脑版、手机版、安卓、IOS)拆分</strong><br>笔者公司的电脑版和手机版用户的访问路径类似，以下简称为路径一，安卓和IOS访问路径类似以下简称为路径二，所以如上图拆分日志。</p>
 <p><strong>3. 路径一和路径二的逻辑基本一致，只以路径一举例，路径二以下不再赘述**</strong></p>
 <p><strong>4. 抽取路径一中的搜索访问日志</strong><br>例如<code>http://search.xxx.com?queryString=E5%F3%7B%</code>，可以使用正则匹配出，亦可以使用like匹配。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> $&#123;t1&#125; <span class="keyword">where</span> <span class="keyword">url</span> <span class="keyword">like</span> <span class="string">'%queryString=%'</span></span><br></pre></td></tr></table></figure></p>
@@ -229,17 +231,18 @@
 <p><strong>5.2. 进行uc与bookId去重</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> uc, book_id <span class="keyword">from</span> $&#123;t1&#125; <span class="keyword">where</span> book_id &lt;&gt; <span class="string">''</span> <span class="keyword">group</span> <span class="keyword">by</span> uc, book_id</span><br></pre></td></tr></table></figure></p>
 <p><strong>6. 将路径一与路径二的结果进行合并(uc&amp;key结果合并   uc&amp;bookId结果合并 )</strong></p>
 <p><strong>7. 通过组件join进行连接 左表为uc&amp;key右表为uc&amp;bookId</strong>   </p>
-<p>   <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/213926061.png" alt="mark"></p>
+<p>   <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/213926061.png" alt=""></p>
 <p>通过第7步得到key与bookId的对应关系</p>
 <p><strong>③通过ODPS SQL统计key&amp;bookId的出现次数</strong><br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> OVERWRITE <span class="keyword">TABLE</span> search_book_count <span class="keyword">SELECT</span> keyword, book_id, <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> <span class="keyword">count</span> <span class="keyword">FROM</span> search_book <span class="keyword">GROUP</span> <span class="keyword">BY</span> keyword, book_id</span><br></pre></td></tr></table></figure></p>
 <p><strong>④将以上结果同步到RDS本地数据库中</strong></p>
-<p><strong>⑤进行查询时，将key&amp;bookId对应关系最多的五条记录作为搜索辅助结果即可。</strong><br><figure class="image-bubble">
+<p><strong>⑤进行查询时，将key&amp;bookId对应关系最多的五条记录作为搜索辅助结果即可。</strong></p>
+<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/214709478.png" alt="mark" title="">
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170523/214709478.png" alt="" title="">
                 </div>
-                <div class="image-caption">mark</div>
-            </figure></p>
+                <div class="image-caption"></div>
+            </figure>
 
         </div>
 
@@ -247,7 +250,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-05-27T13:24:35.000Z" itemprop="dateUpdated">2017-05-27 21:24:35</time>
+    最後更新時間：<time datetime="2017-12-03T10:59:28.706Z" itemprop="dateUpdated">2017-12-03 18:59:28</time>
 </span><br>
 
 
@@ -407,7 +410,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">

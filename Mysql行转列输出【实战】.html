@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/165921767.png?imageslim">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172010156.png?imageslim">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172401490.png?imageslim">
-<meta property="og:updated_time" content="2017-10-29T06:40:25.000Z">
+<meta property="og:updated_time" content="2017-12-03T11:02:00.239Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql行转列输出【实战】">
 <meta name="twitter:description" content="在很多场景下，需要将一行一行的数据转换成一列数据。比如每个人的每个科目都有一个分数，并分别对应一个分数，但是为了更加直观地看到一个人的所有科目成绩，所以需要将每个科目成绩由行转换成列。">
@@ -139,7 +139,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -274,11 +274,11 @@
 </tr>
 </tbody>
 </table>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stuid, <span class="string">`name`</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="string">`subject`</span> <span class="keyword">WHEN</span> <span class="string">'C001'</span> <span class="keyword">THEN</span> score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">as</span> <span class="string">'语文'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="string">`subject`</span> <span class="keyword">WHEN</span> <span class="string">'C002'</span> <span class="keyword">THEN</span> score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">as</span> <span class="string">'数学'</span> </span><br><span class="line"><span class="keyword">FROM</span> <span class="string">`sys_user`</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> stuid;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stuid, <span class="string">`name`</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="string">`subject`</span> <span class="keyword">WHEN</span> <span class="string">'C001'</span> <span class="keyword">THEN</span> score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">as</span> <span class="string">'语文'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="string">`subject`</span> <span class="keyword">WHEN</span> <span class="string">'C002'</span> <span class="keyword">THEN</span> score <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">as</span> <span class="string">'数学'</span></span><br><span class="line"><span class="keyword">FROM</span> <span class="string">`sys_user`</span> <span class="keyword">GROUP</span> <span class="keyword">BY</span> stuid;</span><br></pre></td></tr></table></figure>
 <hr>
 <p>以下通过两个在工作中遇到的实例，来使用 Mysql 的行转列。</p>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="实例一"><a href="#实例一" class="headerlink" title="实例一"></a>实例一</h3><p>网站进行推广，每个推广员都有一个唯一 ID 即 <strong>pid</strong>，现在要统计每个推广员的推广数据；需要统计推广过来的新增用户，以及新增用户的充值以及消费数据。这里简化了数据，便于理解。  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/165507766.png?imageslim" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/165507766.png?imageslim" alt="">  </p>
 <p><strong>数据说明：</strong>  </p>
 <ul>
 <li>create_time： 数据生成时间</li>
@@ -292,12 +292,12 @@
 <li>value： 对应的数据值</li>
 </ul>
 <p><strong>需求结果样式：</strong>    </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/165921767.png?imageslim" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/165921767.png?imageslim" alt="">  </p>
 <p><strong>SQL 查询：</strong>  </p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">	create_time,</span><br><span class="line"><span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="keyword">type</span> <span class="keyword">WHEN</span> <span class="number">1</span> <span class="keyword">THEN</span> <span class="keyword">value</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="string">'新增用户'</span>,</span><br><span class="line"><span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="keyword">type</span> <span class="keyword">WHEN</span> <span class="number">2</span> <span class="keyword">THEN</span> <span class="keyword">value</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="string">'新增充值'</span>,</span><br><span class="line"><span class="keyword">MAX</span>(<span class="keyword">CASE</span> <span class="keyword">type</span> <span class="keyword">WHEN</span> <span class="number">3</span> <span class="keyword">THEN</span> <span class="keyword">value</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="string">'新增订阅'</span></span><br><span class="line"><span class="keyword">FROM</span></span><br><span class="line">	wings_companion_analytics <span class="keyword">GROUP</span> <span class="keyword">BY</span> create_time</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="实例二"><a href="#实例二" class="headerlink" title="实例二"></a>实例二</h3><p>统计网站单本书的购买次数以及购买金额  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172010156.png?imageslim" alt="mark">    </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172010156.png?imageslim" alt="">    </p>
 <p><strong>数据说明：</strong>  </p>
 <ul>
 <li>id： 主键</li>
@@ -311,9 +311,9 @@
 <li>value： 对应的数据值</li>
 </ul>
 <p><strong>需求结果样式：</strong>      </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172401490.png?imageslim" alt="mark">  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171009/172401490.png?imageslim" alt="">  </p>
 <p><strong>SQL 查询：</strong>  </p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> bookId <span class="keyword">as</span> <span class="string">'作品ID'</span>, </span><br><span class="line">  <span class="keyword">DATE_FORMAT</span>(<span class="keyword">time</span>,<span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="string">'日期'</span>, </span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">706</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买次数'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">707</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买金额'</span></span><br><span class="line"><span class="keyword">from</span> <span class="string">`t_task_result_day`</span></span><br><span class="line"><span class="keyword">WHERE</span> task_id <span class="keyword">IN</span> (<span class="number">706</span>, <span class="number">707</span>)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">time</span>, bookId</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> bookId, <span class="keyword">time</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> bookId <span class="keyword">as</span> <span class="string">'作品ID'</span>,</span><br><span class="line">  <span class="keyword">DATE_FORMAT</span>(<span class="keyword">time</span>,<span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="string">'日期'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">706</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买次数'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">707</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买金额'</span></span><br><span class="line"><span class="keyword">from</span> <span class="string">`t_task_result_day`</span></span><br><span class="line"><span class="keyword">WHERE</span> task_id <span class="keyword">IN</span> (<span class="number">706</span>, <span class="number">707</span>)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">time</span>, bookId</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> bookId, <span class="keyword">time</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
 <li><a href="http://ojt4b2cr5.bkt.clouddn.com/data.sql" target="_blank" rel="noopener">点我下载实例所用数据</a></li>
 </ul>
@@ -328,7 +328,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-10-29T06:40:25.000Z" itemprop="dateUpdated">2017-10-29 14:40:25</time>
+    最後更新時間：<time datetime="2017-12-03T11:02:00.239Z" itemprop="dateUpdated">2017-12-03 19:02:00</time>
 </span><br>
 
 
@@ -488,7 +488,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">
