@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2017-12-06T22:35:37.045Z</updated>
+  <updated>2017-12-06T22:51:15.308Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>mac编译安装Nginx</title>
+    <link href="http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html"/>
+    <id>http://nullpointer.pw/mac编译安装nginx.html</id>
+    <published>2017-12-06T22:50:18.000Z</published>
+    <updated>2017-12-06T22:51:15.308Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>虽然后简单的方式安装Nginx，但是习惯了在linux 上的操作，为了保持一致，因此也使用编译安装的方法进行安装Nginx。</p><a id="more"></a><h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul><li>nginx: <a href="http://nginx.org/download/nginx-1.12.2.tar.gz" target="_blank" rel="noopener">http://nginx.org/download/nginx-1.12.2.tar.gz</a></li><li>zlib: <a href="http://zlib.net/zlib-1.2.11.tar.gz" target="_blank" rel="noopener">http://zlib.net/zlib-1.2.11.tar.gz</a></li><li>pcre: ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz</li><li>openssl: <a href="https://www.openssl.org/source/openssl-1.1.0g.tar.gz" target="_blank" rel="noopener">https://www.openssl.org/source/openssl-1.1.0g.tar.gz</a></li></ul><p>这些都是 Nginx 编译需要的依赖，下载后分别解压， 注意解压的文件要在同一个目录下面</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf nginx-1.12.2.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf zlib-1.2.11.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf pcre-8.38.tar.gz</span><br><span class="line"></span><br><span class="line">tar -zxvf openssl-1.1.0g.tar.gz</span><br></pre></td></tr></table></figure><p>进入nginx目录后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx --with-zlib=../zlib-1.2.11 --with-pcre=../pcre-8.38 --with-openssl=../openssl-1.1.0g</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 依次执行以下命令</span><br><span class="line"></span><br><span class="line">make</span><br><span class="line"></span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure></p><p>以上执行完毕后， nginx 就被安装到 <code>/usr/local/nginx</code> 目录下</p><h2 id="Nginx的启停"><a href="#Nginx的启停" class="headerlink" title="Nginx的启停"></a>Nginx的启停</h2><p>在 mac 上随便修改点东西，就提示没有权限也是醉了，只好每个命令前面都加上 <strong>sudo</strong> 了</p><p>启动<br><code>sudo /usr/local/nginx/sbin/nginx</code></p><p>关闭<br><code>sudo /usr/local/nginx/sbin/nginx -s stop</code></p><p>重启<br><code>sudo /usr/local/nginx/sbin/nginx -s reload</code></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="http://blog.csdn.net/tulies/article/details/77611409" target="_blank" rel="noopener">http://blog.csdn.net/tulies/article/details/77611409</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;虽然后简单的方式安装Nginx，但是习惯了在linux 上的操作，为了保持一致，因此也使用编译安装的方法进行安装Nginx。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Nginx" scheme="http://nullpointer.pw/categories/Nginx/"/>
+    
+    
+      <category term="nginx安装" scheme="http://nullpointer.pw/tags/nginx%E5%AE%89%E8%A3%85/"/>
+    
+  </entry>
   
   <entry>
     <title>利用nginx解决跨域问题</title>

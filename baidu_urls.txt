@@ -1,1 +1,1 @@
-http://nullpointer.pw/利用nginx解决跨域问题.html
+http://nullpointer.pw/mac编译安装nginx.html
