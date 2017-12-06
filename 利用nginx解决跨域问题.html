@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/利用nginx解决跨域问题.html">
+    
+    
+    <title>利用nginx解决跨域问题 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nginx,跨域问题,反向代理">
+    <meta name="description" content="前言最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。 公司之前为了解决跨域问题，用的是 iFrame，反正对于只做后端的我而言，觉得很复杂，但是现在利用 nginx 如此简单就实现了跨域，感觉还挺有成就感，哈哈！">
+<meta name="keywords" content="nginx,跨域问题,反向代理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用nginx解决跨域问题">
+<meta property="og:url" content="http://nullpointer.pw/利用nginx解决跨域问题.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。 公司之前为了解决跨域问题，用的是 iFrame，反正对于只做后端的我而言，觉得很复杂，但是现在利用 nginx 如此简单就实现了跨域，感觉还挺有成就感，哈哈！">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171206151256895451444.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171206151256982730568.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171206151257156452621.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171207151259706233672.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171207151259808430209.png">
+<meta property="og:updated_time" content="2017-12-06T22:35:37.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="利用nginx解决跨域问题">
+<meta name="twitter:description" content="前言最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。 公司之前为了解决跨域问题，用的是 iFrame，反正对于只做后端的我而言，觉得很复杂，但是现在利用 nginx 如此简单就实现了跨域，感觉还挺有成就感，哈哈！">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171206151256895451444.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">利用nginx解决跨域问题</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">利用nginx解决跨域问题</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-06T22:31:02.000Z" itemprop="datePublished" class="page-time">
+  2017-12-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为什么会出现跨域问题？"><span class="post-toc-number">2.</span> <span class="post-toc-text">为什么会出现跨域问题？</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">3.</span> <span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#下载演示项目"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">下载演示项目</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动演示项目"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">启动演示项目</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置本地-Host"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">配置本地 Host</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置Nginx"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">配置Nginx</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试"><span class="post-toc-number">4.</span> <span class="post-toc-text">测试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改-Nginx-配置文件"><span class="post-toc-number">5.</span> <span class="post-toc-text">修改 Nginx 配置文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次测试"><span class="post-toc-number">6.</span> <span class="post-toc-text">再次测试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">7.</span> <span class="post-toc-text">资源下载</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-利用nginx解决跨域问题"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">利用nginx解决跨域问题</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-07 06:31:02" datetime="2017-12-06T22:31:02.000Z"  itemprop="datePublished">2017-12-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。</p>
+<p>公司之前为了解决跨域问题，用的是 iFrame，反正对于只做后端的我而言，觉得很复杂，但是现在利用 nginx 如此简单就实现了跨域，感觉还挺有成就感，哈哈！</p>
+<a id="more"></a>
+<h2 id="为什么会出现跨域问题？"><a href="#为什么会出现跨域问题？" class="headerlink" title="为什么会出现跨域问题？"></a>为什么会出现跨域问题？</h2><p>前人已经总结得很好了，就借鉴一下吧！</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171206151256895451444.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<blockquote>
+<p>图片来源地址： <a href="http://www.cnblogs.com/gabrielchen/p/5066120.html" target="_blank" rel="noopener">http://www.cnblogs.com/gabrielchen/p/5066120.html</a></p>
+</blockquote>
+<p>我们在开发项目中遇到的跨域问题具体是这样的，公司的域名若是 <strong>www.domain.com</strong>，那么如果是发送的 Ajax 请求就不通过这个域名走了，而是通过 <strong>a.domain.com</strong>，于是便出现了跨域问题。</p>
+<p>比如在 <strong>www.domain.com</strong> 首页中需要通过 Ajax 获取用户登录信息。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="下载演示项目"><a href="#下载演示项目" class="headerlink" title="下载演示项目"></a>下载演示项目</h3><p>为了演示这个跨域问题，我创建了一个 SpringBoot 项目，便于演示，如果不会 SpringBoot 也没有关系，因为重点在于 Nginx 配置上面。</p>
+<p><strong><a href="https://pan.baidu.com/s/1pLifFBl" target="_blank" rel="noopener">【点我下载】</a>  提取密码: 8e68</strong></p>
+<h3 id="启动演示项目"><a href="#启动演示项目" class="headerlink" title="启动演示项目"></a>启动演示项目</h3><p>因为是SpringBoot 项目，因此可以通过 <strong>java -jar</strong> 的方式直接启动，为了演示跨域，因此需要启动两个项目，这里我们用两个端口来分别启动项目。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># A 项目，端口设置为8080</span></span></span><br><span class="line">java -jar -Dserver.port=8080 demo.jar</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># B 项目，端口设置为8090</span></span></span><br><span class="line">java -jar -Dserver.port=8090 demo.jar</span><br></pre></td></tr></table></figure>
+<h3 id="配置本地-Host"><a href="#配置本地-Host" class="headerlink" title="配置本地 Host"></a>配置本地 Host</h3><p>为了演示还需要两个域名，不用真正的域名，修改本地的 Host 即可，将两个域名的 Host 都执行本地。可以使用 <a href="https://oldj.github.io/SwitchHosts/" target="_blank" rel="noopener">SwitchHosts</a> 来方便切换。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1 www.domain.com</span><br><span class="line">127.0.0.1 a.domain.com</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171206151256982730568.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="配置Nginx"><a href="#配置Nginx" class="headerlink" title="配置Nginx"></a>配置Nginx</h3><p>编译安装 Nginx后， 修改 nginx.conf 配置文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">user  nobody;</span></span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  notice;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">error_log  logs/error.log  info;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">pid        logs/nginx.pid;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    #log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '</span><br><span class="line">    #                  '$status $body_bytes_sent "$http_referer" '</span><br><span class="line">    #                  '"$http_user_agent" "$http_x_forwarded_for"';</span><br><span class="line">    #access_log  logs/access.log  main;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    #gzip  on;</span><br><span class="line"></span><br><span class="line">    upstream webServer &#123;</span><br><span class="line">	      server 127.0.0.1:8080;</span><br><span class="line">    &#125;</span><br><span class="line">    upstream ajaxServer &#123;</span><br><span class="line">	      server 127.0.0.1:8090;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  a.domain.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">	          proxy_pass http://ajaxServer;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  www.domain.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">    	      proxy_pass http://webServer;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里来详细解释一下这里的配置，<strong>a.domain.com</strong> 代理到 ajaxServer，即端口设置为 8090 的 B 项目；</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  a.domain.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">          proxy_pass http://ajaxServer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再看看 <strong>www.domain.com</strong> 的配置，反向代理到 webServer , 即端口设置为 8080 的 A 项目。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.domain.com;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">	      proxy_pass http://webServer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>访问项目地址 <strong><a href="http://www.domain.com/page" target="_blank" rel="noopener">http://www.domain.com/page</a></strong>， 进入以下页面：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171206151257156452621.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>当输入框不输入或者输入的是当前域名 <strong><a href="http://www.domain.com" target="_blank" rel="noopener">http://www.domain.com</a></strong> 时，可以正常提交，不会遇到跨域问题。</p>
+<p>当输入 <strong><a href="http://a.domain.com" target="_blank" rel="noopener">http://a.domain.com</a></strong> 时，点击按钮进行提交，会出现跨域问题。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171207151259706233672.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="修改-Nginx-配置文件"><a href="#修改-Nginx-配置文件" class="headerlink" title="修改 Nginx 配置文件"></a>修改 Nginx 配置文件</h2><p>修改 <strong>www.domain.com</strong> 的配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  www.domain.com;</span><br><span class="line"></span><br><span class="line">    location /proxy/ &#123;</span><br><span class="line">        proxy_set_header Host a.domain.com;</span><br><span class="line">        proxy_pass http://ajaxServer/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">	      proxy_pass http://webServer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中这里这处配置是这篇文章的关键点。意思是 <strong><a href="http://www.domain.com/proxy/" target="_blank" rel="noopener">http://www.domain.com/proxy/</a></strong> 开头的请求将会被反向代理到 <strong>B 项目</strong> 即 <strong><a href="http://a.domain.com" target="_blank" rel="noopener">http://a.domain.com</a></strong> 域名，<strong>proxy_set_header Host</strong> 这一行是必须的。需要注意的是，这两行的域名需要保持一致，<strong>且第二行后面必须要有一个 /</strong>，至于原因，可以参考这篇文章 <a href="http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E5%BC%80%E5%8F%91%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%9B%9E%E8%B0%83%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html#必知的-Nginx-语法">proxy_pass后的url加不加/的区别</a><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /proxy/ &#123;</span><br><span class="line">    proxy_set_header Host a.domain.com;</span><br><span class="line">    proxy_pass http://ajaxServer/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>修改之后保存配置文件，重启 Nginx<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure></p>
+<h2 id="再次测试"><a href="#再次测试" class="headerlink" title="再次测试"></a>再次测试</h2><p>修改提交 URL 为 <strong><a href="http://www.domain.com/proxy" target="_blank" rel="noopener">http://www.domain.com/proxy</a></strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20171207151259808430209.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>点击按钮进行提交，发现此时没有出现跨域问题。虽然提交的URL 域名是 <strong><a href="http://www.domain.com" target="_blank" rel="noopener">http://www.domain.com</a></strong>，而请求经过 Nginx 的反向代理之后，实际上提交到了 B 项目，即 <strong><a href="http://a.domain.com" target="_blank" rel="noopener">http://a.domain.com</a></strong>， 也可以看到 B 项目打印了输出语句 userId: 12，由此便解决了跨域问题。</p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p>文章涉及的jar文件我打成一个压缩包，可以自己下载尝试一下。</p>
+<p><strong><a href="https://pan.baidu.com/s/1pLifFBl" target="_blank" rel="noopener">【点我下载】</a>  提取密码: 8e68</strong></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-12-06T22:35:37.045Z" itemprop="dateUpdated">2017-12-07 06:35:37</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/利用nginx解决跨域问题.html" target="_blank" rel="external">http://nullpointer.pw/利用nginx解决跨域问题.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反向代理/">反向代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/跨域问题/">跨域问题</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/利用nginx解决跨域问题.html&title=《利用nginx解决跨域问题》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/利用nginx解决跨域问题.html&title=《利用nginx解决跨域问题》 — WeJan's Blog&source=前言最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。
+公司之前为了解决跨域问题，用的是 iFrame..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/利用nginx解决跨域问题.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《利用nginx解决跨域问题》 — WeJan's Blog&url=http://nullpointer.pw/利用nginx解决跨域问题.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/利用nginx解决跨域问题.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/java推广系统设计.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">java推广系统设计</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2017</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/利用nginx解决跨域问题.html&title=《利用nginx解决跨域问题》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/利用nginx解决跨域问题.html&title=《利用nginx解决跨域问题》 — WeJan's Blog&source=前言最近遇到了跨域问题，结合之前【微信支付开发本地接收异步通知回调】的经验，利用 Nginx 实现了跨域。
+公司之前为了解决跨域问题，用的是 iFrame..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/利用nginx解决跨域问题.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《利用nginx解决跨域问题》 — WeJan's Blog&url=http://nullpointer.pw/利用nginx解决跨域问题.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/利用nginx解决跨域问题.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3aYW7DIAwG0N7/0tkFRvbZbiYFHr+irQFeK1lg+/OJx7UY95/MZ8vfHQ0MDIzXMq7bMVl49fnVc7LuckUMDIwDGKtN3D/fbyiff/4uBgYGxnzrSdDEwMDA+C4j2VwVVl0XAwPjNEZvQ3lqLJ/58bs4BgbGCxn5Jv7/+ZH6BgYGxqsYV3Hk1N7mrtbAwMDYm9FboNpUkSCTv//R0oGBgbEpo9cqUQ2Fvfnvv6xffgcMDIxNGUk6LA+IvWRZtQWtmdXDwMB4LaN3scyPevMtRl8ZBgbGAYxqU1c1WZYA8iPg8haOgYFxAOO+9aF63e0F4urREwMD4wTGpACZBMpqWbR6eV7+MhgYGBsxei0USco+Z1cPlMueEQwMjK0ZvcDXbN66DejNEI+BgXEMo5oaKwTEeFTLAxgYGGcyqge7eVC+vzBHRVMMDIwDGNXl8xR/fgCdHCsxMDD2ZvSSa9USwoSXz4+BgXECI2m5+BTHt9osCgEXAwNjU0YvXObIauEhSfn9cc7FwMA4gJEE3B4gD+jl4igGBsYBjN5xsFeknBQ4l+9iYGBsypi3duWX4SSYjg6FGBgYmzK+FSifK09GzRYYGBgHMJ5o28rbL/L/YmBgYPQCXzVVl28xCf3N3B4GBsYxjMmG8sJA4TyLgYGBMaZOgmk0MwYGxgGMSbI+D5d560ZeVMDAwDiBMS9M9q6p1faOydUXAwPjtYwfrAIi4HgamaEAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

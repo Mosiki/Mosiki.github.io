@@ -1,1 +1,1 @@
-http://nullpointer.pw/java推广系统设计.html
+http://nullpointer.pw/利用nginx解决跨域问题.html
