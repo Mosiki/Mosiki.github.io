@@ -42,7 +42,7 @@
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/223613199.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224610046.png">
 <meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224037421.png">
-<meta property="og:updated_time" content="2017-12-03T11:01:11.867Z">
+<meta property="og:updated_time" content="2017-12-11T13:13:58.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java之word导出下载">
 <meta name="twitter:description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
@@ -237,6 +237,8 @@
 <li><p>找到<code>&lt;w:document&gt;</code> 元素下面的 <code>&lt;w:body&gt;</code> 元素，添加<code>&lt;#list newsList news&gt;</code> ， 并在<code>&lt;/w:body&gt;</code>结束标签之前闭合 <code>&lt;/#list&gt;</code>， 此处的 <strong>newsList</strong> 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。  </p>
 <p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224610046.png" alt=""></p>
 </li>
+<li><p>替换模板中的占位符 <code>&lt;w:t&gt;${news.title}&lt;/w:t&gt;</code> 与 <code>&lt;w:t&gt;${news.content}&lt;/w:t&gt;</code> 为遍历集合的值，这里的 FreeMarker 语法可以参考网上的教程。</p>
+</li>
 <li><p>保存为 FreeMarker 的模板文件，后缀为 ftl 格式，拷贝到项目中  </p>
 <p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224037421.png" alt=""></p>
 </li>
@@ -267,7 +269,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-03T11:01:11.867Z" itemprop="dateUpdated">2017-12-03 19:01:11</time>
+    最后更新时间：<time datetime="2017-12-11T13:13:58.035Z" itemprop="dateUpdated">2017-12-11 21:13:58</time>
 </span><br>
 
 
