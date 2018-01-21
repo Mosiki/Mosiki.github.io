@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html">
+    
+    
+    <title>Mac下VMwareFusion安装CentOS并设置静态IP | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="VMware Fusion,静态IP,mac">
+    <meta name="description" content="前言MAC下VMwareFusion安装CentOS及设置固定IP之前写过一篇文章，关于虚拟机的快速安装的教程 CentOS快速安装，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置">
+<meta name="keywords" content="VMware Fusion,静态IP,mac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mac下VMwareFusion安装CentOS并设置静态IP">
+<meta property="og:url" content="http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言MAC下VMwareFusion安装CentOS及设置固定IP之前写过一篇文章，关于虚拟机的快速安装的教程 CentOS快速安装，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置以下即可 访问外网环境。当时使用的是 Windows 环境，前不久入手了 MBP">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151651476447145.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018012115165148637891.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151652247955860.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151652276054517.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151652307377122.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018012115165233457757.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018012115165234489139.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151652365148908.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151652403427361.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151651578018201.png">
+<meta property="og:updated_time" content="2018-01-21T09:03:57.138Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mac下VMwareFusion安装CentOS并设置静态IP">
+<meta name="twitter:description" content="前言MAC下VMwareFusion安装CentOS及设置固定IP之前写过一篇文章，关于虚拟机的快速安装的教程 CentOS快速安装，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置以下即可 访问外网环境。当时使用的是 Windows 环境，前不久入手了 MBP">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180121151651476447145.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mac下VMwareFusion安装CentOS并设置静态IP</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mac下VMwareFusion安装CentOS并设置静态IP</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-21T09:03:09.000Z" itemprop="datePublished" class="page-time">
+  2018-01-21
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/服务器/">服务器</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#导入虚拟机镜像"><span class="post-toc-number">3.</span> <span class="post-toc-text">导入虚拟机镜像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#为静态IP做准备"><span class="post-toc-number">4.</span> <span class="post-toc-text">为静态IP做准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使网络配置生效"><span class="post-toc-number">5.</span> <span class="post-toc-text">使网络配置生效</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改虚拟机的静态-IP"><span class="post-toc-number">6.</span> <span class="post-toc-text">修改虚拟机的静态 IP</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">7.</span> <span class="post-toc-text">后记</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">8.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Mac下VMwareFusion安装CentOS并设置静态IP"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mac下VMwareFusion安装CentOS并设置静态IP</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-21 17:03:09" datetime="2018-01-21T09:03:09.000Z"  itemprop="datePublished">2018-01-21</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/服务器/">服务器</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>MAC下VMwareFusion安装CentOS及设置固定IP<br>之前写过一篇文章，关于虚拟机的快速安装的教程 <a href="http://nullpointer.pw/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html">CentOS快速安装</a>，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置以下即可 访问外网环境。<br>当时使用的是 Windows 环境，前不久入手了 MBP，也需要用到虚拟机环境，但是 MAC 环境下并没有 <code>虚拟网络编辑器</code>,所以设置静态 IP 费了好一般功夫。本文介绍虚拟机快速导入镜像，修改静态IP。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>VMware Fusion </li>
+<li>CentOS 镜像(链接：<a href="http://pan.baidu.com/s/1nuKxhpf" target="_blank" rel="noopener">http://pan.baidu.com/s/1nuKxhpf</a> 密码：8dt8)</li>
+</ul>
+<h2 id="导入虚拟机镜像"><a href="#导入虚拟机镜像" class="headerlink" title="导入虚拟机镜像"></a>导入虚拟机镜像</h2><p>下载镜像后解压，打开 Vmware Fusion 软件，选择导入</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151651476447145.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>选择镜像文件，选择 ovf 文件后打开。</p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/2018012115165148637891.png" alt=""></p>
+<p>导入过程不再赘述。</p>
+<hr>
+<h2 id="为静态IP做准备"><a href="#为静态IP做准备" class="headerlink" title="为静态IP做准备"></a>为静态IP做准备</h2><p>打开 VMware Fusion 设置。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151652247955860.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>进入网络选项卡，添加一个网卡。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151652276054517.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>打开终端，输入以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /Library/Preferences/VMware\ Fusion/</span><br><span class="line"></span><br><span class="line">sudo vim networking</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151652307377122.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>红色圈内是我们需要关注的地方,修改完之后保存退出。</p>
+<p>再修改另外一个文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /Library/Preferences/VMware\ Fusion/vmnet2</span><br><span class="line">sudo vim nat.conf</span><br></pre></td></tr></table></figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/2018012115165233457757.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<h2 id="使网络配置生效"><a href="#使网络配置生效" class="headerlink" title="使网络配置生效"></a>使网络配置生效</h2><p>重新打开VMware的网络配置，为了使刚才的修改生效，我们重新设置保存一下。步骤是，先取消勾选<code>将 Mac 主机连接到该网络</code> 点击应用；再勾选上 <code>将 Mac 主机连接到该网络</code>，点击应用。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/2018012115165234489139.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<hr>
+<h2 id="修改虚拟机的静态-IP"><a href="#修改虚拟机的静态-IP" class="headerlink" title="修改虚拟机的静态 IP"></a>修改虚拟机的静态 IP</h2><p>打开虚拟机<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">账号: root</span><br><span class="line">密码: 123456</span><br></pre></td></tr></table></figure></p>
+<p>修改第一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure></p>
+<p>修改 <code>DEVICE</code> 为 <code>eth1</code>;<br>修改 <code>IPADDR</code> 地址为 <code>192.168.200.3 ~ 192.168.200.254</code> 之间的值;<br>修改 <code>GATEWAY</code> 为 <code>nat.conf</code> 中配置的 ip 地址 <code>192.168.200.2</code></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151652365148908.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>修改另外一个文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/udev/rules.d/70-persistent-net.rules</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">注释掉 eth0 所在行，结果是</span><br><span class="line"># PCI device 0x8086:0x100f (e1000)</span><br><span class="line">#SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR&#123;address&#125;==&quot;00:0c:29:30:a4:b5&quot;, ATTR&#123;type&#125;==&quot;1&quot;, KERNEL==&quot;eth*&quot;, NAME=&quot;eth0&quot;</span><br><span class="line"># PCI device 0x8086:0x100f (e1000)</span><br><span class="line">SUBSYSTEM==&quot;net&quot;, ACTION==&quot;add&quot;, DRIVERS==&quot;?*&quot;, ATTR&#123;address&#125;==&quot;00:0c:29:cd:05:ea&quot;, ATTR&#123;type&#125;==&quot;1&quot;, KERNEL==&quot;eth*&quot;, NAME=&quot;eth1&quot;</span><br></pre></td></tr></table></figure>
+<p>重启 虚拟机</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
+<p>重启成功后，输入 <code>ifconfig</code> 提示：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151652403427361.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>此时已经也可以 ping 通外网了，在 mac 的终端中也可以 ping 通虚拟机。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>为了在使用过程中，虚拟机环境被折腾坏，可以做一下快照。到时候可以直接恢复到此快照，免去再次安装的步骤。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180121151651578018201.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://blog.csdn.net/zhishengqianjun/article/details/77046796" target="_blank" rel="noopener">http://blog.csdn.net/zhishengqianjun/article/details/77046796</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-01-21T09:03:57.138Z" itemprop="dateUpdated">2018-01-21 17:03:57</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/Mac下VMwareFusion安装CentOS并设置静态IP.html" target="_blank" rel="external">http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VMware-Fusion/">VMware Fusion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态IP/">静态IP</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&title=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&title=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/基于微信事件二维码推广.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">基于微信事件二维码推广</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&title=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&title=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mac下VMwareFusion安装CentOS并设置静态IP》 — WeJan's Blog&url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACsUlEQVR42u3aQXIiMRAEQP//0+wDbKCqW2I55JwIDDNKOUItSv3zE1+PJ9fvzyTf/f355M7P7n/gwsPDwzs09GePf016PYhnvOQzr6fj6RTg4eHhXeMlj2kLQ7L0J2Ug+dbT9/Hw8PC+gLff7OZ3S17j4eHhfT8vLxgbwH47joeHh3eb1w70VMyab6CvZy14eHh4MS8fxPe8vnK+h4eHh7c+VW+j26R1oAU8FhceHh7eDV5+vJQ8eBZbXG8gwMPDw7vMaxmz9qlk454XhjeBCB4eHt41XhtGzFqyTh13FaEtHh4e3gVevjTPwoVZiNAWqoiNh4eHt+bNQttkUW4D3+SdumUBDw8P7wJvFkasKk85xM1f8fDw8G7w2iHOtsWbiGHWsvDHlhoPDw/vKC8/8t8EwfvtdRJ54OHh4X2Sd/bg/1Rs0Y7kjxgXDw8P7wKv/cHfBhDJnfctX3U3GR4eHt6IN/vBny/6+RDb7XjxXTw8PLyjvFNb3lNT1paZN0/Bw8PD+yAvP/qandSfbdvCw8PD+ySvPXZqF/dZATgVkeDh4eHd4LUb2TaSaJfypPwkhepNZwQeHh7eglcfxpeHUrMwd38fPDw8vM/zZu2nmwhjtsWPChUeHh7eUV6y6M+igU0su5+aoqbh4eHhjVb4PK7N2W2jVT5B7fEbHh4e3lleexzVrsCzrfmxRgQ8PDy8C7xZrJAfQeWfb1sHZh0CeHh4eHveo7zOTkTbblXHInh4eHgXeGePuPIwIn8/b+FqywkeHh7ehpcs3JuQd9YoUPQ+5P8ZPDw8vKO8VYYxCnxPVbCoMODh4eH9J17CTkrIbA1v4w88PDy8b+C1haHd/tZDD6YGDw8P7x4vbwWYRbSziWs336sYFw8PD6/rBCiW7E1Qm2/H20aBmoSHh4c34f0DjKSccURGV94AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
