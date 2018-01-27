@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html</loc>
+    <lastmod>2018-01-27T13:07:10.069Z</lastmod>
+    <data>
+        <display>
+        <title>SpringDataJPA快速入门</title>
+        <pubTime>2018-01-27T13:02:48.000Z</pubTime>
+        
+        <tag>JPA</tag>
+         
+         
+           
+             
+              <breadCrumb title="SpringData" url="http://nullpointer.pw/categories/SpringData/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html</loc>
     <lastmod>2018-01-21T09:03:57.138Z</lastmod>
     <data>
@@ -437,26 +457,6 @@
            
              
               <breadCrumb title="分享" url="http://nullpointer.pw/categories/%E5%88%86%E4%BA%AB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%9F%BA%E4%BA%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%90%9C%E7%B4%A2%E6%8E%A8%E8%8D%90.html</loc>
-    <lastmod>2017-12-03T10:59:28.706Z</lastmod>
-    <data>
-        <display>
-        <title>基于机器学习的搜索推荐</title>
-        <pubTime>2017-05-26T23:08:14.000Z</pubTime>
-        
-        <tag>机器学习</tag>
-         
-         
-           
-             
-              <breadCrumb title="阿里云" url="http://nullpointer.pw/categories/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
           
         </display>
     </data>

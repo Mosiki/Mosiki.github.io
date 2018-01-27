@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/SpringDataJPA快速入门.html">
+    
+    
+    <title>SpringDataJPA快速入门 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="JPA">
+    <meta name="description" content="前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。   JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK">
+<meta name="keywords" content="JPA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringDataJPA快速入门">
+<meta property="og:url" content="http://nullpointer.pw/SpringDataJPA快速入门.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。   JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK1.6，JDK 1.9都出来了，实在不能忍😅，果断引入了 SpringData">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-27T13:07:10.069Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringDataJPA快速入门">
+<meta name="twitter:description" content="前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。   JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK1.6，JDK 1.9都出来了，实在不能忍😅，果断引入了 SpringData">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SpringDataJPA快速入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SpringDataJPA快速入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-27T13:02:48.000Z" itemprop="datePublished" class="page-time">
+  2018-01-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringData/">SpringData</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">2.</span> <span class="post-toc-text">环境准备</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Entity-实体类"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">Entity 实体类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Repository-接口"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">Repository 接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入测试数据"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">插入测试数据</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#JPA-查询语法讲解"><span class="post-toc-number">3.</span> <span class="post-toc-text">JPA 查询语法讲解</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-JPQL-进行查询"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">使用 JPQL 进行查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用自定义-Sql-以及-原生-Sql-查询"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">使用自定义 Sql 以及 原生 Sql 查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#JPA-更新操作"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">JPA 更新操作</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#分页查询"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">分页查询</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#动态-SQL-查询"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">动态 SQL 查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">4.</span> <span class="post-toc-text">后记</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-SpringDataJPA快速入门"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SpringDataJPA快速入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-27 21:02:48" datetime="2018-01-27T13:02:48.000Z"  itemprop="datePublished">2018-01-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringData/">SpringData</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。  </p>
+<p>JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK1.6，JDK 1.9都出来了，实在不能忍😅，果断引入了 SpringData JPA。  </p>
+<p>然后最近公司其他同事接手了该项目，但是不太了解 SpringData JPA 的使用，于是有了此文，不会就可以直接让他看本篇博客了哈哈。</p>
+<a id="more"></a>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>这里不讲解 SpringData JPA 与框架的整合，只讲解 JPA 语法的使用</p>
+<h3 id="Entity-实体类"><a href="#Entity-实体类" class="headerlink" title="Entity 实体类"></a>Entity 实体类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span> <span class="comment">// 表示为一个实体类</span></span><br><span class="line"><span class="meta">@Table</span>(<span class="string">"employee"</span>) <span class="comment">// 表名</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Id</span> <span class="comment">//主键标识注解</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span> <span class="comment">// 主键生成方式</span></span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//Getter/Setter省略</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Repository-接口"><a href="#Repository-接口" class="headerlink" title="Repository 接口"></a>Repository 接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 继承 JpaRepository 接口，第一个参数为查询的实体类，第二个为实体类的主键数据类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">EmployeeRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Employee</span>, <span class="title">Integer</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="插入测试数据"><a href="#插入测试数据" class="headerlink" title="插入测试数据"></a>插入测试数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testAdd</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        Employee employee = <span class="keyword">new</span> Employee();</span><br><span class="line">        employee.setAge(i++);</span><br><span class="line">        employee.setName(<span class="string">"test"</span> + i);</span><br><span class="line">        employeeRepository.save(employee);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="JPA-查询语法讲解"><a href="#JPA-查询语法讲解" class="headerlink" title="JPA 查询语法讲解"></a>JPA 查询语法讲解</h2><h3 id="使用-JPQL-进行查询"><a href="#使用-JPQL-进行查询" class="headerlink" title="使用 JPQL 进行查询"></a>使用 JPQL 进行查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 新增</span></span><br><span class="line">employeeRepository.save(employee);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name = ?1</span></span><br><span class="line">employeeRepository.findByName(<span class="string">"test1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name = ?1 and age = ?2</span></span><br><span class="line">employeeRepository.findByNameAndAge(<span class="string">"test1"</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where age between ?1 and ?2 【包含头尾】</span></span><br><span class="line">List&lt;Employee&gt; byAgeBetween = employeeRepository.findByAgeBetween(<span class="number">10</span>, <span class="number">16</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where age &lt; ?1</span></span><br><span class="line">List&lt;Employee&gt; list = employeeRepository.findByAgeLessThan(<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where age &gt; ?1</span></span><br><span class="line">List&lt;Employee&gt; list = employeeRepository.findByAgeGreaterThan(<span class="number">90</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name is null  【不包含为空字符串的数据】</span></span><br><span class="line">List&lt;Employee&gt; list = employeeRepository.findByNameIsNull();</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name like "test9%" 以test9为开头的name</span></span><br><span class="line">List&lt;Employee&gt; list = employeeRepository.findByNameLike(<span class="string">"test9%"</span>);</span><br><span class="line">或者</span><br><span class="line">List&lt;Employee&gt; employees = employeeRepository.findByNameStartingWith(<span class="string">"test"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name like "test_" 以test开头，且后面只模糊匹配一位</span></span><br><span class="line">List&lt;Employee&gt; list2 = employeeRepository.findByNameLike(<span class="string">"test_"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name like "%6" 模糊匹配以6结尾的</span></span><br><span class="line">List&lt;Employee&gt; employees = employeeRepository.findByNameEndingWith(<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name in (?1, ?2)</span></span><br><span class="line">List&lt;String&gt; names = Arrays.asList(<span class="string">"test1"</span>, <span class="string">"test2"</span>);</span><br><span class="line">List&lt;Employee&gt; employees = employeeRepository.findByNameIn(names);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where age &lt;&gt; ?1</span></span><br><span class="line">List&lt;Employee&gt; employees = employeeRepository.findByAgeNot(<span class="number">99</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// where name = ?1 order by age desc </span></span><br><span class="line"><span class="function">List&lt;Employee&gt; <span class="title">findByNameOrderByAgeDesc</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="使用自定义-Sql-以及-原生-Sql-查询"><a href="#使用自定义-Sql-以及-原生-Sql-查询" class="headerlink" title="使用自定义 Sql 以及 原生 Sql 查询"></a>使用自定义 Sql 以及 原生 Sql 查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** EmployeeRepository.java 添加方法 */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据姓名与年龄查找，[通过占位符获取参数值]</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"select o from Employee o where name = ?1 and age = ?2"</span>)</span><br><span class="line"><span class="function">List&lt;Employee&gt; <span class="title">queryEmployeeByParams</span><span class="params">(String name, Integer age)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 根据姓名与年龄查找，[通过命名参数获取参数值]，必须使用 @Param 注解</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"select o from Employee o where name = :name and age = :age"</span>)</span><br><span class="line"><span class="function">List&lt;Employee&gt; <span class="title">queryEmployeeByParams2</span><span class="params">(@Param(<span class="string">"name"</span>)</span> String name, @<span class="title">Param</span><span class="params">(<span class="string">"age"</span>)</span> Integer age)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 原生SQL，与上面不同的是，上面使用的是对象名称以及对象属性名称，Native SQL使用数据库表名以及字段名</span></span><br><span class="line"><span class="meta">@Query</span>(nativeQuery = <span class="keyword">true</span>, value = <span class="string">"select * from employee where name = :name and age = :age"</span>)</span><br><span class="line"><span class="function">List&lt;Employee&gt; <span class="title">queryEmployeeByParams3</span><span class="params">(@Param(<span class="string">"name"</span>)</span> String name, @<span class="title">Param</span><span class="params">(<span class="string">"age"</span>)</span> Integer age)</span>;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="JPA-更新操作"><a href="#JPA-更新操作" class="headerlink" title="JPA 更新操作"></a>JPA 更新操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** 需要搭配使用 <span class="doctag">@Query</span> 与 <span class="doctag">@Modifying</span> 和 <span class="doctag">@Transactional</span> 注解使用*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(<span class="string">"update Employee o set o.age = ?2 where o.id = ?1"</span>)</span><br><span class="line"><span class="function">Integer <span class="title">updateAge</span><span class="params">(Integer id, Integer age)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在 Service 层调用<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> EmployeeRepository employeeRepository;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span> <span class="comment">// 必须开启事务</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Integer id, Integer age)</span> </span>&#123;</span><br><span class="line">    employeeRepository.update(id, age);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="分页查询"><a href="#分页查询" class="headerlink" title="分页查询"></a>分页查询</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// EmployeeRepository 接口定义</span></span><br><span class="line"><span class="function">Page&lt;Employee&gt; <span class="title">findByNameStartingWith</span><span class="params">(String name, Pageable pageable)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试类 EmployeeRepositoryTest.java</span></span><br><span class="line"><span class="comment">// 普通分页查询</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindByNameStartingWith</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 注意 page 从 0 开始</span></span><br><span class="line">    Pageable request = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">    Page&lt;Employee&gt; result = employeeRepository.findByNameStartingWith(<span class="string">"test"</span>, request);</span><br><span class="line">    <span class="keyword">for</span> (Employee employee : result.getContent()) &#123;</span><br><span class="line">        System.out.println(employee);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带排序条件的分页查询</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testFindByNameStartingWith</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Sort.Order order = <span class="keyword">new</span> Sort.Order(Sort.Direction.DESC, <span class="string">"id"</span>);</span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(order);</span><br><span class="line">    Pageable request = <span class="keyword">new</span> PageRequest(<span class="number">0</span>, <span class="number">10</span>, sort);</span><br><span class="line">    Page&lt;Employee&gt; result = employeeRepository.findByNameStartingWith(<span class="string">"test"</span>, request);</span><br><span class="line">    <span class="keyword">for</span> (Employee employee : result.getContent()) &#123;</span><br><span class="line">        System.out.println(employee);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动态-SQL-查询"><a href="#动态-SQL-查询" class="headerlink" title="动态 SQL 查询"></a>动态 SQL 查询</h3><p>在 Java 开发中，动态 SQL 是必不可少的，JPA 也可以实现，Repository 多继承一个接口 <code>JpaSpecificationExecutor</code> 即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 修改之前的 EmployeeRepository, 使其多继承 JpaSpecificationExecutor 接口</span><br><span class="line">public interface EmployeeRepository extends JpaRepository&lt;Employee, Integer&gt;, JpaSpecificationExecutor&lt;Employee&gt;&#123;</span><br><span class="line"></span><br><span class="line">    // ......</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Pageable request = new PageRequest(0, 10);</span><br><span class="line">Specification&lt;Employee&gt; specification = new Specification&lt;Employee&gt;() &#123;</span><br><span class="line">public Predicate toPredicate(Root&lt;Employee&gt; root, CriteriaQuery&lt;?&gt; query, CriteriaBuilder cb) &#123;</span><br><span class="line">        Path&lt;Integer&gt; path = root.get(&quot;age&quot;);</span><br><span class="line">                return cb.gt(path, 50);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">Page&lt;Employee&gt; all = employeeRepository.findAll(specification, request);</span><br></pre></td></tr></table></figure></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>这里感谢一下<a href="https://www.imooc.com" target="_blank" rel="noopener">慕课网</a>，快速入门多亏了 imooc 上的课程。</p>
+<p>参考课程：    </p>
+<ul>
+<li><a href="https://www.imooc.com/learn/821" target="_blank" rel="noopener">https://www.imooc.com/learn/821</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-01-27T13:07:10.069Z" itemprop="dateUpdated">2018-01-27 21:07:10</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/SpringDataJPA快速入门.html" target="_blank" rel="external">http://nullpointer.pw/SpringDataJPA快速入门.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPA/">JPA</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/SpringDataJPA快速入门.html&title=《SpringDataJPA快速入门》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/SpringDataJPA快速入门.html&title=《SpringDataJPA快速入门》 — WeJan's Blog&source=前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。  
+JPA 的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/SpringDataJPA快速入门.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SpringDataJPA快速入门》 — WeJan's Blog&url=http://nullpointer.pw/SpringDataJPA快速入门.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/SpringDataJPA快速入门.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Mac下VMwareFusion安装CentOS并设置静态IP.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Mac下VMwareFusion安装CentOS并设置静态IP</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/SpringDataJPA快速入门.html&title=《SpringDataJPA快速入门》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/SpringDataJPA快速入门.html&title=《SpringDataJPA快速入门》 — WeJan's Blog&source=前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。  
+JPA 的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/SpringDataJPA快速入门.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SpringDataJPA快速入门》 — WeJan's Blog&url=http://nullpointer.pw/SpringDataJPA快速入门.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/SpringDataJPA快速入门.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACN0lEQVR42u3awY7DIAxF0f7/T6fbSqMw99mkM8BlVUUJ4WThGpvXC4/rY3xeIXeO7/k55/jZ1pAhQ8ayjGs4yAvI9bsZ+Hvv7pEhQ8Y5DLII/mIeITthXYYMGTLGjPHvNKSS98qQIUNGLeCm4XKc3v3Z/4YMGTIWYfCweIGRltjGjMl7cRkyZCzISDec3/z9SH9DhgwZSzGucHTKZ2k4DlYlQ4aMrRk8wI23nemhin7AlSFDxjmMdGuals/SgxrFQx4yZMg4jFELeWlgJUU3sioZMmScwKgdAiMhNS3uk3YmSkllyJCxHWM8ab+52Hkq3oXLkCFjU0anSYkmDY+R8fRxWq9VhgwZ/56RlvtrzUjysciVX/biMmTI2Joxt/VI0sHagQzUwpQhQ8Z2jDSY8gYkL6iRgl3QupAhQ8amDLIFTReapn0kJW2dbpMhQ8ayjGJlrlG2qzUP4r24DBkyNmKkE01oMYKUlCepMmTIkMEDKw+1cz+TDBkyTmPUlstbnrWjGI+U22TIkLEsY3INDzcAanei1FCGDBnHMHiZrNOYTOdHGa4MGTK2Y6TFsv6hsdq2+fYpGTJkbMq4wsG/TVpuS1uYt/8YMmTI2I6RHqGoTcRbAuRz8EKhDBkydmKQIJu+shM6+VMyZMg4jZEukYTjNH2shW8ZMmTIqJX70wbntOxVhgwZMvBhC16kq5EmpIYyZMhYkJEW6/lS+jy0BhkyZGzNeK64n3Yn+JGLCemjDBky1mC8AbnFk2EzXPNYAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

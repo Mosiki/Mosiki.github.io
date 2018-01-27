@@ -1,1 +1,1 @@
-http://nullpointer.pw/Mac下VMwareFusion安装CentOS并设置静态IP.html
+http://nullpointer.pw/SpringDataJPA快速入门.html
