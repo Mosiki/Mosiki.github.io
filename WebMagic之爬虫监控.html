@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/WebMagic之爬虫监控.html">
+    
+    
+    <title>WebMagic之爬虫监控 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="webmagic,爬虫监控">
+    <meta name="description" content="前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效">
+<meta name="keywords" content="webmagic,爬虫监控">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebMagic之爬虫监控">
+<meta property="og:url" content="http://nullpointer.pw/WebMagic之爬虫监控.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959640216787.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959624621624.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959631369334.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959718557253.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018022615195977045471.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959825374564.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959811438600.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959883679762.png">
+<meta property="og:updated_time" content="2018-02-26T22:29:06.761Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebMagic之爬虫监控">
+<meta name="twitter:description" content="前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180226151959640216787.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">WebMagic之爬虫监控</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">WebMagic之爬虫监控</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-26T22:16:05.000Z" itemprop="datePublished" class="page-time">
+  2018-02-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#项目预览"><span class="post-toc-number">2.</span> <span class="post-toc-text">项目预览</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#初入手兵器-基本使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">初入手兵器-基本使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫监控"><span class="post-toc-number">4.</span> <span class="post-toc-text">爬虫监控</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">5.</span> <span class="post-toc-text">资源下载</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-WebMagic之爬虫监控"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">WebMagic之爬虫监控</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-27 06:16:05" datetime="2018-02-26T22:16:05.000Z"  itemprop="datePublished">2018-02-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 <a href="http://webmagic.io" target="_blank" rel="noopener">WebMagic</a>，感觉很好用。<br>在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-；小说是连载的情况下，这种问题是亟需解决的。</p>
+<a id="more"></a>
+<p>趁着熟悉了新兵器 WebMagic, 果断在项目中进行引入，解决以上问题。功能上线后，替换了原有的多线程抓取，目前已经十分稳定， 基本上配置好任务之后，就无需再人工干预了。</p>
+<p>以下，正文是基于我学习 WebMagic 时练手项目，功能和在公司开发的差不多，只不过我本地开发的是去抓取盗版网站的内容。</p>
+<h2 id="项目预览"><a href="#项目预览" class="headerlink" title="项目预览"></a>项目预览</h2><ol>
+<li>菜单管理<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959640216787.png" alt=""></li>
+<li><p>爬虫任务管理<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959624621624.png" alt=""></p>
+</li>
+<li><p>实现了爬虫的状态监控，以及可视化启停<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959631369334.png" alt=""></p>
+</li>
+</ol>
+<h2 id="初入手兵器-基本使用"><a href="#初入手兵器-基本使用" class="headerlink" title="初入手兵器-基本使用"></a>初入手兵器-基本使用</h2><ol>
+<li><p>爬虫套路分析<br>先看官方文档的总体架构图<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959718557253.png" alt="">  </p>
+<blockquote>
+<p>大部分模块WebMagic已经提供了默认实现。   </p>
+<pre><code>一般来说，对于编写一个爬虫，PageProcessor是需要编写的部分，而Spider则是创建和控制爬虫的入口。  
+</code></pre></blockquote>
+<p> 得益于 WebMagic 框架的良好封装，对于框架的使用者来说，所需要编写的代码几乎只有爬虫的逻辑代码，而对于怎么爬，维护任务队列的事情，WebMagic 都可以替我们做好。开始我们的爬虫之旅吧！</p>
+</li>
+</ol>
+<ol>
+<li><p>引入依赖<br>本文中所使用到的项目是基于 Maven 的 SSM 项目，在 pom.xml 中引入 WebMagic 的依赖。</p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>us.codecraft<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>webmagic-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.7.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>us.codecraft<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>webmagic-extension<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.7.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本类图<br> 先将对应的处理类进行抽象出来，方便统一处理。<br> <img src="http://ojt4b2cr5.bkt.clouddn.com/2018022615195977045471.png" alt=""></p>
+</li>
+<li><p>每个爬虫都有其对应的配置信息<br> <img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959825374564.png" alt=""><br> Site 是 抓取网站的相关配置，包括编码、抓取间隔、重试次数  </p>
+</li>
+<li><p>对应的实现类重写 process 方法，在方法中实现对应的爬虫逻辑处理<br> <img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959811438600.png" alt=""></p>
+</li>
+<li><p>启动爬虫<br> <img src="http://ojt4b2cr5.bkt.clouddn.com/20180226151959883679762.png" alt=""></p>
+</li>
+<li>爬虫的使用就简单带过，具体可以将本文与官方文档结合使用，官方文档的示例只是基于 main 方法。</li>
+</ol>
+<h2 id="爬虫监控"><a href="#爬虫监控" class="headerlink" title="爬虫监控"></a>爬虫监控</h2><ol>
+<li><p>扩展源码<br> 为了实现项目预览的效果，实现爬虫的状态监控，需要对爬虫进行扩展。因为官网提供的方式功能不足以达到在页面展示的效果。  </p>
+<blockquote>
+<p>添加监控非常简单，获取一个 SpiderMonitor 的单例 SpiderMonitor.instance()，并将你想要监控的 Spider 注册进去即可。你可以注册多个 Spider 到 SpiderMonitor 中。</p>
+</blockquote>
+<p> 查看 SpiderMonitor 源代码后，如果调用的是 获取一个 SpiderMonitor 的单例 SpiderMonitor  的 注册方法，发现 WebMagic 将每只爬虫的状态对象 SpiderStatusMXBean 全部添加到一个 List 集合当中去，这样就难以区分具体是哪一只爬虫的状态，所以我们需要对 SpiderMonitor 进行扩展。</p>
+<p> 将 SpiderMonitor 中的<br> <code>private List&lt;SpiderStatusMXBean&gt; spiderStatuses = new ArrayList&lt;SpiderStatusMXBean&gt;();</code><br> 修改为 Map 集合，key 选择 Spider 的 UUID 作为唯一区分爬虫的标记。</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Experimental</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpiderMonitor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> MySpiderMonitor INSTANCE = <span class="keyword">new</span> MySpiderMonitor();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> AtomicBoolean started = <span class="keyword">new</span> AtomicBoolean(<span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> MBeanServer mbeanServer;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> String jmxServerName;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Map&lt;String,MySpiderStatus&gt; spiderStatuses = <span class="keyword">new</span> HashMap&lt;String,MySpiderStatus&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="title">MySpiderMonitor</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		jmxServerName = <span class="string">"WebMagic"</span>;</span><br><span class="line">		mbeanServer = ManagementFactory.getPlatformMBeanServer();</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;String,MySpiderStatus&gt; <span class="title">getSpiderStatuses</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spiderStatuses;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * Register spider for monitor.</span></span><br><span class="line"><span class="comment">	 *</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> spiders spiders</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> this</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> MySpiderMonitor <span class="title">register</span><span class="params">(Spider... spiders)</span> <span class="keyword">throws</span> JMException </span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (Spider spider : spiders) &#123;</span><br><span class="line">			MyMonitorSpiderListener monitorSpiderListener = <span class="keyword">new</span> MyMonitorSpiderListener();</span><br><span class="line">			<span class="keyword">if</span> (spider.getSpiderListeners() == <span class="keyword">null</span>) &#123;</span><br><span class="line">				List&lt;SpiderListener&gt; spiderListeners = <span class="keyword">new</span> ArrayList&lt;SpiderListener&gt;();</span><br><span class="line">				spiderListeners.add(monitorSpiderListener);</span><br><span class="line">				spider.setSpiderListeners(spiderListeners);</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				spider.getSpiderListeners().add(monitorSpiderListener);</span><br><span class="line">			&#125;</span><br><span class="line">            MySpiderStatus spiderStatusMBean = getSpiderStatusMBean(spider, monitorSpiderListener);</span><br><span class="line">			registerMBean(spiderStatusMBean);</span><br><span class="line">			spiderStatuses.put(spider.getUUID(),spiderStatusMBean);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> MySpiderStatus <span class="title">getSpiderStatusMBean</span><span class="params">(Spider spider, MyMonitorSpiderListener monitorSpiderListener)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> MySpiderStatus(spider, monitorSpiderListener);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> MySpiderMonitor <span class="title">instance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> INSTANCE;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyMonitorSpiderListener</span> <span class="keyword">implements</span> <span class="title">SpiderListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger successCount = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> <span class="keyword">final</span> AtomicInteger errorCount = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">private</span> List&lt;String&gt; errorUrls = Collections.synchronizedList(<span class="keyword">new</span> ArrayList&lt;String&gt;());</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSuccess</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">			successCount.incrementAndGet();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">			errorUrls.add(request.getUrl());</span><br><span class="line">			errorCount.incrementAndGet();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> AtomicInteger <span class="title">getSuccessCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> successCount;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> AtomicInteger <span class="title">getErrorCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> errorCount;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getErrorUrls</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="keyword">return</span> errorUrls;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">registerMBean</span><span class="params">(SpiderStatusMXBean spiderStatus)</span> <span class="keyword">throws</span> MalformedObjectNameException, InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException </span>&#123;</span><br><span class="line">		ObjectName objName = <span class="keyword">new</span> ObjectName(jmxServerName + <span class="string">":name="</span> + spiderStatus.getName());</span><br><span class="line">        <span class="keyword">if</span>(mbeanServer.isRegistered(objName)==<span class="keyword">false</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mbeanServer.registerMBean(spiderStatus, objName);</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 需要注意的是，SpiderMonitor 中使用的 SpiderStatus 也需要进行一同扩展。    </p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySpiderStatus</span> <span class="keyword">implements</span> <span class="title">SpiderStatusMXBean</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> Spider spider;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> Logger logger = LoggerFactory.getLogger(getClass());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">final</span> MySpiderMonitor.MyMonitorSpiderListener monitorSpiderListener;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MySpiderStatus</span><span class="params">(Spider spider, MySpiderMonitor.MyMonitorSpiderListener monitorSpiderListener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.spider = spider;</span><br><span class="line">        <span class="keyword">this</span>.monitorSpiderListener = monitorSpiderListener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Spider <span class="title">getSpider</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.spider;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spider.getUUID();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getLeftPageCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (spider.getScheduler() <span class="keyword">instanceof</span> MonitorableScheduler) &#123;</span><br><span class="line">            <span class="keyword">return</span> ((MonitorableScheduler) spider.getScheduler()).getLeftRequestsCount(spider);</span><br><span class="line">        &#125;</span><br><span class="line">        logger.warn(<span class="string">"Get leftPageCount fail, try to use a Scheduler implement MonitorableScheduler for monitor count!"</span>);</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getTotalPageCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (spider.getScheduler() <span class="keyword">instanceof</span> MonitorableScheduler) &#123;</span><br><span class="line">            <span class="keyword">return</span> ((MonitorableScheduler) spider.getScheduler()).getTotalRequestsCount(spider);</span><br><span class="line">        &#125;</span><br><span class="line">        logger.warn(<span class="string">"Get totalPageCount fail, try to use a Scheduler implement MonitorableScheduler for monitor count!"</span>);</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSuccessPageCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> monitorSpiderListener.getSuccessCount().get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getErrorPageCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> monitorSpiderListener.getErrorCount().get();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">getErrorPages</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> monitorSpiderListener.getErrorUrls();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getStatus</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spider.getStatus().name();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getThread</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spider.getThreadAlive();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        spider.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        spider.stop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Date <span class="title">getStartTime</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> spider.getStartTime();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getPagePerSecond</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> runSeconds = (<span class="keyword">int</span>) (System.currentTimeMillis() - getStartTime().getTime()) / <span class="number">1000</span>;</span><br><span class="line">        <span class="keyword">return</span> getSuccessPageCount() / runSeconds;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重写爬虫启动处代码</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMagicService</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> ApplicationContext context;</span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> TaskService taskService;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(TaskDTO taskDTO, <span class="keyword">boolean</span> runAsync)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        MySpiderMonitor spiderMonitor = MySpiderMonitor.instance();</span><br><span class="line">        String ruleJson = taskDTO.getTaskRuleJson();</span><br><span class="line">        WebMagicConfig config = JSONObject.parseObject(ruleJson, WebMagicConfig.class);</span><br><span class="line">        SpiderConfig spiderConfig = config.getSpider();</span><br><span class="line">        AbstractPageProcess pageProcess = context.getBean(spiderConfig.getProcesser(), AbstractPageProcess.class);</span><br><span class="line">    </span><br><span class="line">        pageProcess.init(config);</span><br><span class="line">        pageProcess.setUuid(taskDTO.getSpiderUUID());</span><br><span class="line">    </span><br><span class="line">        Spider spider = Spider.create(pageProcess).thread(spiderConfig.getThread());</span><br><span class="line">        spider.setUUID(taskDTO.getSpiderUUID());</span><br><span class="line">    </span><br><span class="line">        List&lt;String&gt; pipelines = spiderConfig.getPipeline();</span><br><span class="line">        <span class="keyword">for</span> (String pipeline : pipelines) &#123;</span><br><span class="line">            Pipeline bean = context.getBean(pipeline, Pipeline.class);</span><br><span class="line">            <span class="keyword">if</span> (bean != <span class="keyword">null</span>) &#123;</span><br><span class="line">                spider.addPipeline(bean);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 设置Downloader</span></span><br><span class="line">        <span class="comment">// 设置Scheduler</span></span><br><span class="line">    </span><br><span class="line">        <span class="comment">// 注册爬虫</span></span><br><span class="line">        spiderMonitor.register(spider);</span><br><span class="line">        spider.addUrl(spiderConfig.getStartUrl());</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (runAsync) &#123;</span><br><span class="line">            spider.runAsync();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            spider.run();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 爬虫状态监控</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;TaskDTO&gt; <span class="title">runTaskList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">        MySpiderMonitor spiderMonitor = MySpiderMonitor.instance();</span><br><span class="line">        Map&lt;String, MySpiderStatus&gt; spiderStatuses = spiderMonitor.getSpiderStatuses();</span><br><span class="line">    </span><br><span class="line">        List&lt;TaskDTO&gt; taskDTOList = taskService.findAll();</span><br><span class="line">        <span class="keyword">for</span> (TaskDTO taskDTO : taskDTOList) &#123;</span><br><span class="line">            MySpiderStatus spiderStatus = spiderStatuses.get(taskDTO.getSpiderUUID());</span><br><span class="line">            <span class="keyword">if</span> (spiderStatus == <span class="keyword">null</span>) &#123;</span><br><span class="line">                taskDTO.setRunState(Spider.Status.Stopped.name());</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                taskDTO.setRunState(spiderStatus.getStatus());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> taskDTOList;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> TaskDTO <span class="title">stop</span><span class="params">(TaskDTO taskDTO)</span> </span>&#123;</span><br><span class="line">        MySpiderMonitor spiderMonitor = MySpiderMonitor.instance();</span><br><span class="line">        Map&lt;String, MySpiderStatus&gt; spiderStatuses = spiderMonitor.getSpiderStatuses();</span><br><span class="line">        MySpiderStatus spiderStatus = spiderStatuses.get(taskDTO.getSpiderUUID());</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">if</span> (spiderStatus != <span class="keyword">null</span>) &#123;</span><br><span class="line">            spiderStatus.stop();</span><br><span class="line">            spiderStatus.getSpider().close();</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">return</span> taskDTO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 创建爬虫时，将爬虫注册到 MySpiderMonitor 中，之后通过 getSpiderStatuses 方法即可获取所有爬虫的状态了。</p>
+</li>
+</ol>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
+<li><a href="http://ojt4b2cr5.bkt.clouddn.com/solam.zip" target="_blank" rel="noopener">点我下载源码</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-26T22:29:06.761Z" itemprop="dateUpdated">2018-02-27 06:29:06</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/WebMagic之爬虫监控.html" target="_blank" rel="external">http://nullpointer.pw/WebMagic之爬虫监控.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webmagic/">webmagic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫监控/">爬虫监控</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic之爬虫监控.html&title=《WebMagic之爬虫监控》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic之爬虫监控.html&title=《WebMagic之爬虫监控》 — WeJan's Blog&source=前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic之爬虫监控.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic之爬虫监控》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic之爬虫监控.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic之爬虫监控.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/SpringDataJPA快速入门.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">SpringDataJPA快速入门</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic之爬虫监控.html&title=《WebMagic之爬虫监控》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic之爬虫监控.html&title=《WebMagic之爬虫监控》 — WeJan's Blog&source=前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic之爬虫监控.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic之爬虫监控》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic之爬虫监控.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic之爬虫监控.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLklEQVR42u3ay47DIBBEUf//T5PtSCPjqmocheayiqIk5jBSTz+4LnmNf+vv+3efnP/a3ev5d0sLBgwY2zLGdLkM5SlzwPz9WyoMGDAOYOhhcR4cM6RCfdgzDBgwYJgkN5i6BwEDBgwYbujMSlwYMGDAcBlKEVtP5uabVoL1glocBgwYGzL08vL7r1+Zb8CAAWMrxjBXNqrUw+WIFgwYMHoz9ACnJ3Z6yWoUqMp+YMCA0ZrhNt3cIlMP2dnwAAYMGKcxsnTQbfQrI8+wuIUBA0ZThr4J94KFniBW0kQYMGCcwHAfpm9I+R13uw9tPhgwYLRmKCVr1ibTj2bZJBYGDBitGfNt6UWskjhmA4CwOocBA8a2DL3szC5DuGVqdhUDBgwYJzD0B7hNOuUXKp+/snOCAQPGhoxKIlhP+7LyWPq/AQMGjBaMtcWqm9jVD+uVmhsGDBg/yagMII0EbulVj4e/CQwYMJoyFlxxkMN3pQGn7wQGDBhdGW67P0vv3mjwwYABozcju/SQBeuMISWOMGDAOIBhX3EotOf079oBFwYMGAcw9ERQD5TZ1Qr7QGHAgNGUMczlJnM6ez5+MMaWMGDAaMeoDAb0B7ht/exoYMCA0ZvxXmqYHUE4ioABA8YBjGygmG2lkvbdfgsGDBgwCo0zffCg3J14qMhhwIABQ0713M3po9BlqSEMGDA2ZChFbAXmjir1QSYMGDBOYGSlo3sVzB1kusMJGDBgNGV8AJuwk2EzfGa0AAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
