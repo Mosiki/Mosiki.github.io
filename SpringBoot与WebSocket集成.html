@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/SpringBoot与WebSocket集成.html">
+    
+    
+    <title>SpringBoot与WebSocket集成 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="SpringBoot,WebSocket">
+    <meta name="description" content="前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。 在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公">
+<meta name="keywords" content="SpringBoot,WebSocket">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot与WebSocket集成">
+<meta property="og:url" content="http://nullpointer.pw/SpringBoot与WebSocket集成.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。 在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公司而言，比如 Jekins 的上手难度还是较高的，配置也比较复杂繁琐，也就没有采">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180228151982725368692.png">
+<meta property="og:updated_time" content="2018-02-28T14:19:53.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot与WebSocket集成">
+<meta name="twitter:description" content="前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。 在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公司而言，比如 Jekins 的上手难度还是较高的，配置也比较复杂繁琐，也就没有采">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180228151982725368692.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">SpringBoot与WebSocket集成</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">SpringBoot与WebSocket集成</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-02-28T14:17:09.000Z" itemprop="datePublished" class="page-time">
+  2018-02-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#WebSocket-介绍"><span class="post-toc-number">2.</span> <span class="post-toc-text">WebSocket 介绍</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#服务端环境准备"><span class="post-toc-number">3.</span> <span class="post-toc-text">服务端环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#客户端环境准备"><span class="post-toc-number">4.</span> <span class="post-toc-text">客户端环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进行测试"><span class="post-toc-number">5.</span> <span class="post-toc-text">进行测试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#应用"><span class="post-toc-number">6.</span> <span class="post-toc-text">应用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">7.</span> <span class="post-toc-text">资源下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">8.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-SpringBoot与WebSocket集成"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">SpringBoot与WebSocket集成</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-02-28 22:17:09" datetime="2018-02-28T14:17:09.000Z"  itemprop="datePublished">2018-02-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。</p>
+<p>在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公司而言，比如 Jekins 的上手难度还是较高的，配置也比较复杂繁琐，也就没有采用。</p>
+<p>于是想着自己能不能也搞一个简化版适用于公司的自动化部署系统呢？于是在开发的过程中，遇到了本文的问题，为了<strong>实时展示服务器命令输出情况</strong>，我使用了 WebSocket 技术来实现，同时使用 SpringBoot 框架进行快速搭建项目，该部署系统目前未开发完成，姑且作为一个练手项目。</p>
+<a id="more"></a>
+<h2 id="WebSocket-介绍"><a href="#WebSocket-介绍" class="headerlink" title="WebSocket 介绍"></a>WebSocket 介绍</h2><p>对于 WebSocket 就不多说什么了，直接引用维基百科的解释。  </p>
+<blockquote>
+<p>WebSocket是HTML5开始提供的一种浏览器与服务器间进行全双工通讯的网络技术。 WebSocket通信协议于2011年被IETF定为标准RFC 6455，WebSocketAPI被W3C定为标准。 在WebSocket API中，浏览器和服务器只需要要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。</p>
+</blockquote>
+<p>易于理解的版本，可以看看阮一峰的 <a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="noopener">WebSocket 教程</a></p>
+<p>下面讲解 WebSocket 与 SpringBoot 的集成使用。</p>
+<h2 id="服务端环境准备"><a href="#服务端环境准备" class="headerlink" title="服务端环境准备"></a>服务端环境准备</h2><ol>
+<li><p>SpringBoot 项目引入 WebSocket 依赖  </p>
+ <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-websocket<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建 WebSocketHandler， 用于处理请求，以及向客户端发送消息</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketHandler</span> <span class="keyword">extends</span> <span class="title">AbstractWebSocketHandler</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CopyOnWriteArraySet&lt;WebSocketSession&gt; webSocketSet = <span class="keyword">new</span> CopyOnWriteArraySet&lt;&gt;();</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterConnectionEstablished</span><span class="params">(WebSocketSession session)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 接收到WebSocket会触发</span></span><br><span class="line">        System.out.println(session.getUri().getQuery());</span><br><span class="line">        webSocketSet.add(session);</span><br><span class="line">        session.sendMessage(<span class="keyword">new</span> TextMessage(<span class="string">"欢迎！！！"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterConnectionClosed</span><span class="params">(WebSocketSession session, CloseStatus closeStatus)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 关闭WebSocket会触发</span></span><br><span class="line">        System.out.println(<span class="string">"关闭WebSocket会触发"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleTransportError</span><span class="params">(WebSocketSession session, Throwable exception)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        exception.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 广播消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sendMessage</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (WebSocketSession session : webSocketSet) &#123;</span><br><span class="line">            session.sendMessage(<span class="keyword">new</span> TextMessage(<span class="string">"欢迎你来啦！"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新建 Config 类，用于接收 WebSocket 请求</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSocket</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketConfig</span> <span class="keyword">implements</span> <span class="title">WebSocketConfigurer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> WebSocketHandler webSocketHandler;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerWebSocketHandlers</span><span class="params">(WebSocketHandlerRegistry webSocketHandlerRegistry)</span> </span>&#123;</span><br><span class="line">        webSocketHandlerRegistry.addHandler(webSocketHandler,<span class="string">"/webSocket"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="客户端环境准备"><a href="#客户端环境准备" class="headerlink" title="客户端环境准备"></a>客户端环境准备</h2><ol>
+<li><p>新建页面</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span> <span class="comment">&lt;!--标准HTML5--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"zh-CN"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello World!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">    var websocket = null;</span></span><br><span class="line"><span class="undefined">    if('WebSocket' in window) &#123;</span></span><br><span class="line"><span class="undefined">        websocket = new WebSocket('ws://localhost:8080/webSocket?code=abcd');</span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!--此处的地址即第二步指定的接口地址，可以传递参数--&gt;</span></span></span><br><span class="line"><span class="undefined">    &#125;else &#123;</span></span><br><span class="line"><span class="undefined">        alert('该浏览器不支持websocket!');</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    websocket.onopen = function (event) &#123;</span></span><br><span class="line"><span class="undefined">        alert('建立连接');</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    websocket.onclose = function (event) &#123;</span></span><br><span class="line"><span class="undefined">        alert('连接关闭');</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    websocket.onmessage = function (event) &#123;</span></span><br><span class="line"><span class="undefined">        alert('收到消息:' + event.data)</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    websocket.onerror = function () &#123;</span></span><br><span class="line"><span class="undefined">        alert('websocket通信发生错误！');</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">    window.onbeforeunload = function () &#123;</span></span><br><span class="line"><span class="undefined">        websocket.close();</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p> 注意：如果websocket 的 url写的是localhost:8080，则当前页面的地址也应是localhost:8080域名下，不可以是127.0.0.1:8080 ，否则会提示 403，如果用真实域名也同理。</p>
+</li>
+<li><p>新建 Controller 跳转到该页面</p>
+ <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HomeController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/home"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ModelAndView(<span class="string">"home"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="进行测试"><a href="#进行测试" class="headerlink" title="进行测试"></a>进行测试</h2><ol>
+<li>启动项目</li>
+<li>访问 <a href="http://localhost:8080/home" target="_blank" rel="noopener">http://localhost:8080/home</a></li>
+<li>浏览器控制台打印结果：<br> <img src="http://ojt4b2cr5.bkt.clouddn.com/20180228151982725368692.png" alt=""></li>
+</ol>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>服务器向浏览器发送通知可以使用 WebSocket</li>
+<li>聊天室</li>
+</ul>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
+<li><a href="http://ojt4b2cr5.bkt.clouddn.com/websocket.zip" target="_blank" rel="noopener">点我下载示例源码</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2017/05/websocket.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-02-28T14:19:53.687Z" itemprop="dateUpdated">2018-02-28 22:19:53</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/SpringBoot与WebSocket集成.html" target="_blank" rel="external">http://nullpointer.pw/SpringBoot与WebSocket集成.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebSocket/">WebSocket</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&title=《SpringBoot与WebSocket集成》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&title=《SpringBoot与WebSocket集成》 — WeJan's Blog&source=前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/SpringBoot与WebSocket集成.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SpringBoot与WebSocket集成》 — WeJan's Blog&url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/WebMagic之爬虫监控.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">WebMagic之爬虫监控</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&title=《SpringBoot与WebSocket集成》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&title=《SpringBoot与WebSocket集成》 — WeJan's Blog&source=前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/SpringBoot与WebSocket集成.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《SpringBoot与WebSocket集成》 — WeJan's Blog&url=http://nullpointer.pw/SpringBoot与WebSocket集成.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/SpringBoot与WebSocket集成.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACPklEQVR42u3aQW7DMAwF0dz/0i6QVQoj8nwyLhpqtApSO9bzgiVFPh54Hc/1+vn8zfn6d9+vf/N818eWDBkyvpZxLBfZKPnretO1K2XIkLEbgwTZ9fXpvetN873JkCFDRu2RaQgmr0CGDBkyOkFz/WukxOUpqQwZMnZm1IpJkiymRfLttbgMGTK+kFFrDPzN59v7GzJkyPj3jKO0askiaWcW9yNDhozRjPVjarGOD1LwJigKxDJkyBjKqB2NEXzaNqgNh/36vyFDhoyhDN5i7DQGeBO0BpYhQ8ZsBjlw7zQJOk3K4BXIkCFjNIOnZR1Gmuq1fk2GDBnjGGlAJIUrP2JLm5oX/Q0ZMmQMZfBjLH5z7Vitk57KkCFjNoNsKA2yJEzzwjhODWXIkDGUwQ/C0rEMniCmo6vBqaEMGTLGMWotgdpxG08KL5JOGTJkbMNIByZqbch04Ay9YhkyZGzJIIf4PKXrl69JnihDhoyZjM7D1sE0HdQojlzIkCFjNCNtD6SjpbypkLYiZMiQsTMjTQSDRmOYRKbpqQwZMnZg8JEIXsTykErAF2WtDBkyRjN46XjHaAU/XIvDrgwZMkYwjnClJW5a7vKgjKbbZMiQMYLBV6287IyLpd1JGTJkzGaQIEseVhyVCFPMty9XhgwZGzDS2jctSvnmaidpMmTIkMEbBsVRCXAl6m/IkCFje0ZnROxTTU00MyJDhoyhDFLE8uYBZ5M2Z7H2lSFDxiBGvzGQpnrp1tPGqgwZMgYxfgAA8sdlP2h3igAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
