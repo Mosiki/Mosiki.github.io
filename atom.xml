@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2018-03-17T08:34:15.891Z</updated>
+  <updated>2018-03-27T13:12:22.979Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信域名防止屏蔽</title>
+    <link href="http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html"/>
+    <id>http://nullpointer.pw/微信域名防止屏蔽.html</id>
+    <published>2018-03-27T13:11:17.000Z</published>
+    <updated>2018-03-27T13:12:22.979Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这几日，由于遭到他人的恶意投诉举报，导致了微信中阅读业务的根域名被屏蔽，提示</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180326/160535526.png?imageslim" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>由于我司是做网络文学的，作者的内容中不可避免地会出现些微露骨的内容，但是这些内容是经过了编辑审核之后才公开的，也不至于太露骨，但举报就被封禁了。</p><p>公司的用户有很多是通过微信公众号进行阅读，这一封，就许多用户过来反馈了。</p><h2 id="切换域名之痛"><a href="#切换域名之痛" class="headerlink" title="切换域名之痛"></a>切换域名之痛</h2><p>既然根域名被封了，就只能切换域名了，因为之前代码中有不少的地方域名写死了，没有提取成公共变量，改了好久，才替换成了新的域名。</p><p>眼看已经修改完了，线上也正常了，都已经晚上9点多，准备下班回家了。就这时候，群里又反馈网站进不去了，打开一开，又**被封了，当时的心情真是想问候一下恶意举报人的全家了！</p><p>没法子，继续换域名，还好之前提前备案了几个域名，没想到现在全用上了。</p><p>有了上一次的经验，现在修改起来也快多了，修改上线完事都已经 10 点多了，恶意举报的人这时候也消停了下来没有继续投诉了，我们也终于可以下班，害的我们大周六的过来加了一天的班！</p><p>第二天，也就是周日。群里又反应被封了，真是崩溃。<br>最开始的域名被微信封禁后，公司第一时间进行了申诉，此时收到通知，说检测后没有违规内容，就进行了解封。<br>可能是别人恶意利用了微信的封禁系统，此时觉得微信的这套系统做的真烂！于是我们开发人员又是一番替换，把现在被封的域名切换了回去。</p><p>经过这几波操作，这两天网站的收入骤减，那帮使坏的人是趁你病要你命的节奏！</p><h2 id="痛定思过"><a href="#痛定思过" class="headerlink" title="痛定思过"></a>痛定思过</h2><p>总结了一下这次事件的教训，主要的原因就是因为小说的内容页被频繁恶意举报导致域名被封。 这就导致了即使换了域名，比如支付，登录都受到了影响，而且微信支付限制了每个月修改支付域名的次数，不得已我们只好换了另外一个服务号才重新打通了支付。</p><p>接下来需要做的就是，将可能还会被举报的小说内容页的域名拆分出去，不和网站主要域名一样。</p><p>比如首页、个人中心是 <code>m.aaa.com</code>, 将内容页的域名修改成 <code>m.bbb.com</code>。</p><p>我们的阅读页 URL 地址为 <code>https://m.aaa.com/book/1010545066/385773672</code>，则在 nginx 匹配到 <code>^/book/([0-9]+)/([0-9]+)</code> 就进行跳转到 <code>http://m.bbb.com/book/1010545066/385773672</code>，于是，修改 nginx 的配置，对 URL 进行匹配。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       443;</span><br><span class="line">    server_name  m.aaa.com;</span><br><span class="line">    </span><br><span class="line">    # ...</span><br><span class="line">    set $temp_content_host &quot;http://m.bbb.com&quot;;</span><br><span class="line">    location ~ ^/book/([0-9]+)/([0-9]+) &#123;</span><br><span class="line">        # If WeChat browser, jump to temporary domain name</span><br><span class="line">        if ($http_user_agent ~* (Micromessenger) ) &#123;</span><br><span class="line">            return 301 $temp_content_host$request_uri;</span><br><span class="line">        &#125;</span><br><span class="line">        proxy_pass http://domainAserver;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://domainAserver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  m.bbb.com;</span><br><span class="line">    </span><br><span class="line">    # ...</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://domainAserver;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>因为只有在微信浏览器内部，才存在被封禁的风险，而在其他浏览器内没有，一旦被微信封禁，内容页的域名需要一起更换，这样可能会不利于搜索引擎的收录，因此加了一个判断<br>浏览器 UA，微信的 UA 是 <em>Micromessenger</em> 如果是在微信浏览器内部，nginx 才 301 跳转到 <code>m.bbb.com</code>，如果不是，则保持之前的域名不变。</p><p>这样就解决了问题，一旦 <code>m.bbb.com</code> 域名被封禁了，就是 aaa 域名的 nginx 修改 <em>$temp_content_host</em> 这个变量的值为新的域名然后 reload 一下 nginx 即可。</p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>可能是公司战略上的问题，太过于依赖微信的公众号，在微信的生态中，微信想弄死你轻而易举，你却无可奈何，尽量把用户引导到客户端上才是上上策。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="http://www.ttlsa.com/nginx/how-to-block-user-agents-using-nginx/" target="_blank" rel="noopener">http://www.ttlsa.com/nginx/how-to-block-user-agents-using-nginx/</a></li><li><a href="http://lzl124631x.github.io/2016/04/08/check-wechat-user-agent.html" target="_blank" rel="noopener">http://lzl124631x.github.io/2016/04/08/check-wechat-user-agent.html</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;这几日，由于遭到他人的恶意投诉举报，导致了微信中阅读业务的根域名被屏蔽，提示&lt;/p&gt;
+&lt;figure class=&quot;image-bubble
+      
+    
+    </summary>
+    
+      <category term="Nginx" scheme="http://nullpointer.pw/categories/Nginx/"/>
+    
+    
+      <category term="微信域名封禁" scheme="http://nullpointer.pw/tags/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E5%B0%81%E7%A6%81/"/>
+    
+  </entry>
   
   <entry>
     <title>微信分享踩坑之旅</title>
