@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://nullpointer.pw/Charles抓包实战详解.html">
+    
+    
+    <title>Charles抓包实战详解 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Charles抓包,抓包破解,抓包实战">
+    <meta name="description" content="前言通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。 今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP 掌阅开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。 掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，">
+<meta name="keywords" content="Charles抓包,抓包破解,抓包实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Charles抓包实战详解">
+<meta property="og:url" content="http://nullpointer.pw/Charles抓包实战详解.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。 今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP 掌阅开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。 掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就变身超">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/172739449.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174223787.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174139868.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/175550942.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180202513.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180114345.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180817131.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180425152466495838315.png">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180425152466522079125.png">
+<meta property="og:updated_time" content="2018-04-25T14:19:40.613Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Charles抓包实战详解">
+<meta name="twitter:description" content="前言通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。 今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP 掌阅开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。 掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就变身超">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/172739449.png?imageslim">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Charles抓包实战详解</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Charles抓包实战详解</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-04-25T14:19:22.000Z" itemprop="datePublished" class="page-time">
+  2018-04-25
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试环境"><span class="post-toc-number">2.</span> <span class="post-toc-text">测试环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、Charles-的断点功能-Breakpoints-实战"><span class="post-toc-number">3.</span> <span class="post-toc-text">一、Charles 的断点功能 Breakpoints 实战</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、Charles-的映射功能-Map-实战"><span class="post-toc-number">4.</span> <span class="post-toc-text">二、Charles 的映射功能 Map 实战</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、Charles-的-Rewrite-实战"><span class="post-toc-number">5.</span> <span class="post-toc-text">三、Charles 的 Rewrite 实战</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Charles抓包实战详解"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Charles抓包实战详解</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-04-25 22:19:22" datetime="2018-04-25T14:19:22.000Z"  itemprop="datePublished">2018-04-25</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。</p>
+<p>今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP <strong>掌阅</strong>开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。</p>
+<p>掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就变身超级 VIP等；之前用这套抓包技巧，找了一个网校随便修改，发现要价上千至上万的课程竟然可以跳过校验直接被我播放下载，也是醉了。</p>
+<p>希望大家掌握了抓包不要干违法的事情，本文目的在于让技术人员了解漏洞，加固校验，不被他人有机可乘，以免造成公司损失。</p>
+<h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p>环境：</p>
+<ul>
+<li>Windows </li>
+<li>Charles</li>
+<li>iphone 7</li>
+<li>掌阅 APP 7.4.2</li>
+</ul>
+<p><strong>前提：手机已经连接 Charles 代理，并可以抓取 HTTPS 数据包。</strong></p>
+<h2 id="一、Charles-的断点功能-Breakpoints-实战"><a href="#一、Charles-的断点功能-Breakpoints-实战" class="headerlink" title="一、Charles 的断点功能 Breakpoints 实战"></a>一、Charles 的断点功能 Breakpoints 实战</h2><p>首先登录掌阅 APP ，清空Charles 的抓包列表，以防止干扰实验，然后进入 APP 的个人中心，可以看到图中圈出的数值，这里我们对其数值进行修改。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/172739449.png?imageslim" alt=""></p>
+<p>此时看到 Charles 的请求列表中出现了 APP 的请求。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim" alt="">  </p>
+<p>通过简单分析，可以知道个人中心的那些数据是从这个请求中获取到的，那么我们便修改这个请求，右键这个请求，选择 <strong>Breakpoints</strong>，这样就给这个请求加上了断点。此时切换 App 到 书架再切换回个人中心，会再次发送该请求，Charles 会弹出请求的断点，因为这里不需要修改请求参数，直接放行即可，选择 <strong>Execute</strong>；放行后，会再次弹出断点，此时就是响应返回的断点了，选择 <strong>Edit Response</strong>， 底部选择 JSON text 可以修改返回值，<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174223787.png?imageslim" alt=""></p>
+<p>我这里把 2 修改成了 2222，修改完之后，点击<strong>Execute</strong>，回到 App 发现已经更改了。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174139868.png?imageslim" alt=""></p>
+<p>测试中发现，掌阅 App 的请求时间如果过长，修改之后也会不生效。<br>这就需要使用 Charles 的下一个牛 X 的功能了，Map 映射，让 Charles 自动返回我们想要的返回值。</p>
+<h2 id="二、Charles-的映射功能-Map-实战"><a href="#二、Charles-的映射功能-Map-实战" class="headerlink" title="二、Charles 的映射功能 Map 实战"></a>二、Charles 的映射功能 Map 实战</h2><p>上一个实验进行的时候，如果请求的响应时间过长，掌阅的 App 就会抛弃本次请求的结果，不对数据进行修改，因此我们需要更快的去修改返回值。</p>
+<p>以前用 Fiddler 对于这种响应时间有要求的 App，反正我是束手无策的，APP 总是提示网络异常，响应超时等。如果是更改一两个返回值还可以，如果是多个，是真没辙了，所以 Charles 的 Map 功能是很强大的。</p>
+<p>重复上一步，抓到个人中心的数据包，就是这个请求。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim" alt="">  </p>
+<p>右键选择 <strong>Save Response</strong> 到一个文件当中去。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/175550942.png?imageslim" alt=""></p>
+<p>再次右键，选择该请求，为了不干扰实验，取消勾选上一步中的<strong>Breakpoints</strong>，然后再右键该请求，选择最下方 <strong>Map Local</strong>，选择刚才保存的文件。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180202513.png?imageslim" alt=""></p>
+<p>注意这里的 <strong>Query</strong>，因为掌阅 APP 在请求时，附带了签名时间戳等参数，这里设置为 * 之后，就会忽略这些参数。<br>设置完成后，修改刚才保存的文件，使用 NotePad++ 等编辑器打卡，修改里面的 JSON 内容。<br>我改了部分数据，重新进入个人中心，查看 Charles 的请求内容，发现已经修改了<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180114345.png?imageslim" alt=""></p>
+<p>同时看 App 的个人中心也已经修改了，可以改很大的值，然后向不懂的人炫耀炫耀了哈哈哈~<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180817131.png?imageslim" alt=""></p>
+<h2 id="三、Charles-的-Rewrite-实战"><a href="#三、Charles-的-Rewrite-实战" class="headerlink" title="三、Charles 的 Rewrite 实战"></a>三、Charles 的 Rewrite 实战</h2><p>Rewrite 是对于 map 功能的一个补充，可以设置较为复杂的规则，下面演示替换 Body 内的用户名称</p>
+<p>选择菜单栏 Tools -&gt; Rewrite，选择开启 Rewrite, 并添加一条规则。替换 Body 体内的 We Jan 为 CCTV<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180425152466495838315.png" alt=""></p>
+<p>APP再次发起请求，响应如下<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180425152466522079125.png" alt=""></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>其实日常中，我们需要用到的地方基本以上三个都可以包含到了，其他深入学习的，可以参考下面的链接。</p>
+<ul>
+<li><a href="http://www.heyuan110.com/2015/08/15/Charles%E8%BE%85%E5%8A%A9%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3/" target="_blank" rel="noopener">http://www.heyuan110.com/2015/08/15/Charles%E8%BE%85%E5%8A%A9%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3/</a></li>
+<li><a href="http://blog.devtang.com/2015/11/14/charles-introduction/" target="_blank" rel="noopener">http://blog.devtang.com/2015/11/14/charles-introduction/</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-04-25T14:19:40.613Z" itemprop="dateUpdated">2018-04-25 22:19:40</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/Charles抓包实战详解.html" target="_blank" rel="external">http://nullpointer.pw/Charles抓包实战详解.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles抓包/">Charles抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包实战/">抓包实战</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包破解/">抓包破解</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Charles抓包实战详解.html&title=《Charles抓包实战详解》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Charles抓包实战详解.html&title=《Charles抓包实战详解》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Charles抓包实战详解.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Charles抓包实战详解》 — WeJan's Blog&url=http://nullpointer.pw/Charles抓包实战详解.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Charles抓包实战详解.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Charles抓包之HTTPS抓包配置.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Charles抓包之HTTPS抓包配置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Charles抓包实战详解.html&title=《Charles抓包实战详解》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Charles抓包实战详解.html&title=《Charles抓包实战详解》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Charles抓包实战详解.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Charles抓包实战详解》 — WeJan's Blog&url=http://nullpointer.pw/Charles抓包实战详解.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Charles抓包实战详解.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACPElEQVR42u3awW7DIBCE4bz/S7tST5UcyMwsjsry+2SlDuXzgSzMvl7ydf1e9/u/n9yfGX0+ur8/v/iCAQPGtoxres0nOoLpr0MZeT43GDBgnMNwF1llAXWnPid9mDMMGDBgCEWby3D/CgMGDBj1Mk7hrRofBgwYZzKUTez8eX3q7lZ58V4cBgwYGzIqwcDT91/KN2DAgPGPGVd01ZfUbIThyDBgwGjNcJse3PaIrMhzA1QYMGD0ZqwNL/VpKZ8b/wsGDBjHMNyQUvmWMpo+6eH4MGDAaM1Yu5nMmi30QvPDjwEMGDAOYOjl3apA0Z1umMTCgAFjc0Z9iXRjzspmeEG+CgMGjA0ZlVix0jxRj0ulfAMGDBgtGEpMqIea2bKujzn8LgwYMFozVsWW+nTtZi95PjBgwOjN0CeUNU8YVaoQc0qnhjBgwGjEyA70s2M4l2G0msGAAeMwhnLUpW96K0FCWNXCgAGjHcNd5pRNqV7SuQWoEW3CgAGjEUOfil5EujFkFhsMD9pgwIDRjqGEjk+XcXUwDBgwejPcBgt90m756L7vN8dtMGDAaMpwI8ZsZ6wUeVnpaf9WwIABY0NG1qqVNW/pxaV7hAcDBozeDLe1YkHyYB7MKQUiDBgwTmBUFtnsEF9v+TKCChgwYBzAqCyybrm2avv6ZsGFAQMGjOhY320vy7bKMGDAgKE3QDzdRmZ0iMCAAaMdw22M0EPNbBzlvnTcBgMGjK0Y9WAg63mYv7h6kwcMGDBaMH4AeB31Gy6fkc8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

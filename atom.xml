@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2018-04-15T12:37:41.253Z</updated>
+  <updated>2018-04-25T14:19:40.613Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Charles抓包实战详解</title>
+    <link href="http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html"/>
+    <id>http://nullpointer.pw/Charles抓包实战详解.html</id>
+    <published>2018-04-25T14:19:22.000Z</published>
+    <updated>2018-04-25T14:19:40.613Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。</p><p>今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP <strong>掌阅</strong>开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。</p><p>掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就变身超级 VIP等；之前用这套抓包技巧，找了一个网校随便修改，发现要价上千至上万的课程竟然可以跳过校验直接被我播放下载，也是醉了。</p><p>希望大家掌握了抓包不要干违法的事情，本文目的在于让技术人员了解漏洞，加固校验，不被他人有机可乘，以免造成公司损失。</p><h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><p>环境：</p><ul><li>Windows </li><li>Charles</li><li>iphone 7</li><li>掌阅 APP 7.4.2</li></ul><p><strong>前提：手机已经连接 Charles 代理，并可以抓取 HTTPS 数据包。</strong></p><h2 id="一、Charles-的断点功能-Breakpoints-实战"><a href="#一、Charles-的断点功能-Breakpoints-实战" class="headerlink" title="一、Charles 的断点功能 Breakpoints 实战"></a>一、Charles 的断点功能 Breakpoints 实战</h2><p>首先登录掌阅 APP ，清空Charles 的抓包列表，以防止干扰实验，然后进入 APP 的个人中心，可以看到图中圈出的数值，这里我们对其数值进行修改。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/172739449.png?imageslim" alt=""></p><p>此时看到 Charles 的请求列表中出现了 APP 的请求。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim" alt="">  </p><p>通过简单分析，可以知道个人中心的那些数据是从这个请求中获取到的，那么我们便修改这个请求，右键这个请求，选择 <strong>Breakpoints</strong>，这样就给这个请求加上了断点。此时切换 App 到 书架再切换回个人中心，会再次发送该请求，Charles 会弹出请求的断点，因为这里不需要修改请求参数，直接放行即可，选择 <strong>Execute</strong>；放行后，会再次弹出断点，此时就是响应返回的断点了，选择 <strong>Edit Response</strong>， 底部选择 JSON text 可以修改返回值，<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174223787.png?imageslim" alt=""></p><p>我这里把 2 修改成了 2222，修改完之后，点击<strong>Execute</strong>，回到 App 发现已经更改了。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/174139868.png?imageslim" alt=""></p><p>测试中发现，掌阅 App 的请求时间如果过长，修改之后也会不生效。<br>这就需要使用 Charles 的下一个牛 X 的功能了，Map 映射，让 Charles 自动返回我们想要的返回值。</p><h2 id="二、Charles-的映射功能-Map-实战"><a href="#二、Charles-的映射功能-Map-实战" class="headerlink" title="二、Charles 的映射功能 Map 实战"></a>二、Charles 的映射功能 Map 实战</h2><p>上一个实验进行的时候，如果请求的响应时间过长，掌阅的 App 就会抛弃本次请求的结果，不对数据进行修改，因此我们需要更快的去修改返回值。</p><p>以前用 Fiddler 对于这种响应时间有要求的 App，反正我是束手无策的，APP 总是提示网络异常，响应超时等。如果是更改一两个返回值还可以，如果是多个，是真没辙了，所以 Charles 的 Map 功能是很强大的。</p><p>重复上一步，抓到个人中心的数据包，就是这个请求。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/173517796.png?imageslim" alt="">  </p><p>右键选择 <strong>Save Response</strong> 到一个文件当中去。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/175550942.png?imageslim" alt=""></p><p>再次右键，选择该请求，为了不干扰实验，取消勾选上一步中的<strong>Breakpoints</strong>，然后再右键该请求，选择最下方 <strong>Map Local</strong>，选择刚才保存的文件。<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180202513.png?imageslim" alt=""></p><p>注意这里的 <strong>Query</strong>，因为掌阅 APP 在请求时，附带了签名时间戳等参数，这里设置为 * 之后，就会忽略这些参数。<br>设置完成后，修改刚才保存的文件，使用 NotePad++ 等编辑器打卡，修改里面的 JSON 内容。<br>我改了部分数据，重新进入个人中心，查看 Charles 的请求内容，发现已经修改了<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180114345.png?imageslim" alt=""></p><p>同时看 App 的个人中心也已经修改了，可以改很大的值，然后向不懂的人炫耀炫耀了哈哈哈~<br><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180425/180817131.png?imageslim" alt=""></p><h2 id="三、Charles-的-Rewrite-实战"><a href="#三、Charles-的-Rewrite-实战" class="headerlink" title="三、Charles 的 Rewrite 实战"></a>三、Charles 的 Rewrite 实战</h2><p>Rewrite 是对于 map 功能的一个补充，可以设置较为复杂的规则，下面演示替换 Body 内的用户名称</p><p>选择菜单栏 Tools -&gt; Rewrite，选择开启 Rewrite, 并添加一条规则。替换 Body 体内的 We Jan 为 CCTV<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180425152466495838315.png" alt=""></p><p>APP再次发起请求，响应如下<br><img src="http://ojt4b2cr5.bkt.clouddn.com/20180425152466522079125.png" alt=""></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>其实日常中，我们需要用到的地方基本以上三个都可以包含到了，其他深入学习的，可以参考下面的链接。</p><ul><li><a href="http://www.heyuan110.com/2015/08/15/Charles%E8%BE%85%E5%8A%A9%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3/" target="_blank" rel="noopener">http://www.heyuan110.com/2015/08/15/Charles%E8%BE%85%E5%8A%A9%E8%B0%83%E8%AF%95%E6%8E%A5%E5%8F%A3/</a></li><li><a href="http://blog.devtang.com/2015/11/14/charles-introduction/" target="_blank" rel="noopener">http://blog.devtang.com/2015/11/14/charles-introduction/</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。&lt;/p&gt;
+&lt;p&gt;今天要做是抓包实战，因为
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="Charles抓包" scheme="http://nullpointer.pw/tags/Charles%E6%8A%93%E5%8C%85/"/>
+    
+      <category term="抓包破解" scheme="http://nullpointer.pw/tags/%E6%8A%93%E5%8C%85%E7%A0%B4%E8%A7%A3/"/>
+    
+      <category term="抓包实战" scheme="http://nullpointer.pw/tags/%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/"/>
+    
+  </entry>
   
   <entry>
     <title>Charles抓包之HTTPS抓包配置</title>
