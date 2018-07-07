@@ -1,1 +1,1 @@
-http://nullpointer.pw/Java实现排行榜基于Redis.html
+http://nullpointer.pw/微信公众号强制关注的实现.html
