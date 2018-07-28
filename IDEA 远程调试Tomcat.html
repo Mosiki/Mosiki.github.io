@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>IDEA远程调试Tomcat | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Tomcat远程调试,解决IDEA无法远程调试Tomcat,解决IDEA远程调试断点不生效">
+    <meta name="description" content="前言开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况以前的做法就是加 log 日志输出，总是不能精准定位问题所在，如果能够像本地环境一样调试代码，那这个问题也就迎刃而解了。">
+<meta name="keywords" content="Tomcat远程调试,解决IDEA无法远程调试Tomcat,解决IDEA远程调试断点不生效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA远程调试Tomcat">
+<meta property="og:url" content="http://nullpointer.pw/IDEA 远程调试Tomcat.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况以前的做法就是加 log 日志输出，总是不能精准定位问题所在，如果能够像本地环境一样调试代码，那这个问题也就迎刃而解了。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/155321907.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/160344543.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/102842589.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/161146521.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/164001814.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/163525309.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/103855731.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104030559.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104112424.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104517431.png?imageslim">
+<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/103740709.png?imageslim">
+<meta property="og:updated_time" content="2018-07-28T02:46:36.012Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IDEA远程调试Tomcat">
+<meta name="twitter:description" content="前言开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况以前的做法就是加 log 日志输出，总是不能精准定位问题所在，如果能够像本地环境一样调试代码，那这个问题也就迎刃而解了。">
+<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/155321907.png?imageslim">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-archives"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">IDEA远程调试Tomcat</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">IDEA远程调试Tomcat</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-07-28T02:40:28.000Z" itemprop="datePublished" class="page-time">
+  2018-07-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开始之前"><span class="post-toc-number">2.</span> <span class="post-toc-text">开始之前</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、添加运行项"><span class="post-toc-number">3.</span> <span class="post-toc-text">一、添加运行项</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、修改服务器中的-Tomcat-配置"><span class="post-toc-number">4.</span> <span class="post-toc-text">二、修改服务器中的 Tomcat 配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、调试环境修改"><span class="post-toc-number">5.</span> <span class="post-toc-text">三、调试环境修改</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、IDEA-远程调试"><span class="post-toc-number">6.</span> <span class="post-toc-text">四、IDEA 远程调试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、解决IDEA-无法连接远程-Tomcat"><span class="post-toc-number">7.</span> <span class="post-toc-text">五、解决IDEA 无法连接远程 Tomcat</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、解决断点不生效"><span class="post-toc-number">8.</span> <span class="post-toc-text">六、解决断点不生效</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七、其他问题"><span class="post-toc-number">9.</span> <span class="post-toc-text">七、其他问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#八、阿里云-ECS-安全组设置"><span class="post-toc-number">10.</span> <span class="post-toc-text">八、阿里云 ECS 安全组设置</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-IDEA 远程调试Tomcat"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">IDEA远程调试Tomcat</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-07-28 10:40:28" datetime="2018-07-28T02:40:28.000Z"  itemprop="datePublished">2018-07-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况以前的做法就是加 log 日志输出，总是不能精准定位问题所在，如果能够像本地环境一样调试代码，那这个问题也就迎刃而解了。</p>
+<a id="more"></a>
+<h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>本文介绍 IDEA 与 Tomcat 的远程调试，且<strong>笔者在日常工作当中也是这么做的</strong>，网上很多都是互相抄袭，没有经过验证的伪原创，让人不快。</p>
+<h2 id="一、添加运行项"><a href="#一、添加运行项" class="headerlink" title="一、添加运行项"></a>一、添加运行项</h2><p>IDEA 添加远程调试项</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/155321907.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>填写服务器 IP ，端口使用默认的即可，复制第二行参数</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/160344543.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="二、修改服务器中的-Tomcat-配置"><a href="#二、修改服务器中的-Tomcat-配置" class="headerlink" title="二、修改服务器中的 Tomcat 配置"></a>二、修改服务器中的 Tomcat 配置</h2><p>连接远程服务器，进入 Tomcat 根目录下的 <code>bin</code> 目录，修改 <code>catalina.sh</code> 文件</p>
+<p>定位到 108 行左右，找到 <code>cygwin=false</code> 这一行，</p>
+<p>在这一行的前一行添加</p>
+<p><code>JAVA_OPTS=&quot;&quot;</code></p>
+<p>然后将从 IDEA 中复制的那串参数粘贴到双引号之间，保存退出。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/102842589.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后启动 Tomcat，如果 Tomcat 是已经启动的话，必须要<strong>重启</strong>一下。</p>
+<h2 id="三、调试环境修改"><a href="#三、调试环境修改" class="headerlink" title="三、调试环境修改"></a>三、调试环境修改</h2><p>为了调试方便，需要暂时关闭掉防火墙，否则可能无法连接。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables stop</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、IDEA-远程调试"><a href="#四、IDEA-远程调试" class="headerlink" title="四、IDEA 远程调试"></a>四、IDEA 远程调试</h2><p>回到 IDEA，点击 Debug 按钮，启动刚才添加的 Remote，如果以上没有配置错，那么控制台将打印出</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/161146521.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>此时就和本地调试一样打断点调试就行了</p>
+<h2 id="五、解决IDEA-无法连接远程-Tomcat"><a href="#五、解决IDEA-无法连接远程-Tomcat" class="headerlink" title="五、解决IDEA 无法连接远程 Tomcat"></a>五、解决IDEA 无法连接远程 Tomcat</h2><p>如果提示无法连接，如下图  </p>
+<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/164001814.png?imageslim" alt=""></p>
+<p>则检查以上配置是否正确，确认都正确的话，可能是服务器防火墙的原因导致，需要关闭防火墙。</p>
+<p><strong>如果服务器是阿里云的，还需要配置 ECS 服务器的安全组，开放 <code>5005</code> 远程调试端口。 详见第八条</strong></p>
+<h2 id="六、解决断点不生效"><a href="#六、解决断点不生效" class="headerlink" title="六、解决断点不生效"></a>六、解决断点不生效</h2><p>注意：</p>
+<p>启动 Remote 的 Debug 之后，需要等待断点变成如下图时，再去访问接口；如果断点中间没有出现对号，说明断点还未生效，需要等待一会儿。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180508/163525309.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>如果有时候死活也没法断点，就把服务器上的 Tomcat 重启一下试试！</p>
+<h2 id="七、其他问题"><a href="#七、其他问题" class="headerlink" title="七、其他问题"></a>七、其他问题</h2><p>因为在 catalina.sh 中添加了远程调试的参数，导致使用 tomcat 的 bin/shutdown.sh 时，可能无法完全停止服务器。可以直接 kill 掉服务器，如果不再进行远程调试，最后把远程调试参数注释掉重启。</p>
+<h2 id="八、阿里云-ECS-安全组设置"><a href="#八、阿里云-ECS-安全组设置" class="headerlink" title="八、阿里云 ECS 安全组设置"></a>八、阿里云 ECS 安全组设置</h2><p>进入 ECS 控制台，点击安全组</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/103855731.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后选择 创建安全组</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104030559.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>然后配置该安全组的规则</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104112424.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><strong>点击公网入标签</strong>，再点击右上角 添加安全组规则</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/104517431.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>授权对象 填写你的 ip 地址即可。</p>
+<p>添加完安全组之后，进入 ECS 实例</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180727/103740709.png?imageslim" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>选择右侧 加入安全组，选择加入刚才添加的安全组即可。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-07-28T02:46:36.012Z" itemprop="dateUpdated">2018-07-28 10:46:36</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/IDEA 远程调试Tomcat.html" target="_blank" rel="external">http://nullpointer.pw/IDEA 远程调试Tomcat.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tomcat远程调试/">Tomcat远程调试</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/解决IDEA无法远程调试Tomcat/">解决IDEA无法远程调试Tomcat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/解决IDEA远程调试断点不生效/">解决IDEA远程调试断点不生效</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&title=《IDEA远程调试Tomcat》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&title=《IDEA远程调试Tomcat》 — WeJan's Blog&source=前言开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/IDEA 远程调试Tomcat.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IDEA远程调试Tomcat》 — WeJan's Blog&url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/微信公众号强制关注的实现.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">微信公众号强制关注</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&title=《IDEA远程调试Tomcat》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&title=《IDEA远程调试Tomcat》 — WeJan's Blog&source=前言开发新功能时，经常会遇到在本地环境运行没问题，但是部署到了 Linux 服务器上跑的时候就出现问题这种情况；还有一种情况是需要定位线上问题，这两种情况..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/IDEA 远程调试Tomcat.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IDEA远程调试Tomcat》 — WeJan's Blog&url=http://nullpointer.pw/IDEA 远程调试Tomcat.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/IDEA 远程调试Tomcat.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aSW7DMBAFUd//0so2QEyyfrfsQGRxZcjW8GSg0QNfL7yuwfr97eis+fG/n0dn3bBkyJDxWMY1XaMbjH45Aswfkdx3fkcZMmScwEjDIol7PE7OXxYK5TJkyJBRCpQ8mMqQIUPGJxgkKZyfJUOGDBkpI22okSOc/dVaXIYMGQ9k1ErN73z+yHxDhgwZj2Jc4UobZDxc8rPeXEeGDBlbM3iA4+VlpyXXeR4ZMmTsykg3QNRKTXJ9fuQNVYYMGccwSLMsHWfyzWRk8DB8QhkyZBzJqG2J4E3/9Nzbck8ZMmQ8lkFGkv8bcBdsGTJkbM3gpSw/njbs+MtahGAZMmRsyiAts04OxtO+1h1lyJCxNSMtaEn9GCRzpZR00SKUIUPGpox+s54PNckr4KVy8X+QIUPGAxmd4jMNrzzUkl8GGBkyZGzBSAMiHwzUEse0GSdDhoxdGXwYWevD87BLxp9DpAwZMo5h9G9fK3154hjvGZEhQ8YWjHSLA0njSBOt1kpbvGgZMmQcxuCNsLRh1ylZF08lQ4aMYxgk/PUDbj/FRCMBGTJkbMfgIa+z5aKzYWJxBRkyZGzKuMJ1V3OfF7rBCFOGDBmbMjqFaJr81UYCMmTIkEHCZfoo/dBZ3LohQ4aMAxifiN+1tC8tZWXIkCGjv9mrtsEiHqPKkCFDRjgw6Lft0nRThgwZJzD4kJLD0CaJcKgpQ4aMMxlp6cjbZHyQmQ4nilMOGTJkPI/xAw+kqHYDytTmAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
