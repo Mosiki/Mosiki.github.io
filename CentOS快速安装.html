@@ -132,7 +132,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -227,7 +227,7 @@
 <li>修改 70-persistent-net.rules 文件  </li>
 </ol>
 <p><code>vi /etc/udev/rules.d/70-persistent-net.rules</code></p>
-<p>注释掉 eth0 所在行，结果应该为：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> PCI device 0x8086:0x100f (e1000)</span><br><span class="line"><span class="meta">#</span>SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR&#123;address&#125;=="00:0c:29:30:a4:b5", ATTR&#123;type&#125;=="1", KERNEL=="eth*", NAME="eth0"</span><br><span class="line"><span class="meta">#</span> PCI device 0x8086:0x100f (e1000)</span><br><span class="line">SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR&#123;address&#125;=="00:0c:29:cd:05:ea", ATTR&#123;type&#125;=="1", KERNEL=="eth*", NAME="eth1"</span><br></pre></td></tr></table></figure></p>
+<p>注释掉 eth0 所在行，结果应该为：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> PCI device 0x8086:0x100f (e1000)</span></span><br><span class="line"><span class="meta">#</span><span class="bash">SUBSYSTEM==<span class="string">"net"</span>, ACTION==<span class="string">"add"</span>, DRIVERS==<span class="string">"?*"</span>, ATTR&#123;address&#125;==<span class="string">"00:0c:29:30:a4:b5"</span>, ATTR&#123;<span class="built_in">type</span>&#125;==<span class="string">"1"</span>, KERNEL==<span class="string">"eth*"</span>, NAME=<span class="string">"eth0"</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> PCI device 0x8086:0x100f (e1000)</span></span><br><span class="line">SUBSYSTEM=="net", ACTION=="add", DRIVERS=="?*", ATTR&#123;address&#125;=="00:0c:29:cd:05:ea", ATTR&#123;type&#125;=="1", KERNEL=="eth*", NAME="eth1"</span><br></pre></td></tr></table></figure></p>
 <ol>
 <li>修改网络配置文件，设置静态IP地址和网关地址<br><code>vi /etc/sysconfig/network-scripts/ifcfg-eth0</code></li>
 </ol>
@@ -259,7 +259,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2017-12-03T11:00:22.919Z" itemprop="dateUpdated">2017-12-03 19:00:22</time>
+    最後更新時間：<time datetime="2017-12-03T11:00:22.919Z" itemprop="dateUpdated">2017-12-03 19:00:22</time>
 </span><br>
 
 
@@ -419,7 +419,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">
