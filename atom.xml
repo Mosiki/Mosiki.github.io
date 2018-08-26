@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2018-08-04T15:37:18.211Z</updated>
+  <updated>2018-08-26T14:21:21.275Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>聊聊我的规划</title>
+    <link href="http://nullpointer.pw/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%A7%84%E5%88%92.html"/>
+    <id>http://nullpointer.pw/聊聊我的规划.html</id>
+    <published>2018-08-26T14:21:10.000Z</published>
+    <updated>2018-08-26T14:21:21.275Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>去年的这个时候，闲着无事刷知乎，看到一个问题觉得很有意思，【<a href="https://www.zhihu.com/question/39430220r" target="_blank" rel="noopener">天天写业务代码的程序员，怎么成为技术大牛，开始写技术代码？</a>】，当时的自己确实也一直是在写业务方面的代码，写的时间久了，面对着源源不断的需求，只能硬着头皮去应对，内心难免有所困扰；看到标题，我也不禁在想，什么时候我也能成为技术大牛呢？（对技术有所追求的 Coder 目标应该都是成为一个技术大牛吧）抱着这种心态，我点进了问题。</p><a id="more"></a><h2 id="我该怎么做？"><a href="#我该怎么做？" class="headerlink" title="我该怎么做？"></a>我该怎么做？</h2><p>看了几个回答，几乎都在讲大道理，看了感觉是这么一回事很有道理的样子，但是并没有起到什么实际作用。但是看到了<a href="https://www.zhihu.com/question/39430220/answer/81648584" target="_blank" rel="noopener">李运华的回答</a>之后，“3D 理论”(<strong>Do more</strong>、<strong>Do better</strong>、<strong>Do exercise</strong>)对于我，用醍醐灌顶来形容也不为过，他的回答不仅解答了我的疑惑，同时也给出了具体的实际方法。兴奋之余，结合自己的工作情况，将原回答中 <strong>Do more</strong> 进行了小小改动，随后在笔记上做了一点相关的总结。<br><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180826153529120868146.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure></p><p>我把 “3D 理论” 分成了两个场景，一是在公司，另一个是在家。因为在当前的公司当中，不可能把大把的正常工作时间用于新的技术学习之上，所以，我认为在公司中能做的只有 1，2，3 这三点，而第 4 点只能利用你的业余时间来进行。</p><p>当然除了那种没有任务也必须硬是要待到 10 点以后才能下班的公司除外，这种公司，其实挤出几个小时，用于自己的学习应该也是可以的。如果可以准时下班，除掉一天的睡觉，吃饭，工作，交通的时间，可以支配的时间其实还是挺充裕的，前提是不玩游戏不刷剧，如果沉迷的话可以想一些措施来强制约束自己。</p><h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>到现在 2018 年 8 月份，已经过去了一年。很惭愧的是，笔者认为自己对于 “3D 理论”的执行力度还是远远不够，理论中的目前也只做到了其中一点，在公司里对自己负责的业务进行了较大的调整优化，也达到了预期的可靠稳定。</p><p>随着工作年限的增长，我就越发觉得程序员是个不学习就一定会被淘汰掉的职业，经常能看到某某公司辞退 40 岁以上程序员的新闻，就愈发感觉压力逐渐变大（虽然前几天我才过完  25 岁生日），其实换一个思路想，如果一个程序员在公司中是难以被取代的，那么也不会是被辞退那波人中的一名吧！</p><p>也是从去年的 7 月开始，约束自己每月至少要写两篇博客的目标也达到了，也算是执行了 “3D 理论”中的一点吧。</p><p>现在在公司中，负责的内容也发生了转变，纯业务代码写的比以前要少很多，更多的是要去关注基础服务稳定，对原有的项目优化，服务拆分等方面；但是又深觉自己的技术功底还很欠缺，忙着补充新的知识，于是在工作的产出就不是那么得多了，这也是让我很头疼的事情，毕竟工作的产出关系到自己的绩效。</p><p>可能每个时期都会出现令我头疼的事情，也许这也是让我突破自我的契机。</p><p>持续践行 “3D理论”，做一个践行的程序员，目标或许已在不远处啦~</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;去年的这个时候，闲着无事刷知乎，看到一个问题觉得很有意思，【&lt;a href=&quot;https://www.zhihu.com/question/39430220r&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;天天写业务代码的程序员，怎么成为技术大牛，开始写技术代码？&lt;/a&gt;】，当时的自己确实也一直是在写业务方面的代码，写的时间久了，面对着源源不断的需求，只能硬着头皮去应对，内心难免有所困扰；看到标题，我也不禁在想，什么时候我也能成为技术大牛呢？（对技术有所追求的 Coder 目标应该都是成为一个技术大牛吧）抱着这种心态，我点进了问题。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="闲谈" scheme="http://nullpointer.pw/categories/%E9%97%B2%E8%B0%88/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>WebMagic实现分布式抓取以及断点抓取</title>
@@ -611,11 +631,11 @@
       <category term="Nginx" scheme="http://nullpointer.pw/categories/Nginx/"/>
     
     
-      <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
-    
       <category term="图片防盗链" scheme="http://nullpointer.pw/tags/%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE/"/>
     
       <category term="防盗链" scheme="http://nullpointer.pw/tags/%E9%98%B2%E7%9B%97%E9%93%BE/"/>
+    
+      <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
@@ -683,11 +703,11 @@
       <category term="数据库" scheme="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
+      <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
+    
       <category term="mysql" scheme="http://nullpointer.pw/tags/mysql/"/>
     
       <category term="行转列" scheme="http://nullpointer.pw/tags/%E8%A1%8C%E8%BD%AC%E5%88%97/"/>
-    
-      <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
