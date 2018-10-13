@@ -35,13 +35,13 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言微信官方规定是不允许诱导关注的，所以强制关注就更加不可能的，但是道高一丈魔高一丈，总是有各种对策来绕过这些规定。 比如笔者所在的公司行业，有公司开发功能进行推广小说，访问推广链接后，阅读到某一章时，弹出二维码才能继续阅读，其实这里就是变相的微信公众号强制关注了。关注他的二维码之后，公众号就会自动发送消息，给出继续阅读的链接地址，读者点进去之后才可以接着读。 其实这个功能我之前也写过一篇博文，基">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180705/141232778.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180705/135619684.png?imageslim">
-<meta property="og:updated_time" content="2018-07-07T10:39:15.789Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20180705/141232778.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20180705/135619684.png?imageslim">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="微信公众号强制关注">
 <meta name="twitter:description" content="前言微信官方规定是不允许诱导关注的，所以强制关注就更加不可能的，但是道高一丈魔高一丈，总是有各种对策来绕过这些规定。 比如笔者所在的公司行业，有公司开发功能进行推广小说，访问推广链接后，阅读到某一章时，弹出二维码才能继续阅读，其实这里就是变相的微信公众号强制关注了。关注他的二维码之后，公众号就会自动发送消息，给出继续阅读的链接地址，读者点进去之后才可以接着读。 其实这个功能我之前也写过一篇博文，基">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180705/141232778.png?imageslim">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20180705/141232778.png?imageslim">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -203,14 +203,14 @@
 <h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180705/141232778.png?imageslim" alt="" title="">
+                    <img src="http://img12345.5-project.com/blog/20180705/141232778.png?imageslim" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h2><p>首先我们在后台配置微信二维码，然后针对某一本小说，指定开始章节与显示二维码章节的 ID，生成推广链接，如下格式：<br><code>http://m.domain.com/link?code=7788</code>，以下简称 A 链接。<br>然后商户发推文，设置阅读原文的链接地址为 A 链接。</p>
 <p>当用户访问这个 A 链接的时候，跳转阅读页，待其阅读到二维码章节时，将二维码章节的下一章节 ID 写入 Cookie 之中，同时弹出二维码提示关注。</p>
 <p>用户关注，触发了微信的 <strong>SUBSCRIBE</strong> 事件，给用户发送继续阅读的消息，如下格式：<br><code>http://m.domain.com/reading</code>，以下简称 B 链接，该链接是固定不变的。</p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180705/135619684.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20180705/135619684.png?imageslim" alt=""></p>
 <p>如果用户点击了该消息，则打开了 B 链接，读取之前存储的 Cookie 信息，得到继续阅读的章节 ID，然后组装阅读 URL，通过 redirect 跳转即可。（如果用户是正常关注，也会发送消息，如果点击，找不到该 Cookie，跳转首页即可）</p>
 <p>这是针对公司需求开发的，其实，主要的地方在于参数的传递。除了关注事件，微信还有许多其他事件可供使用，比如菜单点击事件，至于怎么用，就看你的了。</p>
 
@@ -220,7 +220,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-07-07T10:39:15.789Z" itemprop="dateUpdated">2018-07-07 18:39:15</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.423Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -446,7 +446,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -480,7 +480,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

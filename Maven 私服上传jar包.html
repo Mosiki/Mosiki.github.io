@@ -27,28 +27,28 @@
     
     
     <meta name="keywords" content="Maven私服,jar包上传">
-    <meta name="description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）😂">
+    <meta name="description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）">
 <meta name="keywords" content="Maven私服,jar包上传">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven 私服上传jar包">
 <meta property="og:url" content="http://nullpointer.pw/Maven 私服上传jar包.html">
 <meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）😂">
+<meta property="og:description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171130151204452196528.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113134666.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113157073.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113402039.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113450326.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113512171.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/114351967.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/133357044.png?imageslim">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171130151204689848191.png">
-<meta property="og:updated_time" content="2017-12-03T11:01:39.054Z">
+<meta property="og:image" content="http://img12345.5-project.com/20171130151204452196528.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/113134666.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/113157073.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/113402039.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/113450326.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/113512171.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/114351967.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20171102/133357044.png?imageslim">
+<meta property="og:image" content="http://img12345.5-project.com/20171130151204689848191.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.354Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Maven 私服上传jar包">
-<meta name="twitter:description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）😂">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20171130151204452196528.png">
+<meta name="twitter:description" content="前言前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。   今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）">
+<meta name="twitter:image" content="http://img12345.5-project.com/20171130151204452196528.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -202,7 +202,7 @@
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
             <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间，公司开了新站，主要由我来负责新站的搭建工作，基础的系统比如登录系统，支付系统的搭建。  </p>
-<p>今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）😂</p>
+<p>今天在11月末尾补上这一篇文章，不然放出去的话做不到就不好了（一个月至少两篇博客）</p>
 <a id="more"></a>
 <p>在接入支付宝支付的时候，遇到了一些问题，在此记录一下。  </p>
 <p>我们公司的之前项目接入的是支付宝 mapi 支付，这是比较早的支付接口，前一阵子，该接口的授权也到期了，我也负责后续接口的升级。</p>
@@ -213,32 +213,32 @@
 <li>私服环境： <a href="http://www.jfrogchina.com/open-source/" target="_blank" rel="noopener">Artifactory</a></li>
 </ul>
 <p>我们公司的 maven 私服就是这货啦  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/20171130151204452196528.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20171130151204452196528.png" alt=""></p>
 <h2 id="上传-Jar-包到-Maven"><a href="#上传-Jar-包到-Maven" class="headerlink" title="上传 Jar 包到 Maven"></a>上传 Jar 包到 Maven</h2><h3 id="选择上传-Jar-包"><a href="#选择上传-Jar-包" class="headerlink" title="选择上传 Jar 包"></a>选择上传 Jar 包</h3><p>登录 Artifactory 后，选择 Deploy，选择要上传的 Jar 包，我这里选择上传支付宝的 SDK 的 Jar 包。</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113134666.png?imageslim" alt="" title="">
+                    <img src="http://img12345.5-project.com/blog/20171102/113134666.png?imageslim" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h3 id="设置上传-Jar-包信息"><a href="#设置上传-Jar-包信息" class="headerlink" title="设置上传 Jar 包信息"></a>设置上传 Jar 包信息</h3><p>在这里选择要上传的仓库，以及设置 “GAV” 参数  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113157073.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/113157073.png?imageslim" alt=""></p>
 <p>由于支付宝的 Jar 包名称太长了，所以我这里精简了不必要的信息。</p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113402039.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/113402039.png?imageslim" alt=""></p>
 <p>设置完之后，点击完成即可。</p>
 <h3 id="查找上传-Jar-的-Maven-坐标"><a href="#查找上传-Jar-的-Maven-坐标" class="headerlink" title="查找上传 Jar 的 Maven 坐标"></a>查找上传 Jar 的 Maven 坐标</h3><p>找到刚才保存的库，找到上传的 Jar 包  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113450326.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/113450326.png?imageslim" alt=""></p>
 <p>点击 对应的 pom 文件，查看 Maven 坐标   </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/113512171.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/113512171.png?imageslim" alt=""></p>
 <p>将此坐标写入 pom.xml 中即可，需要先将私服的地址写到 pom.xml 文件中。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>repos<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://192.168.1.222:8088/artifactory/repos<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="上传源码-Jar-包到私服仓库"><a href="#上传源码-Jar-包到私服仓库" class="headerlink" title="上传源码 Jar 包到私服仓库"></a>上传源码 Jar 包到私服仓库</h2><p>想要在开发时看可以查看源码的时候，需要将对应的源码 Jar 包一起上传到私服中去，与前面步骤相同，此时选择对应的源码的 Jar 包。</p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/114351967.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/114351967.png?imageslim" alt=""></p>
 <p>需要注意这里的 目标仓库与 GAV 参数保持与上面上传对应的 Jar 包保持一致。唯一不同的地方是 <strong>Classifier</strong> 为 <strong>sources</strong>。</p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20171102/133357044.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20171102/133357044.png?imageslim" alt=""></p>
 <p>上传成功后如图，源码包与工程包在同一级目录中。此时在项目中可以刷新 pom.xml 文件后，对应的源码就会一同下载下载下来了，可以愉快的看源码了。</p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/20171130151204689848191.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20171130151204689848191.png" alt=""></p>
 <p>End.</p>
 
         </div>
@@ -247,7 +247,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-03T11:01:39.054Z" itemprop="dateUpdated">2017-12-03 19:01:39</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.354Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -473,7 +473,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -507,7 +507,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

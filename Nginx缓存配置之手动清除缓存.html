@@ -35,13 +35,13 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言 前文介绍了利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，并设置了缓存时间为一天。 但是如果前端修改了页面，比如首页，由于 Nginx 缓存的存在，网站首页并不会立即生效，而是要等到缓存过期。这样明显不是我们想要的结果，所以需要进行手动使 Nginx 缓存失效。以下为操作详解。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170910/223443897.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170911/055142311.png">
-<meta property="og:updated_time" content="2017-12-03T11:02:42.786Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170910/223443897.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170911/055142311.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx缓存配置之手动清除缓存">
 <meta name="twitter:description" content="前言 前文介绍了利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，并设置了缓存时间为一天。 但是如果前端修改了页面，比如首页，由于 Nginx 缓存的存在，网站首页并不会立即生效，而是要等到缓存过期。这样明显不是我们想要的结果，所以需要进行手动使 Nginx 缓存失效。以下为操作详解。">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170910/223443897.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170910/223443897.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -221,7 +221,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170910/223443897.png" alt="mark" title="">
+                    <img src="http://img12345.5-project.com/blog/20170910/223443897.png" alt="mark" title="">
                 </div>
                 <div class="image-caption">mark</div>
             </figure>  
@@ -229,9 +229,9 @@
 <p>浏览器访问（也可以通过 curl 命令来访问）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 清除key为 www.domain.com/ 的缓存</span></span><br><span class="line">192.168.200.129/purge/    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 清除 key 为 www.domain.com/testpage2 页面缓存</span></span><br><span class="line">192.168.200.129/purge/testpage2</span><br></pre></td></tr></table></figure>
 <p>如果返回  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170911/055142311.png" alt="">  </p>
+<p><img src="http://img12345.5-project.com/blog/20170911/055142311.png" alt="">  </p>
 <p>则表示清除成功。</p>
-<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://ojt4b2cr5.bkt.clouddn.com/conf.zip" target="_blank" rel="noopener">示例nginx配置文件</a></p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://img12345.5-project.com/conf.zip" target="_blank" rel="noopener">示例nginx配置文件</a></p>
 
         </div>
 
@@ -239,7 +239,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-03T11:02:42.786Z" itemprop="dateUpdated">2017-12-03 19:02:42</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.406Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -467,7 +467,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -501,7 +501,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

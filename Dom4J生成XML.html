@@ -35,12 +35,12 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言在看本篇文章之前，先探讨一下常见的两种数据格式，一种是 JSON，另外一种就是 XML，在日常工作中不可避免地都会对这两种数据格式进行接触。 JSON 格式灵活，有大量的支持库，操作起来极为方便；而 XML 操作起来就不是很顺手了。 JSON 格式灵活的就会导致结构不够统一规范，而 XML 有了 XML Schema 以及 DTD 约束进行校验，也减少了数据格式不规范的问题。 对于以上这点，个">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180426/155812049.png?imageslim">
-<meta property="og:updated_time" content="2018-06-04T08:50:40.685Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20180426/155812049.png?imageslim">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dom4j生成XML">
 <meta name="twitter:description" content="前言在看本篇文章之前，先探讨一下常见的两种数据格式，一种是 JSON，另外一种就是 XML，在日常工作中不可避免地都会对这两种数据格式进行接触。 JSON 格式灵活，有大量的支持库，操作起来极为方便；而 XML 操作起来就不是很顺手了。 JSON 格式灵活的就会导致结构不够统一规范，而 XML 有了 XML Schema 以及 DTD 约束进行校验，也减少了数据格式不规范的问题。 对于以上这点，个">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20180426/155812049.png?imageslim">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20180426/155812049.png?imageslim">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -200,7 +200,7 @@
 <p>平时为了图方便，很多接口都使用 JSON，对于 XML 也比较生疏，但还是不可避免接触到使用，开发过微信公众号的都知道，微信接口基本都使用的是 XML。在开发了微信图文回复之后，需要组装 XML 发送给微信服务器，可能有人说，那用字符串拼装不也是可以的么，干嘛那么麻烦非要用 DOM4J 呢？确实公司中一些项目的微信支付，也使用的是字符串拼接 XML 的方式，但是多掌握一些技术也并不是什么坏事！</p>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>首先引入 dom4j 依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.dom4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>dom4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>接到需求，要求用户发送作品名称，自动图文回复搜索相关作品，微信的接口是这样的：  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20180426/155812049.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20180426/155812049.png?imageslim" alt=""></p>
 <p>需要的 XML 文档格式如下：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>12345678<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[news]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>2<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">Articles</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="需求实现"><a href="#需求实现" class="headerlink" title="需求实现"></a>需求实现</h2><p>其实这个接口也就是组装数据，然后发送给微信就可以了。</p>
@@ -213,7 +213,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-06-04T08:50:40.685Z" itemprop="dateUpdated">2018-06-04 16:50:40</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.539Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -437,7 +437,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -471,7 +471,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

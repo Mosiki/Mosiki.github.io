@@ -35,15 +35,15 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/131159884.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/130334830.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/174007494.png">
-<meta property="og:updated_time" content="2017-12-03T11:02:15.572Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170819/192205341.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170819/131159884.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170819/130334830.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170819/174007494.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx动静分离">
 <meta name="twitter:description" content="前言最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170819/192205341.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -199,12 +199,12 @@
             <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最新公司新开了一个项目，项目由我来配置基础环境，会写一系列的教程来展示，一个网站从零到上线的整个过程。首先本文介绍资源文件的隔离。  </p>
 <a id="more"></a>
 <h2 id="为什么要实现动静分离"><a href="#为什么要实现动静分离" class="headerlink" title="为什么要实现动静分离"></a>为什么要实现动静分离</h2><p>为什么要将静态资源文件与动态请求进行分离？ 为了降低 Tomcat 服务器的负载，可以通过本文设置并结合 CDN 来实现来更彻底地降低服务器的负载。  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/192205341.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170819/192205341.png" alt=""></p>
 <p>如图所示，所有的请求都压到了同一台服务器上， 无论静态还是动态的请求，这样流量大的话势必会造成服务器的负载过高，因为动静分离是必不可少的。</p>
 <h2 id="环境介绍"><a href="#环境介绍" class="headerlink" title="环境介绍"></a>环境介绍</h2><p>首先这是我们项目的目录结构， <strong>resource</strong> 目录和 <strong>_res</strong> 目录中都是静态资源文件，存放比如 js/css/img 等资源。这两个目录下的文件有所不同，<strong>_res</strong> 目录下面是压缩版本的，比如压缩的js/css。通过 Git 或者 SVN 将项目上传到服务器上后，配置 Nginx 来完成静态资源的分离。  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/131159884.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170819/131159884.png" alt=""></p>
 <p>首先看一张图(图的来源是：<a href="http://www.cnblogs.com/xiaoblog/p/4241086.html" target="_blank" rel="noopener">http://www.cnblogs.com/xiaoblog/p/4241086.html</a>)  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/130334830.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170819/130334830.png" alt=""></p>
 <p>当请求经过 Nginx 时，如果是静态资源的请求，就直接返回主机上静态资源即可， 如果是动态请求，则去请求 Tomcat 服务器后再返回。如果流量不是很大，静态资源可以和 Tomcat 服务器放在同一台主机上，否则需要将静态资源与 Tomcat 服务器分开。</p>
 <p>我司对于资源文件的做法是新建一个二级域名，该域名只用于加载静态资源文件。如 <strong>res.domain.com</strong>，这样做的好处是简化了在 Nginx 的 配置。</p>
 <h2 id="配置-Nginx"><a href="#配置-Nginx" class="headerlink" title="配置 Nginx"></a>配置 Nginx</h2><p>首先需要安装 Nginx， 可以参考我的另外一篇文章 <a href="http://nullpointer.pw/2017/05/05/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4/">Nginx实现Tomcat集群</a>。这里只需要参考到安装 Nginx 即可。</p>
@@ -221,7 +221,7 @@
 <p>打开浏览器访问： <code>http://res.domain.com/_res/a.jpg</code></p>
 <p>如果是动态请求，则使用 <code>http://www.domain.com</code> 域名</p>
 <p>返回结果：  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170819/174007494.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170819/174007494.png" alt=""></p>
 <p>因为静态资源文件包含 css/js 等文件，修改提交后需要拷贝增量与修改的文件到 <strong>/home/resources</strong> 目录下，如果嫌麻烦，可以直接在 Nginx 配置文件中，配置 路径为项目的资源文件夹根路径，比如 <strong>/home/wide-api/src/main/java/resources/_res</strong>， 这种在更新代码之后，可以直接请求到新的资源文件。之后会写一篇通过阿里云CDN来完成静态分离。</p>
 <p>注： 由于我的是在虚拟机上的 Nginx 进行测试，也没有域名，且是minimal版本系统，没有桌面环境，所以需要配置宿主机的hosts， 在宿主机的浏览器中访问。在真实服务器且有自己绑定到服务器上域名的就直接测试即可。</p>
 <p>使用 <em>SwitchHosts</em> 软件 配置 hosts，我的虚拟机 ip 为192.168.200.129</p>
@@ -233,7 +233,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-03T11:02:15.572Z" itemprop="dateUpdated">2017-12-03 19:02:15</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.509Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -457,7 +457,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -491,7 +491,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

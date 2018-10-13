@@ -35,12 +35,12 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。 需求 按照商品销量进行排行 可以获得指定商品的排名 显示实时销售动态情">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180610152859148695744.png">
-<meta property="og:updated_time" content="2018-06-10T01:46:23.585Z">
+<meta property="og:image" content="http://img12345.5-project.com/20180610152859148695744.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java实现排行榜基于Redis">
 <meta name="twitter:description" content="前言排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。 需求 按照商品销量进行排行 可以获得指定商品的排名 显示实时销售动态情">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180610152859148695744.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/20180610152859148695744.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -201,7 +201,7 @@
 </ol>
 <h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>分析需求，以上这些都可以通过 Redis 的有序集合相关命令进行实现，首先看一下使用到的具体 Redis 命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; ZADD bangdan 1 &quot;one&quot;</span><br><span class="line">(integer) 1</span><br><span class="line"># 对有序集合中指定成员的分数加上增量</span><br><span class="line"></span><br><span class="line">redis&gt; zadd bangdan 1 &quot;one&quot; 4 &quot;three&quot; 3 &quot;two&quot;</span><br><span class="line">(integer) 2</span><br><span class="line"># 将一个或多个成员以及分数加入到有序集合中</span><br><span class="line"></span><br><span class="line">redis&gt; zrange bangdan 0 1</span><br><span class="line">1) &quot;one&quot;</span><br><span class="line">2) &quot;three&quot;</span><br><span class="line"># 按照 score 升序排列 ,取出前两名</span><br><span class="line"></span><br><span class="line">redis&gt; zscore bangdan three</span><br><span class="line">&quot;4&quot;</span><br><span class="line"># 获得榜单中指定元素的score</span><br><span class="line"></span><br><span class="line">redis&gt; zrank bangdan one</span><br><span class="line">(integer) 0</span><br><span class="line"># 在升序榜中的名次 第一返回0</span><br><span class="line"></span><br><span class="line"># 第三个需求需要使用 Redis 的 list 来进行实现</span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH dynamic abc</span><br><span class="line">(integer) 1</span><br><span class="line"># 向队列左侧头部 push 数据</span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH dynamic 0</span><br><span class="line">&quot;abc&quot;</span><br><span class="line"># 通过索引获取列表中的元素</span><br><span class="line"></span><br><span class="line">redis&gt; LTRIM dynamic 0 2</span><br><span class="line">&quot;abc&quot;</span><br><span class="line"># 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</span><br></pre></td></tr></table></figure></p>
 <h2 id="排行榜预览"><a href="#排行榜预览" class="headerlink" title="排行榜预览"></a>排行榜预览</h2><p>按照需求开发，最后的效果如下：  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/20180610152859148695744.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180610152859148695744.png" alt=""></p>
 <p>以下通过 Java 代码实现。</p>
 <h2 id="通过-Java-实现排行榜"><a href="#通过-Java-实现排行榜" class="headerlink" title="通过 Java 实现排行榜"></a>通过 Java 实现排行榜</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><p>项目中使用到了 Redis，因此需要引入相关依赖，为了简明演示，这里没有使用 JedisPool。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <h3 id="开发逻辑"><a href="#开发逻辑" class="headerlink" title="开发逻辑"></a>开发逻辑</h3><ol>
@@ -229,7 +229,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-06-10T01:46:23.585Z" itemprop="dateUpdated">2018-06-10 09:46:23</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.347Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -453,7 +453,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -487,7 +487,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

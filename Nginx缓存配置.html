@@ -35,13 +35,13 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言 本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/133616261.png">
-<meta property="og:updated_time" content="2017-12-03T11:02:31.803Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170820/131820402.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170820/133616261.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nginx缓存配置">
 <meta name="twitter:description" content="前言 本文介绍利用 nginx 的 nginx_ngx_cache_purge 模块来实现缓存功能，前几篇文章介绍了 Nginx 的动静分离以及 CDN 技术，在其基础上，再对整个页面进行缓存，将大大提高服务器的负载能力。">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170820/131820402.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -226,7 +226,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 需要在 /tmp 目录下创建 cache 文件夹！</span></span><br><span class="line"><span class="meta">#</span><span class="bash">设置缓存区的名称为 tmpcache，内存缓存空间大小为 200MB，1 天没有被访问的内容自动清除，硬盘缓存空间大小为 5GB， 如果访问频率不高的话， inactive 时间可以设置长一些。</span></span><br><span class="line">proxy_cache_path /tmp/cache levels=1:2 keys_zone=tmpcache:200m inactive=1d max_size=5g;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen       80;</span><br><span class="line">	server_name  www.domain.com;#你的域名</span><br><span class="line">	charset utf8;</span><br><span class="line"></span><br><span class="line">	proxy_set_header        Host            $host;</span><br><span class="line">	proxy_set_header        X-Real-IP       $remote_addr;</span><br><span class="line">	proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">	proxy_set_header        X-Up-Calling-Line-Id $http_x_up_calling_line_id;</span><br><span class="line">	proxy_ignore_headers    X-Accel-Expires Expires Cache-Control Set-Cookie;</span><br><span class="line"></span><br><span class="line">	access_log logs/access.log  main;</span><br><span class="line"></span><br><span class="line">	location / &#123;</span><br><span class="line">			proxy_pass http://127.0.0.1:8080;</span><br><span class="line"><span class="meta">			#</span><span class="bash">proxy_cache 的值是 proxy_cache_path 中的 keys_zone 的值</span></span><br><span class="line">			proxy_cache tmpcache;</span><br><span class="line"><span class="meta">			#</span><span class="bash">缓存 key 的值</span></span><br><span class="line">			proxy_cache_key $host$uri$is_args$args;</span><br><span class="line">			proxy_cache_valid 200 301 5m;</span><br><span class="line">			proxy_cache_use_stale updating error timeout invalid_header http_500 http_502 http_503 http_504;</span><br><span class="line"></span><br><span class="line">			expires 1m;</span><br><span class="line"><span class="meta">			#</span><span class="bash"> 将缓存的状态添加到 Header 中</span></span><br><span class="line">			add_header X-Cache '$upstream_cache_status';</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="启动-Nginx"><a href="#启动-Nginx" class="headerlink" title="启动 Nginx"></a>启动 Nginx</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
 <h2 id="启动-Tomcat"><a href="#启动-Tomcat" class="headerlink" title="启动 Tomcat"></a>启动 Tomcat</h2><p>可以使用自己的项目，或者使用我提供的项目来进行测试。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://ojt4b2cr5.bkt.clouddn.com/SpringDemo.war</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://img12345.5-project.com/SpringDemo.war</span><br></pre></td></tr></table></figure>
 <p>将下载的 war 包放到 Tomcat 的 webapps 目录下，修改 war 包名称为 ROOT.war ，启动 Tomcat。</p>
 <h2 id="测试-Nginx-缓存"><a href="#测试-Nginx-缓存" class="headerlink" title="测试 Nginx 缓存"></a>测试 Nginx 缓存</h2><p>缓存之前</p>
 <p>查看 <strong>/tmp/cache</strong> 目录， 目录下面没有任何文件</p>
@@ -236,13 +236,13 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/131820402.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/blog/20170820/131820402.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <p>发现 <strong>X-Cache</strong> 的状态为 <strong>MISS</strong> ，说明没有缓存。</p>
 <p>再次刷新页面后  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170820/133616261.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170820/133616261.png" alt=""></p>
 <p><strong>X-Cache</strong> 的状态已经变成了 <strong>HIT</strong></p>
 <p>同时在服务器上查看 <strong>/tmp/cache</strong> 目录</p>
 <p><code>cd /tmp/cache/</code></p>
@@ -255,7 +255,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-03T11:02:31.803Z" itemprop="dateUpdated">2017-12-03 19:02:31</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.527Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -481,7 +481,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -515,7 +515,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

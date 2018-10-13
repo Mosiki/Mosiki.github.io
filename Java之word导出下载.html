@@ -35,16 +35,16 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/222116065.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/223450741.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/223613199.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224610046.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224037421.png">
-<meta property="og:updated_time" content="2017-12-11T13:13:58.035Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/222116065.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/223450741.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/223613199.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/224610046.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/224037421.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.516Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java之word导出下载">
 <meta name="twitter:description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/222116065.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170726/222116065.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -199,7 +199,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/222116065.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/blog/20170726/222116065.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -212,10 +212,10 @@
 <li><p>创建 word 模板</p>
 <ol>
 <li><p>新建 word 替换内容为占位符  </p>
-<p> <img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/223450741.png" alt=""></p>
+<p> <img src="http://img12345.5-project.com/blog/20170726/223450741.png" alt=""></p>
 </li>
 <li><p>另存模板为 XML 文件  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/223613199.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170726/223613199.png" alt=""></p>
 </li>
 <li><p>使用 NotePad++ 打开 xml 文件</p>
 </li>
@@ -226,12 +226,12 @@
 <li><p>因为我的 word 的内容是一个列表，所以需要添加一个 freemarer 标签标识</p>
 </li>
 <li><p>找到<code>&lt;w:document&gt;</code> 元素下面的 <code>&lt;w:body&gt;</code> 元素，添加<code>&lt;#list newsList news&gt;</code> ， 并在<code>&lt;/w:body&gt;</code>结束标签之前闭合 <code>&lt;/#list&gt;</code>， 此处的 <strong>newsList</strong> 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224610046.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170726/224610046.png" alt=""></p>
 </li>
 <li><p>替换模板中的占位符 <code>&lt;w:t&gt;${news.title}&lt;/w:t&gt;</code> 与 <code>&lt;w:t&gt;${news.content}&lt;/w:t&gt;</code> 为遍历集合的值，这里的 FreeMarker 语法可以参考网上的教程。</p>
 </li>
 <li><p>保存为 FreeMarker 的模板文件，后缀为 ftl 格式，拷贝到项目中  </p>
-<p><img src="http://ojt4b2cr5.bkt.clouddn.com/blog/20170726/224037421.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170726/224037421.png" alt=""></p>
 </li>
 </ol>
 </li>
@@ -249,7 +249,7 @@
 </ol>
 <h2 id="文章涉及工具类"><a href="#文章涉及工具类" class="headerlink" title="文章涉及工具类"></a>文章涉及工具类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WordUtil.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.Writer;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> freemarker.template.Configuration;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.Template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WordUtil</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Configuration configuration = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">WordUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 根据模板生成相应的文件</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> root 保存数据的map</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> template 模板文件的地址</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> path 生成的word文档输出地址</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> ByteArrayOutputStream <span class="title">process</span><span class="params">(Map&lt;?, ?&gt; root, String template)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == root ) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数据不能为空"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == template) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"模板文件不能为空"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">	String templatePath = template.substring(<span class="number">0</span>, template.lastIndexOf(<span class="string">"/"</span>));</span><br><span class="line">	String templateName = template.substring(template.lastIndexOf(<span class="string">"/"</span>) + <span class="number">1</span>, template.length());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == configuration) &#123;</span><br><span class="line">	  configuration = <span class="keyword">new</span> Configuration(Configuration.VERSION_2_3_23);  <span class="comment">// 这里Configurantion对象不能有两个，否则多线程访问会报错</span></span><br><span class="line">	  configuration.setDefaultEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	  configuration.setClassicCompatible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	configuration.setClassForTemplateLoading(WordUtil.class, templatePath);</span><br><span class="line"></span><br><span class="line">	Template t = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">	  t = configuration.getTemplate(templateName);</span><br><span class="line">	  Writer w = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(outputStream, <span class="string">"utf-8"</span>));</span><br><span class="line">	  t.process(root, w);  <span class="comment">// 这里w是一个输出地址，可以输出到任何位置，如控制台，网页等</span></span><br><span class="line">	  w.close();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> outputStream;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DownloadUtil.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.FileUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> byteArrayOutputStream 将文件内容写入ByteArrayOutputStream</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> response HttpServletResponse	写入response</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> returnName 返回的文件名</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">download</span><span class="params">(ByteArrayOutputStream byteArrayOutputStream, HttpServletResponse response, String returnName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">	  response.setContentType(<span class="string">"application/msword"</span>);</span><br><span class="line">	  response.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + returnName);</span><br><span class="line">	  response.setContentLength(byteArrayOutputStream.size());</span><br><span class="line">	  OutputStream outputstream = response.getOutputStream();			<span class="comment">//取得输出流</span></span><br><span class="line">	  byteArrayOutputStream.writeTo(outputstream);					<span class="comment">//写到输出流</span></span><br><span class="line">	  byteArrayOutputStream.close();									<span class="comment">//关闭</span></span><br><span class="line">	  outputstream.flush();											<span class="comment">//刷数据</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://ojt4b2cr5.bkt.clouddn.com/wordDemo.zip" target="_blank" rel="noopener">点我下载</a></p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://img12345.5-project.com/wordDemo.zip" target="_blank" rel="noopener">点我下载</a></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F" target="_blank" rel="noopener">http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F</a></li>
 </ul>
@@ -260,7 +260,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2017-12-11T13:13:58.035Z" itemprop="dateUpdated">2017-12-11 21:13:58</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.516Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -484,7 +484,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -518,7 +518,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

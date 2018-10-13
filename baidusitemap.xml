@@ -4,18 +4,349 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html</loc>
-    <lastmod>2018-09-17T13:27:13.055Z</lastmod>
+    <loc>http://nullpointer.pw/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E9%83%BD%E7%94%A8%E6%96%B9%E6%A0%BC%E7%AC%94%E8%AE%B0%E6%9C%AC%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
+    <lastmod>2018-10-13T02:32:10.578Z</lastmod>
     <data>
         <display>
-        <title>和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮</title>
-        <pubTime>2018-09-17T13:27:03.000Z</pubTime>
+        <title>《聪明人都用方格笔记本》读书笔记</title>
+        <pubTime>2017-01-22T10:08:00.000Z</pubTime>
         
-        <tag>SpringDataElasticSearch高亮</tag>
+        <tag>读书</tag>
          
-        <tag>SpringDataElasticSearch关键词高亮</tag>
          
-        <tag>ElasticsearchTemplate使用</tag>
+           
+             
+              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E7%82%B9%E5%87%BB%E6%8C%89%E9%92%AE%E6%8B%B7%E8%B4%9D%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    <lastmod>2018-10-13T02:32:10.571Z</lastmod>
+    <data>
+        <display>
+        <title>点击按钮拷贝代码的实现</title>
+        <pubTime>2016-10-09T06:33:00.000Z</pubTime>
+        
+        <tag>JS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html</loc>
+    <lastmod>2018-10-13T02:32:10.565Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS快速安装</title>
+        <pubTime>2017-08-18T23:40:27.000Z</pubTime>
+        
+        <tag>centos</tag>
+         
+        <tag>虚拟机</tag>
+         
+         
+           
+             
+              <breadCrumb title="服务器" url="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9A%E8%B6%85%E5%AE%9E%E7%94%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B3%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
+    <lastmod>2018-10-13T02:32:10.559Z</lastmod>
+    <data>
+        <display>
+        <title>《如何有效阅读一本书:超实用读书笔记法》读书笔记</title>
+        <pubTime>2017-01-15T12:37:00.000Z</pubTime>
+        
+        <tag>读书</tag>
+         
+         
+           
+             
+              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%88%A9%E7%94%A8nginx%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98.html</loc>
+    <lastmod>2018-10-13T02:32:10.554Z</lastmod>
+    <data>
+        <display>
+        <title>利用nginx解决跨域问题</title>
+        <pubTime>2017-12-06T22:31:02.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>跨域问题</tag>
+         
+        <tag>反向代理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
+    <lastmod>2018-10-13T02:32:10.546Z</lastmod>
+    <data>
+        <display>
+        <title>2017年终总结</title>
+        <pubTime>2017-12-30T10:02:57.000Z</pubTime>
+        
+        <tag>年终总结</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Dom4J%E7%94%9F%E6%88%90XML.html</loc>
+    <lastmod>2018-10-13T02:32:10.539Z</lastmod>
+    <data>
+        <display>
+        <title>Dom4j生成XML</title>
+        <pubTime>2018-06-04T08:50:29.000Z</pubTime>
+        
+        <tag>XML 生成</tag>
+         
+        <tag>Dom4j</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%A7%84%E5%88%92.html</loc>
+    <lastmod>2018-10-13T02:32:10.532Z</lastmod>
+    <data>
+        <display>
+        <title>聊聊我的规划</title>
+        <pubTime>2018-08-26T14:21:10.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="闲谈" url="http://nullpointer.pw/categories/%E9%97%B2%E8%B0%88/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
+    <lastmod>2018-10-13T02:32:10.527Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx缓存配置</title>
+        <pubTime>2017-08-20T08:09:08.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>缓存</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4.html</loc>
+    <lastmod>2018-10-13T02:32:10.522Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx实现Tomcat集群</title>
+        <pubTime>2017-05-05T14:12:54.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>tomcat</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Java%E4%B9%8Bword%E5%AF%BC%E5%87%BA%E4%B8%8B%E8%BD%BD.html</loc>
+    <lastmod>2018-10-13T02:32:10.516Z</lastmod>
+    <data>
+        <display>
+        <title>Java之word导出下载</title>
+        <pubTime>2017-07-27T14:12:07.000Z</pubTime>
+        
+        <tag>word</tag>
+         
+        <tag>freemarker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
+    <lastmod>2018-10-13T02:32:10.509Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx动静分离</title>
+        <pubTime>2017-08-19T09:44:23.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>动静分离</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E9%85%8D%E7%BD%AE%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD%E7%9B%AE%E5%BD%95.html</loc>
+    <lastmod>2018-10-13T02:32:10.505Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx配置资源下载目录</title>
+        <pubTime>2017-10-26T22:25:24.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>资源下载</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html</loc>
+    <lastmod>2018-10-13T02:32:10.500Z</lastmod>
+    <data>
+        <display>
+        <title>Charles抓包实战详解</title>
+        <pubTime>2018-04-25T14:19:22.000Z</pubTime>
+        
+        <tag>Charles抓包</tag>
+         
+        <tag>抓包破解</tag>
+         
+        <tag>抓包实战</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html</loc>
+    <lastmod>2018-10-13T02:32:10.493Z</lastmod>
+    <data>
+        <display>
+        <title>SpringBoot与WebSocket集成</title>
+        <pubTime>2018-02-28T14:17:09.000Z</pubTime>
+        
+        <tag>SpringBoot</tag>
+         
+        <tag>WebSocket</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html</loc>
+    <lastmod>2018-10-13T02:32:10.487Z</lastmod>
+    <data>
+        <display>
+        <title>基于微信事件二维码推广</title>
+        <pubTime>2018-01-06T11:53:36.000Z</pubTime>
+        
+        <tag>推广系统</tag>
+         
+        <tag>推广</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E5%85%A5%E9%97%A8.html</loc>
+    <lastmod>2018-10-13T02:32:10.481Z</lastmod>
+    <data>
+        <display>
+        <title>和我一起打造个简单搜索之ElasticSearch入门</title>
+        <pubTime>2018-09-13T13:45:26.000Z</pubTime>
+        
+        <tag>ElasticSearch语法入门</tag>
          
          
            
@@ -28,8 +359,412 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/%E5%A6%82%E4%BD%95%E8%AE%B0%E7%AC%94%E8%AE%B0%EF%BC%9F.html</loc>
+    <lastmod>2018-10-13T02:32:10.475Z</lastmod>
+    <data>
+        <display>
+        <title>如何做笔记？</title>
+        <pubTime>2017-10-26T14:10:02.000Z</pubTime>
+        
+        <tag>笔记</tag>
+         
+         
+           
+             
+              <breadCrumb title="分享" url="http://nullpointer.pw/categories/%E5%88%86%E4%BA%AB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E4%BC%9A%E6%84%9F%E8%A7%89%E5%88%B0%E5%80%A6%E6%80%A0%EF%BC%9F.html</loc>
+    <lastmod>2018-10-13T02:32:10.469Z</lastmod>
+    <data>
+        <display>
+        <title>为什么我们会感觉到倦怠?</title>
+        <pubTime>2017-09-04T14:14:00.000Z</pubTime>
+        
+        <tag>读书</tag>
+         
+         
+           
+             
+              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html</loc>
+    <lastmod>2018-10-13T02:32:10.464Z</lastmod>
+    <data>
+        <display>
+        <title>微信分享踩坑之旅</title>
+        <pubTime>2018-03-17T08:32:52.000Z</pubTime>
+        
+        <tag>微信分享</tag>
+         
+        <tag>WebView同步Cookie问题</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E6%96%87%E4%BB%B6%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
+    <lastmod>2018-10-13T02:32:10.457Z</lastmod>
+    <data>
+        <display>
+        <title>阿里云CDN实现网站文件动静分离</title>
+        <pubTime>2017-08-19T23:21:04.000Z</pubTime>
+        
+        <tag>动静分离</tag>
+         
+         
+           
+             
+              <breadCrumb title="阿里云" url="http://nullpointer.pw/categories/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat.html</loc>
+    <lastmod>2018-10-13T02:32:10.452Z</lastmod>
+    <data>
+        <display>
+        <title>IDEA远程调试Tomcat</title>
+        <pubTime>2018-07-28T02:40:28.000Z</pubTime>
+        
+        <tag>Tomcat远程调试</tag>
+         
+        <tag>解决IDEA无法远程调试Tomcat</tag>
+         
+        <tag>解决IDEA远程调试断点不生效</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html</loc>
+    <lastmod>2018-10-13T02:32:10.446Z</lastmod>
+    <data>
+        <display>
+        <title>和我一起打造个简单搜索之ElasticSearch集群搭建</title>
+        <pubTime>2018-09-13T13:44:35.000Z</pubTime>
+        
+        <tag>ElasticSearch环境搭建</tag>
+         
+         
+           
+             
+              <breadCrumb title="ElasticSearch" url="http://nullpointer.pw/categories/ElasticSearch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html</loc>
+    <lastmod>2018-10-13T02:32:10.440Z</lastmod>
+    <data>
+        <display>
+        <title>Mac下VMwareFusion安装CentOS并设置静态IP</title>
+        <pubTime>2018-01-21T09:03:09.000Z</pubTime>
+        
+        <tag>VMware Fusion</tag>
+         
+        <tag>静态IP</tag>
+         
+        <tag>mac</tag>
+         
+         
+           
+             
+              <breadCrumb title="服务器" url="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Java%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0OSS%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    <lastmod>2018-10-13T02:32:10.435Z</lastmod>
+    <data>
+        <display>
+        <title>Java上传图片到OSS的实现</title>
+        <pubTime>2017-05-06T15:01:57.000Z</pubTime>
+        
+        <tag>OSS</tag>
+         
+        <tag>对象存储系统</tag>
+         
+         
+           
+             
+              <breadCrumb title="阿里云" url="http://nullpointer.pw/categories/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Mysql%E8%A1%8C%E8%BD%AC%E5%88%97%E8%BE%93%E5%87%BA%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    <lastmod>2018-10-13T02:32:10.429Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql行转列输出【实战】</title>
+        <pubTime>2017-10-09T14:44:58.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+        <tag>行转列</tag>
+         
+        <tag>实战</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据库" url="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    <lastmod>2018-10-13T02:32:10.423Z</lastmod>
+    <data>
+        <display>
+        <title>微信公众号强制关注</title>
+        <pubTime>2018-07-07T10:36:59.000Z</pubTime>
+        
+        <tag>微信公众号强制关注</tag>
+         
+        <tag>订阅号参数二维码</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    <lastmod>2018-10-13T02:32:10.418Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx图片防盗链【实战】</title>
+        <pubTime>2017-10-29T06:28:46.000Z</pubTime>
+        
+        <tag>实战</tag>
+         
+        <tag>图片防盗链</tag>
+         
+        <tag>防盗链</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html</loc>
+    <lastmod>2018-10-13T02:32:10.411Z</lastmod>
+    <data>
+        <display>
+        <title>微信域名防止屏蔽</title>
+        <pubTime>2018-03-27T13:11:17.000Z</pubTime>
+        
+        <tag>微信域名封禁</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%E4%B9%8B%E6%89%8B%E5%8A%A8%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98.html</loc>
+    <lastmod>2018-10-13T02:32:10.406Z</lastmod>
+    <data>
+        <display>
+        <title>Nginx缓存配置之手动清除缓存</title>
+        <pubTime>2017-09-10T22:15:36.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+        <tag>缓存</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E5%BC%80%E5%8F%91%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%9B%9E%E8%B0%83%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    <lastmod>2018-10-13T02:32:10.400Z</lastmod>
+    <data>
+        <display>
+        <title>微信支付开发本地接收异步通知回调【实战】</title>
+        <pubTime>2017-11-08T14:18:34.000Z</pubTime>
+        
+        <tag>实战</tag>
+         
+        <tag>nginx转发</tag>
+         
+        <tag>proxy_pass</tag>
+         
+        <tag>本地接收异步通知</tag>
+         
+         
+           
+             
+              <breadCrumb title="微信支付" url="http://nullpointer.pw/categories/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BLogstash%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.html</loc>
+    <lastmod>2018-10-13T02:32:10.392Z</lastmod>
+    <data>
+        <display>
+        <title>和我一起打造个简单搜索之Logstash实时同步建立索引</title>
+        <pubTime>2018-09-13T13:48:38.000Z</pubTime>
+        
+        <tag>ElasticSearch索引同步创建</tag>
+         
+        <tag>logstash全量同步建立es索引</tag>
+         
+        <tag>logstash增量同步建立es索引</tag>
+         
+        <tag>logstash-input-jdbc增量同步时间不对</tag>
+         
+        <tag>logstash-input-jdbc建立索引</tag>
+         
+         
+           
+             
+              <breadCrumb title="ElasticSearch" url="http://nullpointer.pw/categories/ElasticSearch/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E7%88%AC%E8%99%AB%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E6%8A%80%E5%B7%A7.html</loc>
+    <lastmod>2018-10-13T02:32:10.385Z</lastmod>
+    <data>
+        <display>
+        <title>爬虫元素选择技巧</title>
+        <pubTime>2018-08-31T14:11:06.000Z</pubTime>
+        
+        <tag>爬虫技巧</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%93%E5%8F%96.html</loc>
+    <lastmod>2018-10-13T02:32:10.376Z</lastmod>
+    <data>
+        <display>
+        <title>WebMagic实现分布式抓取以及断点抓取</title>
+        <pubTime>2018-08-04T15:30:29.000Z</pubTime>
+        
+        <tag>WebMagic分布式抓取</tag>
+         
+        <tag>WebMagic断点抓取</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/java%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1.html</loc>
+    <lastmod>2018-10-13T02:32:10.368Z</lastmod>
+    <data>
+        <display>
+        <title>java推广系统设计</title>
+        <pubTime>2017-12-03T08:06:26.000Z</pubTime>
+        
+        <tag>推广系统</tag>
+         
+        <tag>推广</tag>
+         
+        <tag>链接推广</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%A5%E9%97%A8.html</loc>
-    <lastmod>2018-09-16T09:22:05.488Z</lastmod>
+    <lastmod>2018-10-13T02:32:10.360Z</lastmod>
     <data>
         <display>
         <title>和我一起打造个简单搜索之SpringDataElasticSearch入门</title>
@@ -52,22 +787,110 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BLogstash%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.html</loc>
-    <lastmod>2018-09-16T08:56:21.683Z</lastmod>
+    <loc>http://nullpointer.pw/Maven%20%E7%A7%81%E6%9C%8D%E4%B8%8A%E4%BC%A0jar%E5%8C%85.html</loc>
+    <lastmod>2018-10-13T02:32:10.354Z</lastmod>
     <data>
         <display>
-        <title>和我一起打造个简单搜索之Logstash实时同步建立索引</title>
-        <pubTime>2018-09-13T13:48:38.000Z</pubTime>
+        <title>Maven 私服上传jar包</title>
+        <pubTime>2017-11-30T13:09:28.000Z</pubTime>
         
-        <tag>ElasticSearch索引同步创建</tag>
+        <tag>Maven私服</tag>
          
-        <tag>logstash全量同步建立es索引</tag>
+        <tag>jar包上传</tag>
          
-        <tag>logstash增量同步建立es索引</tag>
          
-        <tag>logstash-input-jdbc增量同步时间不对</tag>
+           
+             
+              <breadCrumb title="Maven" url="http://nullpointer.pw/categories/Maven/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Java%E5%AE%9E%E7%8E%B0%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%9F%BA%E4%BA%8ERedis.html</loc>
+    <lastmod>2018-10-13T02:32:10.347Z</lastmod>
+    <data>
+        <display>
+        <title>Java实现排行榜基于Redis</title>
+        <pubTime>2018-06-10T01:45:52.000Z</pubTime>
+        
+        <tag>Redis排行榜</tag>
          
-        <tag>logstash-input-jdbc建立索引</tag>
+        <tag>Java排行榜</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html</loc>
+    <lastmod>2018-10-13T02:32:10.340Z</lastmod>
+    <data>
+        <display>
+        <title>Charles抓包之HTTPS抓包配置</title>
+        <pubTime>2018-04-15T12:36:40.000Z</pubTime>
+        
+        <tag>Charles抓包</tag>
+         
+        <tag>HTTPS抓包</tag>
+         
+        <tag>Windows抓包</tag>
+         
+        <tag>抓包显示unknown</tag>
+         
+         
+           
+             
+              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html</loc>
+    <lastmod>2018-10-13T02:32:10.335Z</lastmod>
+    <data>
+        <display>
+        <title>WebMagic之爬虫监控</title>
+        <pubTime>2018-02-26T22:16:05.000Z</pubTime>
+        
+        <tag>webmagic</tag>
+         
+        <tag>爬虫监控</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html</loc>
+    <lastmod>2018-09-17T13:27:13.055Z</lastmod>
+    <data>
+        <display>
+        <title>和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮</title>
+        <pubTime>2018-09-17T13:27:03.000Z</pubTime>
+        
+        <tag>SpringDataElasticSearch高亮</tag>
+         
+        <tag>SpringDataElasticSearch关键词高亮</tag>
+         
+        <tag>ElasticsearchTemplate使用</tag>
          
          
            
@@ -103,222 +926,6 @@
     </url>
 
     
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E5%85%A5%E9%97%A8.html</loc>
-    <lastmod>2018-09-16T08:56:09.095Z</lastmod>
-    <data>
-        <display>
-        <title>和我一起打造个简单搜索之ElasticSearch入门</title>
-        <pubTime>2018-09-13T13:45:26.000Z</pubTime>
-        
-        <tag>ElasticSearch语法入门</tag>
-         
-         
-           
-             
-              <breadCrumb title="ElasticSearch" url="http://nullpointer.pw/categories/ElasticSearch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html</loc>
-    <lastmod>2018-09-16T08:55:53.433Z</lastmod>
-    <data>
-        <display>
-        <title>和我一起打造个简单搜索之ElasticSearch集群搭建</title>
-        <pubTime>2018-09-13T13:44:35.000Z</pubTime>
-        
-        <tag>ElasticSearch环境搭建</tag>
-         
-         
-           
-             
-              <breadCrumb title="ElasticSearch" url="http://nullpointer.pw/categories/ElasticSearch/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://nullpointer.pw/%E7%88%AC%E8%99%AB%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E6%8A%80%E5%B7%A7.html</loc>
-    <lastmod>2018-08-31T14:11:16.022Z</lastmod>
-    <data>
-        <display>
-        <title>爬虫元素选择技巧</title>
-        <pubTime>2018-08-31T14:11:06.000Z</pubTime>
-        
-        <tag>爬虫技巧</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%A7%84%E5%88%92.html</loc>
-    <lastmod>2018-08-26T14:21:21.275Z</lastmod>
-    <data>
-        <display>
-        <title>聊聊我的规划</title>
-        <pubTime>2018-08-26T14:21:10.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="闲谈" url="http://nullpointer.pw/categories/%E9%97%B2%E8%B0%88/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E5%BC%80%E5%8F%91%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%9B%9E%E8%B0%83%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    <lastmod>2018-08-13T13:41:26.168Z</lastmod>
-    <data>
-        <display>
-        <title>微信支付开发本地接收异步通知回调【实战】</title>
-        <pubTime>2017-11-08T14:18:34.000Z</pubTime>
-        
-        <tag>实战</tag>
-         
-        <tag>nginx转发</tag>
-         
-        <tag>proxy_pass</tag>
-         
-        <tag>本地接收异步通知</tag>
-         
-         
-           
-             
-              <breadCrumb title="微信支付" url="http://nullpointer.pw/categories/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%93%E5%8F%96.html</loc>
-    <lastmod>2018-08-04T15:37:18.211Z</lastmod>
-    <data>
-        <display>
-        <title>WebMagic实现分布式抓取以及断点抓取</title>
-        <pubTime>2018-08-04T15:30:29.000Z</pubTime>
-        
-        <tag>WebMagic分布式抓取</tag>
-         
-        <tag>WebMagic断点抓取</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat.html</loc>
-    <lastmod>2018-07-28T02:46:36.012Z</lastmod>
-    <data>
-        <display>
-        <title>IDEA远程调试Tomcat</title>
-        <pubTime>2018-07-28T02:40:28.000Z</pubTime>
-        
-        <tag>Tomcat远程调试</tag>
-         
-        <tag>解决IDEA无法远程调试Tomcat</tag>
-         
-        <tag>解决IDEA远程调试断点不生效</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    <lastmod>2018-07-07T10:39:15.789Z</lastmod>
-    <data>
-        <display>
-        <title>微信公众号强制关注</title>
-        <pubTime>2018-07-07T10:36:59.000Z</pubTime>
-        
-        <tag>微信公众号强制关注</tag>
-         
-        <tag>订阅号参数二维码</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Java%E5%AE%9E%E7%8E%B0%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%9F%BA%E4%BA%8ERedis.html</loc>
-    <lastmod>2018-06-10T01:46:23.585Z</lastmod>
-    <data>
-        <display>
-        <title>Java实现排行榜基于Redis</title>
-        <pubTime>2018-06-10T01:45:52.000Z</pubTime>
-        
-        <tag>Redis排行榜</tag>
-         
-        <tag>Java排行榜</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Dom4J%E7%94%9F%E6%88%90XML.html</loc>
-    <lastmod>2018-06-04T08:50:40.685Z</lastmod>
-    <data>
-        <display>
-        <title>Dom4j生成XML</title>
-        <pubTime>2018-06-04T08:50:29.000Z</pubTime>
-        
-        <tag>XML 生成</tag>
-         
-        <tag>Dom4j</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://nullpointer.pw/jsonpath%E8%A7%A3%E6%9E%90.html</loc>
@@ -369,142 +976,6 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html</loc>
-    <lastmod>2018-04-25T14:19:40.613Z</lastmod>
-    <data>
-        <display>
-        <title>Charles抓包实战详解</title>
-        <pubTime>2018-04-25T14:19:22.000Z</pubTime>
-        
-        <tag>Charles抓包</tag>
-         
-        <tag>抓包破解</tag>
-         
-        <tag>抓包实战</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html</loc>
-    <lastmod>2018-04-15T12:37:41.253Z</lastmod>
-    <data>
-        <display>
-        <title>Charles抓包之HTTPS抓包配置</title>
-        <pubTime>2018-04-15T12:36:40.000Z</pubTime>
-        
-        <tag>Charles抓包</tag>
-         
-        <tag>HTTPS抓包</tag>
-         
-        <tag>Windows抓包</tag>
-         
-        <tag>抓包显示unknown</tag>
-         
-         
-           
-             
-              <breadCrumb title="工具" url="http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html</loc>
-    <lastmod>2018-03-27T13:15:24.968Z</lastmod>
-    <data>
-        <display>
-        <title>微信域名防止屏蔽</title>
-        <pubTime>2018-03-27T13:11:17.000Z</pubTime>
-        
-        <tag>微信域名封禁</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html</loc>
-    <lastmod>2018-03-17T08:34:15.891Z</lastmod>
-    <data>
-        <display>
-        <title>微信分享踩坑之旅</title>
-        <pubTime>2018-03-17T08:32:52.000Z</pubTime>
-        
-        <tag>微信分享</tag>
-         
-        <tag>WebView同步Cookie问题</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html</loc>
-    <lastmod>2018-02-28T14:19:53.687Z</lastmod>
-    <data>
-        <display>
-        <title>SpringBoot与WebSocket集成</title>
-        <pubTime>2018-02-28T14:17:09.000Z</pubTime>
-        
-        <tag>SpringBoot</tag>
-         
-        <tag>WebSocket</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html</loc>
-    <lastmod>2018-02-26T22:29:06.761Z</lastmod>
-    <data>
-        <display>
-        <title>WebMagic之爬虫监控</title>
-        <pubTime>2018-02-26T22:16:05.000Z</pubTime>
-        
-        <tag>webmagic</tag>
-         
-        <tag>爬虫监控</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://nullpointer.pw/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html</loc>
     <lastmod>2018-01-27T13:13:31.824Z</lastmod>
     <data>
@@ -525,88 +996,6 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html</loc>
-    <lastmod>2018-01-27T13:10:41.799Z</lastmod>
-    <data>
-        <display>
-        <title>基于微信事件二维码推广</title>
-        <pubTime>2018-01-06T11:53:36.000Z</pubTime>
-        
-        <tag>推广系统</tag>
-         
-        <tag>推广</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html</loc>
-    <lastmod>2018-01-21T09:03:57.138Z</lastmod>
-    <data>
-        <display>
-        <title>Mac下VMwareFusion安装CentOS并设置静态IP</title>
-        <pubTime>2018-01-21T09:03:09.000Z</pubTime>
-        
-        <tag>VMware Fusion</tag>
-         
-        <tag>静态IP</tag>
-         
-        <tag>mac</tag>
-         
-         
-           
-             
-              <breadCrumb title="服务器" url="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
-    <lastmod>2017-12-30T10:09:16.907Z</lastmod>
-    <data>
-        <display>
-        <title>2017年终总结</title>
-        <pubTime>2017-12-30T10:02:57.000Z</pubTime>
-        
-        <tag>年终总结</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Java%E4%B9%8Bword%E5%AF%BC%E5%87%BA%E4%B8%8B%E8%BD%BD.html</loc>
-    <lastmod>2017-12-11T13:13:58.035Z</lastmod>
-    <data>
-        <display>
-        <title>Java之word导出下载</title>
-        <pubTime>2017-07-27T14:12:07.000Z</pubTime>
-        
-        <tag>word</tag>
-         
-        <tag>freemarker</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html</loc>
     <lastmod>2017-12-06T22:51:15.308Z</lastmod>
     <data>
@@ -620,395 +1009,6 @@
            
              
               <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%88%A9%E7%94%A8nginx%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98.html</loc>
-    <lastmod>2017-12-06T22:35:37.045Z</lastmod>
-    <data>
-        <display>
-        <title>利用nginx解决跨域问题</title>
-        <pubTime>2017-12-06T22:31:02.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>跨域问题</tag>
-         
-        <tag>反向代理</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/java%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1.html</loc>
-    <lastmod>2017-12-03T11:08:05.064Z</lastmod>
-    <data>
-        <display>
-        <title>java推广系统设计</title>
-        <pubTime>2017-12-03T08:06:26.000Z</pubTime>
-        
-        <tag>推广系统</tag>
-         
-        <tag>推广</tag>
-         
-        <tag>链接推广</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    <lastmod>2017-12-03T11:03:22.644Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx图片防盗链【实战】</title>
-        <pubTime>2017-10-29T06:28:46.000Z</pubTime>
-        
-        <tag>实战</tag>
-         
-        <tag>图片防盗链</tag>
-         
-        <tag>防盗链</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4.html</loc>
-    <lastmod>2017-12-03T11:02:55.140Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx实现Tomcat集群</title>
-        <pubTime>2017-05-05T14:12:54.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>tomcat</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E9%85%8D%E7%BD%AE%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD%E7%9B%AE%E5%BD%95.html</loc>
-    <lastmod>2017-12-03T11:02:48.972Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx配置资源下载目录</title>
-        <pubTime>2017-10-26T22:25:24.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>资源下载</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%E4%B9%8B%E6%89%8B%E5%8A%A8%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98.html</loc>
-    <lastmod>2017-12-03T11:02:42.786Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx缓存配置之手动清除缓存</title>
-        <pubTime>2017-09-10T22:15:36.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>缓存</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
-    <lastmod>2017-12-03T11:02:31.803Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx缓存配置</title>
-        <pubTime>2017-08-20T08:09:08.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>缓存</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
-    <lastmod>2017-12-03T11:02:15.572Z</lastmod>
-    <data>
-        <display>
-        <title>Nginx动静分离</title>
-        <pubTime>2017-08-19T09:44:23.000Z</pubTime>
-        
-        <tag>nginx</tag>
-         
-        <tag>动静分离</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Mysql%E8%A1%8C%E8%BD%AC%E5%88%97%E8%BE%93%E5%87%BA%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    <lastmod>2017-12-03T11:02:00.239Z</lastmod>
-    <data>
-        <display>
-        <title>Mysql行转列输出【实战】</title>
-        <pubTime>2017-10-09T14:44:58.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>行转列</tag>
-         
-        <tag>实战</tag>
-         
-         
-           
-             
-              <breadCrumb title="数据库" url="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Maven%20%E7%A7%81%E6%9C%8D%E4%B8%8A%E4%BC%A0jar%E5%8C%85.html</loc>
-    <lastmod>2017-12-03T11:01:39.054Z</lastmod>
-    <data>
-        <display>
-        <title>Maven 私服上传jar包</title>
-        <pubTime>2017-11-30T13:09:28.000Z</pubTime>
-        
-        <tag>Maven私服</tag>
-         
-        <tag>jar包上传</tag>
-         
-         
-           
-             
-              <breadCrumb title="Maven" url="http://nullpointer.pw/categories/Maven/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/Java%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0OSS%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    <lastmod>2017-12-03T11:00:44.683Z</lastmod>
-    <data>
-        <display>
-        <title>Java上传图片到OSS的实现</title>
-        <pubTime>2017-05-06T15:01:57.000Z</pubTime>
-        
-        <tag>OSS</tag>
-         
-        <tag>对象存储系统</tag>
-         
-         
-           
-             
-              <breadCrumb title="阿里云" url="http://nullpointer.pw/categories/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html</loc>
-    <lastmod>2017-12-03T11:00:22.919Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS快速安装</title>
-        <pubTime>2017-08-18T23:40:27.000Z</pubTime>
-        
-        <tag>centos</tag>
-         
-        <tag>虚拟机</tag>
-         
-         
-           
-             
-              <breadCrumb title="服务器" url="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E4%BC%9A%E6%84%9F%E8%A7%89%E5%88%B0%E5%80%A6%E6%80%A0%EF%BC%9F.html</loc>
-    <lastmod>2017-12-03T11:00:08.493Z</lastmod>
-    <data>
-        <display>
-        <title>为什么我们会感觉到倦怠?</title>
-        <pubTime>2017-09-04T14:14:00.000Z</pubTime>
-        
-        <tag>读书</tag>
-         
-         
-           
-             
-              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E5%A6%82%E4%BD%95%E8%AE%B0%E7%AC%94%E8%AE%B0%EF%BC%9F.html</loc>
-    <lastmod>2017-12-03T10:59:43.890Z</lastmod>
-    <data>
-        <display>
-        <title>如何做笔记？</title>
-        <pubTime>2017-10-26T14:10:02.000Z</pubTime>
-        
-        <tag>笔记</tag>
-         
-         
-           
-             
-              <breadCrumb title="分享" url="http://nullpointer.pw/categories/%E5%88%86%E4%BA%AB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E7%82%B9%E5%87%BB%E6%8C%89%E9%92%AE%E6%8B%B7%E8%B4%9D%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    <lastmod>2017-12-03T10:58:55.500Z</lastmod>
-    <data>
-        <display>
-        <title>点击按钮拷贝代码的实现</title>
-        <pubTime>2016-10-09T06:33:00.000Z</pubTime>
-        
-        <tag>JS</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E6%96%87%E4%BB%B6%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
-    <lastmod>2017-12-03T10:58:46.334Z</lastmod>
-    <data>
-        <display>
-        <title>阿里云CDN实现网站文件动静分离</title>
-        <pubTime>2017-08-19T23:21:04.000Z</pubTime>
-        
-        <tag>动静分离</tag>
-         
-         
-           
-             
-              <breadCrumb title="阿里云" url="http://nullpointer.pw/categories/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9A%E8%B6%85%E5%AE%9E%E7%94%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B3%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
-    <lastmod>2017-12-03T10:58:20.561Z</lastmod>
-    <data>
-        <display>
-        <title>《如何有效阅读一本书:超实用读书笔记法》读书笔记</title>
-        <pubTime>2017-01-15T12:37:00.000Z</pubTime>
-        
-        <tag>读书</tag>
-         
-         
-           
-             
-              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E9%83%BD%E7%94%A8%E6%96%B9%E6%A0%BC%E7%AC%94%E8%AE%B0%E6%9C%AC%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
-    <lastmod>2017-12-03T10:57:55.651Z</lastmod>
-    <data>
-        <display>
-        <title>《聪明人都用方格笔记本》读书笔记</title>
-        <pubTime>2017-01-22T10:08:00.000Z</pubTime>
-        
-        <tag>读书</tag>
-         
-         
-           
-             
-              <breadCrumb title="读书" url="http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/"/>
           
         </display>
     </data>

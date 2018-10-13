@@ -35,15 +35,15 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="前言之前写了一篇关于推广系统设计的博客，在那篇博客中介绍了统一的推广地址生成的方法，只举例说明了一种推广的方式，本篇博客讲解另外一种推广方式，基于微信事件二维码的方式。需要注意的是，事件二维码只有服务号有此接口权限，订阅号是没有该接口权限的，当然如果没有服务号的话，想学习一下接口的使用，微信官方提供的测试号可以使用该接口。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018010615152212998383.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018010615152200274759.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018010615152206445930.png">
-<meta property="og:image" content="http://ojt4b2cr5.bkt.clouddn.com/20180106151522725276515.png">
-<meta property="og:updated_time" content="2018-01-27T13:10:41.799Z">
+<meta property="og:image" content="http://img12345.5-project.com/2018010615152212998383.png">
+<meta property="og:image" content="http://img12345.5-project.com/2018010615152200274759.png">
+<meta property="og:image" content="http://img12345.5-project.com/2018010615152206445930.png">
+<meta property="og:image" content="http://img12345.5-project.com/20180106151522725276515.png">
+<meta property="og:updated_time" content="2018-10-13T02:32:10.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于微信事件二维码推广">
 <meta name="twitter:description" content="前言之前写了一篇关于推广系统设计的博客，在那篇博客中介绍了统一的推广地址生成的方法，只举例说明了一种推广的方式，本篇博客讲解另外一种推广方式，基于微信事件二维码的方式。需要注意的是，事件二维码只有服务号有此接口权限，订阅号是没有该接口权限的，当然如果没有服务号的话，想学习一下接口的使用，微信官方提供的测试号可以使用该接口。">
-<meta name="twitter:image" content="http://ojt4b2cr5.bkt.clouddn.com/2018010615152212998383.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/2018010615152212998383.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -206,14 +206,14 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/2018010615152212998383.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/2018010615152212998383.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
 <h2 id="创建事件二维码"><a href="#创建事件二维码" class="headerlink" title="创建事件二维码"></a>创建事件二维码</h2><p>为了便于演示，我的项目是基于 SpringBoot 搭建。本项目使用的是微信测试号，可以在此处进行申请 <strong><a href="https://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank" rel="noopener">微信测试号</a></strong>。appID 与 appsecret 在微信测试号中可以得到。<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/2018010615152200274759.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/2018010615152200274759.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure></p>
@@ -244,7 +244,7 @@
 <li>打开生成的二维码链接，短链接 URL 格式如： <strong><a href="https://w.url.cn/s/xxxxx" target="_blank" rel="noopener">https://w.url.cn/s/xxxxx</a></strong> 使用微信进行扫描，会进入提示关注的页面。<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/2018010615152206445930.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/2018010615152206445930.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -259,7 +259,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="http://ojt4b2cr5.bkt.clouddn.com/20180106151522725276515.png" alt="" title="">
+                    <img src="http://img12345.5-project.com/20180106151522725276515.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
@@ -272,7 +272,7 @@
 </li>
 </ol>
 <p>可以针对这种情况的进行处理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubscribeHandler</span> <span class="keyword">extends</span> <span class="title">AbstractHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> WxMpXmlOutMessage <span class="title">handle</span><span class="params">(WxMpXmlMessage wxMessage,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  Map&lt;String, Object&gt; context, WxMpService weixinService,</span></span></span><br><span class="line"><span class="function"><span class="params">                                  WxSessionManager sessionManager)</span> <span class="keyword">throws</span> WxErrorException </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.logger.info(<span class="string">"新关注用户 OPENID: "</span> + wxMessage.getFromUser());</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*// 获取微信用户基本信息</span></span><br><span class="line"><span class="comment">    WxMpUser userWxInfo = weixinService.getUserService()</span></span><br><span class="line"><span class="comment">        .userInfo(wxMessage.getFromUser(), null);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    if (userWxInfo != null) &#123;</span></span><br><span class="line"><span class="comment">      // TODO 可以添加关注用户到本地</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    WxMpXmlOutMessage responseResult = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      responseResult = handleSpecial(wxMessage);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      <span class="keyword">this</span>.logger.error(e.getMessage(), e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (responseResult != <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> responseResult;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">new</span> TextBuilder().build(<span class="string">"感谢关注"</span>, wxMessage, weixinService);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      <span class="keyword">this</span>.logger.error(e.getMessage(), e);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 处理特殊请求，比如如果是扫码进来的，可以做相应处理</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> WxMpXmlOutMessage <span class="title">handleSpecial</span><span class="params">(WxMpXmlMessage wxMessage)</span></span></span><br><span class="line"><span class="function">      <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">      <span class="comment">/* 微信返回数据示例</span></span><br><span class="line"><span class="comment">      &#123;</span></span><br><span class="line"><span class="comment">              "createTime": 1515235853,</span></span><br><span class="line"><span class="comment">              "event": "subscribe",</span></span><br><span class="line"><span class="comment">              "eventKey": "qrscene_hello wechat",</span></span><br><span class="line"><span class="comment">              "fromUser": "onbpEv3umpi7ihx381D-vpw1SEwE",</span></span><br><span class="line"><span class="comment">              "msgType": "event",</span></span><br><span class="line"><span class="comment">              "ticket": "gQA",</span></span><br><span class="line"><span class="comment">              "toUser": "gh_96fd4ea38axx"</span></span><br><span class="line"><span class="comment">      &#125;*/</span></span><br><span class="line">      <span class="comment">// 如果是扫描</span></span><br><span class="line">      <span class="keyword">if</span> (wxMessage.getEventKey().startsWith(<span class="string">"qrscene_"</span>)) &#123;</span><br><span class="line">          <span class="comment">// 在此处进行绑定操作</span></span><br><span class="line">          System.out.println();</span><br><span class="line">      &#125;</span><br><span class="line">      System.out.println(JSONObject.toJSONString(wxMessage));</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://ojt4b2cr5.bkt.clouddn.com/wechat-simple-example.zip" target="_blank" rel="noopener">示例工程下载</a></p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://img12345.5-project.com/wechat-simple-example.zip" target="_blank" rel="noopener">示例工程下载</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://github.com/Wechat-Group/weixin-java-tools/blob/master/demo.md" target="_blank" rel="noopener">https://github.com/Wechat-Group/weixin-java-tools/blob/master/demo.md</a></li>
 </ul>
@@ -283,7 +283,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-01-27T13:10:41.799Z" itemprop="dateUpdated">2018-01-27 21:10:41</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.487Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -507,7 +507,7 @@
 
 
 
-    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
 var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
@@ -541,7 +541,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 
 
-<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
