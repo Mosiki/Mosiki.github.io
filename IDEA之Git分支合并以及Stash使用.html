@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>IDEA之Git分支以及Stash使用 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="IDEA Git分支合并,IDEA 使用Stash,IDEA 处理分支合并冲突">
+    <meta name="description" content="随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 I">
+<meta name="keywords" content="IDEA Git分支合并,IDEA 使用Stash,IDEA 处理分支合并冲突">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDEA之Git分支以及Stash使用">
+<meta property="og:url" content="http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171518.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171616.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171703.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171807.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102172230.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102172650.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171807.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102173946.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102174125.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102171518.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102174704.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102175031.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102175217.png">
+<meta property="og:image" content="http://img12345.5-project.com/2018110315412022049329.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102175435.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102180114.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102180427.png">
+<meta property="og:image" content="http://img12345.5-project.com/20181103154120204424605.png">
+<meta property="og:image" content="http://img12345.5-project.com/2018110315412022049329.png">
+<meta property="og:image" content="http://img12345.5-project.com/20181103154120268155941.png">
+<meta property="og:image" content="http://img12345.5-project.com/20181103154120276883579.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181102180114.png">
+<meta property="og:updated_time" content="2018-11-03T00:32:22.013Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IDEA之Git分支以及Stash使用">
+<meta name="twitter:description" content="随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20181102171518.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">IDEA之Git分支以及Stash使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">IDEA之Git分支以及Stash使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-03T00:31:42.000Z" itemprop="datePublished" class="page-time">
+  2018-11-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dev-100-分支创建"><span class="post-toc-number">2.</span> <span class="post-toc-text">dev-100 分支创建</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#dev-100-分支代码开发"><span class="post-toc-number">3.</span> <span class="post-toc-text">dev-100 分支代码开发</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分支合并"><span class="post-toc-number">4.</span> <span class="post-toc-text">分支合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#取消分支合并"><span class="post-toc-number">5.</span> <span class="post-toc-text">取消分支合并</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决合并冲突问题"><span class="post-toc-number">6.</span> <span class="post-toc-text">解决合并冲突问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码暂存之git-stash"><span class="post-toc-number">7.</span> <span class="post-toc-text">代码暂存之git stash</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码暂存还原"><span class="post-toc-number">8.</span> <span class="post-toc-text">代码暂存还原</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-number">9.</span> <span class="post-toc-text">结语</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-IDEA之Git分支合并以及Stash使用"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">IDEA之Git分支以及Stash使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-03 08:31:42" datetime="2018-11-03T00:31:42.000Z"  itemprop="datePublished">2018-11-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。</p>
+<a id="more"></a>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>为了延时，先用 IDEA 创建一个简单工程，提交到 git 远程仓库当中。<br><img src="http://img12345.5-project.com/blog/20181102171518.png" alt=""></p>
+<h2 id="dev-100-分支创建"><a href="#dev-100-分支创建" class="headerlink" title="dev-100 分支创建"></a>dev-100 分支创建</h2><p>现在接到了一个编号为 100 的需求，我们在 master 基础上，创建 dev-100 分支<br><img src="http://img12345.5-project.com/blog/20181102171616.png" alt=""><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181102171703.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>创建新分支 dev-100的同时，并切换到 dev-100 分支。  </p>
+<h2 id="dev-100-分支代码开发"><a href="#dev-100-分支代码开发" class="headerlink" title="dev-100 分支代码开发"></a>dev-100 分支代码开发</h2><p>在 dev-100 分支编写需求编号为 100 的 功能，代码完成后进行 <code>commit</code> 以及 <code>push</code>（<strong>如果这个分支只有你一个人在开发的话，就不用 <code>push</code> 到远程分支了，只需要 <code>commit</code> 即可</strong>）<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181102171807.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h2><p>现在我们要把 dev-100 分支上的代码合并到 master 主分支上<br>先切换到 master 分支<br><img src="http://img12345.5-project.com/blog/20181102172230.png" alt=""></p>
+<p>合并 dev-100 分支到 master 分支之前，建议先对 master 代码进行 pull 更新操作，然后再执行 Merge  into Current<br><img src="http://img12345.5-project.com/blog/20181102172650.png" alt=""></p>
+<p>如果没有冲突，dev-100 中的代码就会被合并到 master 分支上了，合并成功后，需要 <code>push</code> 才能推送到远程仓库<br><img src="http://img12345.5-project.com/blog/20181102171807.png" alt=""></p>
+<h2 id="取消分支合并"><a href="#取消分支合并" class="headerlink" title="取消分支合并"></a>取消分支合并</h2><p>合并完成后，但是由于一些问题，我们想要取消本次合并，右键 git，选择 Reset HEAD<br><img src="http://img12345.5-project.com/blog/20181102173946.png" alt=""><br><img src="http://img12345.5-project.com/blog/20181102174125.png" alt=""></p>
+<p>HEAD^ 是还原到上一个版本，HEAD^^ 是还原到上上一个版本。<br>Reset Type 有三种：</p>
+<ul>
+<li>mixed   默认方式，只保留源码，回退commit和index信息</li>
+<li>soft      回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit</li>
+<li>hard    彻底回退，本地源码也会变成上一个版本内容</li>
+</ul>
+<p>一般使用默认的 mixed 或者粗暴的 hard 方式。<br>我们这里是取消合并，所以选择 <strong><code>Hard</code></strong> 方式，并且是<strong><code>HEAD^</code></strong>还原到上一个版本，回退后恢复了原来 master 的代码。<br><img src="http://img12345.5-project.com/blog/20181102171518.png" alt=""></p>
+<h2 id="解决合并冲突问题"><a href="#解决合并冲突问题" class="headerlink" title="解决合并冲突问题"></a>解决合并冲突问题</h2><p>接下来演示合并冲突，此时是在 master 分支，我们修改文件，并 commit 以及 push 到远程仓库。<br><img src="http://img12345.5-project.com/blog/20181102174704.png" alt=""></p>
+<p>此时再把 dev-100 分支合并到 master 分支就会提示冲突。<br><img src="http://img12345.5-project.com/blog/20181102175031.png" alt=""></p>
+<p>双击冲突文件，处理冲突。<br><img src="http://img12345.5-project.com/blog/20181102175217.png" alt=""><br>处理完成后，点击 apply 即可，如果有多个冲突文件，都按照这种方式处理，这是我们处理完冲突之后的代码。<br><img src="http://img12345.5-project.com/2018110315412022049329.png" alt=""></p>
+<p>dev-100 分支已经被成功合并到 master 了，就可以删除了。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181102175435.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>此时删除的是本地分支，需要 push 到远程，远程的 dev-100 分支才会被删除掉。</p>
+<p>现在我们把分支合并的结果和 dev-100 分支删除的信息 push 到远程仓库。</p>
+<h2 id="代码暂存之git-stash"><a href="#代码暂存之git-stash" class="headerlink" title="代码暂存之git stash"></a>代码暂存之git stash</h2><p>编号 100 的需求完成之后，现在我们又接到一个新的需求，正在 dev-101 分支进行开发，开发还未完成。<br><img src="http://img12345.5-project.com/blog/20181102180114.png" alt=""></p>
+<p>突然线上出现 bug，需要我们紧急进行修改，于是我们要基于最新的 master 分支新建一个 bug 分支 bug-12，需要先切换到 master 分支，但是当前分支的代码没有commit， 如果直接切换到 master 分支的话，dev-101 分支上的新增代码就会跑到 master 分支，而代码又不能此时 commit ，于是就轮到 stash 出场了。<br><img src="http://img12345.5-project.com/blog/20181102180427.png" alt=""><br>Stash 会保存当前工作进度，会把暂存区和工作区的改动保存起来。<br><img src="http://img12345.5-project.com/20181103154120204424605.png" alt=""><br>添加备注，选择 <strong>CREATE STASH</strong>。你会发现当前工作区内的代码被恢复成了原样。<br><img src="http://img12345.5-project.com/2018110315412022049329.png" alt=""></p>
+<h2 id="代码暂存还原"><a href="#代码暂存还原" class="headerlink" title="代码暂存还原"></a>代码暂存还原</h2><p>此刻切换到 master 分支，并创建 bug-12 分支进行修复 bug，修复完成后合并到 master 分支并 push 到远程仓库，上文已经演示如何合并，在此不再赘述。</p>
+<p>将 bug-12 与 master 合并完成之后，现在要接着写 dev-101 需求代码，首先先切换到 dev-101 分支；<br>但是之前的代码已经被我们放到了 git 的 stash 当中，我们现在要把代码还原到工作区当中。<br>选择 Unstash Changes<br><img src="http://img12345.5-project.com/20181103154120268155941.png" alt=""><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/20181103154120276883579.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure><br>选择之前保存的，同时勾选  Pop stash（还原完成后，会自动删除这个 stash），确定后，工作区之前写的代码就又回来了。<br><img src="http://img12345.5-project.com/blog/20181102180114.png" alt=""></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Stash 利用好了，就可以自如切换分支，面对突如其来的需求也不必烦恼了~</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-03T00:32:22.013Z" itemprop="dateUpdated">2018-11-03 08:32:22</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/IDEA之Git分支合并以及Stash使用.html" target="_blank" rel="external">http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA-Git分支合并/">IDEA Git分支合并</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA-使用Stash/">IDEA 使用Stash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IDEA-处理分支合并冲突/">IDEA 处理分支合并冲突</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&title=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&title=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&source=随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/MongoDB极简实践入门.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">MongoDB 极简实践入门</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&title=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&title=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&source=随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《IDEA之Git分支以及Stash使用》 — WeJan's Blog&url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/IDEA之Git分支合并以及Stash使用.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACs0lEQVR42u3awW7bMBAE0Pz/T7vXFmnsmV3SNYqnkxEoEh8PXGqWX1/x9fh2/f7377/bJzy/kuevLjw8PLz10J8PIh9uOwXP788nBQ8PD+89vPw17Zr801Tma3g+Hjw8PLzP5LWveV429kUCDw8P7//g5YVhFkbg4eHhfQJvFqG+CALiScwj4ItZCx4eHl7MO7W1fefvK/09PDw8vHVXPS8S+TLdlod28/3Hc/Dw8PAu8Np2fo5s21r5oYR2nHh4eHi3eUmzKl/621CjfUI0EXh4eHgXeJvYtI1rZ4A2LvmaVTk8PDy8mNcuu+0GN4+G8yZWMSo8PDy8o7xkA93GCrNi0DKGJQEPDw9vzds0pfKQIj+wlUcPReMNDw8P7zIvjxJmAWvb9MpX+zqlxsPDw1vzZstxOxGzsCN544vCgIeHh3eBd7aHtjk4NQtHjg0aDw8P7+k97Yd9+7sNfx/xFX0A4OHh4V3mbXpGyZ35tjgpLVGxwcPDw7vAy1+TLPqb4OBFoDCKm/Hw8PBu8E4dumqj21kcXJcuPDw8vAu85HH3htgWmFk4goeHh3eWd6rNn7e+8pA3LwY/vhcPDw/vAm8T2s4GtH9mfawBDw8P7ygv/+DPI9Q86s2flpSTKGvBw8PDW/Ny2Ca0bdtps8kqttR4eHh4F3hJIJufTdgHwe3xheawBB4eHt55Xrv0t08++5a6MODh4eFd4LURwO0yswpz8fDw8Na8R3ntN8TFVrgMdv+CxMPDw7vAaxfcJKLNo9s8tN034fDw8PDO8k4Vg1NHCmYb9xcxLh4eHt4FXhIZtPck7atVvRrGL3h4eHj/hjeLbmdLf3ssDA8PD+8zebNIYnNnPk14eHh47+Ftjj3tC8km7IhORuDh4eEd5bVf9Hn82h7M2scZBwILPDw8vGf/+wvBUzXKnrrBGwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
