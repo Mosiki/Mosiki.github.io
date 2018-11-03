@@ -57,7 +57,7 @@
 <meta property="og:image" content="http://img12345.5-project.com/20181103154120268155941.png">
 <meta property="og:image" content="http://img12345.5-project.com/20181103154120276883579.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102180114.png">
-<meta property="og:updated_time" content="2018-11-03T00:32:22.013Z">
+<meta property="og:updated_time" content="2018-11-03T06:21:44.305Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDEA之Git分支以及Stash使用">
 <meta name="twitter:description" content="随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。">
@@ -148,7 +148,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -167,8 +167,8 @@
         <h1 class="title">IDEA之Git分支以及Stash使用</h1>
         <h5 class="subtitle">
             
-                <time datetime="2018-11-03T00:31:42.000Z" itemprop="datePublished" class="page-time">
-  2018-11-03
+                <time datetime="2018-10-31T00:31:42.000Z" itemprop="datePublished" class="page-time">
+  2018-10-31
 </time>
 
 
@@ -199,7 +199,7 @@
     <div class="post-card">
         <h1 class="post-card-title">IDEA之Git分支以及Stash使用</h1>
         <div class="post-meta">
-            <time class="post-time" title="2018-11-03 08:31:42" datetime="2018-11-03T00:31:42.000Z"  itemprop="datePublished">2018-11-03</time>
+            <time class="post-time" title="2018-10-31 08:31:42" datetime="2018-10-31T00:31:42.000Z"  itemprop="datePublished">2018-10-31</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
@@ -216,14 +216,9 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。</p>
 <a id="more"></a>
-<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>为了延时，先用 IDEA 创建一个简单工程，提交到 git 远程仓库当中。<br><img src="http://img12345.5-project.com/blog/20181102171518.png" alt=""></p>
-<h2 id="dev-100-分支创建"><a href="#dev-100-分支创建" class="headerlink" title="dev-100 分支创建"></a>dev-100 分支创建</h2><p>现在接到了一个编号为 100 的需求，我们在 master 基础上，创建 dev-100 分支<br><img src="http://img12345.5-project.com/blog/20181102171616.png" alt=""><br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20181102171703.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure><br>创建新分支 dev-100的同时，并切换到 dev-100 分支。  </p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>为了演示，先用 IDEA 创建一个简单工程，提交到 git 远程仓库当中。<br><img src="http://img12345.5-project.com/blog/20181102171518.png" alt=""></p>
+<h2 id="dev-100-分支创建"><a href="#dev-100-分支创建" class="headerlink" title="dev-100 分支创建"></a>dev-100 分支创建</h2><p>现在接到了一个编号为 100 的需求，我们在 master 基础上，创建 dev-100 分支<br><img src="http://img12345.5-project.com/blog/20181102171616.png" alt="">  </p>
+<p>创建新分支 dev-100的同时，并切换到 dev-100 分支。<br><img src="http://img12345.5-project.com/blog/20181102171703.png" alt="">  </p>
 <h2 id="dev-100-分支代码开发"><a href="#dev-100-分支代码开发" class="headerlink" title="dev-100 分支代码开发"></a>dev-100 分支代码开发</h2><p>在 dev-100 分支编写需求编号为 100 的 功能，代码完成后进行 <code>commit</code> 以及 <code>push</code>（<strong>如果这个分支只有你一个人在开发的话，就不用 <code>push</code> 到远程分支了，只需要 <code>commit</code> 即可</strong>）<br><figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -271,7 +266,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-03T00:32:22.013Z" itemprop="dateUpdated">2018-11-03 08:32:22</time>
+    Last updated: <time datetime="2018-11-03T06:21:44.305Z" itemprop="dateUpdated">2018-11-03 14:21:44</time>
 </span><br>
 
 
@@ -424,7 +419,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
