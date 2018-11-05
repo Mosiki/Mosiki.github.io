@@ -49,7 +49,6 @@
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102175031.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102175217.png">
 <meta property="og:image" content="http://img12345.5-project.com/2018110315412022049329.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20181102175435.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102180114.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102180427.png">
 <meta property="og:image" content="http://img12345.5-project.com/20181103154120204424605.png">
@@ -57,7 +56,7 @@
 <meta property="og:image" content="http://img12345.5-project.com/20181103154120268155941.png">
 <meta property="og:image" content="http://img12345.5-project.com/20181103154120276883579.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181102180114.png">
-<meta property="og:updated_time" content="2018-11-03T06:21:44.305Z">
+<meta property="og:updated_time" content="2018-11-05T13:07:26.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IDEA之Git分支以及Stash使用">
 <meta name="twitter:description" content="随着公司开发人员的增加，以及多需求的并行开发，功能上线就会碍手碍脚；害怕自己没写完的代码被别人部署到线上，害怕别人代码没写完被自己部署到线上；总之功能上线之前还要和所有开发沟通，能不能部署代码？如果只是几个人的团队倒也无妨，但是开发人员多了，沟通成本就很高了。于是 Git 的分支就发挥它的作用了，本文讲解工作中使用 IDEA 进行分支的管理以及合并，以及其他 Git 使用技巧。">
@@ -240,14 +239,8 @@
 <h2 id="解决合并冲突问题"><a href="#解决合并冲突问题" class="headerlink" title="解决合并冲突问题"></a>解决合并冲突问题</h2><p>接下来演示合并冲突，此时是在 master 分支，我们修改文件，并 commit 以及 push 到远程仓库。<br><img src="http://img12345.5-project.com/blog/20181102174704.png" alt=""></p>
 <p>此时再把 dev-100 分支合并到 master 分支就会提示冲突。<br><img src="http://img12345.5-project.com/blog/20181102175031.png" alt=""></p>
 <p>双击冲突文件，处理冲突。<br><img src="http://img12345.5-project.com/blog/20181102175217.png" alt=""><br>处理完成后，点击 apply 即可，如果有多个冲突文件，都按照这种方式处理，这是我们处理完冲突之后的代码。<br><img src="http://img12345.5-project.com/2018110315412022049329.png" alt=""></p>
-<p>dev-100 分支已经被成功合并到 master 了，就可以删除了。<br><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20181102175435.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure><br>此时删除的是本地分支，需要 push 到远程，远程的 dev-100 分支才会被删除掉。</p>
-<p>现在我们把分支合并的结果和 dev-100 分支删除的信息 push 到远程仓库。</p>
+<p>dev-100 分支已经被成功合并到 master 了，就可以删除了。可以直接删除远程 dev-100 分支，删除时 IDEA 会提示是否同时删除本地的 dev-100 分支，勾选即可。</p>
+<p>现在我们把分支合并的结果 push 到远程仓库。</p>
 <h2 id="代码暂存之git-stash"><a href="#代码暂存之git-stash" class="headerlink" title="代码暂存之git stash"></a>代码暂存之git stash</h2><p>编号 100 的需求完成之后，现在我们又接到一个新的需求，正在 dev-101 分支进行开发，开发还未完成。<br><img src="http://img12345.5-project.com/blog/20181102180114.png" alt=""></p>
 <p>突然线上出现 bug，需要我们紧急进行修改，于是我们要基于最新的 master 分支新建一个 bug 分支 bug-12，需要先切换到 master 分支，但是当前分支的代码没有commit， 如果直接切换到 master 分支的话，dev-101 分支上的新增代码就会跑到 master 分支，而代码又不能此时 commit ，于是就轮到 stash 出场了。<br><img src="http://img12345.5-project.com/blog/20181102180427.png" alt=""><br>Stash 会保存当前工作进度，会把暂存区和工作区的改动保存起来。<br><img src="http://img12345.5-project.com/20181103154120204424605.png" alt=""><br>添加备注，选择 <strong>CREATE STASH</strong>。你会发现当前工作区内的代码被恢复成了原样。<br><img src="http://img12345.5-project.com/2018110315412022049329.png" alt=""></p>
 <h2 id="代码暂存还原"><a href="#代码暂存还原" class="headerlink" title="代码暂存还原"></a>代码暂存还原</h2><p>此刻切换到 master 分支，并创建 bug-12 分支进行修复 bug，修复完成后合并到 master 分支并 push 到远程仓库，上文已经演示如何合并，在此不再赘述。</p>
@@ -266,7 +259,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-11-03T06:21:44.305Z" itemprop="dateUpdated">2018-11-03 14:21:44</time>
+    Last updated: <time datetime="2018-11-05T13:07:26.642Z" itemprop="dateUpdated">2018-11-05 21:07:26</time>
 </span><br>
 
 
@@ -372,8 +365,10 @@
     <!-- Valine Comments -->
     <div class="comments vcomment" id="comments"></div>
     <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@1.3.3/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
     <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script -->
+  -->
     <script>
         var GUEST_INFO = ['nick','mail','link'];
         var guest_info = 'nick,mail,link'.split(',').filter(function(item){
@@ -529,7 +524,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
             document.title = '出Bug了快来看！';
             clearTimeout(titleTime);
         } else {
-            document.title = '(つェ⊂)咦!又好了!';
+            document.title = '对不起，我看错啦~';
             titleTime = setTimeout(function() {
                 document.title = OriginTitile;
             },2000);
