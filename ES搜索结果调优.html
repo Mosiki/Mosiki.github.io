@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>ES搜索结果调优 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="ElasticSearch完全匹配结果调优,es查询调优">
+    <meta name="description" content="自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。 但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果">
+<meta name="keywords" content="ElasticSearch完全匹配结果调优,es查询调优">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES搜索结果调优">
+<meta property="og:url" content="http://nullpointer.pw/ES搜索结果调优.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。 但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181128181959.png">
+<meta property="og:updated_time" content="2018-11-29T14:14:11.338Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES搜索结果调优">
+<meta name="twitter:description" content="自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。 但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20181128181959.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">ES搜索结果调优</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">ES搜索结果调优</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-29T14:13:58.000Z" itemprop="datePublished" class="page-time">
+  2018-11-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认匹配查询"><span class="post-toc-number">1.</span> <span class="post-toc-text">默认匹配查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权重查询"><span class="post-toc-number">2.</span> <span class="post-toc-text">权重查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳字段查询"><span class="post-toc-number">3.</span> <span class="post-toc-text">最佳字段查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">4.</span> <span class="post-toc-text">资源下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-ES搜索结果调优"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">ES搜索结果调优</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-29 22:13:58" datetime="2018-11-29T14:13:58.000Z"  itemprop="datePublished">2018-11-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。</p>
+<p>但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。</p>
+<a id="more"></a>
+<h2 id="默认匹配查询"><a href="#默认匹配查询" class="headerlink" title="默认匹配查询"></a>默认匹配查询</h2><p>先看看我之前写的查询代码片段，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery(query.getQueryString(), <span class="string">"name"</span>, <span class="string">"author"</span>);</span><br><span class="line">boolQuery.must(matchQuery);</span><br></pre></td></tr></table></figure>
+<p>这种写法，完全没有对搜索结果的平分进行干扰，只是按照 ES 的默认分词计算匹配度的结果。</p>
+<h2 id="权重查询"><a href="#权重查询" class="headerlink" title="权重查询"></a>权重查询</h2><p>我尝试了使用权重查询，即提升某些字段的权重，但是设置之后，结果反而更加不尽如人意。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">boolQuery.should(QueryBuilders.matchQuery(<span class="string">"name"</span>, queryString).boost(<span class="number">3.0f</span>));</span><br><span class="line">boolQuery.should(QueryBuilders.matchQuery(<span class="string">"author"</span>, queryString).boost(<span class="number">1</span>.f));</span><br></pre></td></tr></table></figure>
+<p>这样进行查询之后，如果想要查询作者，但是作品名称的权重更高些，所以完全匹配的作者也被排在了后面。</p>
+<h2 id="最佳字段查询"><a href="#最佳字段查询" class="headerlink" title="最佳字段查询"></a>最佳字段查询</h2><p>看了官方博客和一篇博客文章，发现 <code>multi-match-query</code> 的高级查询方式。</p>
+<blockquote>
+<p><code>multi_match</code> 多匹配查询的类型有多种，其中的三种恰巧与 <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_single_query_string.html#know-your-data" target="_blank" rel="noopener">了解我们的数据</a> 中介绍的三个场景对应，即： <code>best_fields</code> 、 <code>most_fields</code> 和 <code>cross_fields</code> （最佳字段、多数字段、跨字段）。</p>
+</blockquote>
+<p>这里我们想要搜索时，完全匹配的关键字排名更靠前，所以这里使用最佳字段 <strong>best_fields</strong> 进行查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MultiMatchQueryBuilder multiMatchQuery = QueryBuilders</span><br><span class="line">                    .multiMatchQuery(queryString, <span class="string">"name"</span>, <span class="string">"author"</span>)</span><br><span class="line">                    .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)</span><br><span class="line">                    .tieBreaker(<span class="number">0.1f</span>); </span><br><span class="line">boolQuery.must(multiMatchQuery);</span><br></pre></td></tr></table></figure>
+<p>首先设置 type 为 <strong>BEST_FIELDS</strong>，其次，我们想要完全匹配的分数高点，那么就让没有完全匹配的分文档评分低即可，我这里乘以了 0.1 的系数，系数的范围是 0-1 之间。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181128181959.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>加上了系数之后，不完全匹配的文档评分就被拉开了，就达到了我的最终目的。</p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
+<li><a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample" target="_blank" rel="noopener">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/yjf512/p/4897294.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjf512/p/4897294.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2018-11-29T14:14:11.338Z" itemprop="dateUpdated">2018-11-29 22:14:11</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/ES搜索结果调优.html" target="_blank" rel="external">http://nullpointer.pw/ES搜索结果调优.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch完全匹配结果调优/">ElasticSearch完全匹配结果调优</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es查询调优/">es查询调优</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/ES搜索结果调优.html&title=《ES搜索结果调优》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/ES搜索结果调优.html&title=《ES搜索结果调优》 — WeJan's Blog&source=自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/ES搜索结果调优.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES搜索结果调优》 — WeJan's Blog&url=http://nullpointer.pw/ES搜索结果调优.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/ES搜索结果调优.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/github代码clone加速.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">github代码clone加速</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@1.3.3/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/ES搜索结果调优.html&title=《ES搜索结果调优》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/ES搜索结果调优.html&title=《ES搜索结果调优》 — WeJan's Blog&source=自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/ES搜索结果调优.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《ES搜索结果调优》 — WeJan's Blog&url=http://nullpointer.pw/ES搜索结果调优.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/ES搜索结果调优.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACO0lEQVR42u3a227CMBCEYd7/pVOpV6ASe2bWoNr7+yqqQshnJHdPj4e8rt/19/r5L+OlPO3u/mULBgwY2zKUrx8/Wn/dMU//1JvPwoABowFDf9zdF4y3Rjm4s3tgwIABQw/mxlQXDwMGDBiVA1dPYt2D+6v/N2DAgLEho3J06sUy5fkfz8VhwICxIaPSGPj09Zf6GzBgwPjHjMtcq5qObog5eSsYMGAczRgPT7jHblY+q6S4k7wWBgwYBzHcgQk3TtO/UU+MJ78JDBgwDmIYgVeU4rrJqo5/uYYBA8bRjKxtOQ4cKyMa+qEvBYgwYMA4gqG/qJvW6m1LJeicbC4MGDAaMNxSmjskkZXkjNIbDBgwjmZkQxV6ayEbFMs2FwYMGH0YWWCnH53Z6Ea9IAgDBox9GbpJSWuzQNBNkmHAgAFDCexcvFvI0491GDBgdGBUBrb0ZqQ95mU2RGHAgNGHoTcgx4ddVmJz3+T2ThgwYDRguAGfW4arAOzqIAwYMI5j6IW2VWNh2SvanQ0YMGBsznBletiXAcLSHgwYMBowlBKbO37qFv2zsh0MGDA6MLI2QL2IFkapa7sZMGDA2IRxmUtPYrMnZNsBAwaMsxlZ0c0O2swinbI1C9oDMGDA2IqRJY1KQFlpFdgbBAMGjAYMt96ub4EOqDRTYcCAAUMvtLktB71iFiphwIDRmOGGbvqgRhaGwoABowNDSWKzg1JJSt2UeDJsAQMGjOMYlcaAG+plh6w+DgIDBozjGD9FYomHTXM2xAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

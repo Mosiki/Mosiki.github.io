@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2018-11-24T08:59:00.857Z</updated>
+  <updated>2018-11-29T14:14:11.338Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ES搜索结果调优</title>
+    <link href="http://nullpointer.pw/ES%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98.html"/>
+    <id>http://nullpointer.pw/ES搜索结果调优.html</id>
+    <published>2018-11-29T14:13:58.000Z</published>
+    <updated>2018-11-29T14:14:11.338Z</updated>
+    
+    <content type="html"><![CDATA[<p>自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。</p><p>但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。</p><a id="more"></a><h2 id="默认匹配查询"><a href="#默认匹配查询" class="headerlink" title="默认匹配查询"></a>默认匹配查询</h2><p>先看看我之前写的查询代码片段，</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery(query.getQueryString(), <span class="string">"name"</span>, <span class="string">"author"</span>);</span><br><span class="line">boolQuery.must(matchQuery);</span><br></pre></td></tr></table></figure><p>这种写法，完全没有对搜索结果的平分进行干扰，只是按照 ES 的默认分词计算匹配度的结果。</p><h2 id="权重查询"><a href="#权重查询" class="headerlink" title="权重查询"></a>权重查询</h2><p>我尝试了使用权重查询，即提升某些字段的权重，但是设置之后，结果反而更加不尽如人意。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">boolQuery.should(QueryBuilders.matchQuery(<span class="string">"name"</span>, queryString).boost(<span class="number">3.0f</span>));</span><br><span class="line">boolQuery.should(QueryBuilders.matchQuery(<span class="string">"author"</span>, queryString).boost(<span class="number">1</span>.f));</span><br></pre></td></tr></table></figure><p>这样进行查询之后，如果想要查询作者，但是作品名称的权重更高些，所以完全匹配的作者也被排在了后面。</p><h2 id="最佳字段查询"><a href="#最佳字段查询" class="headerlink" title="最佳字段查询"></a>最佳字段查询</h2><p>看了官方博客和一篇博客文章，发现 <code>multi-match-query</code> 的高级查询方式。</p><blockquote><p><code>multi_match</code> 多匹配查询的类型有多种，其中的三种恰巧与 <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_single_query_string.html#know-your-data" target="_blank" rel="noopener">了解我们的数据</a> 中介绍的三个场景对应，即： <code>best_fields</code> 、 <code>most_fields</code> 和 <code>cross_fields</code> （最佳字段、多数字段、跨字段）。</p></blockquote><p>这里我们想要搜索时，完全匹配的关键字排名更靠前，所以这里使用最佳字段 <strong>best_fields</strong> 进行查询</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MultiMatchQueryBuilder multiMatchQuery = QueryBuilders</span><br><span class="line">                    .multiMatchQuery(queryString, <span class="string">"name"</span>, <span class="string">"author"</span>)</span><br><span class="line">                    .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)</span><br><span class="line">                    .tieBreaker(<span class="number">0.1f</span>); </span><br><span class="line">boolQuery.must(multiMatchQuery);</span><br></pre></td></tr></table></figure><p>首先设置 type 为 <strong>BEST_FIELDS</strong>，其次，我们想要完全匹配的分数高点，那么就让没有完全匹配的分文档评分低即可，我这里乘以了 0.1 的系数，系数的范围是 0-1 之间。</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="http://img12345.5-project.com/blog/20181128181959.png" alt="" title="">                </div>                <div class="image-caption"></div>            </figure><p>加上了系数之后，不完全匹配的文档评分就被拉开了，就达到了我的最终目的。</p><h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul><li><a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample" target="_blank" rel="noopener">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></li></ul><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://www.cnblogs.com/yjf512/p/4897294.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjf512/p/4897294.html</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。&lt;/p&gt;
+&lt;p&gt;但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="ElasticSearch" scheme="http://nullpointer.pw/categories/ElasticSearch/"/>
+    
+    
+      <category term="ElasticSearch完全匹配结果调优" scheme="http://nullpointer.pw/tags/ElasticSearch%E5%AE%8C%E5%85%A8%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98/"/>
+    
+      <category term="es查询调优" scheme="http://nullpointer.pw/tags/es%E6%9F%A5%E8%AF%A2%E8%B0%83%E4%BC%98/"/>
+    
+  </entry>
   
   <entry>
     <title>github代码clone加速</title>
