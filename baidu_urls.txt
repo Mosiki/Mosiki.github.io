@@ -1,1 +1,1 @@
-http://nullpointer.pw/IDEA远程仓库版本回滚.html
+http://nullpointer.pw/dubbo自定义异常传递信息丢失问题解决.html
