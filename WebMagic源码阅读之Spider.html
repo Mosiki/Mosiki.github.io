@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>WebMagic源码阅读之Spider | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="源码解析">
+    <meta name="description" content="总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之。因为大多数的开源框架源码随着版本的更迭，难度越发上升源码愈发晦涩难懂，但源码还是不能不读，所以觉得从最简单的源码开始读起吧，因为工作中，用到了 WebMagic 框">
+<meta name="keywords" content="源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebMagic源码阅读之Spider">
+<meta property="og:url" content="http://nullpointer.pw/WebMagic源码阅读之Spider.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之。因为大多数的开源框架源码随着版本的更迭，难度越发上升源码愈发晦涩难懂，但源码还是不能不读，所以觉得从最简单的源码开始读起吧，因为工作中，用到了 WebMagic 框架，于是决定从它开始，为了降低阅读难度，我选择了第一个 tag 版本的源码开始阅">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190115211258.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190115211432.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190115211528.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181226210950.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181226064624.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181226212444.png">
+<meta property="og:updated_time" content="2019-01-15T13:53:35.053Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebMagic源码阅读之Spider">
+<meta name="twitter:description" content="总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之。因为大多数的开源框架源码随着版本的更迭，难度越发上升源码愈发晦涩难懂，但源码还是不能不读，所以觉得从最简单的源码开始读起吧，因为工作中，用到了 WebMagic 框架，于是决定从它开始，为了降低阅读难度，我选择了第一个 tag 版本的源码开始阅">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190115211258.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">WebMagic源码阅读之Spider</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">WebMagic源码阅读之Spider</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-01-15T13:28:37.000Z" itemprop="datePublished" class="page-time">
+  2019-01-15
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码阅读/">源码阅读</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载源码"><span class="post-toc-number">1.</span> <span class="post-toc-text">下载源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阅读-Spider-源码"><span class="post-toc-number">2.</span> <span class="post-toc-text">阅读 Spider 源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#联系"><span class="post-toc-number">4.</span> <span class="post-toc-text">联系</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-WebMagic源码阅读之Spider"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">WebMagic源码阅读之Spider</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-01-15 21:28:37" datetime="2019-01-15T13:28:37.000Z"  itemprop="datePublished">2019-01-15</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码阅读/">源码阅读</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之。因为大多数的开源框架源码随着版本的更迭，难度越发上升源码愈发晦涩难懂，但源码还是不能不读，所以觉得从最简单的源码开始读起吧，因为工作中，用到了 WebMagic 框架，于是决定从它开始，为了降低阅读难度，我选择了第一个 tag 版本的源码开始阅读，从易入难，由浅入深，希望自己 2019 年代码能力能有所提升!</p>
+<a id="more"></a>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>首先在 IDEA 上把 WebMagic 的源码 clone 到本地<br><img src="http://img12345.5-project.com/blog/20190115211258.png" alt=""></p>
+<p>然后 checkout 第一个版本的 tag<br><img src="http://img12345.5-project.com/blog/20190115211432.png" alt=""></p>
+<p>在对话框中，使用智能提示快捷键展示出所有的 tag，默认快捷键是 <code>ctrl(command) + 空格</code>，因为可能会和输入法冲突，我修改成了 <code>command + ;</code><br><img src="http://img12345.5-project.com/blog/20190115211528.png" alt=""></p>
+<p>我选择了 <code>version-0.1.0</code> 版本，然后基于这个 tag，创建了自己的本地分支，便于在上面进行添加注释等操作。</p>
+<h2 id="阅读-Spider-源码"><a href="#阅读-Spider-源码" class="headerlink" title="阅读 Spider 源码"></a>阅读 Spider 源码</h2><p><img src="http://img12345.5-project.com/blog/20181226210950.png" alt=""><br>参见官网架构图，Spider 这个组件是 WebMagic 框架的核心所在，同时也是爬虫的入口类，Spider 将各大组件串联起来，共同工作。<br><img src="http://img12345.5-project.com/blog/20181226064624.png" alt=""></p>
+<p>Spider 实现了 Task 和 Runnable 接口，Task 提供了两个接口方法，一个是 getSite()，另外一个是 getUUID()，爬虫运行时，将爬虫自身引用传递到各个组件进行处理。</p>
+<p>一般使用 WebMagic 时，通过 Spider.create() 方法创建爬虫，创建时可以指定 Downloader、Scheduler、PageProcessor、Pipeline 这几个组件，作者将这四个组件抽象成了接口，方便扩展，其中 PageProcessor 是必须指定的组件，其他的组件 WebMagic 提供了对应的默认值。</p>
+<p>Spider 类主要核心是 run 方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 通过 AtomicInteger 的 CAS 乐观锁保证多线程下，爬虫只会启动一次</span></span><br><span class="line">    <span class="comment">// 如果爬虫状态当前状态是 STAT_INIT，则更新成 STAT_RUNNING，否则抛出异常</span></span><br><span class="line">    <span class="keyword">if</span> (!stat.compareAndSet(STAT_INIT, STAT_RUNNING)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Spider is already running!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加启动 URL</span></span><br><span class="line">    <span class="keyword">if</span> (startUrls != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (String startUrl : startUrls) &#123;</span><br><span class="line">            scheduler.push(<span class="keyword">new</span> Request(startUrl), <span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 从队列中取出一个请求</span></span><br><span class="line">    Request request = scheduler.poll(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加管道处理，如果为空添加，输出到控制台</span></span><br><span class="line">    <span class="keyword">if</span> (pipelines.isEmpty()) &#123;</span><br><span class="line">        pipelines.add(<span class="keyword">new</span> ConsolePipeline());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//single thread</span></span><br><span class="line">    <span class="keyword">if</span> (executorService==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="comment">// 默认单线程</span></span><br><span class="line">        <span class="comment">// 循环调度所有的 Request</span></span><br><span class="line">        <span class="keyword">while</span> (request != <span class="keyword">null</span>) &#123;</span><br><span class="line">            processRequest(request);</span><br><span class="line">            request = scheduler.poll(<span class="keyword">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果已经调用 Spider.thread(n) 方法则走这个分支</span></span><br><span class="line">        <span class="comment">//multi thread</span></span><br><span class="line">        <span class="comment">// 初始化活跃线程数量为 0，当爬虫线程启动后，如果活跃线程变成 0 时，跳出死循环</span></span><br><span class="line">        <span class="keyword">final</span> AtomicInteger threadAlive = <span class="keyword">new</span> AtomicInteger(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (request == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//when no request found but some thread is alive, sleep a while.</span></span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">final</span> Request requestFinal = request;</span><br><span class="line">                <span class="comment">// 执行线程之前对活跃线程数进行原子性自增操作</span></span><br><span class="line">                threadAlive.incrementAndGet();</span><br><span class="line">                executorService.execute(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                        processRequest(requestFinal);</span><br><span class="line">                        <span class="comment">// 处理完请求之后对活跃线程数进行原子性自减操作</span></span><br><span class="line">                        threadAlive.decrementAndGet();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 循环从队列中取新的待抓取 URL</span></span><br><span class="line">            request = scheduler.poll(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 当活跃线程数为 0，说明队列已经为空了</span></span><br><span class="line">            <span class="keyword">if</span> (threadAlive.get() == <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="comment">// 为了保险起见，再重试获取一下请求</span></span><br><span class="line">                request = scheduler.poll(<span class="keyword">this</span>);</span><br><span class="line">                <span class="comment">// 如果依然为 null，则跳出 while 循环</span></span><br><span class="line">                <span class="keyword">if</span> (request == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 关闭线程池</span></span><br><span class="line">        executorService.shutdown();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 当所有请求抓取完毕，即活跃线程数量变成 0 时，修改爬虫状态为已停止</span></span><br><span class="line">    stat.compareAndSet(STAT_RUNNING, STAT_STOPPED);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从源码中看到，对于多线程共享资源活跃线程数的处理，使用到了 Integer 的原子类 AtomicInteger，保证活跃线程数量在多线程情况下统计结果的正确性。</p>
+<p>作者将四大组件抽象成了接口，面向接口编程，方便扩展，很值得学习。</p>
+<p>因为是初始版本，不可避免的会有一些明显的 Bug 存在，比如在 page 类的 <code>addTargetRequests</code> 方法中应该用 <code>continue</code>，但是错用了 <code>break</code>的情况，所以初始版本源码阅读完成后，需要读读新一些版本的源码。</p>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步哈哈~<br><img src="http://img12345.5-project.com/blog/20181226212444.png" alt=""></p>
+<p>QQ 群号:967808880</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-01-15T13:53:35.053Z" itemprop="dateUpdated">2019-01-15 21:53:35</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/WebMagic源码阅读之Spider.html" target="_blank" rel="external">http://nullpointer.pw/WebMagic源码阅读之Spider.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码解析/">源码解析</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&title=《WebMagic源码阅读之Spider》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&title=《WebMagic源码阅读之Spider》 — WeJan's Blog&source=总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic源码阅读之Spider.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic源码阅读之Spider》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018年终总结.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">2018年终总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@1.3.3/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&title=《WebMagic源码阅读之Spider》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&title=《WebMagic源码阅读之Spider》 — WeJan's Blog&source=总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic源码阅读之Spider.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic源码阅读之Spider》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic源码阅读之Spider.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic源码阅读之Spider.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3aS5KDMAwFwNz/0swBGMyTTKYGu1mlyAe3F4pk6fOJr+N0nd89f7L6a8l3py4MDIzXMo7hdfWAq9dXvz8GJ88dbyUGBsYOjOrjr747E0DHm3WzZgwMDIxgcQkvTxwxMDAwng2448QuD80YGBgYY0ZvQePF5Uds49Tw4VocAwPjhYy8vPz711/pb2BgYLyKcRSvBPlU4VpYFQYGxtKMPMD10rJ8RCO5P24hYGBgrM1Isqx8qKI67JUXsQUqBgbGcoyZUJg/spp6VjcRAwNjVUavQJ0Zb80DaBKmf6nFMTAwNmBUBy/yEJkkndX0EQMDYzdGNYHLj956wfSLLUwMDIxXMaotyV5gTQLu/KgHBgbGqow8sOZL6ZW4Ca85M4KBgbEcIz/in29k5u/ejG5gYGBsxsiTvGojc6bqvLmPgYGxNOMmkMXBtDds0Wt/3oyFYWBgbMDIy9G8JdArTcvNAwwMjEUZ1aP5meP+cUKZJ5qXRSwGBsaijN6Bfn4QlqebveEwDAyMfRi9hK83BNYjjbcPAwNjN0Z+rJaPbVV/Ld8ODAyM3RjVhebHc9VyNw/H5SoZAwPjhYyjeE3tVqupWa6/MTAwlmNUg12e2FUXnSeaUyQMDIzXMpIg+2yZ2hs+w8DAwOilejnvqbTvppTFwMDAaGWaeXidCdMYGBgY488kTYLx/R7p4f8NDAyMf8/ID+vzwYhew6B6eIeBgbEDY6Z0zIvVfBQjTyIxMDA2YPwA6ycD8f85YQsAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
