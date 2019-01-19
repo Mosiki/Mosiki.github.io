@@ -36,7 +36,9 @@
 <meta property="og:description" content="自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。 但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181128181959.png">
-<meta property="og:updated_time" content="2018-11-29T14:14:11.338Z">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181128181959.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190119080610.png">
+<meta property="og:updated_time" content="2019-01-19T03:08:50.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES搜索结果调优">
 <meta name="twitter:description" content="自从使用 ElasticSearch 重构了主站的搜索项目之后，之后又陆续接入了其他两个项目，目前使用 SpringBoot 方式跑了一个伪集群，主站使用的时候，比较稳定，没有人反馈说有问题。 但新接入的一个站点商务反馈说，搜索不够准确，完全匹配的关键词不是排在搜索结果列表首位，跑到搜索上去看了一眼，确实完全匹配的结果分数不是最高的，导致没有排在结果首位，今天就来解决这个问题。">
@@ -168,7 +170,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认匹配查询"><span class="post-toc-number">1.</span> <span class="post-toc-text">默认匹配查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权重查询"><span class="post-toc-number">2.</span> <span class="post-toc-text">权重查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳字段查询"><span class="post-toc-number">3.</span> <span class="post-toc-text">最佳字段查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">4.</span> <span class="post-toc-text">资源下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#默认匹配查询"><span class="post-toc-number">1.</span> <span class="post-toc-text">默认匹配查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权重查询"><span class="post-toc-number">2.</span> <span class="post-toc-text">权重查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳字段查询"><span class="post-toc-number">3.</span> <span class="post-toc-text">最佳字段查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最佳字段优化"><span class="post-toc-number">4.</span> <span class="post-toc-text">最佳字段优化</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#资源下载"><span class="post-toc-number">5.</span> <span class="post-toc-text">资源下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a></li></ol>
         </nav>
     </aside>
     
@@ -217,11 +219,23 @@
                 <div class="image-caption"></div>
             </figure>
 <p>加上了系数之后，不完全匹配的文档评分就被拉开了，就达到了我的最终目的。</p>
+<h2 id="最佳字段优化"><a href="#最佳字段优化" class="headerlink" title="最佳字段优化"></a>最佳字段优化</h2><p><strong>2019年01月19日08:01:31 更新</strong><br>通过上一步优化，已经提升了完全匹配文档的评分，但是还不足以拉开评分<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181128181959.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>现在是作品名称/作者两个字段都存在相同的值，但是想让作品名称字段的权重更高点，即搜索相同值的时候，优先搜索出作品名为该值的数据<br>最终优化结果：<br><img src="http://img12345.5-project.com/blog/20190119080610.png" alt=""></p>
+<p>代码实现：  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHighlightQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    BookQuery query = <span class="keyword">new</span> BookQuery();</span><br><span class="line">    query.setQueryString(<span class="string">"穿越"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复合查询</span></span><br><span class="line">    BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();</span><br><span class="line"></span><br><span class="line">    PageRequest pageRequest = PageRequest.of(query.getPage() - <span class="number">1</span>, query.getSize());</span><br><span class="line">    NativeSearchQueryBuilder queryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder()</span><br><span class="line">            .withQuery(boolQuery)</span><br><span class="line">            .withHighlightFields(</span><br><span class="line">                    <span class="keyword">new</span> HighlightBuilder.Field(<span class="string">"name"</span>).preTags(<span class="string">"&lt;span style=\"color:red\"&gt;"</span>).postTags(<span class="string">"&lt;/span&gt;"</span>),</span><br><span class="line">                    <span class="keyword">new</span> HighlightBuilder.Field(<span class="string">"author"</span>).preTags(<span class="string">"&lt;span style=\"color:red\"&gt;"</span>).postTags(<span class="string">"&lt;/span&gt;"</span>))</span><br><span class="line">            .withPageable(pageRequest);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下为查询条件, 使用 must query 进行查询组合</span></span><br><span class="line"><span class="comment">//        MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery(query.getQueryString(), "name", "intro", "author");</span></span><br><span class="line"><span class="comment">//        boolQuery.must(matchQuery);</span></span><br><span class="line">    String queryString = query.getQueryString();</span><br><span class="line">    <span class="comment">// 最佳字段  + 降低除了name之外字段的权重系数</span></span><br><span class="line">    MatchQueryBuilder nameQuery = QueryBuilders.matchQuery(<span class="string">"name"</span>, queryString);</span><br><span class="line">    MatchQueryBuilder authorQuery = QueryBuilders.matchQuery(<span class="string">"author"</span>, queryString).boost(<span class="number">0.8f</span>);</span><br><span class="line">    DisMaxQueryBuilder disMaxQueryBuilder = QueryBuilders.disMaxQuery().add(nameQuery).add(authorQuery);</span><br><span class="line">    queryBuilder.withQuery(disMaxQueryBuilder);</span><br><span class="line"></span><br><span class="line">    NativeSearchQuery searchQuery = queryBuilder.build();</span><br><span class="line">    Page&lt;Book&gt; books = elasticsearchTemplate.queryForPage(searchQuery, Book.class, extResultMapper);</span><br><span class="line"></span><br><span class="line">    books.forEach(e -&gt; log.info(<span class="string">"&#123;&#125;"</span>, e));</span><br><span class="line">    <span class="comment">// &lt;span style="color:red"&gt;穿越&lt;/span&gt;小道人</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>主要通过 <code>QueryBuilders.disMaxQuery</code> 结合 <code>boost</code> 对非核心字段降低权重来完成</p>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
 <li><a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample" target="_blank" rel="noopener">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://www.cnblogs.com/yjf512/p/4897294.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjf512/p/4897294.html</a></li>
+<li><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_best_fields.html#dis-max-query" target="_blank" rel="noopener">dis_max 查询</a></li>
 </ul>
 
         </div>
@@ -230,7 +244,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-29T14:14:11.338Z" itemprop="dateUpdated">2018-11-29 22:14:11</time>
+    最后更新时间：<time datetime="2019-01-19T03:08:50.713Z" itemprop="dateUpdated">2019-01-19 11:08:50</time>
 </span><br>
 
 
