@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>WebMagic源码阅读之Scheduler | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="源码解析">
+    <meta name="description" content="本文是 WebMagic 源码阅读第三篇，版本依然是 version-0.0.1 的 tag。作者对于 Scheduler 的描述是如下：  包含url管理和调度的接口。包括url抓取队列，url去重等功能。">
+<meta name="keywords" content="源码解析">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebMagic源码阅读之Scheduler">
+<meta property="og:url" content="http://nullpointer.pw/WebMagic源码阅读之Scheduler.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="本文是 WebMagic 源码阅读第三篇，版本依然是 version-0.0.1 的 tag。作者对于 Scheduler 的描述是如下：  包含url管理和调度的接口。包括url抓取队列，url去重等功能。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181226064924.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190116061228.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190116062241.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20181226212444.png">
+<meta property="og:updated_time" content="2019-01-28T21:33:27.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebMagic源码阅读之Scheduler">
+<meta name="twitter:description" content="本文是 WebMagic 源码阅读第三篇，版本依然是 version-0.0.1 的 tag。作者对于 Scheduler 的描述是如下：  包含url管理和调度的接口。包括url抓取队列，url去重等功能。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20181226064924.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">WebMagic源码阅读之Scheduler</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">WebMagic源码阅读之Scheduler</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-01-28T21:26:25.000Z" itemprop="datePublished" class="page-time">
+  2019-01-29
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码阅读/">源码阅读</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#阅读Scheduler源码"><span class="post-toc-number">1.</span> <span class="post-toc-text">阅读Scheduler源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#QueueScheduler"><span class="post-toc-number">2.</span> <span class="post-toc-text">QueueScheduler</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#RedisScheduler"><span class="post-toc-number">3.</span> <span class="post-toc-text">RedisScheduler</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#总结"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">总结</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#联系"><span class="post-toc-number">4.</span> <span class="post-toc-text">联系</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-WebMagic源码阅读之Scheduler"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">WebMagic源码阅读之Scheduler</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-01-29 05:26:25" datetime="2019-01-28T21:26:25.000Z"  itemprop="datePublished">2019-01-29</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/源码阅读/">源码阅读</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本文是 WebMagic 源码阅读第三篇，版本依然是 <code>version-0.0.1</code> 的 tag。作者对于 Scheduler 的描述是如下：</p>
+<blockquote>
+<p>包含url管理和调度的接口。包括url抓取队列，url去重等功能。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="阅读Scheduler源码"><a href="#阅读Scheduler源码" class="headerlink" title="阅读Scheduler源码"></a>阅读Scheduler源码</h2><p>Scheduler 是一个接口类，源码中实现有三个，分别是  <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20181226064924.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<p>默认 Spider 使用 <code>QueueScheduler</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认使用基于内存的队列</span></span><br><span class="line"><span class="keyword">private</span> Scheduler scheduler = <span class="keyword">new</span> QueueScheduler();</span><br></pre></td></tr></table></figure></p>
+<p>Scheduler 接口只有两个方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 加入一个待抓取的链接</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> request 待抓取的链接</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> task 定义的任务，以满足单Scheduler多Task的情况</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">push</span><span class="params">(Request request,Task task)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 返回下一个要抓取的链接</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> task 定义的任务，以满足单Scheduler多Task的情况</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> 下一个要抓取的链接</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Request <span class="title">poll</span><span class="params">(Task task)</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，分析常用的的两个实现类 QueueScheduler 和 RedisScheduler </p>
+<h2 id="QueueScheduler"><a href="#QueueScheduler" class="headerlink" title="QueueScheduler"></a>QueueScheduler</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190116061228.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>线程安全的队列实现请求的生产消费关系，push 和 poll 都是同步方法，同时因为 LinkedBlockingQueue 的长度是 Integer.MAX_VALUE，如果队列过长，会出现 OOM 的情况。</p>
+<h2 id="RedisScheduler"><a href="#RedisScheduler" class="headerlink" title="RedisScheduler"></a>RedisScheduler</h2><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190116062241.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>源码中使用 Redis 的 list 结构做 URL 队列，通过 rpush 方法，将新的 URL 放入队列右边，通过 lpop 从队列左侧弹出一个待抓取的 URL 。</p>
+<p>使用了 Redis 的有序集合进行 URL 去重，原理是：<br>如果 url 是有序集和的成员，返回 url 的排名。 如果 url 不是有序集和的成员，返回 null。zrank 方法参数如下：<br><code>zrank(有序集合的key, 成员名称)</code></p>
+<p>当成功添加 URL 到队列，调用 zadd 方法将 URL 放入有序集合当中，便于后续 URL 判重。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>功力不足，尚且看不出这部分源码的不足之处，只看到 RedisScheduler 中 jedis 释放资源的操作未放到 final 中，有所隐患。</p>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步~<br><img src="http://img12345.5-project.com/blog/20181226212444.png" alt=""></p>
+<p>QQ 群号:967808880</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-01-28T21:33:27.025Z" itemprop="dateUpdated">2019-01-29 05:33:27</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/WebMagic源码阅读之Scheduler.html" target="_blank" rel="external">http://nullpointer.pw/WebMagic源码阅读之Scheduler.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/源码解析/">源码解析</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&title=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&title=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&source=本文是 WebMagic 源码阅读第三篇，版本依然是 version-0.0.1 的 tag。作者对于 Scheduler 的描述是如下：
+
+包含url管..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/WebMagic源码阅读之Spider.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">WebMagic源码阅读之Spider</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@1.3.3/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&title=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&title=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&source=本文是 WebMagic 源码阅读第三篇，版本依然是 version-0.0.1 的 tag。作者对于 Scheduler 的描述是如下：
+
+包含url管..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《WebMagic源码阅读之Scheduler》 — WeJan's Blog&url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/WebMagic源码阅读之Scheduler.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMUlEQVR42u3aQZKDMAxEUe5/aVKVbYLzWzY1g/xZpQYm+LHoWEjHgY/zfYw/f17/eXb8PVf/teyQIUPGYxnn8LhabnqWA8jZL1QZMmRswEhDlofj+HoO/rFmGTJkyABLH5PGYcqjXIYMGTLSwOWRSgAyZMiQMWasKibHDP79N9biMmTIeCBjVWPgjs9/0N+QIUPGP2Ociw5SlM63Ci7vLkOGjNYMUlKuCuJaKRsEsQwZMloz5psB5GwazWmbQYYMGb0ZtXAcX1lrMNTaojJkyOjN4KFWawzwJgGP/i9/kSFDxmaMtD3Jl54OipHXdkHXVIYMGe0YPCLnX7HNl8cyZMjozahFJ9/S8QeUFq4yZMjYh0E2Z7UInhnUWDBmIUOGjEaMNApnJhzSV3Xx74YMGTKaMtImIr9NbRSj1maQIUNGb0YtXmtl6h01twwZMnZg8AI1DWVerC7YjMqQIWNLRtok4LdMl45iWoYMGa0ZqwYs0kGutOWAHoEMGTK2YZAClY928YBOwcX3gjJkyHg4oxaOfNtHgpus6sfWUIYMGU0ZvFystRv5RvAIj7gulyFDxgMZq4ZNa6MYJJrRo5EhQ0ZrxlRCT79WS4vqWijLkCGjB4OHbNpICGbTwvL1sjEgQ4aM1oxa8M23IdPQD4YtZMiQsTGjtqGsbRCLnVgZMmRszOADYbzlwOM4bl7KkCGjHSNtBsyMR6QDrAgjQ4aM1oyZxkA6VJE+vvRKGTJktGO8AHdz+gjcTPDMAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
