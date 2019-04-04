@@ -35,12 +35,14 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2018-11-24T08:59:00.857Z">
+<meta property="og:updated_time" content="2019-04-04T13:34:05.400Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20181124164505.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190404212331.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -127,7 +129,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -197,18 +199,39 @@
 <a id="more"></a>
 <h2 id="加速访问"><a href="#加速访问" class="headerlink" title="加速访问"></a>加速访问</h2><p>在网上搜索一圈，好多文章中提速的方法就是修改 git 的代理配置，前提是有 SS 之类的{代}{理}工具，然而我开了全局{代}{理}，设置了 git 的代理配置，clone 的速度还是很慢，只能到 30kb/s，如果库大点，下个几天几夜都可能😅</p>
 <p>设置代理不好使，就继续搜索解决方法，在 github 上找到一个 issues，其中提供了 github 的 host列表。</p>
-<p><a href="https://github.com/chenxuhua/issues-blog/issues/3#issuecomment-404065269" target="_blank" rel="noopener">GitHub中国加速访问</a></p>
-<p>摘录如下：</p>
-<p>20180711 update ip from <a href="https://www.ipaddress.com/" target="_blank" rel="noopener">https://www.ipaddress.com/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># GitHub Start</span><br><span class="line">192.30.253.112 github.com</span><br><span class="line">192.30.253.118 gist.github.com</span><br><span class="line">151.101.112.133 assets-cdn.github.com</span><br><span class="line">151.101.184.133 raw.githubusercontent.com</span><br><span class="line">151.101.112.133 gist.githubusercontent.com</span><br><span class="line">151.101.184.133 cloud.githubusercontent.com</span><br><span class="line">151.101.112.133 camo.githubusercontent.com</span><br><span class="line">151.101.112.133 avatars0.githubusercontent.com</span><br><span class="line">151.101.112.133 avatars1.githubusercontent.com</span><br><span class="line">151.101.184.133 avatars2.githubusercontent.com</span><br><span class="line">151.101.12.133 avatars3.githubusercontent.com</span><br><span class="line">151.101.12.133 avatars4.githubusercontent.com</span><br><span class="line">151.101.184.133 avatars5.githubusercontent.com</span><br><span class="line">151.101.184.133 avatars6.githubusercontent.com</span><br><span class="line">151.101.184.133 avatars7.githubusercontent.com</span><br><span class="line">151.101.12.133 avatars8.githubusercontent.com</span><br><span class="line"># GitHub End</span><br></pre></td></tr></table></figure></p>
-<h2 id="食用方法"><a href="#食用方法" class="headerlink" title="食用方法"></a>食用方法</h2><p>最麻烦的方式就是去手动修改 host 文件，最简单的方式就是下载 <a href="https://oldj.github.io/SwitchHosts/" target="_blank" rel="noopener">Switch Host</a> 软件进行 host 修改，跨平台的哟。</p>
+<p><del><a href="#">GitHub中国加速访问</a></del></p>
+<p>随着 issue 找到了一个生成 hosts 的 repo，但是这个 repo 的 hosts 并不是每日更新的，于是自己 fork 了一份，写了个简单 crontab，每日执行生成更新 hosts 文件。</p>
+<p>仓库地址：<strong><a href="https://github.com/Mosiki/github" target="_blank" rel="noopener">https://github.com/Mosiki/github</a></strong></p>
+<h2 id="食用方法"><a href="#食用方法" class="headerlink" title="食用方法"></a>食用方法</h2><p>最麻烦的方式就是去手动修改 host 文件，最简单的方式就是下载 <a href="https://oldj.github.io/SwitchHosts/" target="_blank" rel="noopener">Switch Host</a> 软件进行 host 修改，跨平台，因为 hosts 文件每日都会自动更新，所以需要本地的 hosts 也能自动更新， 好在 SwitchHosts 提供了远程 hosts 的功能。</p>
+<ol>
+<li><p>复制如下 hosts 地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://raw.githubusercontent.com/Mosiki/github/master/github_hosts.txt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。</p>
 <figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190404212331.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></li>
+<li>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190404212810.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+更新完成之后点击确定保存即可。</li>
+<li>打开 hosts 开关<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="http://img12345.5-project.com/blog/20181124164505.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
-<p>如图设置完，把开关打开就 Ok 了。</p>
+如图设置完，把开关打开就 Ok 了。</li>
+</ol>
 <h2 id="测试Clone速度"><a href="#测试Clone速度" class="headerlink" title="测试Clone速度"></a>测试Clone速度</h2><p>由 30kb/s 变成 4M/s 了 😂</p>
 <p>修改后，在 GitHub 的 release 中下载东西也变快了。</p>
 
@@ -218,7 +241,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2018-11-24T08:59:00.857Z" itemprop="dateUpdated">2018-11-24 16:59:00</time>
+    Last updated: <time datetime="2019-04-04T13:34:05.400Z" itemprop="dateUpdated">2019-04-04 21:34:05</time>
 </span><br>
 
 
@@ -380,7 +403,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
