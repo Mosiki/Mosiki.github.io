@@ -16,6 +16,8 @@
 
 
 
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
     <meta charset="utf-8">
     
     
@@ -128,7 +130,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -214,8 +216,8 @@
 <li>清除缓存的配置文件，可以命名为 <strong>purge.conf</strong></li>
 </ul>
 <p>在 <strong>/usr/local/nginx/conf/nginx.conf</strong> 中引入拆分的配置文件， 在配置文件中的 <strong>http</strong> 节点下进行引入</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span>......</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span> 注意 purge.conf 必须要第一个引用！！！</span><br><span class="line">  include include/purge.conf;</span><br><span class="line"><span class="meta">  #</span> 引入其他配置文件</span><br><span class="line">  include include/nginx_web.conf;</span><br><span class="line"><span class="meta">  #</span>include include/nginx_wap.conf;</span><br><span class="line"><span class="meta">  #</span>include include/nginx_apk.conf;</span><br><span class="line"><span class="meta">  #</span>include include/nginx_ios.conf;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="配置缓存清除"><a href="#配置缓存清除" class="headerlink" title="配置缓存清除"></a>配置缓存清除</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/include</span><br><span class="line">vi purge.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>purge.conf 文件内容为：</span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name 192.168.200.129;# 此处我配置的是本机ip</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    location ~ /purge(/.*) &#123;</span><br><span class="line">        allow   all;# 访问此接口的白名单，all代表所有人都可以访问该路径</span><br><span class="line">        # tmpcache 为前文中 proxy_cache_path 里配置的 keys_zone 的值</span><br><span class="line">        # www.domain.com$1$is_args$args 表示缓存key的名称，清除某一域名下的缓存,可以指定参数</span><br><span class="line">        # $1 代表正则匹配中的第一组</span><br><span class="line">        proxy_cache_purge cachefile www.domain.com$1$is_args$args;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 保存 purge.conf 文件</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">http&#123;</span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash">......</span></span><br><span class="line"></span><br><span class="line"><span class="meta">  #</span><span class="bash"> 注意 purge.conf 必须要第一个引用！！！</span></span><br><span class="line">  include include/purge.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash"> 引入其他配置文件</span></span><br><span class="line">  include include/nginx_web.conf;</span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_wap.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_apk.conf;</span></span><br><span class="line"><span class="meta">  #</span><span class="bash">include include/nginx_ios.conf;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置缓存清除"><a href="#配置缓存清除" class="headerlink" title="配置缓存清除"></a>配置缓存清除</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/include</span><br><span class="line">vi purge.conf</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">purge.conf 文件内容为：</span></span><br><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name 192.168.200.129;# 此处我配置的是本机ip</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    location ~ /purge(/.*) &#123;</span><br><span class="line">        allow   all;# 访问此接口的白名单，all代表所有人都可以访问该路径</span><br><span class="line">        # tmpcache 为前文中 proxy_cache_path 里配置的 keys_zone 的值</span><br><span class="line">        # www.domain.com$1$is_args$args 表示缓存key的名称，清除某一域名下的缓存,可以指定参数</span><br><span class="line">        # $1 代表正则匹配中的第一组</span><br><span class="line">        proxy_cache_purge cachefile www.domain.com$1$is_args$args;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 保存 purge.conf 文件</span></span><br></pre></td></tr></table></figure>
 <h2 id="测试清除缓存"><a href="#测试清除缓存" class="headerlink" title="测试清除缓存"></a>测试清除缓存</h2><p>如果要进行缓存清除，首先需要有缓存文件，此处参照前文 <a href="http://nullpointer.pw/2017/08/20/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE/">Nginx缓存配置</a> 中，访问 <strong>www.domain.com/testpage2</strong>  ，刷新页面，直到缓存已经生成，即 <strong>X-Cache</strong> 的状态为 <strong>HIT</strong>。</p>
 <p>进入 <strong>cd /tmp/cache/</strong> ，查看已经生成了缓存文件</p>
 <figure class="image-bubble">
@@ -225,9 +227,9 @@
                 </div>
                 <div class="image-caption">mark</div>
             </figure>  
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 测试 nginx 配置是否正确</span><br><span class="line">/usr/local/nginx/sbin/nginx -t</span><br><span class="line"><span class="meta">#</span> 如果提示 is ok，说明配置没有问题，否则需要修改</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重启 Nginx</span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 测试 nginx 配置是否正确</span></span><br><span class="line">/usr/local/nginx/sbin/nginx -t</span><br><span class="line"><span class="meta">#</span><span class="bash"> 如果提示 is ok，说明配置没有问题，否则需要修改</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启 Nginx</span></span><br><span class="line">/usr/local/nginx/sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
 <p>浏览器访问（也可以通过 curl 命令来访问）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 清除key为 www.domain.com/ 的缓存</span><br><span class="line">192.168.200.129/purge/    </span><br><span class="line"><span class="meta">#</span> 清除 key 为 www.domain.com/testpage2 页面缓存</span><br><span class="line">192.168.200.129/purge/testpage2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 清除key为 www.domain.com/ 的缓存</span></span><br><span class="line">192.168.200.129/purge/    </span><br><span class="line"><span class="meta">#</span><span class="bash"> 清除 key 为 www.domain.com/testpage2 页面缓存</span></span><br><span class="line">192.168.200.129/purge/testpage2</span><br></pre></td></tr></table></figure>
 <p>如果返回  </p>
 <p><img src="http://img12345.5-project.com/blog/20170911/055142311.png" alt="">  </p>
 <p>则表示清除成功。</p>
@@ -239,7 +241,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2018-10-13T02:32:10.406Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
+    最后更新时间：<time datetime="2018-10-13T02:32:10.406Z" itemprop="dateUpdated">2018-10-13 10:32:10</time>
 </span><br>
 
 
@@ -403,7 +405,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
@@ -505,6 +507,12 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
 
 
 <script>
