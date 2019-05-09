@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Mysql日期分组无数据查询填充0 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表">
+    <meta name="description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql日期分组无数据查询填充0">
+<meta property="og:url" content="http://nullpointer.pw/Mysql日期分组无数据查询填充0.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190509213309.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190509214326.png">
+<meta property="og:updated_time" content="2019-05-09T14:32:33.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mysql日期分组无数据查询填充0">
+<meta name="twitter:description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190509213309.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Mysql日期分组无数据查询填充0</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Mysql日期分组无数据查询填充0</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-05-09T14:30:30.000Z" itemprop="datePublished" class="page-time">
+  2019-05-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#疏忽大意"><span class="post-toc-number">3.</span> <span class="post-toc-text">疏忽大意</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修正查询数据"><span class="post-toc-number">4.</span> <span class="post-toc-text">修正查询数据</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、拿到所有日期"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">一、拿到所有日期</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、联合用户表查询"><span class="post-toc-number">5.</span> <span class="post-toc-text">二、联合用户表查询</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Mysql日期分组无数据查询填充0"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Mysql日期分组无数据查询填充0</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-05-09 22:30:30" datetime="2019-05-09T14:30:30.000Z"  itemprop="datePublished">2019-05-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，<br>Mysql 按照日期分组查询没有数据的日期也一并查询出来。</p>
+<a id="more"></a>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>产品提出一个需求，需要展示这样的一张折线图，用来反映指定时间段内网站注册用户的增加趋势，于是需要后端的 JSON 工程师给出对应的接口。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190509213309.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="疏忽大意"><a href="#疏忽大意" class="headerlink" title="疏忽大意"></a>疏忽大意</h2><p>具体的表结构和数据是这样的</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190509214326.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>JSON 工程师不加思索，展开了 CRUD 大法，顺手写下了一个 SQL，不到5分钟，接口完活，测都没测试直接给到了前端开发。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">date</span>(t.create_time) <span class="keyword">as</span> <span class="string">`date`</span>,</span><br><span class="line">       <span class="keyword">count</span>(t.id)  <span class="keyword">as</span> <span class="keyword">num</span></span><br><span class="line"><span class="keyword">from</span> t_user t</span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="string">`date`</span>;</span><br></pre></td></tr></table></figure>
+<p>前端拿到数据后开始绘图，结果画的图完全不对啊，因为时间不是连续的。于是反馈到了 JSON 工程师这里。</p>
+<p>JSON 工程师一想，哎哟，没考虑掉某天没有数据的情况，分组查询的话，肯定缺少这一天的数据的。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+------------+-----+</span><br><span class="line">|    date    | num |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-06 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-08 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-09 |  9  |</span><br><span class="line">+------------+-----+</span><br></pre></td></tr></table></figure>
+<p>正确的做法应该是即使某天没有数据，也填充一个 0 作为记录值。</p>
+<h2 id="修正查询数据"><a href="#修正查询数据" class="headerlink" title="修正查询数据"></a>修正查询数据</h2><p>找到了问题就好办了，捋了一下逻辑分成了两步</p>
+<h3 id="一、拿到所有日期"><a href="#一、拿到所有日期" class="headerlink" title="一、拿到所有日期"></a>一、拿到所有日期</h3><p>因为入参有两个，分别是起始日期与结束日期，需要拿到两个日期之间的所有日期，从而按照日期分组。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(<span class="keyword">DATE_SUB</span>(<span class="string">'2019-05-09'</span>, <span class="built_in">INTERVAL</span> xc <span class="keyword">day</span>), <span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="keyword">day</span></span><br><span class="line">      <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> @xi := @xi + <span class="number">1</span> <span class="keyword">as</span> xc</span><br><span class="line">             <span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc1,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc2,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc3,</span><br><span class="line">                  (<span class="keyword">SELECT</span> @xi := <span class="number">-1</span>) xc0</span><br><span class="line">           ) <span class="keyword">as</span> t) <span class="keyword">as</span> t2</span><br><span class="line">					 <span class="keyword">where</span> t2.<span class="string">`day`</span> &gt; <span class="string">'2019-05-02'</span> <span class="keyword">and</span> t2.<span class="string">`day`</span> &lt;= <span class="string">'2019-05-09'</span></span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+------------+</span><br><span class="line">|    DAY     |</span><br><span class="line">+------------+</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-09 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-08 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-07 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-06 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-05 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-04 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-03 |</span><br><span class="line">+------------+</span><br></pre></td></tr></table></figure>
+<h2 id="二、联合用户表查询"><a href="#二、联合用户表查询" class="headerlink" title="二、联合用户表查询"></a>二、联合用户表查询</h2><p>拿到所有日期后作为一张左表，join 连接用户表，再进行分组查询</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> t2.<span class="string">`day`</span> <span class="keyword">as</span> <span class="string">`date`</span>, <span class="keyword">count</span>(t.id) <span class="keyword">as</span> <span class="keyword">num</span></span><br><span class="line"><span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(<span class="keyword">DATE_SUB</span>(<span class="string">'2019-05-09'</span>, <span class="built_in">INTERVAL</span> xc <span class="keyword">day</span>), <span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="keyword">day</span></span><br><span class="line">      <span class="keyword">FROM</span> (</span><br><span class="line">             <span class="keyword">SELECT</span> @xi := @xi + <span class="number">1</span> <span class="keyword">as</span> xc</span><br><span class="line">             <span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc1,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc2,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc3,</span><br><span class="line">                  (<span class="keyword">SELECT</span> @xi := <span class="number">-1</span>) xc0</span><br><span class="line">           ) <span class="keyword">as</span> x1x2x) t2</span><br><span class="line">       <span class="keyword">left</span> <span class="keyword">join</span> t_user t <span class="keyword">on</span> <span class="built_in">date</span>(t.create_time) = t2.day</span><br><span class="line"><span class="keyword">where</span> t2.<span class="string">`day`</span> &gt; <span class="string">'2019-05-02'</span> <span class="keyword">and</span> t2.<span class="string">`day`</span> &lt;= <span class="string">'2019-05-09'</span></span><br><span class="line"><span class="keyword">group</span> <span class="keyword">by</span> <span class="built_in">date</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="built_in">date</span> <span class="keyword">asc</span>;</span><br></pre></td></tr></table></figure>
+<p>结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+------------+-----+</span><br><span class="line">|    date    | num |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-03 |  0  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-04 |  0  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-05 |  0  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-06 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-07 |  0  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-08 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-09 |  9  |</span><br><span class="line">+------------+-----+</span><br></pre></td></tr></table></figure>
+<p>顺利达到了目的，收工！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://www.cnblogs.com/zhengguangpan/p/10308886.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhengguangpan/p/10308886.html</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/Dai_Aixy/article/details/83144619" target="_blank" rel="noopener">https://blog.csdn.net/Dai_Aixy/article/details/83144619</a></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/dennyzhangdd/p/8073181.html" target="_blank" rel="noopener">https://www.cnblogs.com/dennyzhangdd/p/8073181.html</a></p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-05-09T14:32:33.231Z" itemprop="dateUpdated">2019-05-09 22:32:33</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/Mysql日期分组无数据查询填充0.html" target="_blank" rel="external">http://nullpointer.pw/Mysql日期分组无数据查询填充0.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分组查询无数据填充0/">分组查询无数据填充0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/获取指定时间段内的时间日期列表/">获取指定时间段内的时间日期列表</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/奔向杭州.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">奔向杭州</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@1.3.3/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "0KrrENGSLkMs785Qwf6szjlU-gzGzoHsz",
+            appKey: "6rRyK2lPjvsqiccwpfk7MSlA",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtElEQVR42u3a0U7DMAwF0P7/Tw+JJyRodm0n2yROn9BgbU4eGnPt64qvx/d198njx3X33bs7/L7Wf3OduPDw8PBaS18/bP34/J53WzPZ0CdbgIeHh3eMt37AGpxvyt5Pkk3Bw8PDey8vL6Crr/J1uYyHh4f3P3lJuJAg8fDw8D6Hl8cHvcL3EV95nLE5a8HDw8Pr1K5X9aX8rp8P9vfw8PDwBl31avuqFzdUS/DCavHw8PAO8NYBQTIWMAkg8iI4/5voPwY8PDy8Ma+69N6oQa+hVT0kntwNDw8PbyuvN2KVHy2TI2cSLuPh4eHt5eVNrL2LXpfL+bH0hI2Hh4d3gDcpiKsxbrXU7gUchQ4eHh4eXouXVNzVR1aj1XkcfPtdPDw8vJfwkuI4f1h+hORFdmEACw8PD+8wb9dYVfn1XRwUSO75x8GAh4eHt5U3757NW2V5aV4YOMDDw8M7wJuPQ+WxRS8U3juagIeHhzfn9QLWvKlfvU9+aEXNMzw8PLxjvNEw0yCk2DWk9eRgwMPDw9vK64099dpR8zK9uq14eHh453g9TB7X9kLk6tY38xU8PDy8Aa83nlUNJvK7VTeruXQ8PDy8QSe9N4BVDSOqmPzYwMPDw3sNL49Q50393ghXr/jGw8PDeyWvt7jqkTD5PA9K8PDw8E7wJsNSeQyxa7nV4h4PDw/vNK8HywviPBqehyOjOQg8PDy8dNLpqi5xUjTnowB7x7nw8PDw5rx5oJBvzd7hqmZJjYeHhzfmnegZ9Y6W6ku/mU/j4eHhbeIlh0EvtqiOIOwqtQuFNR4eHt6AV80wkhA2jyryUr6cteDh4eG9lTeJA3JkXnZHm46Hh4f3Mbx5KVwtmpvfxcPDwzvGy8OIKmby216Ai4eHh3ea12uAJbfutbiSCKMaWODh4eFt4n0BLlUYPOEePekAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
