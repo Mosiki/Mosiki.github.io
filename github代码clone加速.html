@@ -37,14 +37,15 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190616163736.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2019-04-04T13:34:05.400Z">
+<meta property="og:updated_time" content="2019-06-16T08:44:56.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190404212331.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190616163736.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -172,7 +173,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速访问"><span class="post-toc-number">1.</span> <span class="post-toc-text">加速访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#食用方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">食用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试Clone速度"><span class="post-toc-number">3.</span> <span class="post-toc-text">测试Clone速度</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新一下"><span class="post-toc-number">1.</span> <span class="post-toc-text">更新一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速访问"><span class="post-toc-number">2.</span> <span class="post-toc-text">加速访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#食用方法"><span class="post-toc-number">3.</span> <span class="post-toc-text">食用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试Clone速度"><span class="post-toc-number">4.</span> <span class="post-toc-text">测试Clone速度</span></a></li></ol>
         </nav>
     </aside>
     
@@ -199,6 +200,16 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
 <a id="more"></a>
+<h2 id="更新一下"><a href="#更新一下" class="headerlink" title="更新一下"></a>更新一下</h2><p>2019年06月16日更新一下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190616163736.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>看评论有人说不好使，我在 mac 上本地测试了一下（未开启全局代理），红框之上是未指定 hosts 的结果，速度很慢，平均不到 <strong>50k/s</strong> 的速度，红框内是切换到最新 host 之后的结果，速度一直在增加，达到 <strong>3.25MB/s</strong>，效果显而易见。</p>
+<p>Tips: 如果切换到最新 hosts 后还是很慢，可以重新开一个终端尝试，或者断开再重连一下网络，可能是 hosts 还未生效。（switch hosts 在 win 下需要使用管理员身份打开，mac 下需要输入开机密码获得权限）</p>
 <h2 id="加速访问"><a href="#加速访问" class="headerlink" title="加速访问"></a>加速访问</h2><p>在网上搜索一圈，好多文章中提速的方法就是修改 git 的代理配置，前提是有 SS 之类的{代}{理}工具，然而我开了全局{代}{理}，设置了 git 的代理配置，clone 的速度还是很慢，只能到 30kb/s，如果库大点，下个几天几夜都可能😅</p>
 <p>设置代理不好使，就继续搜索解决方法，在 github 上找到一个 issues，其中提供了 github 的 host列表。</p>
 <p><del><a href="#">GitHub中国加速访问</a></del></p>
@@ -243,7 +254,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-04-04T13:34:05.400Z" itemprop="dateUpdated">2019-04-04 21:34:05</time>
+    最后更新时间：<time datetime="2019-06-16T08:44:56.433Z" itemprop="dateUpdated">2019-06-16 16:44:56</time>
 </span><br>
 
 
