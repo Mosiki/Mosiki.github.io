@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2019-06-16T08:44:56.433Z">
+<meta property="og:updated_time" content="2019-07-25T14:15:41.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
@@ -132,7 +132,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -217,33 +217,25 @@
 <p>仓库地址：<strong><a href="https://github.com/Mosiki/github" target="_blank" rel="noopener">https://github.com/Mosiki/github</a></strong></p>
 <h2 id="食用方法"><a href="#食用方法" class="headerlink" title="食用方法"></a>食用方法</h2><p>最麻烦的方式就是去手动修改 host 文件，最简单的方式就是下载 <a href="https://oldj.github.io/SwitchHosts/" target="_blank" rel="noopener">Switch Host</a> 软件进行 host 修改，跨平台，因为 hosts 文件每日都会自动更新，所以需要本地的 hosts 也能自动更新， 好在 SwitchHosts 提供了远程 hosts 的功能。</p>
 <ol>
-<li><p>复制如下 hosts 地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://raw.githubusercontent.com/Mosiki/github/master/github_hosts.txt</span><br></pre></td></tr></table></figure>
+<li><p>复制如下 hosts 地址（测试发现GitHub的网址有可能访问不了，因而更换成了码云的镜像仓库地址）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gitee.com/Mosiki/github/raw/master/github_hosts.txt</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。</p>
+</ol>
+<ol>
+<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。<br><img src="http://img12345.5-project.com/blog/20190404212331.png" alt=""></p>
+</li>
+<li><p>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<br><img src="http://img12345.5-project.com/blog/20190404212810.png" alt=""><br>更新完成之后点击确定保存即可。</p>
+</li>
+<li><p>打开 hosts 开关</p>
 <figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190404212331.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure></li>
-<li>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190404212810.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-更新完成之后点击确定保存即可。</li>
-<li>打开 hosts 开关<figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
                     <img src="http://img12345.5-project.com/blog/20181124164505.png" alt="" title="">
                 </div>
                 <div class="image-caption"></div>
             </figure>
-如图设置完，把开关打开就 Ok 了。</li>
+<p>如图设置完，把开关打开就 Ok 了。</p>
+</li>
 </ol>
 <h2 id="测试Clone速度"><a href="#测试Clone速度" class="headerlink" title="测试Clone速度"></a>测试Clone速度</h2><p>由 30kb/s 变成 4M/s 了 😂</p>
 <p>修改后，在 GitHub 的 release 中下载东西也变快了。</p>
@@ -254,7 +246,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-06-16T08:44:56.433Z" itemprop="dateUpdated">2019-06-16 16:44:56</time>
+    Last updated: <time datetime="2019-07-25T14:15:41.295Z" itemprop="dateUpdated">2019-07-25 22:15:41</time>
 </span><br>
 
 
@@ -416,7 +408,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
