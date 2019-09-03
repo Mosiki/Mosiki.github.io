@@ -37,15 +37,18 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190903223934.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190903224222.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190903224448.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190616163736.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2019-07-25T14:15:41.295Z">
+<meta property="og:updated_time" content="2019-09-03T14:47:28.618Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190616163736.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190903223934.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -132,7 +135,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -200,7 +203,37 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
 <a id="more"></a>
-<h2 id="更新一下"><a href="#更新一下" class="headerlink" title="更新一下"></a>更新一下</h2><p>2019年06月16日更新一下：</p>
+<h2 id="更新一下"><a href="#更新一下" class="headerlink" title="更新一下"></a>更新一下</h2><p>2019年09月03日更新：</p>
+<p>最近发现用 hosts 方式不太好使了，如果改 hosts 的方式也不起作用的话，可以使用这个绝招了。</p>
+<p>步骤一：fork 你想要 clone 的库</p>
+<p>步骤二：登录<a href="[https://gitee.com](https://gitee.com/">码云</a>)，登录成功后，点击网页右上角加号，选择 <strong>从 GitHub 导入仓库</strong></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190903223934.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这个过程码云会让你去 GitHub 授权拉取你的仓库，选择同意就行了。</p>
+<p>步骤三：找到你在 GitHub 中 fork 的仓库选择导入，等待一会儿就行了，如果仓库较大，可能导入会花一些时间。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190903224222.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>步骤四：使用码云的地址进行 clone 即可，国内的速度还是非常快的！</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190903224448.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>备注：此方法只适用于临时下载仓库，如果要是提 PR 什么的，还是使用改 hosts 方法或者走代理的方式吧。</p>
+<hr>
+<p>2019年06月16日更新一下：</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -246,7 +279,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-07-25T14:15:41.295Z" itemprop="dateUpdated">2019-07-25 22:15:41</time>
+    Last updated: <time datetime="2019-09-03T14:47:28.618Z" itemprop="dateUpdated">2019-09-03 22:47:28</time>
 </span><br>
 
 
@@ -408,7 +441,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
