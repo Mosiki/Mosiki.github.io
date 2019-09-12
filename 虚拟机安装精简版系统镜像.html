@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>虚拟机安装精简版系统镜像 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Parallels Desktop安装精简版系统,Vmvare安装精简版系统,精简版win10系统">
+    <meta name="description" content="分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，win10 也可以占用这么小的空间哦~ 用了 Mac 这么久，感觉开发确实用 Mac 更方便更友好一些，但是有时候就会用到 Windows 系统，比如需要用到 XSh">
+<meta name="keywords" content="Parallels Desktop安装精简版系统,Vmvare安装精简版系统,精简版win10系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟机安装精简版系统镜像">
+<meta property="og:url" content="http://nullpointer.pw/虚拟机安装精简版系统镜像.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，win10 也可以占用这么小的空间哦~ 用了 Mac 这么久，感觉开发确实用 Mac 更方便更友好一些，但是有时候就会用到 Windows 系统，比如需要用到 XShell 之类 win 上独有的软件。这时候在 Mac 上安一个 Windows">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912215326.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912215506.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912215756.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912220349.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912220905.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912221112.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912221241.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912221809.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912224112.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912222617.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912222847.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20190912223211.png">
+<meta property="og:updated_time" content="2019-09-12T14:41:22.617Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="虚拟机安装精简版系统镜像">
+<meta name="twitter:description" content="分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，win10 也可以占用这么小的空间哦~ 用了 Mac 这么久，感觉开发确实用 Mac 更方便更友好一些，但是有时候就会用到 Windows 系统，比如需要用到 XShell 之类 win 上独有的软件。这时候在 Mac 上安一个 Windows">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190912215326.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">虚拟机安装精简版系统镜像</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">虚拟机安装精简版系统镜像</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-09-12T14:36:34.000Z" itemprop="datePublished" class="page-time">
+  2019-09-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装准备"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装准备</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装引导镜像"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装引导镜像</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装-win10"><span class="post-toc-number">3.</span> <span class="post-toc-text">安装 win10</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#收尾工作"><span class="post-toc-number">4.</span> <span class="post-toc-text">收尾工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#亮点"><span class="post-toc-number">5.</span> <span class="post-toc-text">亮点</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-虚拟机安装精简版系统镜像"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">虚拟机安装精简版系统镜像</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-09-12 22:36:34" datetime="2019-09-12T14:36:34.000Z"  itemprop="datePublished">2019-09-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/其他/">其他</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，win10 也可以占用这么小的空间哦~</p>
+<p>用了 Mac 这么久，感觉开发确实用 Mac 更方便更友好一些，但是有时候就会用到 Windows 系统，比如需要用到 XShell 之类 win 上独有的软件。这时候在 Mac 上安一个 Windows 虚拟机就很有用处了。即使是 Windows 电脑，做一些敏感操作容易中毒时候（比如作死玩玩病毒之类的），也最好隔离系统在虚拟机里鼓捣。</p>
+<p>在 Mac 上 Parallels Desktop 安装的虚拟机全屏后，和Mac系统无缝切换，就是舒服~</p>
+<p>啥？你还问我有什么用？如果你买个 128 GB 存储的 Mac 就知道有没有用了。（我的 256 也不够用，因此鼓捣出这么个方法来）</p>
+<a id="more"></a>
+<p>Windows 系统很占空间，新安装的系统动辄占用 40G - 60G 存储空间，如果安装到虚拟机中，就显得不是那么划算了。（在虚拟机中安过原版镜像的同学，对于虚拟机占用空间的大小，肯定深有体会）</p>
+<p>原版镜像的 ISO 文件一般都要 13G 以上，于是我在 远景论坛 找到一个大神精简过的 Win10 ESD 镜像，只精简了无用的一些服务，无捆绑，镜像包仅 1G 大小，安装后也仅占用 4G 空间，真香！</p>
+<p>如果你不知道我叨叨的是什么，就不用继续往下看了，以下以 Parallels Desktop 虚拟机举例，其他虚拟机比如 Vmware Fusion 之类的请触类旁通。</p>
+<h2 id="安装准备"><a href="#安装准备" class="headerlink" title="安装准备"></a>安装准备</h2><p>几乎所有的虚拟机软件安装时，只支持 ISO 文件，但是一般封装的系统都是 ESD WIM 之类的镜像格式，So，需要转换成 ISO 格式。</p>
+<p>我这里给出转换好的大神精简的镜像 ISO 文件，用了一年多了，很稳定，和原版镜像没有任何差别，占用空间相对原版镜像少的不是一点半点。若想要自己封装 ISO，见文末参考链接。</p>
+<p><a href="https://pan.baidu.com/s/12mMWCCqRuREJC-2RM4gZ8g" target="_blank" rel="noopener"><strong>Win10精简版 ISO 镜像以及引导镜像下载</strong></a>    提取码: <strong>vcmq</strong></p>
+<p>网盘内有两个 ISO 文件，<strong>WePE_64_V2.0.iso</strong> 为引导镜像，<strong>win10.iso</strong> 为系统镜像。</p>
+<p>下载文件到本地。</p>
+<h2 id="安装引导镜像"><a href="#安装引导镜像" class="headerlink" title="安装引导镜像"></a>安装引导镜像</h2><ol>
+<li>新建虚拟机，选择 <strong>WePE_64_V2.0.iso</strong> 这个引导镜像，可能会有如下之类的提示，无视跳过即可。</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190912215326.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ol>
+<li><p>选择系统类型为 win10</p>
+</li>
+<li><p>这里随便选一个就行</p>
+<p><img src="http://img12345.5-project.com/blog/20190912215506.png" alt=""></p>
+</li>
+<li><p>选择保存位置，勾选安装前设定</p>
+</li>
+<li><p>进入设定，选择 CD/DVD，选择加载 <strong>win10.iso</strong> 文件</p>
+<p><img src="http://img12345.5-project.com/blog/20190912215756.png" alt=""></p>
+</li>
+<li><p>关闭设定，继续安装虚拟机，直到开机进入 PE 引导系统</p>
+</li>
+</ol>
+<h2 id="安装-win10"><a href="#安装-win10" class="headerlink" title="安装 win10"></a>安装 win10</h2><ol>
+<li><p>配置虚拟机连接的镜像为 <strong>win10.iso</strong></p>
+<p><img src="http://img12345.5-project.com/blog/20190912220349.png" alt=""></p>
+</li>
+<li><p>打开引导系统内左下角的分区工具 DiskGenius，右键硬盘选择建立新分区（这里的大小是不准确的，不用理会），确定之后，选择保存更改，然后格式化选是（放心不会影响你的宿主机环境）</p>
+<p><img src="http://img12345.5-project.com/blog/20190912220905.png" alt=""></p>
+</li>
+<li><p>操作完如图所示（我的是 256G，这里也显示的是 256GB）</p>
+<p><img src="http://img12345.5-project.com/blog/20190912221112.png" alt=""></p>
+</li>
+<li><p>打开 Windows 安装器，选择 win10 镜像（在DVD 驱动器内）</p>
+<p><img src="http://img12345.5-project.com/blog/20190912221241.png" alt=""></p>
+</li>
+<li><p>选择开始安装，然后点确定，等待安装，安装完需要手动在开始菜单中手动重启。</p>
+</li>
+<li><p>重启后，系统自动进行 win10系统 的加载，稍等一会儿即可</p>
+<p><img src="http://img12345.5-project.com/blog/20190912221809.png" alt=""></p>
+</li>
+</ol>
+<h2 id="收尾工作"><a href="#收尾工作" class="headerlink" title="收尾工作"></a>收尾工作</h2><ol>
+<li><p>选择桌面上的系统激活工具，直接选择激活即可。</p>
+</li>
+<li><p>这时候全屏虚拟机，会发现分辨率不是最佳的，因为你需要安装一下虚拟机工具，退出全屏</p>
+</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190912224112.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ol>
+<li><p>选择安装 Parallels Tools…</p>
+</li>
+<li><p>进入我的电脑，DVD驱动器，运行 Autorun 文件进行安装，安装完选择重启系统</p>
+</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190912222617.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<ol>
+<li><p>重启后，选择最大化（而不是融合模式）  </p>
+<p><img src="http://img12345.5-project.com/blog/20190912222847.png" alt=""></p>
+</li>
+<li><p>稍等一会，虚拟机会自动调整分辨率到自适应。系统也会成功激活，桌面激活软件会自动消失。</p>
+</li>
+<li><p>完成！</p>
+</li>
+</ol>
+<h2 id="亮点"><a href="#亮点" class="headerlink" title="亮点"></a>亮点</h2><p>看一下虚拟机占用吧嘿嘿~</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20190912223211.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>希望对你有所帮助吧~</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://jingyan.baidu.com/article/1876c85261a7f5890b137683.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/1876c85261a7f5890b137683.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-09-12T14:41:22.617Z" itemprop="dateUpdated">2019-09-12 22:41:22</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/虚拟机安装精简版系统镜像.html" target="_blank" rel="external">http://nullpointer.pw/虚拟机安装精简版系统镜像.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Parallels-Desktop安装精简版系统/">Parallels Desktop安装精简版系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vmvare安装精简版系统/">Vmvare安装精简版系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/精简版win10系统/">精简版win10系统</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&title=《虚拟机安装精简版系统镜像》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&title=《虚拟机安装精简版系统镜像》 — WeJan's Blog&source=分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/虚拟机安装精简版系统镜像.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《虚拟机安装精简版系统镜像》 — WeJan's Blog&url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/Java内存分页工具类.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Java内存分页工具类</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&title=《虚拟机安装精简版系统镜像》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&title=《虚拟机安装精简版系统镜像》 — WeJan's Blog&source=分享一个虚拟机安装精简版 Windows10 系统的方法，只占用 5G 作用的完整版 win10 系统哦，不要安装那些垃圾阉割过的win7或者xp系统了，..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/虚拟机安装精简版系统镜像.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《虚拟机安装精简版系统镜像》 — WeJan's Blog&url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/虚拟机安装精简版系统镜像.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpUlEQVR42u3ayW4cMQwFQP//TzvXGEGPHzd7AlSfBr1J1QNIBMmPj/j4fDj+vvrv76f3JL9fj7h84OHh4S1N/fWQvfPJiE+M5ifAw8PDO+Pli3hyJr+/+snyOePh4eG9Dy8Pc5M3PJ3JQ3A8PDy8/4XXC5HzUPiXNwY8PDy8gDdJ1E6C6fxDn+da8PDw8A6qSO/z+6S+h4eHhzeuqidhcR7+bqVxC7PFw8PDO+DlC261wL8Q5hZTxo+fEg8PD2+VN2mNqk5iktjN0xZfruLh4eGd8aIy0tIWUi1iNfe6HgMPDw+vyKsmC3rTmqc5Cn8AHh4e3gFvK6itTmuhlSq/Bw8PD2+VVy079dKvyRbSu7NQ+sLDw8Nb4i00NhUbBZIFPU8HR6lkPDw8vFXepN0qX9Cr56th9+P9eHh4eAe86HIQnU7asEZTTzYzPDw8vFVekmiYpFlzTLUUV+4pw8PDw1vlVZfvcoVtUHJbaBrAw8PD+3FejuyFy5NEcJSGwMPDw1vlVcPWamNBMtH8nl4Qj4eHh3fNy0v71SRvtWkg+ZRJ0xgeHh7eNS9POkwGq57Pr36TmMDDw8M75lWbrvLkwrypq9wngIeHh7fES5bvXpDdm+KkVPaYpcbDw8Nb5W0FzXlqNTnmIf43T+Hh4eGNeb2U6+6C3mtHiN6Dh4eHd8yr7iRbxa1qiJ+0f+Hh4eFd83qkHq+6MVTvwcPDw7vj9dIEedls8oHyFEnzf8PDw8Nr8XrJhd79eXtW/tR8nnh4eHg9Xi/lmk83X7jzklshkYGHh4d3xpskHXph92inytMTeHh4eG/JSxIT8/fkmWk8PDy8d+PNS1mTRthyIxceHh7eGS95bB465+MmI0YFMDw8PLwD3vyxSSqh10awNToeHh5ecfQ/EZ2HXMSnAD8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
