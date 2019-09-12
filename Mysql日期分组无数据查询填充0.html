@@ -28,21 +28,21 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表">
-    <meta name="description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
-<meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表">
+    <meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表,java生成连续日期">
+    <meta name="description" content="前言这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta name="keywords" content="分组查询无数据填充0,获取指定时间段内的时间日期列表,java生成连续日期">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql日期分组无数据查询填充0">
 <meta property="og:url" content="http://nullpointer.pw/Mysql日期分组无数据查询填充0.html">
 <meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta property="og:description" content="前言这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190509213309.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190509214326.png">
-<meta property="og:updated_time" content="2019-05-09T14:32:33.231Z">
+<meta property="og:updated_time" content="2019-09-12T08:40:59.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql日期分组无数据查询填充0">
-<meta name="twitter:description" content="前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
+<meta name="twitter:description" content="前言这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。">
 <meta name="twitter:image" content="http://img12345.5-project.com/blog/20190509213309.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
@@ -196,7 +196,7 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，<br>Mysql 按照日期分组查询没有数据的日期也一并查询出来。</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，<br>Mysql 按照日期分组查询没有数据的日期也一并查询出来。</p>
 <a id="more"></a>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>产品提出一个需求，需要展示这样的一张折线图，用来反映指定时间段内网站注册用户的增加趋势，于是需要后端的 JSON 工程师给出对应的接口。</p>
 <figure class="image-bubble">
@@ -221,7 +221,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+------------+-----+</span><br><span class="line">|    date    | num |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-06 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-08 |  2  |</span><br><span class="line">+------------+-----+</span><br><span class="line">| 2019-05-09 |  9  |</span><br><span class="line">+------------+-----+</span><br></pre></td></tr></table></figure>
 <p>正确的做法应该是即使某天没有数据，也填充一个 0 作为记录值。</p>
 <h2 id="修正查询数据"><a href="#修正查询数据" class="headerlink" title="修正查询数据"></a>修正查询数据</h2><p>找到了问题就好办了，捋了一下逻辑分成了两步</p>
-<h3 id="一、拿到所有日期"><a href="#一、拿到所有日期" class="headerlink" title="一、拿到所有日期"></a>一、拿到所有日期</h3><p>因为入参有两个，分别是起始日期与结束日期，需要拿到两个日期之间的所有日期，从而按照日期分组。</p>
+<h3 id="一、拿到所有日期"><a href="#一、拿到所有日期" class="headerlink" title="一、拿到所有日期"></a>一、拿到所有日期</h3><p><strong>2019年09月12日更新</strong></p>
+<p>感谢评论区中 @一个小可爱（感觉是个有趣的人哈哈）提出的方法，于是我就来更新一下本文了。最好的方式是在 Java 代码中处理生成连续的日期，然后创建一个 map 对象，初始化所有的键值对的值为 0，然后遍历查询出来的按照日期作为 key，之后进行 put 覆盖默认值即可。</p>
+<p>提供一个<strong>生成连续日期</strong>的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Set&lt;String&gt; <span class="title">getBetweenDate</span><span class="params">(String start, String end)</span> </span>&#123;</span><br><span class="line">  LocalDate startDate = LocalDate.parse(start);</span><br><span class="line">  LocalDate endDate = LocalDate.parse(end);</span><br><span class="line">  <span class="keyword">long</span> between = ChronoUnit.DAYS.between(startDate, endDate);</span><br><span class="line">  <span class="keyword">if</span> (between &lt; <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> Stream.of(start, end).collect(Collectors.toSet());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Stream.iterate(startDate, e -&gt; e.plusDays(<span class="number">1</span>))</span><br><span class="line">    .limit(between + <span class="number">1</span>)</span><br><span class="line">    .map(LocalDate::toString)</span><br><span class="line">    .collect(Collectors.toSet());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">  Set&lt;String&gt; days = BaseTest.getBetweenDate(<span class="string">"2019-08-29"</span>, <span class="string">"2019-09-02"</span>);</span><br><span class="line">  log.info(<span class="string">"&#123;&#125;"</span>, days);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为入参有两个，分别是起始日期与结束日期，需要拿到两个日期之间的所有日期，从而按照日期分组。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="keyword">DATE_FORMAT</span>(<span class="keyword">DATE_SUB</span>(<span class="string">'2019-05-09'</span>, <span class="built_in">INTERVAL</span> xc <span class="keyword">day</span>), <span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="keyword">day</span></span><br><span class="line">      <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> @xi := @xi + <span class="number">1</span> <span class="keyword">as</span> xc</span><br><span class="line">             <span class="keyword">from</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc1,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc2,</span><br><span class="line">                  (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">2</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">3</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">4</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">5</span>) xc3,</span><br><span class="line">                  (<span class="keyword">SELECT</span> @xi := <span class="number">-1</span>) xc0</span><br><span class="line">           ) <span class="keyword">as</span> t) <span class="keyword">as</span> t2</span><br><span class="line">					 <span class="keyword">where</span> t2.<span class="string">`day`</span> &gt; <span class="string">'2019-05-02'</span> <span class="keyword">and</span> t2.<span class="string">`day`</span> &lt;= <span class="string">'2019-05-09'</span></span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">+------------+</span><br><span class="line">|    DAY     |</span><br><span class="line">+------------+</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-09 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-08 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-07 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-06 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-05 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-04 |</span><br><span class="line">|            |</span><br><span class="line">| 2019-05-03 |</span><br><span class="line">+------------+</span><br></pre></td></tr></table></figure>
@@ -245,7 +249,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-05-09T14:32:33.231Z" itemprop="dateUpdated">2019-05-09 22:32:33</time>
+    最后更新时间：<time datetime="2019-09-12T08:40:59.748Z" itemprop="dateUpdated">2019-09-12 16:40:59</time>
 </span><br>
 
 
@@ -266,7 +270,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分组查询无数据填充0/">分组查询无数据填充0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/获取指定时间段内的时间日期列表/">获取指定时间段内的时间日期列表</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java生成连续日期/">java生成连续日期</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分组查询无数据填充0/">分组查询无数据填充0</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/获取指定时间段内的时间日期列表/">获取指定时间段内的时间日期列表</a></li></ul>
 
 
             
@@ -286,7 +290,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -439,7 +443,7 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期也一并查询出来。" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Mysql日期分组无数据查询填充0.html&title=《Mysql日期分组无数据查询填充0》 — WeJan's Blog&source=前言这篇文章标题不好取。。。(主要是生成连续的日期)，本文关键点有：Mysql 获取指定时间段内的所有日期列表，Mysql 按照日期分组查询没有数据的日期..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
