@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>easypoi导入Excel最佳实践 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="easypoi导入Excel,easypoi导入Excel时间格式校验,easypoi导入Collection校验,easypoi导入重复行校验,easypoi导入重复值校验">
+    <meta name="description" content="前言一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导入，我也正好整理整理EasyPOI的导入用法。">
+<meta name="keywords" content="easypoi导入Excel,easypoi导入Excel时间格式校验,easypoi导入Collection校验,easypoi导入重复行校验,easypoi导入重复值校验">
+<meta property="og:type" content="article">
+<meta property="og:title" content="easypoi导入Excel最佳实践">
+<meta property="og:url" content="http://nullpointer.pw/easypoi导入Excel最佳实践.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导入，我也正好整理整理EasyPOI的导入用法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191223194318.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191224062255.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191224221916.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191224221513.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191228134843.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191228134936.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191228145220.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191228155741.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20191228154341.png">
+<meta property="og:updated_time" content="2019-12-28T07:58:42.855Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="easypoi导入Excel最佳实践">
+<meta name="twitter:description" content="前言一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导入，我也正好整理整理EasyPOI的导入用法。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20191223194318.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">easypoi导入Excel最佳实践</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">easypoi导入Excel最佳实践</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-12-28T07:50:55.000Z" itemprop="datePublished" class="page-time">
+  2019-12-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/EasyPOI/">EasyPOI</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#零、文件准备："><span class="post-toc-number">2.</span> <span class="post-toc-text">零、文件准备：</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、定义EasyPOI导入实体类"><span class="post-toc-number">3.</span> <span class="post-toc-text">一、定义EasyPOI导入实体类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、EasyPOI基础导入"><span class="post-toc-number">4.</span> <span class="post-toc-text">二、EasyPOI基础导入</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、值替换"><span class="post-toc-number">5.</span> <span class="post-toc-text">三、值替换</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、导入之基础校验"><span class="post-toc-number">6.</span> <span class="post-toc-text">四、导入之基础校验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#五、导入值自定义校验之重复值校验"><span class="post-toc-number">7.</span> <span class="post-toc-text">五、导入值自定义校验之重复值校验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#六、导入值自定义校验之Collection对象校验"><span class="post-toc-number">8.</span> <span class="post-toc-text">六、导入值自定义校验之Collection对象校验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#七、导入值自定义校验之Excel重复行校验"><span class="post-toc-number">9.</span> <span class="post-toc-text">七、导入值自定义校验之Excel重复行校验</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#结语"><span class="post-toc-number">10.</span> <span class="post-toc-text">结语</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-easypoi导入Excel最佳实践"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">easypoi导入Excel最佳实践</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-12-28 15:50:55" datetime="2019-12-28T07:50:55.000Z"  itemprop="datePublished">2019-12-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/EasyPOI/">EasyPOI</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导入，我也正好整理整理EasyPOI的导入用法。</p>
+<a id="more"></a>
+<p>需求是这样的：现在要在后台导入用户的简历，简历的格式是这样子的：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191223194318.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>一个人有多个属性，某些属性如申请职位、薪资是单一属性，即只会有一个值；某些属性如工作经历、教育经历、获奖情况是一组属性，可能会有多组值。现在要将这批简历数据导入到库中。</p>
+<h2 id="零、文件准备："><a href="#零、文件准备：" class="headerlink" title="零、文件准备："></a>零、文件准备：</h2><ul>
+<li><p><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-easypoi/src/main/resources/excel" target="_blank" rel="noopener">示例Excel以及示例Excel2</a></p>
+</li>
+<li><p>加入 EasyPOI 的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.afterturn<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>easypoi-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="一、定义EasyPOI导入实体类"><a href="#一、定义EasyPOI导入实体类" class="headerlink" title="一、定义EasyPOI导入实体类"></a>一、定义EasyPOI导入实体类</h2><p>首先定义一个 EasyPOI 实体类，单个属性使用 <code>@Excel</code>注解声明，name 属性需要与Excel中的表头保持一致，比如 <code>姓名*</code>中的 * 号就不能省略掉。一对多关系使用 <code>@Collection</code> 注解声明，name 是最上方的表头，对应的集合元素类型需要另外定义一个对象，这里因为篇幅问题，只展示一个工作经历以及教育经历对应的集合对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalentUserInputEntity</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"姓名*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"性别*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer gender;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"手机号*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始工作时间*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date workTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"民族*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String national;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"语言水平*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String languageProficiency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"出生日期*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date birth;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String jobsName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位类型*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String categoryName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"薪资*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer salary;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"工作地点*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String workArea;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"工作经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;ExperienceInputEntity&gt; experienceList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"教育经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;EducationInputEntity&gt; educationList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"获奖情况"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardsInputEntity&gt; awardList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"技能证书"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;PunishmentInputEntity&gt; punishmentList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"特长"</span>)</span><br><span class="line">    <span class="keyword">private</span> String specialty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 工作经历对象</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExperienceInputEntity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"公司名称*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String companyName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"所在行业*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String industry;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始时间*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date beginTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"结束时间*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date finishTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位名称*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String jobTitle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"所属部门*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String department;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"工作内容*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 教育经历对象</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EducationInputEntity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"学校*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String schoolName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"学历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer record;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始年份*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date beginTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"毕业年份*"</span>)</span><br><span class="line">    <span class="keyword">private</span> Date finishTime;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"专业*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String profession;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 省略其他</span></span><br></pre></td></tr></table></figure>
+<h2 id="二、EasyPOI基础导入"><a href="#二、EasyPOI基础导入" class="headerlink" title="二、EasyPOI基础导入"></a>二、EasyPOI基础导入</h2><p>这里为方便演示，直接将导入结果转成JSON打印输出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Boolean <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile multipartFile) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  ImportParams params = <span class="keyword">new</span> ImportParams();</span><br><span class="line">  params.setHeadRows(<span class="number">2</span>);</span><br><span class="line">  <span class="comment">// params.setTitleRows(0);</span></span><br><span class="line">  List&lt;TalentUserInputEntity&gt; result = ExcelImportUtil.importExcel(multipartFile.getInputStream(),</span><br><span class="line">                                                                   TalentUserInputEntity.class, params);</span><br><span class="line">  System.out.println(JSONUtil.toJsonStr(result));</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>这里需要注意表头的行数设置一定要正确！否则集合数据将无法读取，可以通过WPS或者office查看实际表头所占用的行数，一定要区分表头与标题的区别，表头是列名称，标题是表头上面的文字，本文示例文件中没有标题，所以setTitleRows为0</strong>  </p>
+<p><img src="http://img12345.5-project.com/blog/20191224062255.png" alt=""></p>
+<h2 id="三、值替换"><a href="#三、值替换" class="headerlink" title="三、值替换"></a>三、值替换</h2><p>使用 postman 或者 Talend API Tester 等工具进行上传 <code>示例文件.xlsx</code>，结果控制台输出了异常，异常如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.lang.NumberFormatException: For input string: &quot;男&quot;</span><br><span class="line">...</span><br><span class="line">cn.afterturn.easypoi.exception.excel.ExcelImportException: Excel 值获取失败</span><br></pre></td></tr></table></figure>
+<p>原因是因为数据库中性别字段类型为 Integer 类型的，所以导入对象也设置成了 Integer，而 Excel 中填写的是男/女汉字，自然就出错了，这里就需要使用 easypoi 的 replace 方式来替换最终值，修改 <code>gender</code> 字段上的注解为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// replace格式为 "替换前的值_替换后的值"</span></span><br><span class="line"><span class="meta">@Excel</span>(name = <span class="string">"性别*"</span>, replace = &#123;<span class="string">"男_0"</span>, <span class="string">"女_1"</span>&#125;)</span><br><span class="line"><span class="keyword">private</span> Integer gender;</span><br></pre></td></tr></table></figure>
+<p>同理，薪资类型和教育经历中的学历需要替换需要的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Excel</span>(name = <span class="string">"薪资*"</span>, replace = &#123;<span class="string">"3K以下_1"</span>, <span class="string">"3K-5K_2"</span>, <span class="string">"5K-10K_3"</span>, <span class="string">"10K-20K_4"</span>, <span class="string">"20K-50K_5"</span>, <span class="string">"50K以上_6"</span>&#125;)</span><br><span class="line"><span class="keyword">private</span> Integer salary;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Excel</span>(name = <span class="string">"学历*"</span>, replace =&#123;<span class="string">"初中及以下_1"</span>,<span class="string">"中专_2"</span>,<span class="string">"高中_3"</span>,<span class="string">"大专_4"</span>,<span class="string">"本科_5"</span>,<span class="string">"硕士_6"</span>,<span class="string">"博士_7"</span>&#125;)</span><br><span class="line"><span class="keyword">private</span> Integer record;</span><br></pre></td></tr></table></figure>
+<p>再重新尝试导入，控制台输出了导入的JSON内容</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"experienceList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1571673600000</span>,</span><br><span class="line">                <span class="attr">"companyName"</span>: <span class="string">"科技公司1"</span>,</span><br><span class="line">                <span class="attr">"jobTitle"</span>: <span class="string">"运营"</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"运营方案处理"</span>,</span><br><span class="line">                <span class="attr">"industry"</span>: <span class="string">"互联网"</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1546358400000</span>,</span><br><span class="line">                <span class="attr">"department"</span>: <span class="string">"运营部"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1571673600000</span>,</span><br><span class="line">                <span class="attr">"companyName"</span>: <span class="string">"财务公司"</span>,</span><br><span class="line">                <span class="attr">"jobTitle"</span>: <span class="string">"会计"</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"审计"</span>,</span><br><span class="line">                <span class="attr">"industry"</span>: <span class="string">"财务"</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1574179200000</span>,</span><br><span class="line">                <span class="attr">"department"</span>: <span class="string">"会计部"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"gender"</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">"languageProficiency"</span>: <span class="string">"英语四级"</span>,</span><br><span class="line">        <span class="attr">"jobsName"</span>: <span class="string">"销售"</span>,</span><br><span class="line">        <span class="attr">"educationList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"profession"</span>: <span class="string">"计算机"</span>,</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1530374400000</span>,</span><br><span class="line">                <span class="attr">"record"</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1409500800000</span>,</span><br><span class="line">                <span class="attr">"schoolName"</span>: <span class="string">"山东大学"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"profession"</span>: <span class="string">"计算机"</span>,</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1593532800000</span>,</span><br><span class="line">                <span class="attr">"record"</span>: <span class="number">6</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1409500800000</span>,</span><br><span class="line">                <span class="attr">"schoolName"</span>: <span class="string">"山东大学"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"birth"</span>: <span class="number">851097600000</span>,</span><br><span class="line">        <span class="attr">"salary"</span>: <span class="number">4</span>,</span><br><span class="line">        <span class="attr">"workTime"</span>: <span class="number">1549900800000</span>,</span><br><span class="line">        <span class="attr">"categoryName"</span>: <span class="string">"销售"</span>,</span><br><span class="line">        <span class="attr">"phone"</span>: <span class="string">"13122223333"</span>,</span><br><span class="line">        <span class="attr">"workArea"</span>: <span class="string">"浙江省金华市义乌市"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"张无忌"</span>,</span><br><span class="line">        <span class="attr">"national"</span>: <span class="string">"汉族"</span>,</span><br><span class="line">        <span class="attr">"punishmentList"</span>: [</span><br><span class="line">            &#123;&#125;,</span><br><span class="line">            &#123;&#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"awardList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"date"</span>: <span class="number">1530374400000</span>,</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"国家奖学金"</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"国家一级奖学金"</span></span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;&#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"specialty"</span>: <span class="string">"特长就是太多特长"</span>,</span><br><span class="line">        <span class="attr">"experienceList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1571673600000</span>,</span><br><span class="line">                <span class="attr">"companyName"</span>: <span class="string">"科技公司1"</span>,</span><br><span class="line">                <span class="attr">"jobTitle"</span>: <span class="string">"java开发"</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"code"</span>,</span><br><span class="line">                <span class="attr">"industry"</span>: <span class="string">"互联网"</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1546358400000</span>,</span><br><span class="line">                <span class="attr">"department"</span>: <span class="string">"开发部门"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"gender"</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">"languageProficiency"</span>: <span class="string">"英语八级"</span>,</span><br><span class="line">        <span class="attr">"jobsName"</span>: <span class="string">"java"</span>,</span><br><span class="line">        <span class="attr">"educationList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"profession"</span>: <span class="string">"计算机"</span>,</span><br><span class="line">                <span class="attr">"finishTime"</span>: <span class="number">1530374400000</span>,</span><br><span class="line">                <span class="attr">"record"</span>: <span class="number">5</span>,</span><br><span class="line">                <span class="attr">"beginTime"</span>: <span class="number">1409500800000</span>,</span><br><span class="line">                <span class="attr">"schoolName"</span>: <span class="string">"安徽大学"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"birth"</span>: <span class="number">851097600000</span>,</span><br><span class="line">        <span class="attr">"salary"</span>: <span class="number">4</span>,</span><br><span class="line">        <span class="attr">"workTime"</span>: <span class="number">1549900800000</span>,</span><br><span class="line">        <span class="attr">"categoryName"</span>: <span class="string">"开发"</span>,</span><br><span class="line">        <span class="attr">"phone"</span>: <span class="string">"18311111111"</span>,</span><br><span class="line">        <span class="attr">"workArea"</span>: <span class="string">"浙江省金华市义乌市"</span>,</span><br><span class="line">        <span class="attr">"name"</span>: <span class="string">"张小凡"</span>,</span><br><span class="line">        <span class="attr">"national"</span>: <span class="string">"汉族"</span>,</span><br><span class="line">        <span class="attr">"punishmentList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"date"</span>: <span class="number">1530374400000</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"技能没有"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"awardList"</span>: [</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="attr">"date"</span>: <span class="number">1530374400000</span>,</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"国家奖学金"</span>,</span><br><span class="line">                <span class="attr">"description"</span>: <span class="string">"国家一级奖学金"</span></span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    // 省略其他...</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="四、导入之基础校验"><a href="#四、导入之基础校验" class="headerlink" title="四、导入之基础校验"></a>四、导入之基础校验</h2><p>现在产品需要对导入的Excel进行校验，不合法的Excel不允许入库，需要返回具体的错误信息给前端，提示给用户，错误信息中需要包含行号以及对应的错误。</p>
+<p>因为 EasyPOI 支持 Hibernate Validator ，所以直接使用就可以了，因为要将错误信息以及错误行号返回，所以需要用到 EasyPOI 的高级用法，实现 <code>IExcelDataModel</code>与 <code>IExcelModel</code>接口，<code>IExcelDataModel</code>负责设置行号，<code>IExcelModel</code> 负责设置错误信息。</p>
+<p>修改导入实体类，增加字段 <code>rowNum</code> 与 <code>errorMsg</code>以及增加校验注解。</p>
+<p>如果使用到了 @Pattern 注解，则字段类型必须是 <strong>String</strong> 类型，否则会抛出异常，本文中的原 <code>Integer</code> 类型的 <code>gender</code> 修改成为 <code>String</code> 类型的 <code>genderStr</code>，<code>record</code> 字段也修改为了 String 类型的 <code>recordStr</code>等等。同理如果校验 Date 类型字段，先将类型改成String，正则表达式参考下文写法。</p>
+<p><strong>这里需要注意，如果@Excel注解中设置了 <code>replace</code> 属性，则Hibernate Validator 校验的是替换后的值</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalentUserInputEntity</span> <span class="keyword">implements</span> <span class="title">IExcelDataModel</span>, <span class="title">IExcelModel</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 时间格式校验正则</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATE_REGEXP = <span class="string">"(Mon|Tue|Wed|Thu|Fri|Sat|Sun)( )(Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov)( )\\d&#123;2&#125;( )(00:00:00)( )(CST)( )\\d&#123;4&#125;"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 行号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rowNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 错误消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String errorMsg;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"姓名*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[姓名]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"性别*"</span>, replace = &#123;<span class="string">"男_0"</span>, <span class="string">"女_1"</span>&#125;)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[01]"</span>, message = <span class="string">"性别错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String genderStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"手机号*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始工作时间*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[开始工作时间]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String workTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"民族*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[民族]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String national;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"语言水平*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[语言水平]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String languageProficiency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"出生日期*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[出生日期]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String birthStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[职位]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String jobsName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位类型*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[职位类型]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String categoryName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"薪资*"</span>, replace = &#123;<span class="string">"3K以下_1"</span>, <span class="string">"3K-5K_2"</span>, <span class="string">"5K-10K_3"</span>, <span class="string">"10K-20K_4"</span>, <span class="string">"20K-50K_5"</span>, <span class="string">"50K以上_6"</span>&#125;)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[123456]"</span>, message = <span class="string">"薪资信息错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String salaryStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"工作地点*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[工作地点]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String workArea;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"工作经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;ExperienceInputEntity&gt; experienceList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"教育经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;EducationInputEntity&gt; educationList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"获奖情况"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardsInputEntity&gt; awardList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"技能证书"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;PunishmentInputEntity&gt; punishmentList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"特长"</span>)</span><br><span class="line">    <span class="keyword">private</span> String specialty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 工作经历</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExperienceInputEntity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"公司名称*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String companyName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"所在行业*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String industry;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始时间*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[工作经历][开始时间]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String beginTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"结束时间*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[工作经历][结束时间]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String finishTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位名称*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String jobTitle;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"所属部门*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String department;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"工作内容*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String description;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 教育经历</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EducationInputEntity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"学校*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String schoolName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"学历*"</span>, replace = &#123;<span class="string">"初中及以下_1"</span>, <span class="string">"中专_2"</span>, <span class="string">"高中_3"</span>, <span class="string">"大专_4"</span>, <span class="string">"本科_5"</span>, <span class="string">"硕士_6"</span>, <span class="string">"博士_7"</span>&#125;)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[1234567]"</span>, message = <span class="string">"学历信息错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String recordStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始年份*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[教育经历][开始年份]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String beginTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"毕业年份*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[教育经历][毕业年份]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String finishTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"专业*"</span>)</span><br><span class="line">    <span class="keyword">private</span> String profession;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 其他省略...</span></span><br></pre></td></tr></table></figure>
+<p>修改完实体类后，修改导入处的代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Boolean <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile multipartFile) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  ImportParams params = <span class="keyword">new</span> ImportParams();</span><br><span class="line">  <span class="comment">// 表头设置为2行</span></span><br><span class="line">  params.setHeadRows(<span class="number">2</span>);</span><br><span class="line">  <span class="comment">// 标题行设置为0行，默认是0，可以不设置</span></span><br><span class="line">  params.setTitleRows(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 开启Excel校验</span></span><br><span class="line">  params.setNeedVerfiy(<span class="keyword">true</span>);</span><br><span class="line">  ExcelImportResult&lt;TalentUserInputEntity&gt; result = ExcelImportUtil.importExcelMore(multipartFile.getInputStream(),</span><br><span class="line">                                                                                    TalentUserInputEntity.class, params);</span><br><span class="line">  System.out.println(<span class="string">"是否校验失败: "</span> + result.isVerfiyFail());</span><br><span class="line">  System.out.println(<span class="string">"校验失败的集合:"</span> + JSONObject.toJSONString(result.getFailList()));</span><br><span class="line">  System.out.println(<span class="string">"校验通过的集合:"</span> + JSONObject.toJSONString(result.getList()));</span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity entity : result.getFailList()) &#123;</span><br><span class="line">    String msg = <span class="string">"第"</span> + entity.getRowNum() + <span class="string">"行的错误是："</span> + entity.getErrorMsg();</span><br><span class="line">    System.out.println(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了方便测试，我基于正确的Excel另存一份个别字段有误的 示例Excel2 并上传，解析结果为：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191224221916.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这里贴出部分校验失败集合数据，可以看到第50行和61行是原Excel中错误的数据，也已经打印了出来，但是教育经历中的教育水平也是错误的，却没被打印出来，查看源码发现，EasyPOI 对 Collection 中的对象并没有进行校验，我们在下文中解决。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191224221513.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="五、导入值自定义校验之重复值校验"><a href="#五、导入值自定义校验之重复值校验" class="headerlink" title="五、导入值自定义校验之重复值校验"></a>五、导入值自定义校验之重复值校验</h2><p>上文所作的校验只是一些基本的校验，可能会有诸如Excel中重复行校验，Excel中数据与数据库重复校验等等。这种校验就无法通过 Hibernate Validator 来完成，只能写代码来实现校验逻辑了。</p>
+<p>首先从简单的Excel数据与数据库值重复校验开始。为了便于演示，就不引入数据库了，直接Mock一些数据用来判断是否重复。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MockTalentDataService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> List&lt;TalentUser&gt; talentUsers = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        TalentUser u1 = <span class="keyword">new</span> TalentUser(<span class="number">1L</span>, <span class="string">"凌风"</span>, <span class="string">"18311342567"</span>);</span><br><span class="line">        TalentUser u2 = <span class="keyword">new</span> TalentUser(<span class="number">2L</span>, <span class="string">"张三"</span>, <span class="string">"18512343567"</span>);</span><br><span class="line">        TalentUser u3 = <span class="keyword">new</span> TalentUser(<span class="number">3L</span>, <span class="string">"李四"</span>, <span class="string">"18902343267"</span>);</span><br><span class="line">        talentUsers.add(u1);</span><br><span class="line">        talentUsers.add(u2);</span><br><span class="line">        talentUsers.add(u3);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 校验是否重复</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">checkForDuplicates</span><span class="params">(String name, String phone)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 姓名与手机号相等个数不等于0则为重复</span></span><br><span class="line">        <span class="keyword">return</span> talentUsers.stream().anyMatch(e -&gt; e.getName().equals(name) &amp;&amp; e.getPhone().equals(phone));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中Mock数据中 ID 为 1 的数据与示例Excel2 中的数据是重复的。<br>EasyPOI 提供了校验的接口，这需要我们自己写一个用于校验的类。在这个类中，可以对导入时的每一行数据进行校验，框架通过 ExcelVerifyHandlerResult 对象来判断是否校验通过，校验不通过需要传递 ErrorMsg。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalentImportVerifyHandler</span> <span class="keyword">implements</span> <span class="title">IExcelVerifyHandler</span>&lt;<span class="title">TalentUserInputEntity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> MockTalentDataService mockTalentDataService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExcelVerifyHandlerResult <span class="title">verifyHandler</span><span class="params">(TalentUserInputEntity inputEntity)</span> </span>&#123;</span><br><span class="line">        StringJoiner joiner = <span class="keyword">new</span> StringJoiner(<span class="string">","</span>);</span><br><span class="line">        <span class="comment">// 根据姓名与手机号判断数据是否重复</span></span><br><span class="line">        String name = inputEntity.getName();</span><br><span class="line">        String phone = inputEntity.getPhone();</span><br><span class="line">        <span class="comment">// mock 数据库</span></span><br><span class="line">        <span class="keyword">boolean</span> duplicates = mockTalentDataService.checkForDuplicates(name, phone);</span><br><span class="line">        <span class="keyword">if</span> (duplicates) &#123;</span><br><span class="line">            joiner.add(<span class="string">"数据与数据库数据重复"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (joiner.length() != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ExcelVerifyHandlerResult(<span class="keyword">false</span>, joiner.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExcelVerifyHandlerResult(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改校验处代码，设置校验类对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> TalentImportVerifyHandler talentImportVerifyHandler;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Boolean <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile multipartFile) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  ImportParams params = <span class="keyword">new</span> ImportParams();</span><br><span class="line">  <span class="comment">// 表头设置为2行</span></span><br><span class="line">  params.setHeadRows(<span class="number">2</span>);</span><br><span class="line">  <span class="comment">// 标题行设置为0行，默认是0，可以不设置</span></span><br><span class="line">  params.setTitleRows(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 开启Excel校验</span></span><br><span class="line">  params.setNeedVerfiy(<span class="keyword">true</span>);</span><br><span class="line">  params.setVerifyHandler(talentImportVerifyHandler);</span><br><span class="line">  ExcelImportResult&lt;TalentUserInputEntity&gt; result = ExcelImportUtil.importExcelMore(multipartFile.getInputStream(),</span><br><span class="line">                                                                                    TalentUserInputEntity.class, params);</span><br><span class="line">  System.out.println(<span class="string">"是否校验失败: "</span> + result.isVerfiyFail());</span><br><span class="line">  System.out.println(<span class="string">"校验失败的集合:"</span> + JSONObject.toJSONString(result.getFailList()));</span><br><span class="line">  System.out.println(<span class="string">"校验通过的集合:"</span> + JSONObject.toJSONString(result.getList()));</span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity entity : result.getFailList()) &#123;</span><br><span class="line">    <span class="keyword">int</span> line = entity.getRowNum() + <span class="number">1</span>;</span><br><span class="line">    String msg = <span class="string">"第"</span> + line + <span class="string">"行的错误是："</span> + entity.getErrorMsg();</span><br><span class="line">    System.out.println(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上传 示例Excel2 文件测试，结果输出：  </p>
+<p><img src="http://img12345.5-project.com/blog/20191228134843.png" alt=""></p>
+<p>而第七行的数据正是与Mock中的数据相重复的。<br><img src="http://img12345.5-project.com/blog/20191228134936.png" alt=""></p>
+<h2 id="六、导入值自定义校验之Collection对象校验"><a href="#六、导入值自定义校验之Collection对象校验" class="headerlink" title="六、导入值自定义校验之Collection对象校验"></a>六、导入值自定义校验之Collection对象校验</h2><p>上文中还有一个待解决的问题，就是Collection中的对象添加了Hibernate Validator 注解校验但是并未生效的问题，现在就来解决一下。上一步中实现了导入对象的校验类，校验类会校验Excel中的每一条数据， 那我是不是可以直接在校验类中校验Collection中对象了呢？实践证明行不通，因为这个校验类的verifyHandler方法只会被调用一次，所以Collection中只有一条记录。既然这里行不通的话，就只能对导入结果再进行校验了。</p>
+<p>因为Collection中的数据EasyPOI校验不到，所以有问题的数据也可能会被框架放到result.getList()中而不是result.getFailList() 中，为了校验需要将两个集合合并为一个集合，使用 EasyPOI 自带的工具类 PoiValidationUtil 进行校验 Collection 中的对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> TalentImportVerifyHandler talentImportVerifyHandler;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Boolean <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile multipartFile) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  ImportParams params = <span class="keyword">new</span> ImportParams();</span><br><span class="line">  <span class="comment">// 表头设置为2行</span></span><br><span class="line">  params.setHeadRows(<span class="number">2</span>);</span><br><span class="line">  <span class="comment">// 标题行设置为0行，默认是0，可以不设置</span></span><br><span class="line">  params.setTitleRows(<span class="number">0</span>);</span><br><span class="line">  <span class="comment">// 开启Excel校验</span></span><br><span class="line">  params.setNeedVerfiy(<span class="keyword">true</span>);</span><br><span class="line">  params.setVerifyHandler(talentImportVerifyHandler);</span><br><span class="line">  ExcelImportResult&lt;TalentUserInputEntity&gt; result = ExcelImportUtil.importExcelMore(multipartFile.getInputStream(),</span><br><span class="line">                                                                                    TalentUserInputEntity.class, params);</span><br><span class="line">  System.out.println(<span class="string">"是否校验失败: "</span> + result.isVerfiyFail());</span><br><span class="line">  System.out.println(<span class="string">"校验失败的集合:"</span> + JSONObject.toJSONString(result.getFailList()));</span><br><span class="line">  System.out.println(<span class="string">"校验通过的集合:"</span> + JSONObject.toJSONString(result.getList()));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 合并结果集</span></span><br><span class="line">  List&lt;TalentUserInputEntity&gt; resultList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  resultList.addAll(result.getFailList());</span><br><span class="line">  resultList.addAll(result.getList());</span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity inputEntity : resultList) &#123;</span><br><span class="line">    StringJoiner joiner = <span class="keyword">new</span> StringJoiner(<span class="string">","</span>);</span><br><span class="line">    joiner.add(inputEntity.getErrorMsg());</span><br><span class="line">    <span class="comment">// 校验Collection的元素</span></span><br><span class="line">    inputEntity.getExperienceList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getEducationList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getAwardList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getPunishmentList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.setErrorMsg(joiner.toString());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity entity : result.getFailList()) &#123;</span><br><span class="line">    <span class="keyword">int</span> line = entity.getRowNum() + <span class="number">1</span>;</span><br><span class="line">    String msg = <span class="string">"第"</span> + line + <span class="string">"行的错误是："</span> + entity.getErrorMsg();</span><br><span class="line">    System.out.println(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">verify</span><span class="params">(StringJoiner joiner, Object object)</span> </span>&#123;</span><br><span class="line">  String validationMsg = PoiValidationUtil.validation(object, <span class="keyword">null</span>);</span><br><span class="line">  <span class="keyword">if</span> (StringUtils.isNotEmpty(validationMsg)) &#123;</span><br><span class="line">    joiner.add(validationMsg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上传 示例Excel2 ，结果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191228145220.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="七、导入值自定义校验之Excel重复行校验"><a href="#七、导入值自定义校验之Excel重复行校验" class="headerlink" title="七、导入值自定义校验之Excel重复行校验"></a>七、导入值自定义校验之Excel重复行校验</h2><p>上文中对Excel中数据与数据库数据进行重复校验，可有些需求是要求数据库在入库前需要对Excel的的重复行进行校验。这需要在校验类中完成，但校验类中并没有全部行的数据，该如何实现呢？博主的做法是将导入的数据放到 ThreadLocal 中进行暂存，从而达到在校验类中校验Excel重复行的目的。<strong>ThreadLocal使用注意完之后一定要及时清理！</strong></p>
+<p>首先定义什么叫重复行，完全相同的两行是重复行，本文中设定name 与 phone 相同的行为重复行，由于只需要比较这两个字段，所以我们需要重写导入对象的equals与hashCode方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalentUserInputEntity</span> <span class="keyword">implements</span> <span class="title">IExcelDataModel</span>, <span class="title">IExcelModel</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 时间格式校验正则</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DATE_REGEXP = <span class="string">"(Mon|Tue|Wed|Thu|Fri|Sat|Sun)( )(Dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov)( )\\d&#123;2&#125;( )(00:00:00)( )(CST)( )\\d&#123;4&#125;"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 行号</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> rowNum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 错误消息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String errorMsg;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"姓名*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[姓名]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"性别*"</span>, replace = &#123;<span class="string">"男_0"</span>, <span class="string">"女_1"</span>&#125;)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[01]"</span>, message = <span class="string">"性别错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String genderStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"手机号*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[0-9]&#123;11&#125;"</span>, message = <span class="string">"手机号不正确"</span>)</span><br><span class="line">    <span class="keyword">private</span> String phone;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"开始工作时间*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[开始工作时间]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String workTimeStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"民族*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[民族]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String national;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"语言水平*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[语言水平]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String languageProficiency;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"出生日期*"</span>)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = DATE_REGEXP, message = <span class="string">"[出生日期]时间格式错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String birthStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[职位]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String jobsName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"职位类型*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[职位类型]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String categoryName;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"薪资*"</span>, replace = &#123;<span class="string">"3K以下_1"</span>, <span class="string">"3K-5K_2"</span>, <span class="string">"5K-10K_3"</span>, <span class="string">"10K-20K_4"</span>, <span class="string">"20K-50K_5"</span>, <span class="string">"50K以上_6"</span>&#125;)</span><br><span class="line">    <span class="meta">@Pattern</span>(regexp = <span class="string">"[123456]"</span>, message = <span class="string">"薪资信息错误"</span>)</span><br><span class="line">    <span class="keyword">private</span> String salaryStr;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"工作地点*"</span>)</span><br><span class="line">    <span class="meta">@NotBlank</span>(message = <span class="string">"[工作地点]不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String workArea;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"工作经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;ExperienceInputEntity&gt; experienceList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"教育经历*"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;EducationInputEntity&gt; educationList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"获奖情况"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;AwardsInputEntity&gt; awardList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ExcelCollection</span>(name = <span class="string">"技能证书"</span>)</span><br><span class="line">    <span class="keyword">private</span> List&lt;PunishmentInputEntity&gt; punishmentList;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Excel</span>(name = <span class="string">"特长"</span>)</span><br><span class="line">    <span class="keyword">private</span> String specialty;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span> == o) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (o == <span class="keyword">null</span> || getClass() != o.getClass()) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        TalentUserInputEntity that = (TalentUserInputEntity) o;</span><br><span class="line">        <span class="keyword">return</span> Objects.equals(name, that.name) &amp;&amp;</span><br><span class="line">                Objects.equals(phone, that.phone);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Objects.hash(name, phone);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>修改校验类代码，实现重复行的校验逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TalentImportVerifyHandler</span> <span class="keyword">implements</span> <span class="title">IExcelVerifyHandler</span>&lt;<span class="title">TalentUserInputEntity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ThreadLocal&lt;List&lt;TalentUserInputEntity&gt;&gt; threadLocal = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> MockTalentDataService mockTalentDataService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExcelVerifyHandlerResult <span class="title">verifyHandler</span><span class="params">(TalentUserInputEntity inputEntity)</span> </span>&#123;</span><br><span class="line">        StringJoiner joiner = <span class="keyword">new</span> StringJoiner(<span class="string">","</span>);</span><br><span class="line">        <span class="comment">// 根据姓名与手机号判断数据是否重复</span></span><br><span class="line">        String name = inputEntity.getName();</span><br><span class="line">        String phone = inputEntity.getPhone();</span><br><span class="line">        <span class="comment">// mock 数据库</span></span><br><span class="line">        <span class="keyword">boolean</span> duplicates = mockTalentDataService.checkForDuplicates(name, phone);</span><br><span class="line">        <span class="keyword">if</span> (duplicates) &#123;</span><br><span class="line">            joiner.add(<span class="string">"数据与数据库数据重复"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;TalentUserInputEntity&gt; threadLocalVal = threadLocal.get();</span><br><span class="line">        <span class="keyword">if</span> (threadLocalVal == <span class="keyword">null</span>) &#123;</span><br><span class="line">            threadLocalVal = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        threadLocalVal.forEach(e -&gt; &#123;</span><br><span class="line">            <span class="keyword">if</span> (e.equals(inputEntity)) &#123;</span><br><span class="line">                <span class="keyword">int</span> lineNumber = e.getRowNum() + <span class="number">1</span>;</span><br><span class="line">                joiner.add(<span class="string">"数据与第"</span> + lineNumber + <span class="string">"行重复"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 添加本行数据对象到ThreadLocal中</span></span><br><span class="line">        threadLocalVal.add(inputEntity);</span><br><span class="line">        threadLocal.set(threadLocalVal);</span><br><span class="line">        <span class="keyword">if</span> (joiner.length() != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ExcelVerifyHandlerResult(<span class="keyword">false</span>, joiner.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExcelVerifyHandlerResult(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ThreadLocal&lt;List&lt;TalentUserInputEntity&gt;&gt; getThreadLocal() &#123;</span><br><span class="line">        <span class="keyword">return</span> threadLocal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于校验类中使用了ThreadLocal，因此需要及时释放，修改导入处的代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> TalentImportVerifyHandler talentImportVerifyHandler;</span><br><span class="line"></span><br><span class="line"><span class="meta">@PostMapping</span>(<span class="string">"/upload"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Boolean <span class="title">upload</span><span class="params">(@RequestParam(<span class="string">"file"</span>)</span> MultipartFile multipartFile) <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">  ExcelImportResult&lt;TalentUserInputEntity&gt; result;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    ImportParams params = <span class="keyword">new</span> ImportParams();</span><br><span class="line">    <span class="comment">// 表头设置为2行</span></span><br><span class="line">    params.setHeadRows(<span class="number">2</span>);</span><br><span class="line">    <span class="comment">// 标题行设置为0行，默认是0，可以不设置</span></span><br><span class="line">    params.setTitleRows(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">// 开启Excel校验</span></span><br><span class="line">    params.setNeedVerfiy(<span class="keyword">true</span>);</span><br><span class="line">    params.setVerifyHandler(talentImportVerifyHandler);</span><br><span class="line">    result = ExcelImportUtil.importExcelMore(multipartFile.getInputStream(),</span><br><span class="line">                                             TalentUserInputEntity.class, params);</span><br><span class="line">  &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="comment">// 清除threadLocal 防止内存泄漏</span></span><br><span class="line">    ThreadLocal&lt;List&lt;TalentUserInputEntity&gt;&gt; threadLocal = talentImportVerifyHandler.getThreadLocal();</span><br><span class="line">    <span class="keyword">if</span> (threadLocal != <span class="keyword">null</span>) &#123;</span><br><span class="line">      threadLocal.remove();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  System.out.println(<span class="string">"是否校验失败: "</span> + result.isVerfiyFail());</span><br><span class="line">  System.out.println(<span class="string">"校验失败的集合:"</span> + JSONObject.toJSONString(result.getFailList()));</span><br><span class="line">  System.out.println(<span class="string">"校验通过的集合:"</span> + JSONObject.toJSONString(result.getList()));</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 合并结果集</span></span><br><span class="line">  List&lt;TalentUserInputEntity&gt; resultList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">  resultList.addAll(result.getFailList());</span><br><span class="line">  resultList.addAll(result.getList());</span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity inputEntity : resultList) &#123;</span><br><span class="line">    StringJoiner joiner = <span class="keyword">new</span> StringJoiner(<span class="string">","</span>);</span><br><span class="line">    joiner.add(inputEntity.getErrorMsg());</span><br><span class="line">    <span class="comment">// 校验Collection的元素</span></span><br><span class="line">    inputEntity.getExperienceList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getEducationList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getAwardList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.getPunishmentList().forEach(e -&gt; verify(joiner, e));</span><br><span class="line">    inputEntity.setErrorMsg(joiner.toString());</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (TalentUserInputEntity entity : result.getFailList()) &#123;</span><br><span class="line">    <span class="keyword">int</span> line = entity.getRowNum() + <span class="number">1</span>;</span><br><span class="line">    String msg = <span class="string">"第"</span> + line + <span class="string">"行的错误是："</span> + entity.getErrorMsg();</span><br><span class="line">    System.out.println(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">verify</span><span class="params">(StringJoiner joiner, Object object)</span> </span>&#123;</span><br><span class="line">  String validationMsg = PoiValidationUtil.validation(object, <span class="keyword">null</span>);</span><br><span class="line">  <span class="keyword">if</span> (StringUtils.isNotEmpty(validationMsg)) &#123;</span><br><span class="line">    joiner.add(validationMsg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>导入示例Excel2，结果如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191228155741.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>至此，我们就完成了导入的大部分需求。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><ul>
+<li><a href="https://github.com/Mosiki/learning-modules" target="_blank" rel="noopener">示例代码</a></li>
+</ul>
+<p>这篇博客花费了我不少时间来写，文中的代码也上传到了GitHub上，并且在写文章的同时，学习了一下Git tag 的使用，读者可以在 GitHub 的分支切换可以切换到不同tag看代码。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20191228154341.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-12-28T07:58:42.855Z" itemprop="dateUpdated">2019-12-28 15:58:42</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/easypoi导入Excel最佳实践.html" target="_blank" rel="external">http://nullpointer.pw/easypoi导入Excel最佳实践.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easypoi导入Collection校验/">easypoi导入Collection校验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easypoi导入Excel/">easypoi导入Excel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easypoi导入Excel时间格式校验/">easypoi导入Excel时间格式校验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easypoi导入重复值校验/">easypoi导入重复值校验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/easypoi导入重复行校验/">easypoi导入重复行校验</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&title=《easypoi导入Excel最佳实践》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&title=《easypoi导入Excel最佳实践》 — WeJan's Blog&source=前言一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/easypoi导入Excel最佳实践.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《easypoi导入Excel最佳实践》 — WeJan's Blog&url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/ParallelsDesktop安装精简版系统.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ParallelsDesktop安装精简版系统</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&title=《easypoi导入Excel最佳实践》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&title=《easypoi导入Excel最佳实践》 — WeJan's Blog&source=前言一直以来，使用EasyPOI做了不少导入导出的需求，但是每次做完都是临时去看官方文档现学现用，正巧最近朋友遇到这么个需求，用到了EasyPOI来完成导..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/easypoi导入Excel最佳实践.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《easypoi导入Excel最佳实践》 — WeJan's Blog&url=http://nullpointer.pw/easypoi导入Excel最佳实践.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/easypoi导入Excel最佳实践.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aS27CQBAFQO5/abKOIsh70yaKZ8orBNi4jNTq3+MRH88fx/tPf34nuVpy7ujAwMC4LeP59nj/A8m5yS0mv/vLY8LAwDiA8erSr16/utH21t9/Pz8XAwMDI0nX8pCdh3UMDAyMqwJuW3zmgRgDAwOjDYUte5JQfrAWx8DAuCEjD5F///oj8w0MDIxbMZ7lkYwzk6A5v5NvV8PAwNiasdZKa4eaSStt0trDwMDYm5EUlpNwvJZ0tg8LAwNjb8akZZ/f9Fr7bK3lh4GBsSvj2tZ88vPJUkX7gDAwMHZlTJpibSHaBtBiFQMDA+MYxqRkbUcCbUsuymcxMDA2ZcxPnrTG2utHGS4GBsbWjDzgJutiV6WbRSGNgYFxDGOe5CWNtvbT6KFgYGBszbiqrF2cmpYPtJjEYmBgbMFYa/TnCeJaipmnnhgYGKcx8vZ9cp12yWy00oGBgbE1Y23R4apwWYwnk9wWAwNja8Zac20yhpy04Yr/BAMDYyNG2yZLlirWSta2fP1lEouBgXEAY+2dtTHnBaEcAwPjGMakgGwXyCbla7EzgoGBcXPG2iJFW4jmY4DFEIyBgbE1ow12SfnaPqw8sF5AwsDAuC2jXUht32nXOBYDLgYGxgGMNvDlg4F2LHrZzggGBsbxjDahnCxkPCY+DAyMIxmThDJ5v006MTAwzmHME7u1Ztx8XIqBgXECY+2in1smSwCXpY8YGBj/nfEFfx9LqWDkQqwAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
