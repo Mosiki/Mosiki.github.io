@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>数据库与应用服务器时间不同步踩坑记 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="解决数据库与应用服务器时间不同步导致的问题">
+    <meta name="description" content="业务说明这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。前端判断用户分享成功后，会调用一次保存分享记录的接口，将分享记录入库。完成后，前端会调用获取调用查询【活动任务可完成次数】接口，如果任务可完成次数为0，则置灰分享按钮。">
+<meta name="keywords" content="解决数据库与应用服务器时间不同步导致的问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库与应用服务器时间不同步踩坑记">
+<meta property="og:url" content="http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="业务说明这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。前端判断用户分享成功后，会调用一次保存分享记录的接口，将分享记录入库。完成后，前端会调用获取调用查询【活动任务可完成次数】接口，如果任务可完成次数为0，则置灰分享按钮。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20200108202842.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20200112145944.png">
+<meta property="og:updated_time" content="2020-01-12T07:00:09.765Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库与应用服务器时间不同步踩坑记">
+<meta name="twitter:description" content="业务说明这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。前端判断用户分享成功后，会调用一次保存分享记录的接口，将分享记录入库。完成后，前端会调用获取调用查询【活动任务可完成次数】接口，如果任务可完成次数为0，则置灰分享按钮。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20200108202842.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">数据库与应用服务器时间不同步踩坑记</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">数据库与应用服务器时间不同步踩坑记</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-12T06:53:47.000Z" itemprop="datePublished" class="page-time">
+  2020-01-12
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Bug/">Bug</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#业务说明"><span class="post-toc-number">1.</span> <span class="post-toc-text">业务说明</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#定位问题"><span class="post-toc-number">2.</span> <span class="post-toc-text">定位问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#问题原因"><span class="post-toc-number">3.</span> <span class="post-toc-text">问题原因</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解决问题"><span class="post-toc-number">4.</span> <span class="post-toc-text">解决问题</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-数据库与应用服务器时间不同步踩坑记"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">数据库与应用服务器时间不同步踩坑记</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-12 14:53:47" datetime="2020-01-12T06:53:47.000Z"  itemprop="datePublished">2020-01-12</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Bug/">Bug</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="业务说明"><a href="#业务说明" class="headerlink" title="业务说明"></a>业务说明</h2><p>这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。<br>前端判断用户分享成功后，会调用一次保存分享记录的接口，将分享记录入库。<br>完成后，前端会调用获取调用查询【活动任务可完成次数】接口，如果任务可完成次数为0，则置灰分享按钮。</p>
+<a id="more"></a>
+<p><a href="http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html">本文原文链接地址: http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html</a></p>
+<p>如图所示：<br><img src="http://img12345.5-project.com/blog/20200108202842.png" alt=""></p>
+<h2 id="定位问题"><a href="#定位问题" class="headerlink" title="定位问题"></a>定位问题</h2><p>测试给我提了一个 BUG，在<strong>测试环境</strong>，完成分享任务后，重新调用【活动任务可完成次数】后，发现接口返回可完成次数仍然是 1，<br>但是过了好几分钟后，重新进入活动页，接口返回了可完成次数为 0，分享按钮也已经置灰不可点击。</p>
+<p>这就很奇怪了，一开始怀疑是缓存的问题，结果并不是，在测试环境远程 Debug 后发现，每次分享成功后，查询数据库分享任务的完成次数竟然没有查询到数据，<br>而数据中确实存在了分享的记录，将查询 SQL 和查询参数取出来放到 Navicat 中一查，结果是因为时间区间筛选掉了分享的那条记录。<br>SQL 如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> t_share_record <span class="keyword">where</span> uid = <span class="string">"1234567"</span> <span class="keyword">and</span> activity_id = <span class="number">38867247</span></span><br><span class="line"> <span class="keyword">and</span> create_time <span class="keyword">between</span> <span class="string">'2020-01-08 00:00:00'</span> <span class="keyword">and</span> <span class="string">'2020-01-08 19:18:29'</span></span><br></pre></td></tr></table></figure>
+<p>而数据库中的那条分享记录的create_time 是  <strong>2020-01-08 19:19:21</strong>， 这条记录不在筛选的时间区间内，因而被过滤掉了。</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>时序图如下：</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20200112145944.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>可以看到，分享保存记录为第 8 步，但是重新查询任务可完成接口是第 10 步，但目前的情况则是，第10步中查询时的时间竟然要早于第 8 步数据入库的时间。难道插入数据竟然要这么久？也不至于耗费近一分钟吧！</p>
+<p>于是怀疑是数据库时间问题，在MySQL执行查询命令</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">now</span>();</span><br></pre></td></tr></table></figure>
+<p>然后，在部署应用的服务器上执行命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date</span><br></pre></td></tr></table></figure>
+<p>查看结果，果然二者时间相差了近一分钟。最终的原因就是：因为数据库和应用服务器不在同一台服务器上，而其他测试人员修改了应用服务器的时间，导致两个服务器时间不一致从而出现这个问题。想到这里，马上向运维确认线上服务器时间与数据库时间是否同步，还好，回答我的是同步的，心里的石头算放下了。</p>
+<h2 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h2><p>查看插入分享记录的 Mybatis 中XML如下</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_share_record(uid, activity_id, create_time) <span class="keyword">values</span>(#&#123;uid&#125;, #&#123;activityId&#125;, <span class="keyword">now</span>())</span><br></pre></td></tr></table></figure>
+<p>这样写是没问题的，但是根据时间段筛选数据时，时间区间却又是从应用服务器生成传递参数传入SQL的，Mybatis 中XML如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> t_share_record <span class="keyword">where</span> uid = #&#123;uid&#125; <span class="keyword">and</span> activity_id = #&#123;activityId&#125;</span><br><span class="line"> <span class="keyword">and</span> create_time <span class="keyword">between</span> #&#123;beginTime&#125; <span class="keyword">and</span> #&#123;endTime&#125;</span><br></pre></td></tr></table></figure>
+<p>为了避免以上这种因为应用服务器与数据库时间不一致导致的问题，这里的SQL筛选时间的结束时间也通过数据库服务器获取。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">from</span> t_share_record <span class="keyword">where</span> uid = #&#123;uid&#125; <span class="keyword">and</span> activity_id = #&#123;activityId&#125;</span><br><span class="line"> <span class="keyword">and</span> create_time <span class="keyword">between</span> #&#123;beginTime&#125; <span class="keyword">and</span> <span class="keyword">now</span>()</span><br></pre></td></tr></table></figure>
+<p>当然，为了防止出现更多类似的问题，应用服务器与数据库服务器的时间一定要通过时间同步设置保持完全一致才是最合理的。</p>
+<p>希望对你有所帮助！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    Last updated: <time datetime="2020-01-12T07:00:09.765Z" itemprop="dateUpdated">2020-01-12 15:00:09</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/数据库与应用服务器时间不同步踩坑记.html" target="_blank" rel="external">http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/解决数据库与应用服务器时间不同步导致的问题/">解决数据库与应用服务器时间不同步导致的问题</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&title=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&title=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&source=业务说明这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。前端判断用户分享成功后，会调用一次保存分享记录的接口，将..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019年终总结.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">2019年终总结</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&title=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&title=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&source=业务说明这样一个业务场景，有一个抽奖活动，抽奖活动中如果完成一次分享的任务，就会增加一次抽奖机会。前端判断用户分享成功后，会调用一次保存分享记录的接口，将..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《数据库与应用服务器时间不同步踩坑记》 — WeJan's Blog&url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/数据库与应用服务器时间不同步踩坑记.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACvElEQVR42u3aS27CQBAFQO5/aSJlFUQcXn8GsiivUGTwlBfdkzd9u8XX/fv6+fnqL8/X8+9c3fN8/9Uali88PDy81tKTB18tt7f0v+/pPeuXV4CHh4d3jJc3g6SU976bv9zkuXh4eHj/gbdFigr6+LXi4eHh/R9eEk9UU4JeIIKHh4f3WV4eJfSKfr6lzqON5awFDw8Pr7Z3bRblT30+fr6Hh4eH1zpVzwtu0jaScj9f4cNv4uHh4R3g9aLSKilf6GTcqvAfAx4eHt6ANw9w5wdgeUvI4+OHvoeHh4e3yqt+YV7QJ1Fvb8gADw8Pb5dXDQvy0j+PKpJN84vPeHh4eAd41WGmatBQvbP6yqJxATw8PLxV3laEmmx/q82gSnpx9IWHh4e3yts6SdsaNUgaRvTS8fDw8N7I6w0T5EdfeaEfNSQ8PDy8A7w8mMjbwFYwUZ4d670JPDw8vCKvNyjQC14n7775dDw8PLy38Kqh6iRu6G3Bk894eHh4p3nJgpJyX90u99pMuTHg4eHhrfJ6A1jVpSShRi+WzRsbHh4e3i4vL8R5ac5D2x6mEBzj4eHhrfKqB1eT4/zJ/b3n4uHh4Z3g9QLZ6iJ64wVJI4kO2PDw8PAO8CahQH5Ptbjvxsp4eHh4p3nViHayoELG3HoFeHh4eLu83rY1iVarIwVJiS+PauHh4eG9kVfdEFcPrnoDAfnm/tbLPPDw8PCKp0jVWLYX3e6OIxRWhYeHh7fEuxeveWQQRa6DMPdymgwPDw9viZdf1fGCpPRPutlkMAsPDw9vzqs2g7xJ9DbczRO8q+fi4eHhHeP1inKyiPz+Xgt50STw8PDwPso7MYC1dbRWyKfx8PDwPsqrFvrqL1cPyX75Lh4eHt4xXm8rXG0SSdHPj+KimBgPDw/vAK93AJYc5O9uzauvDw8PD+8A7ws1hPk+KRSOuAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
