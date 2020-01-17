@@ -125,7 +125,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -157,6 +157,60 @@
 <div class="container body-wrap">
 
     <ul class="post-list">
+    
+        <li class="post-list-item fade">
+            <article id="post-mapstruct最佳实践"
+  class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2020-01-17 22:21:58" datetime="2020-01-17T14:21:58.000Z"  itemprop="datePublished">2020-01-17</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/框架/">框架</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/mapstruct最佳实践.html">mapstruct最佳实践</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserVo等对象，于是在不同层之间进行数据传输时，不可避免地需要将这些对象进行互相转换操作。
+常见的转换方式有：
+
+调用getter/setter方法进行属性赋值
+调用BeanUtil.copyPropertie进行反射属性赋值
+
+第一种方式不必说，属性多了就需要写一大坨getter/setter代码。第二种方式比第一种方式要简便很多，但是坑巨多，比如sources与target写反，难以定位某个字段在哪里进行的赋值，同时因为用到反射，导致性能也不佳。
+鉴于此，今天写一写第三种对象转换方式，本文使用的是 MapStruct 工具进行转换，MapStruct 原理也很简单，就是在代码编译阶段生成对应的赋值代码，底层原理还是调用getter/setter方法，但是这是由工具替我们完成，MapStruct在不影响性能的情况下，解决了前面两种方式弊端，很赞~
+    
+
+        <a href="/mapstruct最佳实践.html" class="post-more waves-effect waves-button">
+            閱讀全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapstruct自定义类型转换/">mapstruct自定义类型转换</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
     
         <li class="post-list-item fade">
             <article id="post-数据库与应用服务器时间不同步踩坑记"
@@ -191,7 +245,7 @@
     
 
         <a href="/数据库与应用服务器时间不同步踩坑记.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -236,7 +290,7 @@
     
 
         <a href="/2019年终总结.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -283,7 +337,7 @@
     
 
         <a href="/easypoi导入Excel最佳实践.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -333,7 +387,7 @@
     
 
         <a href="/ParallelsDesktop安装精简版系统.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -380,7 +434,7 @@
     
 
         <a href="/Java内存分页工具类.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -427,7 +481,7 @@
     
 
         <a href="/Mysql日期分组无数据查询填充0.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -477,7 +531,7 @@
     
 
         <a href="/WebMagic源码阅读之Scheduler.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -524,7 +578,7 @@
     
 
         <a href="/WebMagic源码阅读之Spider.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
@@ -569,60 +623,13 @@
     
 
         <a href="/2018年终总结.html" class="post-more waves-effect waves-button">
-            Continue reading...
+            閱讀全文…
         </a>
     </div>
     
     <div class="post-footer">
         
 	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/年终总结/">年终总结</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-dubbo自定义异常传递信息丢失问题解决"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-12-11 06:39:07" datetime="2018-12-10T22:39:07.000Z"  itemprop="datePublished">2018-12-11</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/dubbo自定义异常传递信息丢失问题解决.html">dubbo自定义异常传递信息丢失问题解决</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        目前计划对已有的单体项目进行组织架构拆分，调研了分布式系统中常用中间件 Dubbo 和 Spring Cloud，选择了 Dubbo，可以对当前现有项目进行平滑升级改造。但是一开始就遇到了麻烦，自定义异常在传递的过程中变成了 RuntimeException，统一异常处理 GlobalExceptionHandler 无法获取异常信息。
-    
-
-        <a href="/dubbo自定义异常传递信息丢失问题解决.html" class="post-more waves-effect waves-button">
-            Continue reading...
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo处理自定义异常问题/">dubbo处理自定义异常问题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo异常堆栈被吃/">dubbo异常堆栈被吃</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo自定义异常/">dubbo自定义异常</a></li></ul>
 
     </div>
     
@@ -659,7 +666,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">

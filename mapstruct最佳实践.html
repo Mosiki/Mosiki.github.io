@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>mapstruct最佳实践 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mapstruct自定义类型转换">
+    <meta name="description" content="前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserVo等对象，于是在不同层之间进行数据传输时，不可避免地需要将这些对象进行互相转换操作。 常见的转换方式有：  调用getter/setter方法进行属性赋值 调用Bea">
+<meta name="keywords" content="mapstruct自定义类型转换">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mapstruct最佳实践">
+<meta property="og:url" content="http://nullpointer.pw/mapstruct最佳实践.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserVo等对象，于是在不同层之间进行数据传输时，不可避免地需要将这些对象进行互相转换操作。 常见的转换方式有：  调用getter/setter方法进行属性赋值 调用BeanUtil.copyPropertie进行反射属性赋值  第一种方式不必说，属性">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-01-17T14:23:56.294Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mapstruct最佳实践">
+<meta name="twitter:description" content="前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserVo等对象，于是在不同层之间进行数据传输时，不可避免地需要将这些对象进行互相转换操作。 常见的转换方式有：  调用getter/setter方法进行属性赋值 调用BeanUtil.copyPropertie进行反射属性赋值  第一种方式不必说，属性">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">mapstruct最佳实践</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">mapstruct最佳实践</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-01-17T14:21:58.000Z" itemprop="datePublished" class="page-time">
+  2020-01-17
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/框架/">框架</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">2.</span> <span class="post-toc-text">准备工作</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、MapStruct-配置以及基础使用"><span class="post-toc-number">3.</span> <span class="post-toc-text">一、MapStruct 配置以及基础使用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、自定义属性类型转换方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">二、自定义属性类型转换方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、单元测试"><span class="post-toc-number">5.</span> <span class="post-toc-text">三、单元测试</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#四、常见问题"><span class="post-toc-number">6.</span> <span class="post-toc-text">四、常见问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码下载"><span class="post-toc-number">7.</span> <span class="post-toc-text">代码下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">8.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-mapstruct最佳实践"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">mapstruct最佳实践</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-01-17 22:21:58" datetime="2020-01-17T14:21:58.000Z"  itemprop="datePublished">2020-01-17</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/框架/">框架</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserVo等对象，于是在不同层之间进行数据传输时，不可避免地需要将这些对象进行互相转换操作。</p>
+<p>常见的转换方式有：</p>
+<ul>
+<li>调用getter/setter方法进行属性赋值</li>
+<li>调用BeanUtil.copyPropertie进行反射属性赋值</li>
+</ul>
+<p>第一种方式不必说，属性多了就需要写一大坨getter/setter代码。第二种方式比第一种方式要简便很多，但是坑巨多，比如sources与target写反，难以定位某个字段在哪里进行的赋值，同时因为用到反射，导致性能也不佳。</p>
+<p>鉴于此，今天写一写第三种对象转换方式，本文使用的是 MapStruct 工具进行转换，MapStruct 原理也很简单，就是在代码编译阶段生成对应的赋值代码，底层原理还是调用getter/setter方法，但是这是由工具替我们完成，MapStruct在不影响性能的情况下，解决了前面两种方式弊端，很赞~</p>
+<a id="more"></a>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>为了讲解 MapStruct 工具的使用，本文使用常见的 User 类以及对应 UserDto 对象来演示。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password; <span class="comment">// 密码</span></span><br><span class="line">    <span class="keyword">private</span> Integer sex;  <span class="comment">// 性别</span></span><br><span class="line">    <span class="keyword">private</span> LocalDate birthday; <span class="comment">// 生日</span></span><br><span class="line">    <span class="keyword">private</span> LocalDateTime createTime; <span class="comment">// 创建时间</span></span><br><span class="line">    <span class="keyword">private</span> String config; <span class="comment">// 其他扩展信息，以JSON格式存储</span></span><br><span class="line">  	<span class="keyword">private</span> String test; <span class="comment">// 测试字段</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@Accessors</span>(chain = <span class="keyword">true</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserVo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> Integer gender;</span><br><span class="line">    <span class="keyword">private</span> LocalDate birthday;</span><br><span class="line">    <span class="keyword">private</span> String createTime;</span><br><span class="line">    <span class="keyword">private</span> List&lt;UserConfig&gt; config;</span><br><span class="line">	  <span class="keyword">private</span> String test; <span class="comment">// 测试字段</span></span><br><span class="line">    <span class="meta">@Data</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">UserConfig</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> String field1;</span><br><span class="line">        <span class="keyword">private</span> Integer field2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意观察这两个类的区别。</p>
+<h2 id="一、MapStruct-配置以及基础使用"><a href="#一、MapStruct-配置以及基础使用" class="headerlink" title="一、MapStruct 配置以及基础使用"></a>一、MapStruct 配置以及基础使用</h2><p>项目中引入 MapStruct 的依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mapstruct<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapstruct<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.1.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mapstruct<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mapstruct-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.1.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>因为项目中的对象转换操作基本都一样，因此抽取除了一个转换基类，不同对象如果只是简单转换可以直接继承该基类，而无需覆写基类任何方法，即只需要一个空类即可。如果子类覆写了基类的方法，则基类上的 <strong>@Mapping</strong> 会失效。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperConfig</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseMapping</span>&lt;<span class="title">SOURCE</span>, <span class="title">TARGET</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 映射同名属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"createTime"</span>, dateFormat = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="function">TARGET <span class="title">sourceToTarget</span><span class="params">(SOURCE var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反向，映射同名属性</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@InheritInverseConfiguration</span>(name = <span class="string">"sourceToTarget"</span>)</span><br><span class="line">    <span class="function">SOURCE <span class="title">targetToSource</span><span class="params">(TARGET var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 映射同名属性，集合形式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@InheritConfiguration</span>(name = <span class="string">"sourceToTarget"</span>)</span><br><span class="line">    <span class="function">List&lt;TARGET&gt; <span class="title">sourceToTarget</span><span class="params">(List&lt;SOURCE&gt; var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反向，映射同名属性，集合形式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@InheritConfiguration</span>(name = <span class="string">"targetToSource"</span>)</span><br><span class="line">    <span class="function">List&lt;SOURCE&gt; <span class="title">targetToSource</span><span class="params">(List&lt;TARGET&gt; var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 映射同名属性，集合流形式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;TARGET&gt; <span class="title">sourceToTarget</span><span class="params">(Stream&lt;SOURCE&gt; stream)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 反向，映射同名属性，集合流形式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">List&lt;SOURCE&gt; <span class="title">targetToSource</span><span class="params">(Stream&lt;TARGET&gt; stream)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现 User 与 UserVo 对象的转换器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.mapstruct.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.mapstruct.Mapping;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Mapper</span>(componentModel = <span class="string">"spring"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserMapping</span> <span class="keyword">extends</span> <span class="title">BaseMapping</span>&lt;<span class="title">User</span>, <span class="title">UserVo</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"gender"</span>, source = <span class="string">"sex"</span>)</span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"createTime"</span>, dateFormat = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">UserVo <span class="title">sourceToTarget</span><span class="params">(User var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"sex"</span>, source = <span class="string">"gender"</span>)</span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"password"</span>, ignore = <span class="keyword">true</span>)</span><br><span class="line">    <span class="meta">@Mapping</span>(target = <span class="string">"createTime"</span>, dateFormat = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>)</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function">User <span class="title">targetToSource</span><span class="params">(UserVo var1)</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> List&lt;UserConfig&gt; <span class="title">strConfigToListUserConfig</span><span class="params">(String config)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.parseArray(config, UserConfig.class);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">default</span> String <span class="title">listUserConfigToStrConfig</span><span class="params">(List&lt;UserConfig&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(list);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本文示例使用的是 Spring 的方式，@Mapper 注解的 componentModel 属性值为 spring，不过应该大多数都用的此模式进行开发。</p>
+<p>@Mapping用于配置对象的映射关系，示例中 User 对象性别属性名为 sex，而UserVo对象性别属性名为gender，因此需要配置 target 与 source 属性。</p>
+<p>password 字段不应该返回到前台，可以采取两种方式不进行转换，第一种就是在vo对象中不出现password字段，第二种就是在@Mapping中设置该字段 ignore = true。</p>
+<p>MapStruct 提供了时间格式化的属性 <strong>dataFormat</strong>，支持Date、LocalDate、LocalDateTime等时间类型与String的转换。示例中birthday 属性为 LocalDate 类型，可以无需指定dataFormat自动完成转换，而LocalDateTime类型默认使用的是ISO格式时间，在国内往往不符合需求，因此需要手动指定一下 dataFormat。</p>
+<h2 id="二、自定义属性类型转换方法"><a href="#二、自定义属性类型转换方法" class="headerlink" title="二、自定义属性类型转换方法"></a>二、自定义属性类型转换方法</h2><p>一般常用的类型字段转换 MapStruct都能替我们完成，但是有一些是我们自定义的对象类型，MapStruct就不能进行字段转换，这就需要我们编写对应的类型转换方法，笔者使用的是JDK8，支持接口中的默认方法，可以直接在转换器中添加自定义类型转换方法。</p>
+<p>示例中User对象的config属性是一个JSON字符串，UserVo对象中是List<userconfig>类型的，这需要实现JSON字符串与对象的互转。</userconfig></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> List&lt;UserConfig&gt; <span class="title">strConfigToListUserConfig</span><span class="params">(String config)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> JSON.parseArray(config, UserConfig.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">default</span> String <span class="title">listUserConfigToStrConfig</span><span class="params">(List&lt;UserConfig&gt; list)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> JSON.toJSONString(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果是 JDK8以下的，不支持默认方法，可以另外定义一个 转换器，然后再当前转换器的 @Mapper 中通过 uses = XXX.class 进行引用。</p>
+<p>定义好方法之后，MapStruct当匹配到合适类型的字段时，会调用我们自定义的转换方法进行转换。</p>
+<h2 id="三、单元测试"><a href="#三、单元测试" class="headerlink" title="三、单元测试"></a>三、单元测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Slf</span>4j</span><br><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MapStructTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Resource</span></span><br><span class="line">  <span class="keyword">private</span> UserMapping userMapping;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tetDomain2DTO</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    User user = <span class="keyword">new</span> User()</span><br><span class="line">      .setId(<span class="number">1L</span>)</span><br><span class="line">      .setUsername(<span class="string">"zhangsan"</span>)</span><br><span class="line">      .setSex(<span class="number">1</span>)</span><br><span class="line">      .setPassword(<span class="string">"abc123"</span>)</span><br><span class="line">      .setCreateTime(LocalDateTime.now())</span><br><span class="line">      .setBirthday(LocalDate.of(<span class="number">1999</span>, <span class="number">9</span>, <span class="number">27</span>))</span><br><span class="line">      .setConfig(<span class="string">"[&#123;\"field1\":\"Test Field1\",\"field2\":500&#125;]"</span>);</span><br><span class="line">    UserVo userVo = userMapping.sourceToTarget(user);</span><br><span class="line">    log.info(<span class="string">"User: &#123;&#125;"</span>, user);</span><br><span class="line">    <span class="comment">//        User: User(id=1, username=zhangsan, password=abc123, sex=1, birthday=1999-09-27, createTime=2020-01-17T17:46:20.316, config=[&#123;"field1":"Test Field1","field2":500&#125;])</span></span><br><span class="line">    log.info(<span class="string">"UserVo: &#123;&#125;"</span>, userVo);</span><br><span class="line">    <span class="comment">//        UserVo: UserVo(id=1, username=zhangsan, gender=1, birthday=1999-09-27, createTime=2020-01-17 17:46:20, config=[UserVo.UserConfig(field1=Test Field1, field2=500)])</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Test</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testDTO2Domain</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    UserConfig userConfig = <span class="keyword">new</span> UserConfig();</span><br><span class="line">    userConfig.setField1(<span class="string">"Test Field1"</span>);</span><br><span class="line">    userConfig.setField2(<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line">    UserVo userVo = <span class="keyword">new</span> UserVo()</span><br><span class="line">      .setId(<span class="number">1L</span>)</span><br><span class="line">      .setUsername(<span class="string">"zhangsan"</span>)</span><br><span class="line">      .setGender(<span class="number">2</span>)</span><br><span class="line">      .setCreateTime(<span class="string">"2020-01-18 15:32:54"</span>)</span><br><span class="line">      .setBirthday(LocalDate.of(<span class="number">1999</span>, <span class="number">9</span>, <span class="number">27</span>))</span><br><span class="line">      .setConfig(Collections.singletonList(userConfig));</span><br><span class="line">    User user = userMapping.targetToSource(userVo);</span><br><span class="line">    log.info(<span class="string">"UserVo: &#123;&#125;"</span>, userVo);</span><br><span class="line">    <span class="comment">//        UserVo: UserVo(id=1, username=zhangsan, gender=2, birthday=1999-09-27, createTime=2020-01-18 15:32:54, config=[UserVo.UserConfig(field1=Test Field1, field2=500)])</span></span><br><span class="line">    log.info(<span class="string">"User: &#123;&#125;"</span>, user);</span><br><span class="line">    <span class="comment">//        User: User(id=1, username=zhangsan, password=null, sex=2, birthday=1999-09-27, createTime=2020-01-18T15:32:54, config=[&#123;"field1":"Test Field1","field2":500&#125;])</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="四、常见问题"><a href="#四、常见问题" class="headerlink" title="四、常见问题"></a>四、常见问题</h2><ol>
+<li>当两个对象属性不一致时，比如User对象中某个字段不存在与UserVo当中时，在编译时会有警告提示，可以在@Mapping中配置 ignore = true，当字段较多时，可以直接在@Mapper中设置unmappedTargetPolicy属性或者unmappedSourcePolicy属性为 ReportingPolicy.IGNORE即可。</li>
+<li>如果项目中也同时使用到了 Lombok，一定要注意 Lombok的版本要等于或者高于<strong>1.18.10</strong>，否则会有编译不通过的情况发生，笔者掉进这个坑很久才爬了出来，希望各位不要重复踩坑。</li>
+</ol>
+<h2 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h2><p>本文涉及代码已上传到 Github，以供参考。</p>
+<ul>
+<li><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-mapstruct" target="_blank" rel="noopener">mapstruct最佳实践示例代码</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://mapstruct.org/documentation/stable/reference/html/" target="_blank" rel="noopener">官方文档：https://mapstruct.org/documentation/stable/reference/html/</a></li>
+<li><a href="https://mapstruct.org/faq/" target="_blank" rel="noopener">官方FAQ：https://mapstruct.org/faq/</a></li>
+<li><a href="https://github.com/mapstruct/mapstruct-examples" target="_blank" rel="noopener">官方Example：https://github.com/mapstruct/mapstruct-examples</a></li>
+<li><a href="http://www.kailing.pub/MapStruct1.3/index.html" target="_blank" rel="noopener">机翻中文版文档：http://www.kailing.pub/MapStruct1.3/index.html</a></li>
+<li><a href="https://www.cnblogs.com/javaguide/p/11861749.html" target="_blank" rel="noopener">5种常见Bean映射工具的性能比对：https://www.cnblogs.com/javaguide/p/11861749.html</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最後更新時間：<time datetime="2020-01-17T14:23:56.294Z" itemprop="dateUpdated">2020-01-17 22:23:56</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/mapstruct最佳实践.html" target="_blank" rel="external">http://nullpointer.pw/mapstruct最佳实践.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.jpg" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mapstruct自定义类型转换/">mapstruct自定义类型转换</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/mapstruct最佳实践.html&title=《mapstruct最佳实践》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/mapstruct最佳实践.html&title=《mapstruct最佳实践》 — WeJan's Blog&source=前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserV..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/mapstruct最佳实践.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mapstruct最佳实践》 — WeJan's Blog&url=http://nullpointer.pw/mapstruct最佳实践.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/mapstruct最佳实践.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/数据库与应用服务器时间不同步踩坑记.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">数据库与应用服务器时间不同步踩坑记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/mapstruct最佳实践.html&title=《mapstruct最佳实践》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/mapstruct最佳实践.html&title=《mapstruct最佳实践》 — WeJan's Blog&source=前言按照日常开发习惯，对于不同领域层使用不同JavaBean对象传输数据，避免相互影响，因此基于数据库实体对象User衍生出比如UserDto、UserV..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/mapstruct最佳实践.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《mapstruct最佳实践》 — WeJan's Blog&url=http://nullpointer.pw/mapstruct最佳实践.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/mapstruct最佳实践.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOUlEQVR42u3azU7EMAxFYd7/pcsWCSVzrj0DinO6QlDafLPw+O/rC1/P4vr519938qfx/21dMmTIOJbxbK93vXh1Z/re5RtlyJBxAWP14tU9+4CbxskVlZxNhgwZMvhB97+vHVGGDBky3vs4ctB9evcP3xsyZMg4isEbavvHkbDLj/6RWlyGDBkHMmql5t/8/JH5hgwZMo5iPOFVa8mlT4tPJUOGjNEMHuD6aVmrQCWJpgwZMoYyeLnYaZORFbH9c168UYYMGRcw9rd2Ynl6rOIYVYYMGRcwSPjj40kevjvBevm9IUOGjHEMXqx+IuD2U8m45pYhQ8aBDJ4UdlpjaZqYrnHIkCFjNiNItsJwWUsHyRC0GHxlyJAxjpH+M4fxBYs0uZQhQ8ZURq0Fljb00/Yc+bDQfEOGDBmDGCS9I5UjTzHTMvXF72XIkDGaQZKzNPzVPprWsoUMGTJGM9KFLRKI+aigMzqVIUPGnQyeuvHVMf4BpSsdywxXhgwZ4xi18SFP8mqNvGKbT4YMGRcwOImkd+mxOqMCGTJk3MOoNbzSxYi0PRcsgsiQIeMCRq0dlo4b07ZacBIZMmQMZTzhlZa+tSZdGpplyJAxm1EbMdaK2879raPLkCFjBKNWavJwmYbO9AwyZMi4h9FptPVHmGkRGyyHyZAh42JGLa3sLI29eLsMGTJk4BUK3qqrrWu8LTWUIUPGgQxempJY1x9PpkNQGTJkzGa0Ske8ckGo5IitiYcMGTLOY3wDGwq8KhYExoQAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
