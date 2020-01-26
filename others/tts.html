@@ -22,24 +22,24 @@
     
     
     
-    <title>About | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <title>中英混排文档在线排版工具 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
-    <meta name="description" content="关于我，关于本博客。">
+    <meta name="description" content="自用博客文章格式化排版工具">
 <meta property="og:type" content="website">
-<meta property="og:title" content="About">
-<meta property="og:url" content="http://nullpointer.pw/about/index.html">
+<meta property="og:title" content="中英混排文档在线排版工具">
+<meta property="og:url" content="http://nullpointer.pw/others/tts.html">
 <meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="关于我，关于本博客。">
+<meta property="og:description" content="自用博客文章格式化排版工具">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-12T09:00:00.551Z">
+<meta property="og:updated_time" content="2020-01-26T10:47:20.395Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About">
-<meta name="twitter:description" content="关于我，关于本博客。">
+<meta name="twitter:title" content="中英混排文档在线排版工具">
+<meta name="twitter:description" content="自用博客文章格式化排版工具">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -95,14 +95,14 @@
               </a>
             </li>
         
-            <li class="waves-block waves-effect">
+            <li class="waves-block waves-effect active">
               <a href="/others/tts.html"  >
                 <i class="icon icon-lg icon-arrows-h"></i>
                 TTS
               </a>
             </li>
         
-            <li class="waves-block waves-effect active">
+            <li class="waves-block waves-effect">
               <a href="/about"  >
                 <i class="icon icon-lg icon-link"></i>
                 About
@@ -127,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">About</div>
+        <div class="flex-col header-title ellipsis">中英混排文档在线排版工具</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -149,10 +149,10 @@
 <header class="content-header page-header">
 
     <div class="container fade-scale">
-        <h1 class="title">About</h1>
+        <h1 class="title">中英混排文档在线排版工具</h1>
         <h5 class="subtitle">
             
-                关于我，关于本博客。
+                自用博客文章格式化排版工具
             
         </h5>
     </div>
@@ -166,22 +166,142 @@
 <div class="container body-wrap">
     <article class="page-article fade" itemprop="blogPage">
         <div class="post-content page-content" id="page-content" itemprop="pageContent">
-            <div class="card">
-<p>博客内容主要是分享一些在工作中常用技术。如果博客文章对你有所帮助，深感荣幸！<br>欢迎加入 QQ 交流群：967808880  </p>
-</div>
-<h3 id="博客时间轴"><a href="#博客时间轴" class="headerlink" title="博客时间轴"></a>博客时间轴</h3><div class="timeline">
-<h5 id="2017"><a href="#2017" class="headerlink" title="2017"></a>2017</h5><div class="item">
-<h6 id="7月1日"><a href="#7月1日" class="headerlink" title="7月1日"></a>7月1日</h6><p>由于博内内容过少，从七月开始，约束自己每月至少写两篇博客。</p>
-</div>
-<div class="item">
-<h6 id="5月1日"><a href="#5月1日" class="headerlink" title="5月1日"></a>5月1日</h6><p>固定博客主题为 indigo</p>
-</div>
-<h5 id="2016"><a href="#2016" class="headerlink" title="2016"></a>2016</h5><div class="item">
-<h6 id="10月1日"><a href="#10月1日" class="headerlink" title="10月1日"></a>10月1日</h6><p>和所有刚玩 Hexo 的同学一样，沉浸在不断更换博客主题的死循环中。。。</p>
-</div>
-<div class="item">
-<h6 id="9月1日"><a href="#9月1日" class="headerlink" title="9月1日"></a>9月1日</h6><p>差不多此时接触了Hexo, 在好奇心的驱动下开始写博客。</p>
-</div>
+            
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>中英混排文档在线排版工具</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="public/css/global.css" rel="stylesheet"> -->
+    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- <script src="public/js/content.js?v=2"></script> -->
+    
+    <script>
+        $(document).ready(function () {
+        var inputTextarea = $('#input-textarea');
+        var outputTextarea = $('#output-textarea');
+        var addSpaceBtn = $('#add-space-btn');
+        var convertPicBtn = $('#convert-pic-btn');
+
+        /*
+        * 添加空格
+        */
+        addSpaceBtn.click(function () {
+            var content = getInputTextAreaVal();
+            content = content.replace(/([a-zA-Z0-9)'>)}\]])([\u4e00-\u9fa5])/g, "$1 $2");
+            content = content.replace(/([\u4e00-\u9fa5])([a-zA-Z0-9('<{\]])/g, "$1 $2");
+            setOutputTextAreaVal(content);
+        });
+
+        /*
+        * 转换图片
+        */
+        convertPicBtn.click(function () {
+            var newContent = "";
+            var picStartString = "![]";
+            var content = getInputTextAreaVal();
+            var preIdx = 0;
+            var curIdx = content.indexOf(picStartString);
+            while (curIdx != -1) {
+                var preContent = content.substring(preIdx, curIdx);
+                newContent += preContent;
+                console.log("preContent: " + preContent);
+                var picString = getPicString(content, curIdx);
+                var imgPic = buildImgPic(picString);
+                console.info("imgPic: " + imgPic);
+                newContent += imgPic;
+                preIdx = content.indexOf(")", curIdx) + 1;
+                curIdx = content.indexOf(picStartString, preIdx);
+            }
+            newContent += content.substring(preIdx, content.length);
+            newContent += 
+            setOutputTextAreaVal(newContent);
+        });
+
+        function getInputTextAreaVal() {
+            return inputTextarea.val();
+        }
+
+        function setOutputTextAreaVal(data) {
+            outputTextarea.val(data);
+        }
+
+        function getPicString(content, idx) {
+            var lastIdx = content.indexOf(")", idx);
+            return content.substring(idx + 4, lastIdx);
+        }
+
+        function buildImgPic(picString) {
+            return '<div align="center">  <img src="' + picString + '" width=""/> </div><br>';
+        }
+    });
+    </script>
+    <style>
+        body {
+            background: #eee url(http://img12345.5-project.com/blog/20200126174238.png);
+        }
+
+        .form-control {
+            color: #555;
+            font-size: 18px;
+            background-color: #eee;
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .btn-default {
+            background-color: #eee;
+        }
+
+        /* 页脚 */
+        .bs-docs-footer {
+            padding-top: 50px;
+            padding-bottom: 50px;
+            margin-top: 300px;
+            color: #99979c;
+            text-align: center;
+            background-color: #2a2730;
+            font-size: 16px;
+        }
+
+        /*页面内容字体*/
+        body, button, input, select, textarea {
+            font-family: Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', Arial, sans-serif;
+            background-color: #eee;
+        }
+    </style>
+
+
+<div class="container body-wrap">
+    <!-- <div align="center" style="margin-top: 20px">
+        <img src="doc/LogoMakr_2OC8au.png" width="300px">
+    </div> -->
+    <div class="container" style="margin-top: 40px">
+        <div class="row">
+            <div class="col-md-5">
+                <textarea class="form-control" rows="15" id="input-textarea"></textarea>
+            </div>
+            <div class="col-md-2">
+              <div class="btn-group-vertical" role="group">
+                <button type="button" class="btn btn-default" id="add-space-btn" style="margin-top: 150px; margin-bottom: 40px ">添加空格</button>
+                <button type="button" class="btn btn-default" id="convert-pic-btn" style="margin-bottom: 150px">转换图片引用</button>
+            </div>
+            </div>
+            <div class="col-md-5">
+                <textarea class="form-control" rows="15" id="output-textarea"></textarea>
+            </div>
+        </div>
+    </div>
+    <footer class="bs-docs-footer">
+        <div class="container">
+            <div><a href="https://github.com/CyC2018/Text-Typesetting" target="_blank" rel="noopener">GitHub 仓库</a></div>
+            <p>本项目源码受 <a rel="license" href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT </a>开源协议保护，文档受
+                <a rel="license" href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> 开源协议保护。
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </div>
 
         </div>
@@ -202,7 +322,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/about/&title=《About》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/others/tts.html&title=《中英混排文档在线排版工具》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -212,22 +332,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/about/&title=《About》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/others/tts.html&title=《中英混排文档在线排版工具》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/about/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/others/tts.html" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《About》 — WeJan's Blog&url=http://nullpointer.pw/about/&via=http://nullpointer.pw" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《中英混排文档在线排版工具》 — WeJan's Blog&url=http://nullpointer.pw/others/tts.html&via=http://nullpointer.pw" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/about/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/others/tts.html" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -334,7 +454,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/about/&title=《About》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/others/tts.html&title=《中英混排文档在线排版工具》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -344,22 +464,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/about/&title=《About》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/others/tts.html&title=《中英混排文档在线排版工具》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/about/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/others/tts.html" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《About》 — WeJan's Blog&url=http://nullpointer.pw/about/&via=http://nullpointer.pw" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《中英混排文档在线排版工具》 — WeJan's Blog&url=http://nullpointer.pw/others/tts.html&via=http://nullpointer.pw" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/about/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/others/tts.html" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -370,7 +490,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAB2ElEQVR42u3ay2rEMAxG4Xn/l06hq0KIe37JVlM4XpW5eL50IXT7fPC5vg9//ee7te+2jly5ctvca3nuV99/5v7u02fW968/I1eu3HnuOtDwR+KPuv4XPL4uV67cl3E5i98gV67c/84lpQ6hj8ZduXLlNrg8fak1SnjJtK1WkytXboObNkxP/H2wvytXrtyQe4WH39BpsjzeKVeu3BEuL1R2lUC8uHr8rly5cke4axBplaZLG2kmI1eu3Ddw00KIh6TaIlcQg+XKldvmktKFh5XO8JU8tly5cme4tZ/kV3dCHkLLlSv3AJcvSdRSn7TEQtNguXLlHubyhkgHStKmeNlCrly5x7hpQlMbopCyCnnkypU7wq0NUNM0iD9kEFLlypV7jJsuRfExCQ+LQXtFrly5I9x1oOFFS7pOwQsttLIpV67crdzOYJWPZvmo9ZfCSa5cuYPczvAjLWk+4ZErV+5fcdMSqJ/0pK1YlCvJlSt3EzcNKGQEUmuk8gRIrly5M9y0bZGOXdN70DaZXLlyR7g8eJHRCGl51Na85MqV+zZumgDx8in4dbly5b6SW5zlhgsc2wKZXLlyG9zTK1mkvbK5LSJXrtxufzJumPYHJHtLJrly5W7ifgH/AsgvsJsGEgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABwElEQVR42u3aQW4CMQwFUO5/abptVTH9tjMurV5WaIDkwcKyHT8e8Xp+Wt+fvHqe7Pm4Y+Hi4o65z8uV4JLjk+9eG3Bxcfe514Hm+2fyA66f5wZcXNx35iasPGzh4uL+b25SJuHi4v4tbh6G8qZGL7Qdq9VwcXEH3LxLed/rW/q7uLi4Le6zuK6bp9WQVz4dFxd3hTtPVvJ0JC94fmi24uLirnCrpUgS2ibZVrQPLi7ubdx807ypmj+ptkhwcXF/i1s9IB/R6HG/vIuLi7vIzbfotTkmV61RFwcXF/cot9fWnFy9HPsuLi7uCjcfxjp1WTIfAsPFxb2Pe71FIe2IU5lJaYSLi7vPTS5KJ63S/KomCmS4uLjr3PmRUWCqXuHg4uIucqvDUuW6Kk9i8jkyXFzcFe78EuVsG+Vl8YOLi7vCTdDVsYm8mZL8GFxc3B1ur3RJ/oNqwzQqh3BxcVe41ZGIyRBGb8yi+WNwcXHH3F6LMw9wvUD28l1cXNxF7tkr1WYdlqRHuLi4b8nNi6he0dXMm3Bxcd+Ae3aQK0mScHFx97n56GRvXKOaGEWXrLi4uLdx563PSQaSJ0O4uLgr3A9VaQsJRXQ2TQAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
