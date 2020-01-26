@@ -38,7 +38,7 @@
 <meta property="og:description" content="笔者初次通过 hexo 搭建博客时，对 hexo 不太了解，后来发现中文标题的文章 URL 会转义成http://nullpointer.pw/2018/09/17/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDat">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20200126164057.png">
-<meta property="og:updated_time" content="2020-01-26T11:23:32.361Z">
+<meta property="og:updated_time" content="2020-01-26T13:49:18.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 自定义文章 url 地址">
 <meta name="twitter:description" content="笔者初次通过 hexo 搭建博客时，对 hexo 不太了解，后来发现中文标题的文章 URL 会转义成http://nullpointer.pw/2018/09/17/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDat">
@@ -136,7 +136,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -206,13 +206,7 @@
 <a id="more"></a>
 <h2 id="自定义文章-URL"><a href="#自定义文章-URL" class="headerlink" title="自定义文章 URL"></a>自定义文章 URL</h2><p>先说说中文转义 URL 的方式，首先需要修改 hexo 根目录下的_config.yml 文件，</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#permalink: :year/:month/:title/</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">:year/:month/:urlname.html</span></span><br><span class="line"><span class="attr">permalink_defaults:</span></span><br><span class="line"><span class="attr">  urlname:</span> <span class="string">index</span></span><br></pre></td></tr></table></figure>
-<p>将原永久链接 permalink 中的<em>:title</em> 替换为为 urlname.html ，同时在 permalink_defaults 增加 urlname 属性，这样就可以通过在文章内容的 Formatter 配置文章的 URL 链接地址，笔者之前修改过一次永久链接格式，只保留了标题即：<code>permalink: :title.html</code>，现在修改为了 <code>permalink: :urlname.html</code> ,本文文章配置如下图，  <figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20200126164057.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>  </p>
+<p>将原永久链接 permalink 中的<em>:title</em> 替换为为 urlname.html ，同时在 permalink_defaults 增加 urlname 属性，这样就可以通过在文章内容的 Formatter 配置文章的 URL 链接地址，笔者之前修改过一次永久链接格式，只保留了标题即：<code>permalink: :title.html</code>，现在修改为了 <code>permalink: :urlname.html</code> ,本文文章配置如下图，<br><img src="http://img12345.5-project.com/blog/20200126164057.png" alt="">  </p>
 <p>本文最终的 URL 地址就是：<code>http://nullpointer.pw/hexo-custom-article-url.html</code>  </p>
 <h2 id="修改文章模板"><a href="#修改文章模板" class="headerlink" title="修改文章模板"></a>修改文章模板</h2><p>修改 post.md</p>
 <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">title:</span> <span class="string">&#123;&#123;</span> <span class="string">title</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">date:</span> <span class="string">&#123;&#123;</span> <span class="string">date</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">urlname:</span> </span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">1</span></span><br><span class="line"><span class="attr">categories:</span></span><br><span class="line"><span class="bullet">-</span> <span class="number">2</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
@@ -236,7 +230,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-01-26T11:23:32.361Z" itemprop="dateUpdated">2020-01-26 19:23:32</time>
+    Last updated: <time datetime="2020-01-26T13:49:18.133Z" itemprop="dateUpdated">2020-01-26 21:49:18</time>
 </span><br>
 
 
@@ -253,6 +247,10 @@
 </blockquote>
 
         
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
 
 
         <div class="post-footer">
@@ -370,6 +368,32 @@
 
 </article>
 
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        点开打赏说明本文值一块钱哈哈~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
 
 
 </div>
@@ -391,7 +415,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -457,7 +481,7 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
 <script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
 
 
 </script>
