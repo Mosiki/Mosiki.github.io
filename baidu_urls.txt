@@ -1,1 +1,1 @@
-http://nullpointer.pw/hexo-custom-article-url.html
+http://nullpointer.pw/hibernate-validator-best-practice.html
