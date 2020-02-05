@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+<!-- Tencent Speed -->
+<script>var _speedMark = new Date()</script>
+<!-- End Tencent Speed -->
+<!-- Tencent Analysis -->
+<script async src="//tajs.qq.com/stats?sId=60890578"></script>
+<!-- End Tencent Analysis -->
+
+
+    
+
+
+
+    <script>(function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/81d99be9.js","daovoice")</script>
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>标签: Hibernate Validator 校验 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="WeJan&apos;s Blog的博客">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WeJan&#39;s Blog">
+<meta property="og:url" content="http://nullpointer.pw/tags/Hibernate-Validator-校验/index.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="WeJan&apos;s Blog的博客">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WeJan&#39;s Blog">
+<meta name="twitter:description" content="WeJan&apos;s Blog的博客">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu"  >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/tts.html"  >
+                <i class="icon icon-lg icon-arrows-h"></i>
+                TTS
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">标签: Hibernate Validator 校验</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header tags-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">标签: Hibernate Validator 校验</h1>
+        <h5 class="subtitle">
+            
+        </h5>
+    </div>
+
+    
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/tags" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">全部</a>
+        
+
+            <a href="/tags/年终总结/" style="-webkit-order:4;order:4" class="tags-list-item waves-effect waves-button waves-light">年终总结</a>
+
+        
+
+            <a href="/tags/centos/" style="-webkit-order:5;order:5" class="tags-list-item waves-effect waves-button waves-light">centos</a>
+
+        
+
+            <a href="/tags/虚拟机/" style="-webkit-order:6;order:6" class="tags-list-item waves-effect waves-button waves-light">虚拟机</a>
+
+        
+
+            <a href="/tags/Charles抓包/" style="-webkit-order:7;order:7" class="tags-list-item waves-effect waves-button waves-light">Charles抓包</a>
+
+        
+
+            <a href="/tags/抓包破解/" style="-webkit-order:8;order:8" class="tags-list-item waves-effect waves-button waves-light">抓包破解</a>
+
+        
+
+            <a href="/tags/抓包实战/" style="-webkit-order:9;order:9" class="tags-list-item waves-effect waves-button waves-light">抓包实战</a>
+
+        
+
+            <a href="/tags/HTTPS抓包/" style="-webkit-order:10;order:10" class="tags-list-item waves-effect waves-button waves-light">HTTPS抓包</a>
+
+        
+
+            <a href="/tags/Windows抓包/" style="-webkit-order:11;order:11" class="tags-list-item waves-effect waves-button waves-light">Windows抓包</a>
+
+        
+
+            <a href="/tags/抓包显示unknown/" style="-webkit-order:12;order:12" class="tags-list-item waves-effect waves-button waves-light">抓包显示unknown</a>
+
+        
+
+            <a href="/tags/XML-生成/" style="-webkit-order:13;order:13" class="tags-list-item waves-effect waves-button waves-light">XML 生成</a>
+
+        
+
+            <a href="/tags/Dom4j/" style="-webkit-order:14;order:14" class="tags-list-item waves-effect waves-button waves-light">Dom4j</a>
+
+        
+
+            <a href="/tags/ElasticSearch完全匹配结果调优/" style="-webkit-order:15;order:15" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch完全匹配结果调优</a>
+
+        
+
+            <a href="/tags/es查询调优/" style="-webkit-order:16;order:16" class="tags-list-item waves-effect waves-button waves-light">es查询调优</a>
+
+        
+
+            <a href="/tags/Git远程仓库回滚/" style="-webkit-order:17;order:17" class="tags-list-item waves-effect waves-button waves-light">Git远程仓库回滚</a>
+
+        
+
+            <a href="/tags/Git本地仓库回滚/" style="-webkit-order:18;order:18" class="tags-list-item waves-effect waves-button waves-light">Git本地仓库回滚</a>
+
+        
+
+            <a href="/tags/IDEA-Git分支合并/" style="-webkit-order:19;order:19" class="tags-list-item waves-effect waves-button waves-light">IDEA Git分支合并</a>
+
+        
+
+            <a href="/tags/IDEA-使用Stash/" style="-webkit-order:20;order:20" class="tags-list-item waves-effect waves-button waves-light">IDEA 使用Stash</a>
+
+        
+
+            <a href="/tags/IDEA-处理分支合并冲突/" style="-webkit-order:21;order:21" class="tags-list-item waves-effect waves-button waves-light">IDEA 处理分支合并冲突</a>
+
+        
+
+            <a href="/tags/Tomcat远程调试/" style="-webkit-order:22;order:22" class="tags-list-item waves-effect waves-button waves-light">Tomcat远程调试</a>
+
+        
+
+            <a href="/tags/解决IDEA无法远程调试Tomcat/" style="-webkit-order:23;order:23" class="tags-list-item waves-effect waves-button waves-light">解决IDEA无法远程调试Tomcat</a>
+
+        
+
+            <a href="/tags/解决IDEA远程调试断点不生效/" style="-webkit-order:24;order:24" class="tags-list-item waves-effect waves-button waves-light">解决IDEA远程调试断点不生效</a>
+
+        
+
+            <a href="/tags/OSS/" style="-webkit-order:25;order:25" class="tags-list-item waves-effect waves-button waves-light">OSS</a>
+
+        
+
+            <a href="/tags/对象存储系统/" style="-webkit-order:26;order:26" class="tags-list-item waves-effect waves-button waves-light">对象存储系统</a>
+
+        
+
+            <a href="/tags/word/" style="-webkit-order:27;order:27" class="tags-list-item waves-effect waves-button waves-light">word</a>
+
+        
+
+            <a href="/tags/freemarker/" style="-webkit-order:28;order:28" class="tags-list-item waves-effect waves-button waves-light">freemarker</a>
+
+        
+
+            <a href="/tags/Java8-时间转换/" style="-webkit-order:29;order:29" class="tags-list-item waves-effect waves-button waves-light">Java8 时间转换</a>
+
+        
+
+            <a href="/tags/Redis排行榜/" style="-webkit-order:30;order:30" class="tags-list-item waves-effect waves-button waves-light">Redis排行榜</a>
+
+        
+
+            <a href="/tags/Java排行榜/" style="-webkit-order:31;order:31" class="tags-list-item waves-effect waves-button waves-light">Java排行榜</a>
+
+        
+
+            <a href="/tags/java生成sitemap/" style="-webkit-order:32;order:32" class="tags-list-item waves-effect waves-button waves-light">java生成sitemap</a>
+
+        
+
+            <a href="/tags/sitemapgen4j生成sitemap/" style="-webkit-order:33;order:33" class="tags-list-item waves-effect waves-button waves-light">sitemapgen4j生成sitemap</a>
+
+        
+
+            <a href="/tags/seo/" style="-webkit-order:34;order:34" class="tags-list-item waves-effect waves-button waves-light">seo</a>
+
+        
+
+            <a href="/tags/远程配置/" style="-webkit-order:35;order:35" class="tags-list-item waves-effect waves-button waves-light">远程配置</a>
+
+        
+
+            <a href="/tags/Maven私服/" style="-webkit-order:36;order:36" class="tags-list-item waves-effect waves-button waves-light">Maven私服</a>
+
+        
+
+            <a href="/tags/jar包上传/" style="-webkit-order:37;order:37" class="tags-list-item waves-effect waves-button waves-light">jar包上传</a>
+
+        
+
+            <a href="/tags/VMware-Fusion/" style="-webkit-order:38;order:38" class="tags-list-item waves-effect waves-button waves-light">VMware Fusion</a>
+
+        
+
+            <a href="/tags/静态IP/" style="-webkit-order:39;order:39" class="tags-list-item waves-effect waves-button waves-light">静态IP</a>
+
+        
+
+            <a href="/tags/mac/" style="-webkit-order:40;order:40" class="tags-list-item waves-effect waves-button waves-light">mac</a>
+
+        
+
+            <a href="/tags/mysql/" style="-webkit-order:41;order:41" class="tags-list-item waves-effect waves-button waves-light">mysql</a>
+
+        
+
+            <a href="/tags/行转列/" style="-webkit-order:42;order:42" class="tags-list-item waves-effect waves-button waves-light">行转列</a>
+
+        
+
+            <a href="/tags/实战/" style="-webkit-order:43;order:43" class="tags-list-item waves-effect waves-button waves-light">实战</a>
+
+        
+
+            <a href="/tags/分组查询无数据填充0/" style="-webkit-order:44;order:44" class="tags-list-item waves-effect waves-button waves-light">分组查询无数据填充0</a>
+
+        
+
+            <a href="/tags/获取指定时间段内的时间日期列表/" style="-webkit-order:45;order:45" class="tags-list-item waves-effect waves-button waves-light">获取指定时间段内的时间日期列表</a>
+
+        
+
+            <a href="/tags/java生成连续日期/" style="-webkit-order:46;order:46" class="tags-list-item waves-effect waves-button waves-light">java生成连续日期</a>
+
+        
+
+            <a href="/tags/java内存分页工具类/" style="-webkit-order:47;order:47" class="tags-list-item waves-effect waves-button waves-light">java内存分页工具类</a>
+
+        
+
+            <a href="/tags/java内存分页/" style="-webkit-order:48;order:48" class="tags-list-item waves-effect waves-button waves-light">java内存分页</a>
+
+        
+
+            <a href="/tags/nginx/" style="-webkit-order:49;order:49" class="tags-list-item waves-effect waves-button waves-light">nginx</a>
+
+        
+
+            <a href="/tags/动静分离/" style="-webkit-order:50;order:50" class="tags-list-item waves-effect waves-button waves-light">动静分离</a>
+
+        
+
+            <a href="/tags/图片防盗链/" style="-webkit-order:51;order:51" class="tags-list-item waves-effect waves-button waves-light">图片防盗链</a>
+
+        
+
+            <a href="/tags/防盗链/" style="-webkit-order:52;order:52" class="tags-list-item waves-effect waves-button waves-light">防盗链</a>
+
+        
+
+            <a href="/tags/资源下载/" style="-webkit-order:53;order:53" class="tags-list-item waves-effect waves-button waves-light">资源下载</a>
+
+        
+
+            <a href="/tags/tomcat/" style="-webkit-order:54;order:54" class="tags-list-item waves-effect waves-button waves-light">tomcat</a>
+
+        
+
+            <a href="/tags/mongodb/" style="-webkit-order:55;order:55" class="tags-list-item waves-effect waves-button waves-light">mongodb</a>
+
+        
+
+            <a href="/tags/缓存/" style="-webkit-order:56;order:56" class="tags-list-item waves-effect waves-button waves-light">缓存</a>
+
+        
+
+            <a href="/tags/SpringBoot/" style="-webkit-order:57;order:57" class="tags-list-item waves-effect waves-button waves-light">SpringBoot</a>
+
+        
+
+            <a href="/tags/WebSocket/" style="-webkit-order:58;order:58" class="tags-list-item waves-effect waves-button waves-light">WebSocket</a>
+
+        
+
+            <a href="/tags/ParallelsDesktop安装精简版系统/" style="-webkit-order:59;order:59" class="tags-list-item waves-effect waves-button waves-light">ParallelsDesktop安装精简版系统</a>
+
+        
+
+            <a href="/tags/Vmvare安装精简版系统/" style="-webkit-order:60;order:60" class="tags-list-item waves-effect waves-button waves-light">Vmvare安装精简版系统</a>
+
+        
+
+            <a href="/tags/精简版win10系统/" style="-webkit-order:61;order:61" class="tags-list-item waves-effect waves-button waves-light">精简版win10系统</a>
+
+        
+
+            <a href="/tags/虚拟机安装esd格式系统镜像/" style="-webkit-order:62;order:62" class="tags-list-item waves-effect waves-button waves-light">虚拟机安装esd格式系统镜像</a>
+
+        
+
+            <a href="/tags/虚拟机安装wim格式系统镜像/" style="-webkit-order:63;order:63" class="tags-list-item waves-effect waves-button waves-light">虚拟机安装wim格式系统镜像</a>
+
+        
+
+            <a href="/tags/Ons/" style="-webkit-order:64;order:64" class="tags-list-item waves-effect waves-button waves-light">Ons</a>
+
+        
+
+            <a href="/tags/消息队列/" style="-webkit-order:65;order:65" class="tags-list-item waves-effect waves-button waves-light">消息队列</a>
+
+        
+
+            <a href="/tags/WebMagic分布式抓取/" style="-webkit-order:66;order:66" class="tags-list-item waves-effect waves-button waves-light">WebMagic分布式抓取</a>
+
+        
+
+            <a href="/tags/WebMagic断点抓取/" style="-webkit-order:67;order:67" class="tags-list-item waves-effect waves-button waves-light">WebMagic断点抓取</a>
+
+        
+
+            <a href="/tags/webmagic/" style="-webkit-order:68;order:68" class="tags-list-item waves-effect waves-button waves-light">webmagic</a>
+
+        
+
+            <a href="/tags/爬虫监控/" style="-webkit-order:69;order:69" class="tags-list-item waves-effect waves-button waves-light">爬虫监控</a>
+
+        
+
+            <a href="/tags/源码解析/" style="-webkit-order:70;order:70" class="tags-list-item waves-effect waves-button waves-light">源码解析</a>
+
+        
+
+            <a href="/tags/dubbo自定义异常/" style="-webkit-order:71;order:71" class="tags-list-item waves-effect waves-button waves-light">dubbo自定义异常</a>
+
+        
+
+            <a href="/tags/dubbo异常堆栈被吃/" style="-webkit-order:72;order:72" class="tags-list-item waves-effect waves-button waves-light">dubbo异常堆栈被吃</a>
+
+        
+
+            <a href="/tags/dubbo处理自定义异常问题/" style="-webkit-order:73;order:73" class="tags-list-item waves-effect waves-button waves-light">dubbo处理自定义异常问题</a>
+
+        
+
+            <a href="/tags/推广系统/" style="-webkit-order:74;order:74" class="tags-list-item waves-effect waves-button waves-light">推广系统</a>
+
+        
+
+            <a href="/tags/推广/" style="-webkit-order:75;order:75" class="tags-list-item waves-effect waves-button waves-light">推广</a>
+
+        
+
+            <a href="/tags/链接推广/" style="-webkit-order:76;order:76" class="tags-list-item waves-effect waves-button waves-light">链接推广</a>
+
+        
+
+            <a href="/tags/nginx安装/" style="-webkit-order:77;order:77" class="tags-list-item waves-effect waves-button waves-light">nginx安装</a>
+
+        
+
+            <a href="/tags/JSONPath解析/" style="-webkit-order:78;order:78" class="tags-list-item waves-effect waves-button waves-light">JSONPath解析</a>
+
+        
+
+            <a href="/tags/JSONPath在线解析/" style="-webkit-order:79;order:79" class="tags-list-item waves-effect waves-button waves-light">JSONPath在线解析</a>
+
+        
+
+            <a href="/tags/JSONPath多层嵌套解析/" style="-webkit-order:80;order:80" class="tags-list-item waves-effect waves-button waves-light">JSONPath多层嵌套解析</a>
+
+        
+
+            <a href="/tags/读书/" style="-webkit-order:81;order:81" class="tags-list-item waves-effect waves-button waves-light">读书</a>
+
+        
+
+            <a href="/tags/跨域问题/" style="-webkit-order:82;order:82" class="tags-list-item waves-effect waves-button waves-light">跨域问题</a>
+
+        
+
+            <a href="/tags/反向代理/" style="-webkit-order:83;order:83" class="tags-list-item waves-effect waves-button waves-light">反向代理</a>
+
+        
+
+            <a href="/tags/easypoi导入Excel/" style="-webkit-order:84;order:84" class="tags-list-item waves-effect waves-button waves-light">easypoi导入Excel</a>
+
+        
+
+            <a href="/tags/easypoi导入Excel时间格式校验/" style="-webkit-order:85;order:85" class="tags-list-item waves-effect waves-button waves-light">easypoi导入Excel时间格式校验</a>
+
+        
+
+            <a href="/tags/easypoi导入Collection校验/" style="-webkit-order:86;order:86" class="tags-list-item waves-effect waves-button waves-light">easypoi导入Collection校验</a>
+
+        
+
+            <a href="/tags/easypoi导入重复行校验/" style="-webkit-order:87;order:87" class="tags-list-item waves-effect waves-button waves-light">easypoi导入重复行校验</a>
+
+        
+
+            <a href="/tags/easypoi导入重复值校验/" style="-webkit-order:88;order:88" class="tags-list-item waves-effect waves-button waves-light">easypoi导入重复值校验</a>
+
+        
+
+            <a href="/tags/ElasticSearch语法入门/" style="-webkit-order:89;order:89" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch语法入门</a>
+
+        
+
+            <a href="/tags/github-clone慢解决/" style="-webkit-order:90;order:90" class="tags-list-item waves-effect waves-button waves-light">github clone慢解决</a>
+
+        
+
+            <a href="/tags/github-下载慢解决/" style="-webkit-order:91;order:91" class="tags-list-item waves-effect waves-button waves-light">github 下载慢解决</a>
+
+        
+
+            <a href="/tags/ElasticSearch环境搭建/" style="-webkit-order:92;order:92" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch环境搭建</a>
+
+        
+
+            <a href="/tags/ElasticSearch之IK分词器安装/" style="-webkit-order:93;order:93" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch之IK分词器安装</a>
+
+        
+
+            <a href="/tags/ElasticSearch之pinyin分词器安装/" style="-webkit-order:94;order:94" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch之pinyin分词器安装</a>
+
+        
+
+            <a href="/tags/ElasticSearch之IK分词器与pinyin分词器一起使用/" style="-webkit-order:95;order:95" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch之IK分词器与pinyin分词器一起使用</a>
+
+        
+
+            <a href="/tags/JPA/" style="-webkit-order:96;order:96" class="tags-list-item waves-effect waves-button waves-light">JPA</a>
+
+        
+
+            <a href="/tags/mapstruct自定义类型转换/" style="-webkit-order:97;order:97" class="tags-list-item waves-effect waves-button waves-light">mapstruct自定义类型转换</a>
+
+        
+
+            <a href="/tags/SpringDataElasticSearch使用教程/" style="-webkit-order:98;order:98" class="tags-list-item waves-effect waves-button waves-light">SpringDataElasticSearch使用教程</a>
+
+        
+
+            <a href="/tags/SpringDataElasticSearch查询/" style="-webkit-order:99;order:99" class="tags-list-item waves-effect waves-button waves-light">SpringDataElasticSearch查询</a>
+
+        
+
+            <a href="/tags/SpringDataElasticSearch入门/" style="-webkit-order:100;order:100" class="tags-list-item waves-effect waves-button waves-light">SpringDataElasticSearch入门</a>
+
+        
+
+            <a href="/tags/ElasticSearch索引同步创建/" style="-webkit-order:101;order:101" class="tags-list-item waves-effect waves-button waves-light">ElasticSearch索引同步创建</a>
+
+        
+
+            <a href="/tags/logstash全量同步建立es索引/" style="-webkit-order:102;order:102" class="tags-list-item waves-effect waves-button waves-light">logstash全量同步建立es索引</a>
+
+        
+
+            <a href="/tags/logstash增量同步建立es索引/" style="-webkit-order:103;order:103" class="tags-list-item waves-effect waves-button waves-light">logstash增量同步建立es索引</a>
+
+        
+
+            <a href="/tags/logstash-input-jdbc增量同步时间不对/" style="-webkit-order:104;order:104" class="tags-list-item waves-effect waves-button waves-light">logstash-input-jdbc增量同步时间不对</a>
+
+        
+
+            <a href="/tags/logstash-input-jdbc建立索引/" style="-webkit-order:105;order:105" class="tags-list-item waves-effect waves-button waves-light">logstash-input-jdbc建立索引</a>
+
+        
+
+            <a href="/tags/微信公众号强制关注/" style="-webkit-order:106;order:106" class="tags-list-item waves-effect waves-button waves-light">微信公众号强制关注</a>
+
+        
+
+            <a href="/tags/订阅号参数二维码/" style="-webkit-order:107;order:107" class="tags-list-item waves-effect waves-button waves-light">订阅号参数二维码</a>
+
+        
+
+            <a href="/tags/微信分享/" style="-webkit-order:108;order:108" class="tags-list-item waves-effect waves-button waves-light">微信分享</a>
+
+        
+
+            <a href="/tags/WebView同步Cookie问题/" style="-webkit-order:109;order:109" class="tags-list-item waves-effect waves-button waves-light">WebView同步Cookie问题</a>
+
+        
+
+            <a href="/tags/SpringDataElasticSearch高亮/" style="-webkit-order:110;order:110" class="tags-list-item waves-effect waves-button waves-light">SpringDataElasticSearch高亮</a>
+
+        
+
+            <a href="/tags/SpringDataElasticSearch关键词高亮/" style="-webkit-order:111;order:111" class="tags-list-item waves-effect waves-button waves-light">SpringDataElasticSearch关键词高亮</a>
+
+        
+
+            <a href="/tags/ElasticsearchTemplate使用/" style="-webkit-order:112;order:112" class="tags-list-item waves-effect waves-button waves-light">ElasticsearchTemplate使用</a>
+
+        
+
+            <a href="/tags/微信域名封禁/" style="-webkit-order:113;order:113" class="tags-list-item waves-effect waves-button waves-light">微信域名封禁</a>
+
+        
+
+            <a href="/tags/笔记/" style="-webkit-order:114;order:114" class="tags-list-item waves-effect waves-button waves-light">笔记</a>
+
+        
+
+            <a href="/tags/JS/" style="-webkit-order:115;order:115" class="tags-list-item waves-effect waves-button waves-light">JS</a>
+
+        
+
+            <a href="/tags/爬虫技巧/" style="-webkit-order:116;order:116" class="tags-list-item waves-effect waves-button waves-light">爬虫技巧</a>
+
+        
+
+            <a href="/tags/nginx转发/" style="-webkit-order:117;order:117" class="tags-list-item waves-effect waves-button waves-light">nginx转发</a>
+
+        
+
+            <a href="/tags/proxy-pass/" style="-webkit-order:118;order:118" class="tags-list-item waves-effect waves-button waves-light">proxy_pass</a>
+
+        
+
+            <a href="/tags/本地接收异步通知/" style="-webkit-order:119;order:119" class="tags-list-item waves-effect waves-button waves-light">本地接收异步通知</a>
+
+        
+
+            <a href="/tags/解决数据库与应用服务器时间不同步导致的问题/" style="-webkit-order:120;order:120" class="tags-list-item waves-effect waves-button waves-light">解决数据库与应用服务器时间不同步导致的问题</a>
+
+        
+
+            <a href="/tags/WebMagic出现SSLException/" style="-webkit-order:121;order:121" class="tags-list-item waves-effect waves-button waves-light">WebMagic出现SSLException</a>
+
+        
+
+            <a href="/tags/爬虫异常/" style="-webkit-order:122;order:122" class="tags-list-item waves-effect waves-button waves-light">爬虫异常</a>
+
+        
+
+            <a href="/tags/反向代理到其他域名/" style="-webkit-order:123;order:123" class="tags-list-item waves-effect waves-button waves-light">反向代理到其他域名</a>
+
+        
+
+            <a href="/tags/流程图绘制/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">流程图绘制</a>
+
+        
+
+            <a href="/tags/Hibernate-Validator-校验/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">Hibernate Validator 校验</a>
+
+        
+
+            <a href="/tags/校验统一异常处理/" style="-webkit-order:2;order:2" class="tags-list-item waves-effect waves-button waves-light">校验统一异常处理</a>
+
+        
+
+            <a href="/tags/hexo-修改永久链接/" style="-webkit-order:3;order:3" class="tags-list-item waves-effect waves-button waves-light">hexo-修改永久链接</a>
+
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
+
+
+</header>
+
+<div class="container body-wrap fade">
+    
+            <div class="waterfall">
+          
+
+            <div class="waterfall-item">
+  <article class="article-card archive-article">
+    <div class="post-meta">
+      <time class="post-time" title="2020-02-04 17:13:39" datetime="2020-02-04T09:13:39.000Z"  itemprop="datePublished">2020-02-04</time>
+
+      
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/框架/">框架</a></li></ul>
+
+
+
+    </div>
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/hibernate-validator-best-practice.html">Hibernate Validator 校验最佳实践</a>
+    </h3>
+  
+
+
+
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hibernate-Validator-校验/">Hibernate Validator 校验</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/校验统一异常处理/">校验统一异常处理</a></li></ul>
+
+    </div>
+    
+  </article>
+</div>
+
+        
+            </div>
+        
+    
+</div>
+
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/tags/Hibernate-Validator-校验/&title=WeJan's Blog&pic=http://nullpointer.pw/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/tags/Hibernate-Validator-校验/&title=WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/tags/Hibernate-Validator-校验/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=WeJan's Blog&url=http://nullpointer.pw/tags/Hibernate-Validator-校验/&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/tags/Hibernate-Validator-校验/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACM0lEQVR42u3aQY7CMAxAUe5/6SLNaiSU9NsOCOyfFSolzevCOHYeDzyuv/H6+f+V1+v7eVYzk3mSQ4YMGT/LuLZjdQ+ZZ7W4/YvYP3e5BhkyZAxgkCBLAiKZbR+s9+DldRkyZMgA6SAPlGTIkCFDRoURTfVy+1AZMmTIyG1ieZmMB+hK4JYhQ8YcRqUx8O7PH+pvyJAh44sZlY0laQDUG6JoVTJkyGjN4CkabxjkmqA8yAYyXBkyZLRg8OB4KsjyrXLghcqQIaM1Y3+JX+HBlNyZo8qQIaMrgyRwpByfC7unkk4ZMmT0ZpAEjhfIcrxc6/RmZhkyZDRi8MBHDliQgxckceSHOWTIkDGHET3owMNiJU0M/A3IkCFjAIME0Fxw5IU2HqxvUkMZMmS0Y0T3uNFGZqUlEE0lZciQ0ZVRr9KdbSHkZpMhQ8YERqUoxtuQlWIcOmwhQ4aMpgzeRCQPiAbN3AyB7asMGTIaMeoJHD9ywdsAuXAvQ4aM3oxoEZ//NvotX/ry30OGDBmNGJWF8tDM32iypSpDhowxjGRR/oNHwZarkiFDRmtGpehG2gO5dgKHyZAhYwLjCg7y4GjDkmx0b2aWIUNGawYfp0pm5DWdOvYhQ4aMTgw+dSVARw97BcptMmTIGMOolPV5elcpwN3cL0OGDBm4VRDdlEZTwyVGhgwZMkCrgAfrXMsB9WNlyJDRmpFrYUaTQrJozpYhQ8YcRq4xkNusRg9eHAPIkCHjVxlPMud6wC08LFcAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<script>
+  daovoice('init', {
+    app_id: "81d99be9",
+  });
+  daovoice('update');
+</script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

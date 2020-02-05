@@ -3,15 +3,16 @@
 
 
     
+    
   <url>
     <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
-    <lastmod>2020-02-04T11:28:33.103Z</lastmod>
+    <lastmod>2020-02-04T11:43:28.891Z</lastmod>
     <data>
         <display>
-        <title>Hibernate Validator校验最佳实践</title>
+        <title>Hibernate Validator 校验最佳实践</title>
         <pubTime>2020-02-04T09:13:39.000Z</pubTime>
         
-        <tag>Hibernate Validator校验</tag>
+        <tag>Hibernate Validator 校验</tag>
          
         <tag>校验统一异常处理</tag>
          
@@ -82,7 +83,6 @@
     </data>
     </url>
 
-    
     
     
     
