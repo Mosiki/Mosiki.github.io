@@ -27,19 +27,19 @@
     
     
     <meta name="keywords" content="">
-    <meta name="description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。 角色 策略上下文角色：持有抽象策略角色的引用，访问策略的入口 抽象策略角色 具体策略角色  UML 实">
+    <meta name="description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之策略模式实战">
 <meta property="og:url" content="http://nullpointer.pw/design-patterns-strategy.html">
 <meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。 角色 策略上下文角色：持有抽象策略角色的引用，访问策略的入口 抽象策略角色 具体策略角色  UML 实战以抽奖活动发奖为例，奖品多种多样，可能是现金奖，话费奖品，实物奖等等，每种奖品">
+<meta property="og:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZPB1Yi9038RlynGvhdJh0uY8KbmHASZMYoSPfx4xK6Ta6a6tstVVQ5SHfhFqcdp_J_8dqugae_En5AgKLGLhfxynGvCdrX1U26e144D5JX8Mrz6pd_rLk1q1Nb2T2Ty6eX52iz0Tf4BmuBjR1BNStmmLDRczjLjTEy3IhBJ9GyeNliNdnnDTUzEfDTYVJcHP9b_I5TXRue4VlALrBSz1rXmtQTLacy_PPhxOxjBPUfJAqvXvROftts1o5qOFOO7a8Hr7uJY5yASU_mo7WO03T7U-0RWxtW3yJxelep_UqCRn17fPnpPu1J7b6l_wBm00">
-<meta property="og:updated_time" content="2020-02-19T12:40:22.442Z">
+<meta property="og:updated_time" content="2020-02-19T12:54:30.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之策略模式实战">
-<meta name="twitter:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。 角色 策略上下文角色：持有抽象策略角色的引用，访问策略的入口 抽象策略角色 具体策略角色  UML 实战以抽奖活动发奖为例，奖品多种多样，可能是现金奖，话费奖品，实物奖等等，每种奖品">
+<meta name="twitter:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
 <meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
@@ -134,7 +134,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -204,6 +204,7 @@
 <p>意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。</p>
 <p>主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。</p>
 <p>使用场景：一个系统需要动态地在几种算法中选择一种。</p>
+<a id="more"></a>
 <h2 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h2><ul>
 <li>策略上下文角色：持有抽象策略角色的引用，访问策略的入口</li>
 <li>抽象策略角色</li>
@@ -233,7 +234,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-19T12:40:22.442Z" itemprop="dateUpdated">2020-02-19 20:40:22</time>
+    Last updated: <time datetime="2020-02-19T12:54:30.114Z" itemprop="dateUpdated">2020-02-19 20:54:30</time>
 </span><br>
 
 
@@ -276,7 +277,9 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/design-patterns-strategy.html&title=《设计模式之策略模式实战》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/design-patterns-strategy.html&title=《设计模式之策略模式实战》 — WeJan's Blog&source=类型：行为型模式
+意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。
+主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
@@ -416,7 +419,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
@@ -448,7 +451,9 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/design-patterns-strategy.html&title=《设计模式之策略模式实战》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/design-patterns-strategy.html&title=《设计模式之策略模式实战》 — WeJan's Blog&source=类型：行为型模式
+意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。
+主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和..." data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
