@@ -3,10 +3,43 @@
 
 
     
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
+    <lastmod>2020-02-19T12:40:22.442Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式之策略模式实战</title>
+        <pubTime>2020-02-19T12:38:23.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    <lastmod>2020-02-19T12:37:56.406Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式实战目录</title>
+        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
-    <lastmod>2020-02-04T11:43:28.891Z</lastmod>
+    <lastmod>2020-02-05T02:44:03.117Z</lastmod>
     <data>
         <display>
         <title>Hibernate Validator 校验最佳实践</title>
@@ -25,6 +58,7 @@
     </data>
     </url>
 
+    
     
     
   <url>
@@ -1513,7 +1547,6 @@
     </data>
     </url>
 
-    
     
     
     

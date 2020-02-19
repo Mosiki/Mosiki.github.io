@@ -36,7 +36,7 @@
 <meta property="og:description" content="几年前刚学习 SpringBoot 的时候，就接触并开始使用 HibernateValidator 校验框架，注解校验结合统一异常处理，对代码的整洁性提高特别有帮助。但是目前发现公司里比较新的项目中对参数进行校验还是使用以前传统的方式，需要逐一对请求对象中的属性使用 if 来判断合法性，当需要校验的属性很多时，一大坨的 if 判断校验代码就不可避免。本文介绍 HibernateValidator">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20200204173055.png">
-<meta property="og:updated_time" content="2020-02-04T11:43:28.891Z">
+<meta property="og:updated_time" content="2020-02-05T02:44:03.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hibernate Validator 校验最佳实践">
 <meta name="twitter:description" content="几年前刚学习 SpringBoot 的时候，就接触并开始使用 HibernateValidator 校验框架，注解校验结合统一异常处理，对代码的整洁性提高特别有帮助。但是目前发现公司里比较新的项目中对参数进行校验还是使用以前传统的方式，需要逐一对请求对象中的属性使用 if 来判断合法性，当需要校验的属性很多时，一大坨的 if 判断校验代码就不可避免。本文介绍 HibernateValidator">
@@ -210,7 +210,7 @@
                 <div class="image-caption"></div>
             </figure></p>
 <p>使用校验框架后，代码简洁很多有木有~</p>
-<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>首先需要引入依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-validator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.1.0.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>首先需要引入依赖，<strong>需要注意是否依赖有冲突，如果有一定要解决掉冲突</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.hibernate.validator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>hibernate-validator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>6.1.0.Final<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>依赖引入后，Spring 环境需要配置一下校验器。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ValidatorConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Validator <span class="title">validator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        ValidatorFactory validatorFactory = Validation.byProvider(HibernateValidator.class)</span><br><span class="line">                .configure()</span><br><span class="line">                <span class="comment">// 快速失败</span></span><br><span class="line">                .failFast(<span class="keyword">true</span>)</span><br><span class="line">                .buildValidatorFactory();</span><br><span class="line">        <span class="keyword">return</span> validatorFactory.getValidator();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里设置 failFast 为 true，代表着如果有多个参数的情况下，只要校验出一个参数有误就返回错误而不再继续校验。</p>
 <h2 id="为对象添加校验注解"><a href="#为对象添加校验注解" class="headerlink" title="为对象添加校验注解"></a>为对象添加校验注解</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentVo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"学号不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"姓名不能为空"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@NotNull</span>(message = <span class="string">"邮箱地址不能为空"</span>)</span><br><span class="line">    <span class="meta">@Email</span>(message = <span class="string">"邮箱地址不正确"</span>)</span><br><span class="line">    <span class="keyword">private</span> String email;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -466,7 +466,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-02-04T11:43:28.891Z" itemprop="dateUpdated">2020-02-04 19:43:28</time>
+    最后更新时间：<time datetime="2020-02-05T02:44:03.117Z" itemprop="dateUpdated">2020-02-05 10:44:03</time>
 </span><br>
 
 
@@ -546,7 +546,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/design-patterns.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">设计模式实战目录</h4>
+      </a>
+    </div>
   
 
   

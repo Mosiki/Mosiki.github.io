@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
     
-    <lastmod>2020-02-05T00:43:21.881Z</lastmod>
+    <lastmod>2020-02-19T12:40:22.442Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    
+    <lastmod>2020-02-19T12:37:56.406Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/project/index.html</loc>
+    
+    <lastmod>2020-02-19T12:23:23.231Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
     
-    <lastmod>2020-02-04T11:43:28.891Z</lastmod>
+    <lastmod>2020-02-05T02:44:03.117Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
+    
+    <lastmod>2020-02-05T00:43:21.881Z</lastmod>
     
   </url>
   
@@ -523,13 +544,6 @@
     <loc>http://nullpointer.pw/tags/index.html</loc>
     
     <lastmod>2017-11-19T05:09:51.050Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/project/index.html</loc>
-    
-    <lastmod>2017-11-19T05:09:51.049Z</lastmod>
     
   </url>
   
