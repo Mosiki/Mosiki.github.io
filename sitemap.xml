@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
+    
+    <lastmod>2020-02-20T07:30:41.959Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
     
     <lastmod>2020-02-19T13:31:56.969Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
     
     <lastmod>2020-02-05T02:44:03.117Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
-    
-    <lastmod>2020-02-05T00:43:21.881Z</lastmod>
     
   </url>
   
