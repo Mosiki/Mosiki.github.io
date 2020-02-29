@@ -103,9 +103,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -140,7 +140,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -214,7 +214,7 @@
 <a id="more"></a>
 <h2 id="SEO之初"><a href="#SEO之初" class="headerlink" title="SEO之初"></a>SEO之初</h2><p>之前特意通过 <code>site</code> 指令查询过公司同行业网站的收录情况，发现搜索引擎对于我司的网站收录数量真的不是差了一星半点-.-，原因嘛，就是一直没有专门的人做 SEO 优化工作。</p>
 <p>前几个月我倒是生成了网站的一部分 sitemap 提交到神马搜索站长平台，但是明明是按照官方文档格式生成的，却一直提示格式不对，也不知道什么情况，也没有官方反馈渠道，就不了了之了。最近公司新招了 SEO 专员，于是便有了定时生成 sitemap 文件的需求。这种生成的文件一般都是对外直接可以访问的，可以通过 nginx 配置静态资源文件来完成。</p>
-<h2 id="需求探讨"><a href="#需求探讨" class="headerlink" title="需求探讨"></a>需求探讨</h2><p>sitemap 的格式一般是 XML 格式的，第一反应就是可以使用 DOM4J 来完成，但是做 SEO 的同事说了，因为 sitemap 文件的限制，同一个 sitemap 文件最多有 5 万条 URL，超出 5 万条，就应该放入到下一个 sitemap 文件当中去。通过 DOM4J 来做的话，还需要判断条数感觉有点麻烦(懒)，就上 gayhub 搜了一下相关的轮子 generate sitemap，找到了现成的轮子 <strong><a href="https://github.com/dfabulich/sitemapgen4j" target="_blank" rel="noopener">sitemapgen4j</a></strong>，项目的 README 中使用方法写的比较完善，这里不再多说。</p>
+<h2 id="需求探讨"><a href="#需求探讨" class="headerlink" title="需求探讨"></a>需求探讨</h2><p>sitemap 的格式一般是 XML 格式的，第一反应就是可以使用 DOM4J 来完成，但是做 SEO 的同事说了，因为 sitemap 文件的限制，同一个 sitemap 文件最多有 5 万条 URL，超出 5 万条，就应该放入到下一个 sitemap 文件当中去。通过 DOM4J 来做的话，还需要判断条数感觉有点麻烦(懒)，就上 gayhub 搜了一下相关的轮子 generate sitemap，找到了现成的轮子 <strong><a href="https://github.com/dfabulich/sitemapgen4j">sitemapgen4j</a></strong>，项目的 README 中使用方法写的比较完善，这里不再多说。</p>
 <p>为什么文档很完善的情况下，我要写这篇博客呢？(10月第一篇，凑数的(逃~)</p>
 <p>上文提到了，如果超出了 5 万条需要写入另外一个 sitemap 当中，这个功能 sitemapgen4j 已经替我们实现了，无需担心。如果超出，生成的文件就像是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- article1.xml</span><br><span class="line">- article2.xml</span><br><span class="line">- article3.xml</span><br><span class="line">- article4.xml</span><br></pre></td></tr></table></figure></p>
 <p>这样的话，在站长平台这里，如果新增了文件就要新增一条sitemap 网址记录，很麻烦。</p>
@@ -235,7 +235,7 @@
 <p><strong>注意: 第一个 location块 中的 proxy_pass 行尾有个 /</strong></p>
 <p>www.domain.com/seo/sitemap_index.xml<br>就会在 www.domain.com 这里直接反代到 111.112.113.114 这台服务器上了。</p>
 <p>站长平台只用提交这一个 URL <strong>www.domain.com/seo/sitemap_index.xml</strong> 即可。</p>
-<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg" target="_blank" rel="noopener">给我写信</a></p>
+<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 
         </div>
 
@@ -243,7 +243,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:39:44.774Z" itemprop="dateUpdated">2020-01-22 22:39:44</time>
+    最后更新时间：<time datetime="2020-01-22T14:39:44.774Z" itemprop="dateUpdated">2020-01-22 22:39:44</time>
 </span><br>
 
 
@@ -437,7 +437,7 @@ Sitemap（即站点地图）就是您网站上各网页的..." data-title=" QQ">
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

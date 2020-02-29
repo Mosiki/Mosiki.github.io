@@ -104,9 +104,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -141,7 +141,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -218,7 +218,7 @@
 <p>这样进行查询之后，如果想要查询作者，但是作品名称的权重更高些，所以完全匹配的作者也被排在了后面。</p>
 <h2 id="最佳字段查询"><a href="#最佳字段查询" class="headerlink" title="最佳字段查询"></a>最佳字段查询</h2><p>看了官方博客和一篇博客文章，发现 <code>multi-match-query</code> 的高级查询方式。</p>
 <blockquote>
-<p><code>multi_match</code> 多匹配查询的类型有多种，其中的三种恰巧与 <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_single_query_string.html#know-your-data" target="_blank" rel="noopener">了解我们的数据</a> 中介绍的三个场景对应，即： <code>best_fields</code> 、 <code>most_fields</code> 和 <code>cross_fields</code> （最佳字段、多数字段、跨字段）。</p>
+<p><code>multi_match</code> 多匹配查询的类型有多种，其中的三种恰巧与 <a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_single_query_string.html#know-your-data">了解我们的数据</a> 中介绍的三个场景对应，即： <code>best_fields</code> 、 <code>most_fields</code> 和 <code>cross_fields</code> （最佳字段、多数字段、跨字段）。</p>
 </blockquote>
 <p>这里我们想要搜索时，完全匹配的关键字排名更靠前，所以这里使用最佳字段 <strong>best_fields</strong> 进行查询</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">MultiMatchQueryBuilder multiMatchQuery = QueryBuilders</span><br><span class="line">                    .multiMatchQuery(queryString, <span class="string">"name"</span>, <span class="string">"author"</span>)</span><br><span class="line">                    .type(MultiMatchQueryBuilder.Type.BEST_FIELDS)</span><br><span class="line">                    .tieBreaker(<span class="number">0.1f</span>); </span><br><span class="line">boolQuery.must(multiMatchQuery);</span><br></pre></td></tr></table></figure>
@@ -243,11 +243,11 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testHighlightQuery</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    BookQuery query = <span class="keyword">new</span> BookQuery();</span><br><span class="line">    query.setQueryString(<span class="string">"穿越"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复合查询</span></span><br><span class="line">    BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();</span><br><span class="line"></span><br><span class="line">    PageRequest pageRequest = PageRequest.of(query.getPage() - <span class="number">1</span>, query.getSize());</span><br><span class="line">    NativeSearchQueryBuilder queryBuilder = <span class="keyword">new</span> NativeSearchQueryBuilder()</span><br><span class="line">            .withQuery(boolQuery)</span><br><span class="line">            .withHighlightFields(</span><br><span class="line">                    <span class="keyword">new</span> HighlightBuilder.Field(<span class="string">"name"</span>).preTags(<span class="string">"&lt;span style=\"color:red\"&gt;"</span>).postTags(<span class="string">"&lt;/span&gt;"</span>),</span><br><span class="line">                    <span class="keyword">new</span> HighlightBuilder.Field(<span class="string">"author"</span>).preTags(<span class="string">"&lt;span style=\"color:red\"&gt;"</span>).postTags(<span class="string">"&lt;/span&gt;"</span>))</span><br><span class="line">            .withPageable(pageRequest);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下为查询条件, 使用 must query 进行查询组合</span></span><br><span class="line"><span class="comment">//        MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery(query.getQueryString(), "name", "intro", "author");</span></span><br><span class="line"><span class="comment">//        boolQuery.must(matchQuery);</span></span><br><span class="line">    String queryString = query.getQueryString();</span><br><span class="line">    <span class="comment">// 最佳字段  + 降低除了name之外字段的权重系数</span></span><br><span class="line">    MatchQueryBuilder nameQuery = QueryBuilders.matchQuery(<span class="string">"name"</span>, queryString);</span><br><span class="line">    MatchQueryBuilder authorQuery = QueryBuilders.matchQuery(<span class="string">"author"</span>, queryString).boost(<span class="number">0.8f</span>);</span><br><span class="line">    DisMaxQueryBuilder disMaxQueryBuilder = QueryBuilders.disMaxQuery().add(nameQuery).add(authorQuery);</span><br><span class="line">    queryBuilder.withQuery(disMaxQueryBuilder);</span><br><span class="line"></span><br><span class="line">    NativeSearchQuery searchQuery = queryBuilder.build();</span><br><span class="line">    Page&lt;Book&gt; books = elasticsearchTemplate.queryForPage(searchQuery, Book.class, extResultMapper);</span><br><span class="line"></span><br><span class="line">    books.forEach(e -&gt; log.info(<span class="string">"&#123;&#125;"</span>, e));</span><br><span class="line">    <span class="comment">// &lt;span style="color:red"&gt;穿越&lt;/span&gt;小道人</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>主要通过 <code>QueryBuilders.disMaxQuery</code> 结合 <code>boost</code> 对非核心字段降低权重来完成</p>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
-<li><a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample" target="_blank" rel="noopener">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></li>
+<li><a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.cnblogs.com/yjf512/p/4897294.html" target="_blank" rel="noopener">https://www.cnblogs.com/yjf512/p/4897294.html</a></li>
-<li><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_best_fields.html#dis-max-query" target="_blank" rel="noopener">dis_max 查询</a></li>
+<li><a href="https://www.cnblogs.com/yjf512/p/4897294.html">https://www.cnblogs.com/yjf512/p/4897294.html</a></li>
+<li><a href="https://www.elastic.co/guide/cn/elasticsearch/guide/cn/_best_fields.html#dis-max-query">dis_max 查询</a></li>
 </ul>
 
         </div>
@@ -256,7 +256,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:36:59.810Z" itemprop="dateUpdated">2020-01-22 22:36:59</time>
+    最后更新时间：<time datetime="2020-01-22T14:36:59.810Z" itemprop="dateUpdated">2020-01-22 22:36:59</time>
 </span><br>
 
 
@@ -448,7 +448,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

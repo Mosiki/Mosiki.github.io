@@ -105,9 +105,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -142,7 +142,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -318,11 +318,11 @@
 <p><strong>SQL 查询：</strong>  </p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> bookId <span class="keyword">as</span> <span class="string">'作品ID'</span>,</span><br><span class="line">  <span class="keyword">DATE_FORMAT</span>(<span class="keyword">time</span>,<span class="string">'%Y-%m-%d'</span>) <span class="keyword">as</span> <span class="string">'日期'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">706</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买次数'</span>,</span><br><span class="line">  <span class="keyword">MAX</span>(<span class="keyword">CASE</span> task_id <span class="keyword">WHEN</span> <span class="number">707</span> <span class="keyword">THEN</span> <span class="string">`value`</span> <span class="keyword">ELSE</span> <span class="number">0</span> <span class="keyword">END</span>) <span class="keyword">AS</span> <span class="string">'购买金额'</span></span><br><span class="line"><span class="keyword">from</span> <span class="string">`t_task_result_day`</span></span><br><span class="line"><span class="keyword">WHERE</span> task_id <span class="keyword">IN</span> (<span class="number">706</span>, <span class="number">707</span>)</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> <span class="keyword">time</span>, bookId</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> bookId, <span class="keyword">time</span>;</span><br></pre></td></tr></table></figure>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
-<li><a href="http://img12345.5-project.com/data.sql" target="_blank" rel="noopener">点我下载实例所用数据</a></li>
+<li><a href="http://img12345.5-project.com/data.sql">点我下载实例所用数据</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="http://blog.csdn.net/wulantian/article/details/52687640" target="_blank" rel="noopener">http://blog.csdn.net/wulantian/article/details/52687640</a></li>
-<li><a href="http://blog.csdn.net/u013938484/article/details/50552747" target="_blank" rel="noopener">http://blog.csdn.net/u013938484/article/details/50552747</a></li>
+<li><a href="http://blog.csdn.net/wulantian/article/details/52687640">http://blog.csdn.net/wulantian/article/details/52687640</a></li>
+<li><a href="http://blog.csdn.net/u013938484/article/details/50552747">http://blog.csdn.net/u013938484/article/details/50552747</a></li>
 </ul>
 
         </div>
@@ -331,7 +331,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:41:50.417Z" itemprop="dateUpdated">2020-01-22 22:41:50</time>
+    最后更新时间：<time datetime="2020-01-22T14:41:50.417Z" itemprop="dateUpdated">2020-01-22 22:41:50</time>
 </span><br>
 
 
@@ -523,7 +523,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

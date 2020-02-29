@@ -102,9 +102,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -139,7 +139,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -274,11 +274,11 @@
 <h3 id="查询测试"><a href="#查询测试" class="headerlink" title="查询测试"></a>查询测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findBook</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    BookQuery query = <span class="keyword">new</span> BookQuery();</span><br><span class="line">    query.setQueryString(<span class="string">"魔"</span>);</span><br><span class="line">    query.setSite(<span class="number">2</span>);<span class="comment">// 1 是男生 2 是女生</span></span><br><span class="line">    query.setSort(<span class="number">29</span>); <span class="comment">// 29 是玄幻</span></span><br><span class="line">    query.setVip(<span class="keyword">true</span>);<span class="comment">// 查询 vip 作品</span></span><br><span class="line">    query.setWordsBegin(<span class="number">0</span>); <span class="comment">// 查询字数在 0-25w 之间的作品</span></span><br><span class="line">    query.setWordsEnd(<span class="number">500000</span>);</span><br><span class="line">    query.setPage(<span class="number">1</span>);<span class="comment">// 分页页码</span></span><br><span class="line">    query.setSize(<span class="number">10</span>);<span class="comment">// 每页显示数</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 复合查询</span></span><br><span class="line">    BoolQueryBuilder boolQuery = QueryBuilders.boolQuery();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下为查询条件, 使用 must query 进行查询组合</span></span><br><span class="line">    MultiMatchQueryBuilder matchQuery = QueryBuilders.multiMatchQuery(query.getQueryString(), <span class="string">"name"</span>, <span class="string">"intro"</span>, <span class="string">"author"</span>);</span><br><span class="line">    boolQuery.must(matchQuery);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以下为过滤筛选条件，使用 filter 比使用 must query 性能要好</span></span><br><span class="line">    TermQueryBuilder siteQuery = QueryBuilders.termQuery(<span class="string">"site"</span>, query.getSite());</span><br><span class="line">    boolQuery.filter(siteQuery);</span><br><span class="line">    TermQueryBuilder sortQuery = QueryBuilders.termQuery(<span class="string">"sort"</span>, query.getSort());</span><br><span class="line">    boolQuery.filter(sortQuery);</span><br><span class="line">    TermQueryBuilder vipQuery = QueryBuilders.termQuery(<span class="string">"vip"</span>, query.getVip());</span><br><span class="line">    boolQuery.filter(vipQuery);</span><br><span class="line">    RangeQueryBuilder wordsQuery = QueryBuilders.rangeQuery(<span class="string">"words"</span>).gt(query.getWordsBegin()).lt(query.getWordsEnd());</span><br><span class="line">    boolQuery.filter(wordsQuery);</span><br><span class="line"></span><br><span class="line">    Sort sort = Sort.by(Sort.Direction.DESC, <span class="string">"click"</span>);</span><br><span class="line">    <span class="comment">// 分页 同时根据 点击数 click 进行降序排列</span></span><br><span class="line">    PageRequest pageRequest = PageRequest.of(query.getPage() - <span class="number">1</span>, query.getSize(), sort);</span><br><span class="line"></span><br><span class="line">    log.info(<span class="string">"&#123;&#125;"</span>, boolQuery);</span><br><span class="line">    bookRepository.search(boolQuery, pageRequest)</span><br><span class="line">            .forEach(e -&gt; log.info(<span class="string">"作品信息：&#123;&#125;"</span>, e));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>查出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2018-09-12 22:33:05.750  INFO 25896 --- [           main] i.g.mosiki.search.BookRepositoryTest     : 作品信息：Book(id=7, words=345004, intro=  推荐《寻龙传》《魂摄天下》 作品属玄幻异界大陆风格！ 可惜频道不能更改只能在奇幻混！ 书友群：292...  , name=灭魔成圣, sort=29, vip=true, site=2, author=等待潇湘诗社, collection=13, click=63263, popularity=2314, goods=5353, status=0, updatetime=Tue Sep 04 16:54:15 CST 2018)</span><br><span class="line">2018-09-12 22:33:05.751  INFO 25896 --- [           main] i.g.mosiki.search.BookRepositoryTest     : 作品信息：Book(id=9, words=233000, intro=  一名地球的平凡的少年，因为一场游戏，获得死神的传承，从而穿越到另外一片陌生的大陆，从此开启了一段传奇的人生，九天星河，吾乃死神，掌控生死，判夺罪恶，我从没见过地狱，因为我的名字，便代表地狱，吾乃死神，吾名林天。（PS：单女主，爽文不虐心，主角以杀证道，杀该杀之人，不圣母，略腹黑） 各位书友要是觉得《带着死神去穿越》还不错的话请不要忘记向您QQ群和微博里的朋友推荐哦！带着死神去穿越最新章节,带着死神去穿越无弹窗,带着死神去穿越全文阅读.  , name=带着死神去穿越, sort=29, vip=true, site=2, author=梦侍, collection=6326, click=523, popularity=135, goods=34252, status=0, updatetime=Thu Dec 28 04:53:07 CST 2017)</span><br><span class="line">2018-09-12 22:33:05.751  INFO 25896 --- [           main] i.g.mosiki.search.BookRepositoryTest     : 作品信息：Book(id=5, words=490000, intro=  富家子弟墨浞因为发现了村子中的秘密，在良心与亲情的折磨下，逃到了边境小城。因为一个香-艳而又恐怖的梦，墨浞经历了一些诡异的事，从而得知自己的前世与今生的使命。踏上藏地，历经磨难，克服了自己的心魔，战胜了...  , name=伏魔, sort=29, vip=true, site=2, author=一叶style, collection=526, click=9, popularity=41516, goods=7687, status=0, updatetime=Thu Sep 06 04:54:05 CST 2018)</span><br></pre></td></tr></table></figure></p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>SpringDataElasticSearch 入门就到这里了，是不是很简单呢？</p>
-<p>本文示例项目地址：<a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample" target="_blank" rel="noopener">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></p>
-<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg" target="_blank" rel="noopener">给我写信</a></p>
+<p>本文示例项目地址：<a href="https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample">https://github.com/Mosiki/SpringDataElasticSearchQuickStartExample</a></p>
+<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://blog.csdn.net/tianyaleixiaowu/article/details/77965257" target="_blank" rel="noopener">https://blog.csdn.net/tianyaleixiaowu/article/details/77965257</a></li>
-<li><a href="https://tech.youzan.com/search-engine1/#43filteredquery" target="_blank" rel="noopener">https://tech.youzan.com/search-engine1/#43filteredquery</a></li>
+<li><a href="https://blog.csdn.net/tianyaleixiaowu/article/details/77965257">https://blog.csdn.net/tianyaleixiaowu/article/details/77965257</a></li>
+<li><a href="https://tech.youzan.com/search-engine1/#43filteredquery">https://tech.youzan.com/search-engine1/#43filteredquery</a></li>
 </ul>
 
         </div>
@@ -287,7 +287,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:32:39.569Z" itemprop="dateUpdated">2020-01-22 22:32:39</time>
+    最后更新时间：<time datetime="2020-01-22T14:32:39.569Z" itemprop="dateUpdated">2020-01-22 22:32:39</time>
 </span><br>
 
 
@@ -479,7 +479,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

@@ -103,9 +103,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -140,7 +140,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -239,7 +239,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[esuser@localhost es]$ /usr/local/es/master/bin/elasticsearch -d</span><br><span class="line"></span><br><span class="line">## 查看是否启动成功</span><br><span class="line">ps -ef | grep elasticsearch</span><br><span class="line"></span><br><span class="line">## 正常可以看到一个 elasticsearch 进程</span><br><span class="line"></span><br><span class="line">## 如前文一样，分别测试两个 slave 是否可以正常启动</span><br><span class="line"></span><br><span class="line">### 测试slave1</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/slave1/bin/elasticsearch -d</span><br><span class="line"></span><br><span class="line">### 浏览器访问 http://ip:8200，响应为：</span><br><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&quot;slave1&quot;,</span><br><span class="line">    &quot;cluster_name&quot;:&quot;es-search&quot;,</span><br><span class="line">    &quot;cluster_uuid&quot;:&quot;JoNUMEKFS06NHNS7p3bdWg&quot;,</span><br><span class="line">    &quot;version&quot;:&#123;</span><br><span class="line">        &quot;number&quot;:&quot;5.5.3&quot;,</span><br><span class="line">        &quot;build_hash&quot;:&quot;9305a5e&quot;,</span><br><span class="line">        &quot;build_date&quot;:&quot;2017-09-07T15:56:59.599Z&quot;,</span><br><span class="line">        &quot;build_snapshot&quot;:false,</span><br><span class="line">        &quot;lucene_version&quot;:&quot;6.6.0&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;tagline&quot;:&quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">### 测试slave2</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/slave2/bin/elasticsearch -d</span><br><span class="line">### 浏览器访问 http://ip:8200，响应为：</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    name: &quot;slave2&quot;,</span><br><span class="line">    cluster_name: &quot;es-search&quot;,</span><br><span class="line">    cluster_uuid: &quot;JoNUMEKFS06NHNS7p3bdWg&quot;,</span><br><span class="line">    version: &#123;</span><br><span class="line">        number: &quot;5.5.3&quot;,</span><br><span class="line">        build_hash: &quot;9305a5e&quot;,</span><br><span class="line">        build_date: &quot;2017-09-07T15:56:59.599Z&quot;,</span><br><span class="line">        build_snapshot: false,</span><br><span class="line">        lucene_version: &quot;6.6.0&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    tagline: &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>至此完成了 es 集群(伪)的搭建。</p>
 <h2 id="环境准备之-elasticsearch-head-安装"><a href="#环境准备之-elasticsearch-head-安装" class="headerlink" title="环境准备之 elasticsearch head 安装"></a>环境准备之 elasticsearch head 安装</h2><p>为了方便我们观察调试，安装这个 es 插件。</p>
-<p>安装步骤参考官方 <a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">github</a></p>
+<p>安装步骤参考官方 <a href="https://github.com/mobz/elasticsearch-head">github</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 把插件安装到 es 目录下</span><br><span class="line">cd /usr/local/es/</span><br><span class="line"></span><br><span class="line">git clone git://github.com/mobz/elasticsearch-head.git  </span><br><span class="line">cd elasticsearch-head  </span><br><span class="line">npm install</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
 <p>在 <code>npm install</code> 这一步，由于国内网络环境的原因，可能会失败，可以npm 换源重试。</p>
 <p>启动完成后，浏览器访问 <code>http://ip:9100</code>，我的是 <code>http://192.168.199.192:9100/</code></p>
@@ -253,7 +253,7 @@
 <p>这里需要修改连接地址，为你的 es 所在的 ip:9200。后面集群健康为绿色为正常。</p>
 <p>到这里，插件也就安好了。</p>
 <h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><p>商品搜索，分词是必不可少的，开源的中文分词最有名的莫过于 IK 分词了，同时为了给用户提供更好的体验，同时配置 pinyin 分词，即输入拼音也可以进行搜索，网上也有对应的分词器，在下文中我们一起来配置分词器。</p>
-<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg" target="_blank" rel="noopener">给我写信</a></p>
+<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 
         </div>
 
@@ -261,7 +261,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:31:09.646Z" itemprop="dateUpdated">2020-01-22 22:31:09</time>
+    最后更新时间：<time datetime="2020-01-22T14:31:09.646Z" itemprop="dateUpdated">2020-01-22 22:31:09</time>
 </span><br>
 
 
@@ -453,7 +453,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

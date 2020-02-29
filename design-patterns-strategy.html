@@ -34,7 +34,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZPB1Qi9048Rl-nHpj8tn0KH42RQK4f36YwUoRiPq8UxAPWHjcdTtD5M4pKgkCz__C_FFp2gIZWwxKgXILXKidVx534sUM4Du9AW5G0mLEKbOdCRtVlPVuNO4U4Hr81oyY4O8pKAtbGh1Wwzk4THoSp5KrEJsqcvrxG0VvbERFAHyu5jyiTlJgJUTMeFzwKIMPV8ZNO6z9HxunbjQr_8SPCrnarPDjlgQhnRlw-zqlXodSZzXNfjYw1jChyBe9YoGFAJZA1od4FxKax_HA11mWExEDm1tnnk0dwJxCFhj3MqSJw6NTVmQl8AOSOr__Gm0">
-<meta property="og:updated_time" content="2020-02-19T13:31:56.969Z">
+<meta property="og:updated_time" content="2020-02-29T06:13:59.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之策略模式实战">
 <meta name="twitter:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
@@ -102,9 +102,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -139,7 +139,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -216,9 +216,9 @@
 <li>抽象策略角色</li>
 <li>具体策略角色</li>
 </ul>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><img src="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><img  src=http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0>
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>以抽奖活动发奖为例，奖品多种多样，可能是现金奖，话费奖品，实物奖等等，每种奖品的发放方式都不一样，比如现金是直接转账，话费奖品是调用运营商提供接口发放，实物奖需要人工快递寄送。在未采用策略模式之前，少不了使用 if…else…来判断发放，当增加一种奖品类型时，就需要增加 if 判断。而采取策略模式之后，只需实现一个策略类即可，对原来的逻辑无需做任何改动，也不会影响其他策略的正常逻辑。</p>
-<h3 id="本文示例UML图"><a href="#本文示例UML图" class="headerlink" title="本文示例UML图"></a>本文示例UML图</h3><img src="http://www.plantuml.com/plantuml/svg/ZPB1Qi9048Rl-nHpj8tn0KH42RQK4f36YwUoRiPq8UxAPWHjcdTtD5M4pKgkCz__C_FFp2gIZWwxKgXILXKidVx534sUM4Du9AW5G0mLEKbOdCRtVlPVuNO4U4Hr81oyY4O8pKAtbGh1Wwzk4THoSp5KrEJsqcvrxG0VvbERFAHyu5jyiTlJgJUTMeFzwKIMPV8ZNO6z9HxunbjQr_8SPCrnarPDjlgQhnRlw-zqlXodSZzXNfjYw1jChyBe9YoGFAJZA1od4FxKax_HA11mWExEDm1tnnk0dwJxCFhj3MqSJw6NTVmQl8AOSOr__Gm0">
+<h3 id="本文示例UML图"><a href="#本文示例UML图" class="headerlink" title="本文示例UML图"></a>本文示例UML图</h3><img  src=http://www.plantuml.com/plantuml/svg/ZPB1Qi9048Rl-nHpj8tn0KH42RQK4f36YwUoRiPq8UxAPWHjcdTtD5M4pKgkCz__C_FFp2gIZWwxKgXILXKidVx534sUM4Du9AW5G0mLEKbOdCRtVlPVuNO4U4Hr81oyY4O8pKAtbGh1Wwzk4THoSp5KrEJsqcvrxG0VvbERFAHyu5jyiTlJgJUTMeFzwKIMPV8ZNO6z9HxunbjQr_8SPCrnarPDjlgQhnRlw-zqlXodSZzXNfjYw1jChyBe9YoGFAJZA1od4FxKax_HA11mWExEDm1tnnk0dwJxCFhj3MqSJw6NTVmQl8AOSOr__Gm0>
 <h3 id="定义抽象策略接口"><a href="#定义抽象策略接口" class="headerlink" title="定义抽象策略接口"></a>定义抽象策略接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WeJan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-02-06</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="实现具体的策略"><a href="#实现具体的策略" class="headerlink" title="实现具体的策略"></a>实现具体的策略</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CallChargePrizeSendStrategy</span> <span class="keyword">implements</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"发放话费奖品"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MoneyPrizeSendStrategy</span> <span class="keyword">implements</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"发放现金奖品"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InKindPrizeSendStrategy</span> <span class="keyword">implements</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"发放实物奖品"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EmptyPrizeSendStrategy</span> <span class="keyword">implements</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"不发奖"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="实现对抽象策略封装的上下文对象"><a href="#实现对抽象策略封装的上下文对象" class="headerlink" title="实现对抽象策略封装的上下文对象"></a>实现对抽象策略封装的上下文对象</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WeJan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-02-06</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PrizeSendContext</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> PrizeSendStrategy prizeSendStrategy;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PrizeSendContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPrizeSendStrategy</span><span class="params">(PrizeSendStrategy prizeSendStrategy)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.prizeSendStrategy = prizeSendStrategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">executePrizeSendStrategy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        prizeSendStrategy.doSend();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -228,11 +228,11 @@
 <p>输出结果为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">发放现金奖品</span><br></pre></td></tr></table></figure>
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><ul>
-<li><a href="https://github.com/Mosiki/learning-modules" target="_blank" rel="noopener">https://github.com/Mosiki/learning-modules</a></li>
+<li><a href="https://github.com/Mosiki/learning-modules">https://github.com/Mosiki/learning-modules</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://www.runoob.com/design-pattern/strategy-pattern.html" target="_blank" rel="noopener">https://www.runoob.com/design-pattern/strategy-pattern.html</a></li>
-<li><a href="https://juejin.im/post/5c25b8bcf265da61117a5ea1" target="_blank" rel="noopener">https://juejin.im/post/5c25b8bcf265da61117a5ea1</a></li>
+<li><a href="https://www.runoob.com/design-pattern/strategy-pattern.html">https://www.runoob.com/design-pattern/strategy-pattern.html</a></li>
+<li><a href="https://juejin.im/post/5c25b8bcf265da61117a5ea1">https://juejin.im/post/5c25b8bcf265da61117a5ea1</a></li>
 </ul>
 
         </div>
@@ -241,7 +241,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-02-19T13:31:56.969Z" itemprop="dateUpdated">2020-02-19 21:31:56</time>
+    最后更新时间：<time datetime="2020-02-29T06:13:59.362Z" itemprop="dateUpdated">2020-02-29 14:13:59</time>
 </span><br>
 
 
@@ -321,7 +321,14 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/design-patterns-state.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">设计模式之状态模式实战</h4>
+      </a>
+    </div>
   
 
   
@@ -426,7 +433,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

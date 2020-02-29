@@ -1,1 +1,1 @@
-http://nullpointer.pw/design-patterns-strategy.html
+http://nullpointer.pw/design-patterns-state.html

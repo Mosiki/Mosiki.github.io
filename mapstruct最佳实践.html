@@ -100,9 +100,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -137,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -226,7 +226,7 @@
 <p>password 字段不应该返回到前台，可以采取两种方式不进行转换，第一种就是在vo对象中不出现password字段，第二种就是在@Mapping中设置该字段 ignore = true。</p>
 <p>MapStruct 提供了时间格式化的属性 <strong>dataFormat</strong>，支持Date、LocalDate、LocalDateTime等时间类型与String的转换。示例中birthday 属性为 LocalDate 类型，可以无需指定dataFormat自动完成转换，而LocalDateTime类型默认使用的是ISO格式时间，在国内往往不符合需求，因此需要手动指定一下 dataFormat。</p>
 <h2 id="二、自定义属性类型转换方法"><a href="#二、自定义属性类型转换方法" class="headerlink" title="二、自定义属性类型转换方法"></a>二、自定义属性类型转换方法</h2><p>一般常用的类型字段转换 MapStruct都能替我们完成，但是有一些是我们自定义的对象类型，MapStruct就不能进行字段转换，这就需要我们编写对应的类型转换方法，笔者使用的是JDK8，支持接口中的默认方法，可以直接在转换器中添加自定义类型转换方法。</p>
-<p>示例中User对象的config属性是一个JSON字符串，UserVo对象中是List<userconfig>类型的，这需要实现JSON字符串与对象的互转。</userconfig></p>
+<p>示例中User对象的config属性是一个JSON字符串，UserVo对象中是List<UserConfig>类型的，这需要实现JSON字符串与对象的互转。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">default</span> List&lt;UserConfig&gt; <span class="title">strConfigToListUserConfig</span><span class="params">(String config)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> JSON.parseArray(config, UserConfig.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">default</span> String <span class="title">listUserConfigToStrConfig</span><span class="params">(List&lt;UserConfig&gt; list)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> JSON.toJSONString(list);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果是 JDK8以下的，不支持默认方法，可以另外定义一个 转换器，然后再当前转换器的 @Mapper 中通过 uses = XXX.class 进行引用。</p>
 <p>定义好方法之后，MapStruct当匹配到合适类型的字段时，会调用我们自定义的转换方法进行转换。</p>
@@ -237,14 +237,14 @@
 </ol>
 <h2 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h2><p>本文涉及代码已上传到 Github，以供参考。</p>
 <ul>
-<li><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-mapstruct" target="_blank" rel="noopener">mapstruct最佳实践示例代码</a></li>
+<li><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-mapstruct">mapstruct最佳实践示例代码</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://mapstruct.org/documentation/stable/reference/html/" target="_blank" rel="noopener">官方文档：https://mapstruct.org/documentation/stable/reference/html/</a></li>
-<li><a href="https://mapstruct.org/faq/" target="_blank" rel="noopener">官方FAQ：https://mapstruct.org/faq/</a></li>
-<li><a href="https://github.com/mapstruct/mapstruct-examples" target="_blank" rel="noopener">官方Example：https://github.com/mapstruct/mapstruct-examples</a></li>
-<li><a href="http://www.kailing.pub/MapStruct1.3/index.html" target="_blank" rel="noopener">机翻中文版文档：http://www.kailing.pub/MapStruct1.3/index.html</a></li>
-<li><a href="https://www.cnblogs.com/javaguide/p/11861749.html" target="_blank" rel="noopener">5种常见Bean映射工具的性能比对：https://www.cnblogs.com/javaguide/p/11861749.html</a></li>
+<li><a href="https://mapstruct.org/documentation/stable/reference/html/">官方文档：https://mapstruct.org/documentation/stable/reference/html/</a></li>
+<li><a href="https://mapstruct.org/faq/">官方FAQ：https://mapstruct.org/faq/</a></li>
+<li><a href="https://github.com/mapstruct/mapstruct-examples">官方Example：https://github.com/mapstruct/mapstruct-examples</a></li>
+<li><a href="http://www.kailing.pub/MapStruct1.3/index.html">机翻中文版文档：http://www.kailing.pub/MapStruct1.3/index.html</a></li>
+<li><a href="https://www.cnblogs.com/javaguide/p/11861749.html">5种常见Bean映射工具的性能比对：https://www.cnblogs.com/javaguide/p/11861749.html</a></li>
 </ul>
 
         </div>
@@ -253,7 +253,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:41:03.401Z" itemprop="dateUpdated">2020-01-22 22:41:03</time>
+    最后更新时间：<time datetime="2020-01-22T14:41:03.401Z" itemprop="dateUpdated">2020-01-22 22:41:03</time>
 </span><br>
 
 
@@ -445,7 +445,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

@@ -100,9 +100,9 @@
             </li>
         
             <li class="waves-block waves-effect">
-              <a href="/others/puml.html"  >
+              <a href="/others/uml.html"  >
                 <i class="icon icon-lg icon-code"></i>
-                PUML
+                UML
               </a>
             </li>
         
@@ -137,7 +137,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -208,7 +208,7 @@
 <h2 id="一、问题复现"><a href="#一、问题复现" class="headerlink" title="一、问题复现"></a>一、问题复现</h2><p>在 WebMagic-core 包中，<code>us.codecraft.webmagic.processor.example.GithubRepoPageProcessor</code> 这个包下面是作者放的示例代码，拷贝这个类代码到新建的类中，右键运行这个类，运行后控制台报出错误：<br><code>[WARN ] 2018-05-12 13:28:11,828 download page https://github.com/code4craft error [us.codecraft.webmagic.downloader.HttpClientDownloader.download(HttpClientDownloader.java:91)]</code></p>
 <p>进入这个类，定位到 <strong>HttpClientDownloader</strong> 源代码 85 行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Page <span class="title">download</span><span class="params">(Request request, Task task)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        httpResponse = httpClient.execute(requestContext.getHttpUriRequest(), requestContext.getHttpClientContext());</span><br><span class="line">        page = handleResponse(request, task.getSite().getCharset(), httpResponse, task);</span><br><span class="line">        onSuccess(request);</span><br><span class="line">        logger.info(<span class="string">"downloading page success &#123;&#125;"</span>, request.getUrl());</span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        logger.warn(<span class="string">"download page &#123;&#125; error"</span>, request.getUrl(), e);</span><br><span class="line">        onError(request);</span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在 85 行此处断点 Debug 运行，发现此行抛出了 SSLException 异常。异常的内容是：<br><code>javax.net.ssl.SSLException: Received fatal alert: protocol_version</code></p>
-<h2 id="二、解决问题方法（一）"><a href="#二、解决问题方法（一）" class="headerlink" title="二、解决问题方法（一）"></a>二、解决问题方法（一）</h2><p>出现异常后，通过 Google 搜索了一下，找到了 WebMagic 作者黄大的解决方式，详见 <a href="https://github.com/code4craft/webmagic/issues/701" target="_blank" rel="noopener">Https下无法抓取只支持TLS1.2的站点</a></p>
+<h2 id="二、解决问题方法（一）"><a href="#二、解决问题方法（一）" class="headerlink" title="二、解决问题方法（一）"></a>二、解决问题方法（一）</h2><p>出现异常后，通过 Google 搜索了一下，找到了 WebMagic 作者黄大的解决方式，详见 <a href="https://github.com/code4craft/webmagic/issues/701">Https下无法抓取只支持TLS1.2的站点</a></p>
 <p>于是按照黄大说的方式来做</p>
 <ol>
 <li><p>首先复制源码中的 <strong>HttpClientGenerator</strong> 与 <strong>HttpClientDownloader</strong> 到自己的项目中。</p>
@@ -255,7 +255,7 @@
     <div class="content">
         
 <span class="post-time">
-    Last updated: <time datetime="2020-01-22T14:33:12.956Z" itemprop="dateUpdated">2020-01-22 22:33:12</time>
+    最后更新时间：<time datetime="2020-01-22T14:33:12.956Z" itemprop="dateUpdated">2020-01-22 22:33:12</time>
 </span><br>
 
 
@@ -447,7 +447,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

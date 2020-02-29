@@ -3,6 +3,64 @@
 
 
     
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
+    <lastmod>2020-02-29T06:20:01.205Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式之状态模式实战</title>
+        <pubTime>2020-02-29T06:06:32.000Z</pubTime>
+        
+        <tag>Spring 状态模式实战</tag>
+         
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    <lastmod>2020-02-29T06:15:43.461Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式实战目录</title>
+        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
+        
+        <tag>1</tag>
+         
+         
+           
+             
+              <breadCrumb title="2" url="http://nullpointer.pw/categories/2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
+    <lastmod>2020-02-29T06:13:59.362Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式之策略模式实战</title>
+        <pubTime>2020-02-19T12:38:23.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
@@ -40,39 +98,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
-    <lastmod>2020-02-19T13:31:56.969Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式之策略模式实战</title>
-        <pubTime>2020-02-19T12:38:23.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/design-patterns.html</loc>
-    <lastmod>2020-02-19T12:37:56.406Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式实战目录</title>
-        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
     
     
   <url>
