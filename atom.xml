@@ -66,7 +66,7 @@
     <link href="http://nullpointer.pw/design-patterns.html"/>
     <id>http://nullpointer.pw/design-patterns.html</id>
     <published>2020-02-19T12:30:22.000Z</published>
-    <updated>2020-02-29T06:15:43.461Z</updated>
+    <updated>2020-02-29T06:32:48.699Z</updated>
     
     <content type="html"><![CDATA[<p>重新学习一下设计模式，掌握好设计模式对代码质量的提高还是很有效果的。</p><a id="more"></a><p>有时间就会更新。有些模式不太好想示例，所以目前的示例可能在想到更好的示例之后，会被后期替换掉。</p><h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul><li style="list-style: none"><input type="checkbox" checked></input> <a href="/design-patterns-strategy.html">设计模式之策略模式实战</a></li><li style="list-style: none"><input type="checkbox" checked></input> <a href="/design-patterns-state.html">设计模式之状态模式实战</a></li><li style="list-style: none"><input type="checkbox"></input> 设计模式之命令模式 </li><li style="list-style: none"><input type="checkbox"></input> 设计模式之模板方法模式</li><li style="list-style: none"><input type="checkbox"></input> 设计模式之责任链模式</li></ul><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><ul><li><a href="https://github.com/Mosiki/learning-modules">https://github.com/Mosiki/learning-modules</a></li></ul>]]></content>
     
@@ -76,10 +76,8 @@
     
     </summary>
     
-      <category term="2" scheme="http://nullpointer.pw/categories/2/"/>
+      <category term="设计模式" scheme="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
-    
-      <category term="1" scheme="http://nullpointer.pw/tags/1/"/>
     
   </entry>
   

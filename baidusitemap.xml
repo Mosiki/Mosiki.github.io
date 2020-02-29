@@ -4,6 +4,24 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    <lastmod>2020-02-29T06:32:48.699Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式实战目录</title>
+        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/design-patterns-state.html</loc>
     <lastmod>2020-02-29T06:20:01.205Z</lastmod>
     <data>
@@ -17,26 +35,6 @@
            
              
               <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/design-patterns.html</loc>
-    <lastmod>2020-02-29T06:15:43.461Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式实战目录</title>
-        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
-        
-        <tag>1</tag>
-         
-         
-           
-             
-              <breadCrumb title="2" url="http://nullpointer.pw/categories/2/"/>
           
         </display>
     </data>
