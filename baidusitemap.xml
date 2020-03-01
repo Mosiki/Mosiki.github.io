@@ -3,14 +3,17 @@
 
 
     
+    
   <url>
-    <loc>http://nullpointer.pw/design-patterns.html</loc>
-    <lastmod>2020-02-29T06:32:48.699Z</lastmod>
+    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
+    <lastmod>2020-02-29T12:57:01.660Z</lastmod>
     <data>
         <display>
-        <title>设计模式实战目录</title>
-        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
+        <title>设计模式之状态模式实战</title>
+        <pubTime>2020-02-29T06:06:32.000Z</pubTime>
         
+        <tag>Spring 状态模式实战</tag>
+         
          
            
              
@@ -22,15 +25,13 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
-    <lastmod>2020-02-29T06:20:01.205Z</lastmod>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    <lastmod>2020-02-29T06:32:48.699Z</lastmod>
     <data>
         <display>
-        <title>设计模式之状态模式实战</title>
-        <pubTime>2020-02-29T06:06:32.000Z</pubTime>
+        <title>设计模式实战目录</title>
+        <pubTime>2020-02-19T12:30:22.000Z</pubTime>
         
-        <tag>Spring 状态模式实战</tag>
-         
          
            
              
