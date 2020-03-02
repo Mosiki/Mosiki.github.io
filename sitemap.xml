@@ -2,30 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://nullpointer.pw/others/play.html</loc>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
     
-    <lastmod>2020-03-01T14:12:17.771Z</lastmod>
+    <lastmod>2020-03-02T22:50:48.357Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
+    <loc>http://nullpointer.pw/design-patterns-facade.html</loc>
     
-    <lastmod>2020-02-29T12:57:01.660Z</lastmod>
+    <lastmod>2020-03-02T22:39:32.441Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/design-patterns.html</loc>
     
-    <lastmod>2020-02-29T06:32:48.699Z</lastmod>
+    <lastmod>2020-03-02T22:39:25.410Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
+    
+    <lastmod>2020-03-02T22:24:26.508Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
     
-    <lastmod>2020-02-29T06:13:59.362Z</lastmod>
+    <lastmod>2020-03-02T22:24:16.458Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/others/play.html</loc>
+    
+    <lastmod>2020-03-01T14:12:17.771Z</lastmod>
     
   </url>
   
@@ -40,13 +54,6 @@
     <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
     
     <lastmod>2020-02-23T05:06:36.806Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
-    
-    <lastmod>2020-02-20T08:34:32.247Z</lastmod>
     
   </url>
   
