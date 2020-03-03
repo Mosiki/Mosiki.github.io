@@ -1,1 +1,1 @@
-http://nullpointer.pw/design-patterns-facade.html
+http://nullpointer.pw/design-patterns-chain-responsibility.html

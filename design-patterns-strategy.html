@@ -32,13 +32,13 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
+<meta property="og:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9BaejIOLfCeJe0bf3Z6eZ7AfXyWesDNfwc7OGa3VYWlfG8L_N3kuTBeVKl1HWy000">
 <meta property="og:image" content="http://www.plantuml.com/plantuml/svg/ZPB1Qi9048Rl-nHpj8tn0KH42RQK4f36YwUoRiPq8UxAPWHjcdTtD5M4pKgkCz__C_FFp2gIZWwxKgXILXKidVx534sUM4Du9AW5G0mLEKbOdCRtVlPVuNO4U4Hr81oyY4O8pKAtbGh1Wwzk4THoSp5KrEJsqcvrxG0VvbERFAHyu5jyiTlJgJUTMeFzwKIMPV8ZNO6z9HxunbjQr_8SPCrnarPDjlgQhnRlw-zqlXodSZzXNfjYw1jChyBe9YoGFAJZA1od4FxKax_HA11mWExEDm1tnnk0dwJxCFhj3MqSJw6NTVmQl8AOSOr__Gm0">
-<meta property="og:updated_time" content="2020-03-02T22:24:16.458Z">
+<meta property="og:updated_time" content="2020-03-03T08:23:40.020Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之策略模式实战">
 <meta name="twitter:description" content="类型：行为型模式 意图：定义一系列算法，不同算法策略可以相互替换，并且互不影响。 主要解决：在有多种算法相似的情况下，使用 if…else 所带来的复杂和难以维护。 使用场景：一个系统需要动态地在几种算法中选择一种。">
-<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0">
+<meta name="twitter:image" content="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9BaejIOLfCeJe0bf3Z6eZ7AfXyWesDNfwc7OGa3VYWlfG8L_N3kuTBeVKl1HWy000">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -146,7 +146,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="搜尋">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -223,7 +223,7 @@
 <li>抽象策略角色</li>
 <li>具体策略角色</li>
 </ul>
-<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><img  src=http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9Bae5geVfCeHe0zf3b78Z7CfXyWesDNfwM6mXfC282-fBXNnTExYNk1nIyrA0GGG0>
+<h2 id="UML"><a href="#UML" class="headerlink" title="UML"></a>UML</h2><img  src=http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuKhEIImkLd3Epoj9hIYfvb9Gq5KeBYbAB4bDhmHoj64oda2oA2qnELL3awkMAnF6KmY6gWNfL52eJam2QKukgTNEBqW5ocJcvu4rm6r9BaejIOLfCeJe0bf3Z6eZ7AfXyWesDNfwc7OGa3VYWlfG8L_N3kuTBeVKl1HWy000>
 <h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>以抽奖活动发奖为例，奖品多种多样，可能是现金奖，话费奖品，实物奖等等，每种奖品的发放方式都不一样，比如现金是直接转账，话费奖品是调用运营商提供接口发放，实物奖需要人工快递寄送。在未采用策略模式之前，少不了使用 if…else…来判断发放，当增加一种奖品类型时，就需要增加 if 判断。而采取策略模式之后，只需实现一个策略类即可，对原来的逻辑无需做任何改动，也不会影响其他策略的正常逻辑。</p>
 <h3 id="本文示例UML图"><a href="#本文示例UML图" class="headerlink" title="本文示例UML图"></a>本文示例UML图</h3><img  src=http://www.plantuml.com/plantuml/svg/ZPB1Qi9048Rl-nHpj8tn0KH42RQK4f36YwUoRiPq8UxAPWHjcdTtD5M4pKgkCz__C_FFp2gIZWwxKgXILXKidVx534sUM4Du9AW5G0mLEKbOdCRtVlPVuNO4U4Hr81oyY4O8pKAtbGh1Wwzk4THoSp5KrEJsqcvrxG0VvbERFAHyu5jyiTlJgJUTMeFzwKIMPV8ZNO6z9HxunbjQr_8SPCrnarPDjlgQhnRlw-zqlXodSZzXNfjYw1jChyBe9YoGFAJZA1od4FxKax_HA11mWExEDm1tnnk0dwJxCFhj3MqSJw6NTVmQl8AOSOr__Gm0>
 <h3 id="定义抽象策略接口"><a href="#定义抽象策略接口" class="headerlink" title="定义抽象策略接口"></a>定义抽象策略接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WeJan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-02-06</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PrizeSendStrategy</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">doSend</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -248,7 +248,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-02T22:24:16.458Z" itemprop="dateUpdated">2020-03-03 06:24:16</time>
+    最後更新時間：<time datetime="2020-03-03T08:23:40.020Z" itemprop="dateUpdated">2020-03-03 16:23:40</time>
 </span><br>
 
 
@@ -440,7 +440,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>本部落格係採用<a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh_TW">創用 CC 姓名標示 4.0 國際 授權條款授權</a></span>
         </p>
     </div>
     <div class="bottom">
