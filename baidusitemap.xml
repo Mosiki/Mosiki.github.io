@@ -3,6 +3,24 @@
 
 
     
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
+    <lastmod>2020-03-09T08:48:08.119Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式之策略模式实战</title>
+        <pubTime>2020-02-19T12:38:23.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://nullpointer.pw/design-patterns.html</loc>
@@ -71,24 +89,6 @@
         
         <tag>Spring 状态模式实战</tag>
          
-         
-           
-             
-              <breadCrumb title="设计模式" url="http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
-    <lastmod>2020-03-03T08:23:40.020Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式之策略模式实战</title>
-        <pubTime>2020-02-19T12:38:23.000Z</pubTime>
-        
          
            
              

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
+    
+    <lastmod>2020-03-09T08:48:08.119Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/catelog/index.html</loc>
     
     <lastmod>2020-03-05T14:31:38.852Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://nullpointer.pw/design-patterns-state.html</loc>
     
     <lastmod>2020-03-03T11:43:22.034Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
-    
-    <lastmod>2020-03-03T08:23:40.020Z</lastmod>
     
   </url>
   
