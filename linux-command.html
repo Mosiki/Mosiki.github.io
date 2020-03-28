@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>【对你无用请揍我系列】必会 Linux 技巧 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【对你无用请揍我系列】必会 Linux 技巧">
+<meta property="og:url" content="http://nullpointer.pw/linux-command.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/111.gif">
+<meta property="og:image" content="http://img12345.5-project.com/blog/vim-replace.gif">
+<meta property="og:updated_time" content="2020-03-28T13:52:37.187Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【对你无用请揍我系列】必会 Linux 技巧">
+<meta name="twitter:description" content="前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/111.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/tts.html"  >
+                <i class="icon icon-lg icon-arrows-h"></i>
+                TTS
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/uml.html"  >
+                <i class="icon icon-lg icon-code"></i>
+                UML
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/play.html"  >
+                <i class="icon icon-lg icon-play"></i>
+                Video
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">【对你无用请揍我系列】必会 Linux 技巧</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">【对你无用请揍我系列】必会 Linux 技巧</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-03-28T10:46:37.000Z" itemprop="datePublished" class="page-time">
+  2020-03-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#日志相关："><span class="post-toc-number">2.</span> <span class="post-toc-text">日志相关：</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#静态日志查找"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">静态日志查找</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#滚动日志查找"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">滚动日志查找</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#解压缩"><span class="post-toc-number">3.</span> <span class="post-toc-text">解压缩</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#进程相关"><span class="post-toc-number">4.</span> <span class="post-toc-text">进程相关</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#VIM-小技巧"><span class="post-toc-number">5.</span> <span class="post-toc-text">VIM 小技巧</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系统相关"><span class="post-toc-number">6.</span> <span class="post-toc-text">系统相关</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他文章"><span class="post-toc-number">7.</span> <span class="post-toc-text">其他文章</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">8.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-【对你无用请揍我系列】必会Linux技巧"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">【对你无用请揍我系列】必会 Linux 技巧</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-03-28 18:46:37" datetime="2020-03-28T10:46:37.000Z"  itemprop="datePublished">2020-03-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。</p>
+<a id="more"></a>
+<blockquote>
+<p>本文首发于个人博客：<a href="http://nullpointer.pw/linux-command.html">http://nullpointer.pw/linux-command.html</a></p>
+</blockquote>
+<h2 id="日志相关："><a href="#日志相关：" class="headerlink" title="日志相关："></a>日志相关：</h2><p>在日常工作中，经常需要在服务器上通过查看日志的方式来定位 bug 问题，掌握一定的日志排查技巧则是很有必要的。明明有些可以通过很基础的命令就可以实现，但网上有些人偏偏喜欢炫技，故作高深弄出一些特别复杂的用法来完成，其实真的没有那种必要。本文只讲最常用实用的用法。</p>
+<p>笔者截取了一些日志作为示例，以供读者练习。</p>
+<p>Tips: 命令中包含于双引号 “ “ 中的都是关键字</p>
+<p>示例日志<a href="http://img12345.5-project.com/blog/20200328/info.log.zip">点我下载 </a></p>
+<h3 id="静态日志查找"><a href="#静态日志查找" class="headerlink" title="静态日志查找"></a>静态日志查找</h3><ol>
+<li><p>根据关键字查找日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"1584345069121"</span> info.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据关键字查找日志，并显示查找结果附近 5 行(前5行与后5行)日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"1584345069121"</span> info.log -C5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据关键字查找日志，并显示查找结果后 (After)5 行日志</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"1584345069121"</span> info.log -A5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据关键字查找日志，并显示查找结果前 (Before)5 行日志</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"1584345069121"</span> info.log -B5</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据多个关键字查找日志，多个关键字为或关系，满足其中一个条件则匹配，关键字之间用<code>\|</code>分隔，表示或</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"1584345069121\|1584345066236"</span> info.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据多个关键字查找日志，需要满足其中全部条件才匹配</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"76953334"</span> info.log | grep <span class="string">"1584349673402"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查找不包含关键字的日志，支持多个关键字，关键字之间用<code>\|</code>分隔，表示或</p>
+ <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep -v <span class="string">"handle"</span> info.log</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据关键字 A 查找，并且过滤包含关键字 B 的日志</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">"76953334"</span> info.log | grep -v <span class="string">"handle"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="滚动日志查找"><a href="#滚动日志查找" class="headerlink" title="滚动日志查找"></a>滚动日志查找</h3><p>除了以上在静态日志中查找之外，有时候调试需要看指定日志，而日志又存在滚动刷新较快的情况，此时就可以通过 <code>grep</code> 相关技巧对刷新的滚动日志进行过滤筛选，来达到我们的目的。</p>
+<ol>
+<li><p>滚动日志中根据关键字搜索日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -300f info.log | grep &quot;76953334&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>滚动日志中根据【关键字 A】搜索日志，且过滤掉包含【关键字 B】的日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tail -300f info.log | grep &quot;76953334&quot; | grep -v &quot;2450&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h2><p>压缩解压也是比较常用的一些操作，常见的压缩包就是<code>tar.gz</code>与<code>zip</code>两种，下文分别介绍这两种格式的压缩与解压方式。</p>
+<ol>
+<li><p>gzip 压缩文件或目录，具体参数含义见参考链接</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zcvf tempdir/ fileName.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>解压 tar.gz 格式 (gzip) 压缩包 (与压缩命令比较只是参数 c 改成了 x)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf fileName.tar.gz</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zip 压缩文件或目录（-r 表示包含子目录）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -r fileName.zip tempdir/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>zip 解压到指定目录（-o 表示重名文件覆盖时不提示，可选参数）</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip -o fileName.zip -d tempdir2/</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="进程相关"><a href="#进程相关" class="headerlink" title="进程相关"></a>进程相关</h2><p>工作中偶尔会需要看一下应用进程的信息，比如什么时候启动的，启动了多久这些信息，以下命令可以告诉你答案。</p>
+<ol>
+<li><p>查看端口是否被占用</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -l | grep 8080</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看进程启动时间</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -p 8080 -o lstart</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看进程运行多长时间</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps -p 8080 -o etime</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="VIM-小技巧"><a href="#VIM-小技巧" class="headerlink" title="VIM 小技巧"></a>VIM 小技巧</h2><p>列举了几个 VIM 小技巧，批量注释行、替换操作<br><img src="http://img12345.5-project.com/blog/111.gif" alt="">  </p>
+<ol>
+<li>批量注释行<ol>
+<li>control + v 进入列模式</li>
+<li>选择要注释的列</li>
+<li>shift + i 进入 INSERT 模式</li>
+<li>输入# 或其他你想要插入的文字</li>
+<li>连续按两次 ESC</li>
+</ol>
+</li>
+<li>批量取消注释行<ol>
+<li>control + v 进入列模式</li>
+<li>选中要删除的文字</li>
+<li>d 键进行删除</li>
+</ol>
+</li>
+<li><p>搜索并替换关键字 (INFO 替换为 ERROR)<br>全文替换：    vim 正常模式下    <code>:%s/INFO/ERROR</code> 回车确定<br>当前行替换：vim 正常模式下    <code>:s/INFO/ERROR</code> 回车确定<br><img src="http://img12345.5-project.com/blog/vim-replace.gif" alt=""></p>
+</li>
+<li><p>拷贝与清空全文内容<br>拷贝全文内容：vim 正常模式下 <code>:%y</code><br>清空全文内容：vim 正常模式下 <code>:%d</code></p>
+</li>
+</ol>
+<h2 id="系统相关"><a href="#系统相关" class="headerlink" title="系统相关"></a>系统相关</h2><ol>
+<li><p>从路径 <code>/home</code> 下开始向下遍历查找名称包含 <code>nginx.conf</code> 的文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home -name nginx.conf</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看磁盘占用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看当前目录下文件或目录占用空间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -h --max-depth=1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="其他文章"><a href="#其他文章" class="headerlink" title="其他文章"></a>其他文章</h2><p>笔者写的一些在 Spring 容器中关于设计模式的实践文章</p>
+<ul>
+<li><a href="http://nullpointer.pw/design-patterns-strategy.html">设计模式之策略模式实战 </a></li>
+<li><a href="http://nullpointer.pw/design-patterns-state.html">设计模式之状态模式实战 </a></li>
+<li><a href="http://nullpointer.pw/design-patterns-chain-responsibility.html">设计模式之责任链模式实战 </a></li>
+<li><a href="http://nullpointer.pw/design-patterns-observer.html">设计模式之观察者模式实战 </a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://www.cnblogs.com/peida/archive/2012/11/30/2795656.html">每天一个 linux 命令（28）：tar 命令 </a></li>
+<li><a href="https://www.runoob.com/linux/linux-comm-zip.html">Linux zip 命令 </a></li>
+<li><a href="https://harttle.land/2016/08/08/vim-search-in-file.html">在 Vim 中优雅地查找和替换 </a></li>
+<li><a href="https://harttle.land/2015/12/03/little-known-vim-skills.html">那些鲜为人知的 Vim 小技巧 </a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-03-28T13:52:37.187Z" itemprop="dateUpdated">2020-03-28 21:52:37</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/linux-command.html" target="_blank" rel="external">http://nullpointer.pw/linux-command.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="/img/avatar.png" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/linux-command.html&title=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/linux-command.html&title=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&source=前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/linux-command.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&url=http://nullpointer.pw/linux-command.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/linux-command.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/design-patterns-observer.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">设计模式之观察者模式实战</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "retro",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        点开打赏说明本文值一块钱哈哈~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/" alt="打赏二维码">
+        </div>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/linux-command.html&title=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&pic=http://nullpointer.pw/img/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/linux-command.html&title=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&source=前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/linux-command.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《【对你无用请揍我系列】必会 Linux 技巧》 — WeJan's Blog&url=http://nullpointer.pw/linux-command.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/linux-command.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3aQZKjMAwFUO5/afoAXSFfkm16pp5XqRDgOQuVJOu64nX/Wskvk2deOxYuLu6Yez+uBJHc9elqbsDFxT3PfQ40OfSZ1Xs+Li7uv8X9dDUPW7i4uP8Td1VKhIuL+5e51TQlwSXhbGOthouLO+DmXcp9n7f0d3FxcVvcu7iSQJaEs+bbcXFxj3DzgDIpcqoFz5et4uLibuYmr8+/qY5flEc9cHFxD3LzgqcamNaOYuDi4p7hVkcrVrVLRkewuLi4m7nVI5C89TlPlaLiBxcX9zi3mprkrN6xDS4u7lvcJKGZ35X8Qc2GKS4u7phbpcyv5iHvy6ELLi7uEe6qwaxec6QXInFxcfdxJwlNEp4mw5ofIy4uLu4RbhLtEkp+WJtsoDkzgouLu4hbHaHIQ0++vWgzuLi4r3KfA1n1ADVPbr78BhcXdzP3Lq7qvQmr0KfBxcU9wq02TPPD1FWNklF/FxcXd8DNjzR6RVEeCsvjWbi4uJu5eVHUS3SqqU/5Mi4u7qvcauipFk5Xbze4uLivclcNVSTP3JLi4OLixtxqgpIPbPWSngW1Gi4u7oCbh57ndCfZTJUy6u/i4uJ2uD9dv3GwiantEgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
