@@ -40,7 +40,7 @@
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2020-03-28T15:01:11.749Z">
+<meta property="og:updated_time" content="2020-04-08T06:54:50.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
@@ -193,7 +193,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次更新"><span class="post-toc-number">1.</span> <span class="post-toc-text">再次更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新一下"><span class="post-toc-number">2.</span> <span class="post-toc-text">更新一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速访问"><span class="post-toc-number">3.</span> <span class="post-toc-text">加速访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#食用方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">食用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试Clone速度"><span class="post-toc-number">5.</span> <span class="post-toc-text">测试Clone速度</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再再更新"><span class="post-toc-number">1.</span> <span class="post-toc-text">再再更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">再次更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新一下"><span class="post-toc-number">3.</span> <span class="post-toc-text">更新一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速访问"><span class="post-toc-number">4.</span> <span class="post-toc-text">加速访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#食用方法"><span class="post-toc-number">5.</span> <span class="post-toc-text">食用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试Clone速度"><span class="post-toc-number">6.</span> <span class="post-toc-text">测试Clone速度</span></a></li></ol>
         </nav>
     </aside>
     
@@ -220,6 +220,8 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
 <a id="more"></a>
+<h2 id="再再更新"><a href="#再再更新" class="headerlink" title="再再更新"></a>再再更新</h2><p>与上一次同理，这次也使用的是反向代理达到加速的目的，只不过这次使用的域名非笔者提供的。</p>
+<p>使用方法：<code>https://github.com.cnpmjs.org/用户名/仓库名</code><br>如：<code>https://github.com.cnpmjs.org/apache/skywalking</code>，则clone地址为：<code>http://github-mirror.bugkiller.org/apache/skywalking.git</code></p>
 <h2 id="再次更新"><a href="#再次更新" class="headerlink" title="再次更新"></a>再次更新</h2><p>发现另外一种方式可以实现加速的方式，即通过一台服务器（可以是非国外服务器）通过nginx反向代理GitHub，然后直接访问代理后的地址即可。这种方式适合下载代码的zip包或者仓库里的releases文件，比如<code>https://xxxx.domain.com/Mosiki/github/archive/master.zip</code>。</p>
 <p>具体反向代理的配置读者可以自行查找教程。</p>
 <p>这里给出免费的服务，但是每日会有上限限制，可能会出现无法使用的情况，读者最好自己搭建代理服务。</p>
@@ -301,7 +303,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-28T15:01:11.749Z" itemprop="dateUpdated">2020-03-28 23:01:11</time>
+    最后更新时间：<time datetime="2020-04-08T06:54:50.154Z" itemprop="dateUpdated">2020-04-08 14:54:50</time>
 </span><br>
 
 

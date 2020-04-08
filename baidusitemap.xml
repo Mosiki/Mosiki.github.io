@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://nullpointer.pw/github%E4%BB%A3%E7%A0%81clone%E5%8A%A0%E9%80%9F.html</loc>
-    <lastmod>2020-03-28T15:01:11.749Z</lastmod>
+    <lastmod>2020-04-08T06:54:50.154Z</lastmod>
     <data>
         <display>
         <title>github代码clone加速</title>
@@ -26,8 +26,28 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html</loc>
+    <lastmod>2020-04-01T09:41:54.189Z</lastmod>
+    <data>
+        <display>
+        <title>mac编译安装Nginx</title>
+        <pubTime>2017-12-06T22:50:18.000Z</pubTime>
+        
+        <tag>nginx安装</tag>
+         
+         
+           
+             
+              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/linux-command.html</loc>
-    <lastmod>2020-03-28T13:52:37.187Z</lastmod>
+    <lastmod>2020-04-01T01:27:25.222Z</lastmod>
     <data>
         <display>
         <title>【对你无用请揍我系列】必会 Linux 技巧</title>
@@ -788,26 +808,6 @@
            
              
               <breadCrumb title="服务器" url="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html</loc>
-    <lastmod>2020-01-22T14:40:35.325Z</lastmod>
-    <data>
-        <display>
-        <title>mac编译安装Nginx</title>
-        <pubTime>2017-12-06T22:50:18.000Z</pubTime>
-        
-        <tag>nginx安装</tag>
-         
-         
-           
-             
-              <breadCrumb title="Nginx" url="http://nullpointer.pw/categories/Nginx/"/>
           
         </display>
     </data>
