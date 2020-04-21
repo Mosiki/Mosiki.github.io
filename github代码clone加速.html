@@ -33,6 +33,7 @@
 <meta property="og:site_name" content="WeJan&#39;s Blog">
 <meta property="og:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/20200421154536.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190903223934.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190903224222.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190903224448.png">
@@ -40,11 +41,11 @@
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2020-04-08T06:54:50.154Z">
+<meta property="og:updated_time" content="2020-04-21T07:47:01.252Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="github代码clone加速">
 <meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20190903223934.png">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/20200421154536.png">
     
         <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
     
@@ -220,8 +221,18 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
 <a id="more"></a>
-<h2 id="再再更新"><a href="#再再更新" class="headerlink" title="再再更新"></a>再再更新</h2><p>与上一次同理，这次也使用的是反向代理达到加速的目的，只不过这次使用的域名非笔者提供的。</p>
-<p>使用方法：<code>https://github.com.cnpmjs.org/用户名/仓库名</code><br>如：<code>https://github.com.cnpmjs.org/apache/skywalking</code>，则clone地址为：<code>http://github-mirror.bugkiller.org/apache/skywalking.git</code></p>
+<h2 id="再再更新"><a href="#再再更新" class="headerlink" title="再再更新"></a>再再更新</h2><p>安装油猴以及加速脚本</p>
+<p>油猴安装: <a href="https://www.tampermonkey.net/">https://www.tampermonkey.net/</a></p>
+<p>油猴脚本：<a href="https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD">https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD</a></p>
+<p>直接访问GitHub查看效果。如下图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/20200421154536.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><del>与上一次同理，这次也使用的是反向代理达到加速的目的，只不过这次使用的域名非笔者提供的。使用方法：<code>https://github.com.cnpmjs.org/用户名/仓库名</code><br>如：<code>https://github.com.cnpmjs.org/apache/skywalking</code>，则clone地址为：<code>http://github-mirror.bugkiller.org/apache/skywalking.git</code></del></p>
 <h2 id="再次更新"><a href="#再次更新" class="headerlink" title="再次更新"></a>再次更新</h2><p>发现另外一种方式可以实现加速的方式，即通过一台服务器（可以是非国外服务器）通过nginx反向代理GitHub，然后直接访问代理后的地址即可。这种方式适合下载代码的zip包或者仓库里的releases文件，比如<code>https://xxxx.domain.com/Mosiki/github/archive/master.zip</code>。</p>
 <p>具体反向代理的配置读者可以自行查找教程。</p>
 <p>这里给出免费的服务，但是每日会有上限限制，可能会出现无法使用的情况，读者最好自己搭建代理服务。</p>
@@ -303,7 +314,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-04-08T06:54:50.154Z" itemprop="dateUpdated">2020-04-08 14:54:50</time>
+    最后更新时间：<time datetime="2020-04-21T07:47:01.252Z" itemprop="dateUpdated">2020-04-21 15:47:01</time>
 </span><br>
 
 
