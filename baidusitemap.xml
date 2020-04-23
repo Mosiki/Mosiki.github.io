@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/binary-tag.html</loc>
+    <lastmod>2020-04-23T12:42:34.066Z</lastmod>
+    <data>
+        <display>
+        <title>项目二进制标位实战应用</title>
+        <pubTime>2020-04-23T12:37:10.000Z</pubTime>
+        
+        <tag>二进制标位使用</tag>
+         
+        <tag>二进制状态位使用</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>http://nullpointer.pw/github%E4%BB%A3%E7%A0%81clone%E5%8A%A0%E9%80%9F.html</loc>
     <lastmod>2020-04-21T07:47:01.252Z</lastmod>
     <data>
@@ -62,7 +85,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%A5%E9%97%A8.html</loc>
@@ -554,11 +576,11 @@
         <title>Nginx图片防盗链【实战】</title>
         <pubTime>2017-10-29T06:28:46.000Z</pubTime>
         
+        <tag>实战</tag>
+         
         <tag>图片防盗链</tag>
          
         <tag>防盗链</tag>
-         
-        <tag>实战</tag>
          
          
            
@@ -688,11 +710,11 @@
         <title>Mysql行转列输出【实战】</title>
         <pubTime>2017-10-09T14:44:58.000Z</pubTime>
         
-        <tag>实战</tag>
-         
         <tag>mysql</tag>
          
         <tag>行转列</tag>
+         
+        <tag>实战</tag>
          
          
            
