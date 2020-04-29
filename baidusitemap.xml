@@ -3,6 +3,31 @@
 
 
     
+  <url>
+    <loc>http://nullpointer.pw/spring-condition-annotation.html</loc>
+    <lastmod>2020-04-29T12:59:06.515Z</lastmod>
+    <data>
+        <display>
+        <title>利用Spring的@ConditionXXX注解实现策略模式</title>
+        <pubTime>2020-04-29T12:55:11.000Z</pubTime>
+        
+        <tag>ConditionalOnProperty注解的应用</tag>
+         
+        <tag>ConditionalOnMissingBean注解的应用</tag>
+         
+        <tag>ConditionalOnExpression注解的应用</tag>
+         
+         
+           
+             
+              <breadCrumb title="Spring" url="http://nullpointer.pw/categories/Spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
     
   <url>
     <loc>http://nullpointer.pw/2019%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
@@ -42,7 +67,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://nullpointer.pw/github%E4%BB%A3%E7%A0%81clone%E5%8A%A0%E9%80%9F.html</loc>
