@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/binary-tag.html</loc>
+    <lastmod>2020-05-01T03:47:54.895Z</lastmod>
+    <data>
+        <display>
+        <title>项目二进制标位实战应用</title>
+        <pubTime>2020-04-23T12:37:10.000Z</pubTime>
+        
+        <tag>二进制标位使用</tag>
+         
+        <tag>二进制状态位使用</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/spring-condition-annotation.html</loc>
-    <lastmod>2020-04-29T12:59:06.515Z</lastmod>
+    <lastmod>2020-05-01T03:47:39.489Z</lastmod>
     <data>
         <display>
         <title>利用Spring的@ConditionXXX注解实现策略模式</title>
@@ -41,28 +63,6 @@
          
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://nullpointer.pw/binary-tag.html</loc>
-    <lastmod>2020-04-23T12:42:34.066Z</lastmod>
-    <data>
-        <display>
-        <title>项目二进制标位实战应用</title>
-        <pubTime>2020-04-23T12:37:10.000Z</pubTime>
-        
-        <tag>二进制标位使用</tag>
-         
-        <tag>二进制状态位使用</tag>
-         
-         
-           
-             
-              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
-          
         </display>
     </data>
     </url>
@@ -600,11 +600,11 @@
         <title>Nginx图片防盗链【实战】</title>
         <pubTime>2017-10-29T06:28:46.000Z</pubTime>
         
-        <tag>实战</tag>
-         
         <tag>图片防盗链</tag>
          
         <tag>防盗链</tag>
+         
+        <tag>实战</tag>
          
          
            
@@ -734,11 +734,11 @@
         <title>Mysql行转列输出【实战】</title>
         <pubTime>2017-10-09T14:44:58.000Z</pubTime>
         
+        <tag>实战</tag>
+         
         <tag>mysql</tag>
          
         <tag>行转列</tag>
-         
-        <tag>实战</tag>
          
          
            
