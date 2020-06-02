@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/interface-authentication.html</loc>
+    <lastmod>2020-06-01T08:41:39.685Z</lastmod>
+    <data>
+        <display>
+        <title>接口鉴权签名实践</title>
+        <pubTime>2020-06-01T14:36:34.000Z</pubTime>
+        
+        <tag>接口鉴权</tag>
+         
+        <tag>接口签名</tag>
+         
+         
+           
+             
+              <breadCrumb title="Java" url="http://nullpointer.pw/categories/Java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/custom-springboot-starter.html</loc>
-    <lastmod>2020-05-16T11:00:45.152Z</lastmod>
+    <lastmod>2020-05-16T11:51:56.548Z</lastmod>
     <data>
         <display>
         <title>实用主义之自定义SpringBootStarter</title>
@@ -26,6 +48,7 @@
     </data>
     </url>
 
+    
     
   <url>
     <loc>http://nullpointer.pw/binary-tag.html</loc>
@@ -72,7 +95,6 @@
     </data>
     </url>
 
-    
     
     
   <url>
