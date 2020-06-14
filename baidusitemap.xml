@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/redis-block-queue.html</loc>
+    <lastmod>2020-06-14T09:00:19.640Z</lastmod>
+    <data>
+        <display>
+        <title>实战基于Redis实现阻塞队列</title>
+        <pubTime>2020-06-14T07:02:17.000Z</pubTime>
+        
+        <tag>Redis阻塞队列实现</tag>
+         
+        <tag>异步队列处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Redis" url="http://nullpointer.pw/categories/Redis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
     <loc>http://nullpointer.pw/interface-authentication.html</loc>
     <lastmod>2020-06-06T09:08:44.110Z</lastmod>
     <data>
@@ -48,7 +71,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://nullpointer.pw/binary-tag.html</loc>

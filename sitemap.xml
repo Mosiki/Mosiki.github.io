@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/redis-block-queue.html</loc>
+    
+    <lastmod>2020-06-14T09:00:19.640Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
+    
+    <lastmod>2020-06-14T08:55:37.155Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/interface-authentication.html</loc>
     
     <lastmod>2020-06-06T09:08:44.110Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://nullpointer.pw/custom-springboot-starter.html</loc>
     
     <lastmod>2020-05-16T11:51:56.548Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
-    
-    <lastmod>2020-05-16T11:47:52.238Z</lastmod>
     
   </url>
   
