@@ -35,7 +35,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20200620135512.png">
 <meta property="og:image" content="http://img12345.5-project.com/blog/20200620135616.png">
-<meta property="og:updated_time" content="2020-06-20T10:56:28.709Z">
+<meta property="og:updated_time" content="2020-06-20T12:09:22.032Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【实战】Flyway迁移指南最佳实践">
 <meta name="twitter:description" content="项目在多环境迭代开发过程中，数据库的表结构不断变更，在部署时，往往会出现数据库表结构未及时变更导致出现问题，耗费在表结构上的时间相当多，上线过程持续痛苦，代码有 GIT/SVN 来控制，数据库中的表版本也可以做到版本控制，本文讲解通过 flyway 的方式来管理数据库版本变动。">
@@ -147,7 +147,7 @@
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
                 <i class="icon icon-lg icon-chevron-left"></i>
             </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="Search">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
                 <i class="icon icon-lg icon-search"></i>
             </a>
@@ -271,8 +271,8 @@
 </li>
 </ol>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
-<li><p>出现 <code>java.sql.SQLException: sql injection violation, comment not allow : CREATE TABLE</code>xxxxxx<code>.</code>flyway_schema_history_xxxx`<br>检查是否使用的是 druid ，错误原因是建表语句中包含了 SQL 注释，druid 默认会拦截包含注释的 SQL 执行，需要修改 druid 配置，允许注释。（不知道 flyway 为什么要把注释写到建表语句中）</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  flyway:</span> <span class="comment"># flyway 数据库DDL版本控制</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span> <span class="comment"># 正式环境才开启</span></span><br><span class="line"><span class="attr">    clean-disabled:</span> <span class="literal">true</span> <span class="comment"># 禁用数据库清理</span></span><br><span class="line"><span class="attr">    encoding:</span> <span class="string">UTF-8</span></span><br><span class="line"><span class="attr">    locations:</span> <span class="attr">classpath:/db</span></span><br><span class="line">    <span class="comment">#  flyway会在库中创建此名称元数据表，用于记录所有版本演化和状态,同一个库不同项目可能冲突，每个项目一张表来记录</span></span><br><span class="line"><span class="attr">    table:</span> <span class="string">flyway_schema_history_learning-flyway</span> <span class="comment">#TODO 值的后缀指定为当前项目名称</span></span><br><span class="line"><span class="attr">    baseline-version:</span> <span class="number">1</span> <span class="comment"># 基线版本默认开始序号 默认为 1</span></span><br><span class="line"><span class="attr">    baseline-on-migrate:</span> <span class="literal">true</span> <span class="comment">#  针对非空数据库是否默认调用基线版本,为空的话默认会调用基线版本</span></span><br><span class="line"><span class="attr">    placeholders:</span> <span class="comment"># 定义afterMigrateError.sql要清理的元数据表表名</span></span><br><span class="line"><span class="attr">      flyway-table:</span> <span class="string">$&#123;spring.flyway.table&#125;</span></span><br></pre></td></tr></table></figure>
+<li><p>出现 <strong>java.sql.SQLException: sql injection violation, comment not allow : CREATE TABLE xxxxxx.flyway_schema_history_xxx</strong><br>检查是否使用的是 druid ，错误原因是建表语句中包含了 SQL 注释，druid 默认会拦截包含注释的 SQL 执行，需要修改 druid 配置，允许注释。（不知道 flyway 为什么要把注释写到建表语句中）</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    druid:</span></span><br><span class="line">      <span class="comment"># ...... 省略其他</span></span><br><span class="line"><span class="attr">      filter:</span></span><br><span class="line"><span class="attr">        stat:</span></span><br><span class="line"><span class="attr">          enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        slf4j:</span></span><br><span class="line"><span class="attr">          enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">        wall:</span></span><br><span class="line"><span class="attr">          enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">          config:</span></span><br><span class="line"><span class="attr">            comment-allow:</span> <span class="literal">true</span></span><br><span class="line"><span class="comment">#     filters: stat,wall,slf4j 注释此行，filter改成上面的格式</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>针对多环境迁移流程</p>
@@ -298,7 +298,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-06-20T10:56:28.709Z" itemprop="dateUpdated">2020-06-20 18:56:28</time>
+    Last updated: <time datetime="2020-06-20T12:09:22.032Z" itemprop="dateUpdated">2020-06-20 20:09:22</time>
 </span><br>
 
 
@@ -473,7 +473,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>This blog is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</span>
         </p>
     </div>
     <div class="bottom">
