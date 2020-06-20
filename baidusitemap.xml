@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://nullpointer.pw/flyway-best-practice.html</loc>
+    <lastmod>2020-06-20T10:56:28.709Z</lastmod>
+    <data>
+        <display>
+        <title>【实战】Flyway迁移指南最佳实践</title>
+        <pubTime>2020-06-20T06:02:22.000Z</pubTime>
+        
+        <tag>Flyway迁移</tag>
+         
+        <tag>数据库SQL版本控制</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据库" url="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://nullpointer.pw/redis-block-queue.html</loc>
     <lastmod>2020-06-14T09:00:19.640Z</lastmod>
     <data>

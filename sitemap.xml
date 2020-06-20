@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/flyway-best-practice.html</loc>
+    
+    <lastmod>2020-06-20T10:56:28.709Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/redis-block-queue.html</loc>
     
     <lastmod>2020-06-14T09:00:19.640Z</lastmod>
