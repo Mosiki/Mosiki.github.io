@@ -773,16 +773,16 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
+    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
     <lastmod>2020-01-22T14:42:14.215Z</lastmod>
     <data>
         <display>
-        <title>Nginx缓存配置</title>
-        <pubTime>2017-08-20T08:09:08.000Z</pubTime>
+        <title>Nginx动静分离</title>
+        <pubTime>2017-08-19T09:44:23.000Z</pubTime>
         
         <tag>nginx</tag>
          
-        <tag>缓存</tag>
+        <tag>动静分离</tag>
          
          
            
@@ -795,16 +795,16 @@
 
     
   <url>
-    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
+    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
     <lastmod>2020-01-22T14:42:14.215Z</lastmod>
     <data>
         <display>
-        <title>Nginx动静分离</title>
-        <pubTime>2017-08-19T09:44:23.000Z</pubTime>
+        <title>Nginx缓存配置</title>
+        <pubTime>2017-08-20T08:09:08.000Z</pubTime>
         
         <tag>nginx</tag>
          
-        <tag>动静分离</tag>
+        <tag>缓存</tag>
          
          
            
