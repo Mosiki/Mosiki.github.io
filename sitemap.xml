@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
+    
+    <lastmod>2020-08-24T02:53:45.470Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/custom-read-poi.html</loc>
+    
+    <lastmod>2020-08-24T02:50:58.079Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/flyway-best-practice.html</loc>
     
     <lastmod>2020-06-20T12:09:22.032Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>http://nullpointer.pw/redis-block-queue.html</loc>
     
     <lastmod>2020-06-14T09:00:19.640Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
-    
-    <lastmod>2020-06-14T08:55:37.155Z</lastmod>
     
   </url>
   

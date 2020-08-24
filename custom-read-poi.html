@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="true/custom-read-poi.html">
+    
+    
+    <title>Poi不规则表格导入 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Poi读取指定位置的单元格,EasyPoi不规则数据导入,Poi复杂表格数据导入">
+    <meta name="description" content="在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。 本文源码地址：">
+<meta name="keywords" content="Poi读取指定位置的单元格,EasyPoi不规则数据导入,Poi复杂表格数据导入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Poi不规则表格导入">
+<meta property="og:url" content="http://nullpointer.pw/custom-read-poi.html">
+<meta property="og:site_name" content="WeJan&#39;s Blog">
+<meta property="og:description" content="在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。 本文源码地址：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img12345.5-project.com/blog/1598236528403.png">
+<meta property="og:image" content="http://img12345.5-project.com/blog/sp20200824_102152_997.png">
+<meta property="og:updated_time" content="2020-08-24T02:50:58.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Poi不规则表格导入">
+<meta name="twitter:description" content="在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。 本文源码地址：">
+<meta name="twitter:image" content="http://img12345.5-project.com/blog/1598236528403.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="http://img12345.5-project.com/blog/avatar.png">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">WeJan</h5>
+          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/catelog"  >
+                <i class="icon icon-lg icon-archives"></i>
+                文章分类目录
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/tts.html"  >
+                <i class="icon icon-lg icon-arrows-h"></i>
+                TTS
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/uml.html"  >
+                <i class="icon icon-lg icon-code"></i>
+                UML
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/others/play.html"  >
+                <i class="icon icon-lg icon-play"></i>
+                Video
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/Mosiki" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Poi不规则表格导入</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Poi不规则表格导入</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-08-23T13:42:56.000Z" itemprop="datePublished" class="page-time">
+  2020-08-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tools/">Tools</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#读取示例"><span class="post-toc-number">1.</span> <span class="post-toc-text">读取示例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#工具类源码"><span class="post-toc-number">2.</span> <span class="post-toc-text">工具类源码</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码地址"><span class="post-toc-number">3.</span> <span class="post-toc-text">源码地址</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Poi不规则表格导入"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Poi不规则表格导入</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-08-23 21:42:56" datetime="2020-08-23T13:42:56.000Z"  itemprop="datePublished">2020-08-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tools/">Tools</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>在之前的文章中 <a href="https://nullpointer.pw/easypoi 导入 Excel 最佳实践.html">easypoi 导入 Excel 最佳实践 </a> 详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。</p>
+<p>本文源码地址：</p>
+<a id="more"></a>
+<p>首先来看一下，不规则的表格长什么样子。如图所示，这种表格如果继续使用 EasyPoi 其实比较困难做到很便捷的导入，但是这种表格一般格式相对固定，只有个别值的位置不规则（蓝色框内），而中间位置的数据格式比较规整（红色框内）。<br>我们可以取长补短，不规则的地方数据特殊处理读取，而有规则的地方依然使用 EasyPoi 进行读取。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/1598236528403.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="读取示例"><a href="#读取示例" class="headerlink" title="读取示例"></a>读取示例</h2><p>红色框内的数据读取本文就不再展示了，可以参考上文的链接。本文主要讲解如何提取蓝色框内的数据。为了方便使用，笔者参考了网上的文章，抽取了一个工具类，基于所见即所得的方式去获取对应单元格的值。</p>
+<p>使用示例代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExcelReadHelperTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testImport</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        InputStream in = getClass().getResourceAsStream(<span class="string">"/excel/示例 Excel3.xlsx"</span>);</span><br><span class="line">        ExcelReadHelper readHelper = <span class="keyword">new</span> ExcelReadHelper(in);</span><br><span class="line">        <span class="comment">// 获取 B4 单元格的数据，以下同理</span></span><br><span class="line">        String b4 = readHelper.getValueAt(<span class="string">"B"</span>, <span class="number">4</span>);</span><br><span class="line">        String c23 = readHelper.getValueAt(<span class="string">"C"</span>, <span class="number">23</span>);</span><br><span class="line">        String c24 = readHelper.getValueAt(<span class="string">"C"</span>, <span class="number">24</span>);</span><br><span class="line">        String m4 = readHelper.getValueAt(<span class="string">"M"</span>, <span class="number">4</span>);</span><br><span class="line">        String m5 = readHelper.getValueAt(<span class="string">"M"</span>, <span class="number">5</span>);</span><br><span class="line">        Assert.assertEquals(<span class="string">"一众科技有限公司"</span>, b4);</span><br><span class="line">        Assert.assertEquals(<span class="string">"13112345678"</span>, c23);</span><br><span class="line">        Assert.assertEquals(<span class="string">"370827198801021000"</span>, c24);</span><br><span class="line">        Assert.assertEquals(<span class="string">"XH-HZHY-20170504"</span>, m4);</span><br><span class="line">        Assert.assertEquals(<span class="string">"2017.5.4"</span>, m5);</span><br><span class="line">        readHelper.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如图所示，如果要读取联系人电话，先找到数据所在单元格，C23，代码中直接通过 <code>readHelper.getValueAt(&quot;C&quot;, 23);</code> 即可获取对应的值。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="http://img12345.5-project.com/blog/sp20200824_102152_997.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h2 id="工具类源码"><a href="#工具类源码" class="headerlink" title="工具类源码"></a>工具类源码</h2><p>需要依赖 POI 相关依赖，如果引入了 EasyPoi 的话，就无需重复引入了。</p>
+<p>EasyPoi 的依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>cn.afterturn<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>easypoi-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.poi.hssf.util.CellReference;</span><br><span class="line"><span class="keyword">import</span> org.apache.poi.ss.usermodel.*;</span><br><span class="line"><span class="keyword">import</span> org.apache.poi.xssf.usermodel.XSSFWorkbook;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.text.DecimalFormat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExcelReadHelper</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Workbook workbook;</span><br><span class="line">    <span class="keyword">private</span> Sheet sheet;</span><br><span class="line">    <span class="comment">//Sheet 总数</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> sheetCount;</span><br><span class="line">    <span class="comment">//当前行</span></span><br><span class="line">    <span class="keyword">private</span> Row row;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExcelReadHelper</span><span class="params">(InputStream is)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">// 只支持 xlsx，如果要支持 xls，自行修改下一行代码</span></span><br><span class="line">            workbook = <span class="keyword">new</span> XSSFWorkbook(is);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">        &#125;</span><br><span class="line">        sheetCount = workbook.getNumberOfSheets();</span><br><span class="line">        setSheetAt(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 关闭工作簿</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (workbook != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                workbook.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取单元格真实位置</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> row 行索引</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> col 列索引</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> [行, 列 ]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCellLoc</span><span class="params">(Integer row, Integer col)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> String.format(<span class="string">"[%s,%s]"</span>, row + <span class="number">1</span>, CellReference.convertNumToColString(col));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据标签设置 Sheet</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> labels</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSheetByLabel</span><span class="params">(String... labels)</span> </span>&#123;</span><br><span class="line">        Sheet sheet = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span> (String label : labels) &#123;</span><br><span class="line">            sheet = workbook.getSheet(label);</span><br><span class="line">            <span class="keyword">if</span> (sheet != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (sheet == <span class="keyword">null</span>) &#123;</span><br><span class="line">            StringBuilder sheetStr = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="keyword">for</span> (String label : labels) &#123;</span><br><span class="line">                sheetStr.append(label).append(<span class="string">","</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            sheetStr.deleteCharAt(sheetStr.lastIndexOf(<span class="string">","</span>));</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(sheetStr.toString() + <span class="string">"Sheet does not exist"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.sheet = sheet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据索引设置 Sheet</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSheetAt</span><span class="params">(Integer index)</span> </span>&#123;</span><br><span class="line">        Sheet sheet = workbook.getSheetAt(index);</span><br><span class="line">        <span class="keyword">if</span> (sheet == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(index + <span class="string">"Sheet does not exist"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.sheet = sheet;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取单元格内容并转为 String 类型</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> row     行号，从 1 开始</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> colName 列号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressWarnings</span>(<span class="string">"deprecation"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getValueAt</span><span class="params">(String colName, <span class="keyword">int</span> row)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> colIdx = CellReference.convertColStringToIndex(colName);</span><br><span class="line">        <span class="keyword">int</span> rowIdx = row &lt; <span class="number">0</span> ? <span class="number">0</span> : row - <span class="number">1</span>;</span><br><span class="line">        Cell cell = sheet.getRow(rowIdx).getCell(colIdx);</span><br><span class="line">        String value = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (cell != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">switch</span> (cell.getCellType()) &#123;</span><br><span class="line">                <span class="keyword">case</span> Cell.CELL_TYPE_STRING:</span><br><span class="line">                    value = cell.getStringCellValue() + <span class="string">""</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> Cell.CELL_TYPE_NUMERIC:</span><br><span class="line">                    <span class="keyword">if</span> (DateUtil.isCellDateFormatted(cell)) &#123;</span><br><span class="line">                        value = cell.getDateCellValue().getTime() + <span class="string">""</span>;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        DecimalFormat df = <span class="keyword">new</span> DecimalFormat(<span class="string">"0"</span>);</span><br><span class="line">                        <span class="keyword">return</span> df.format(cell.getNumericCellValue());</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> Cell.CELL_TYPE_FORMULA:</span><br><span class="line">                    value = cell.getNumericCellValue() + <span class="string">""</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> Cell.CELL_TYPE_BOOLEAN:</span><br><span class="line">                    value = cell.getBooleanCellValue() + <span class="string">""</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (value == <span class="keyword">null</span> || value.isEmpty()) ? <span class="keyword">null</span> : value.trim();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前行指定列内容</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> col 列号，从 1 开始</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getValue</span><span class="params">(Integer col)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getValueAt(CellReference.convertNumToColString(col + <span class="number">1</span>), col);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取 Sheet 名称</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getSheetLabel</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String label = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span> (sheet != <span class="keyword">null</span>) &#123;</span><br><span class="line">            label = sheet.getSheetName();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> label;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 行偏移</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> offset 偏移量</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">offsetRow</span><span class="params">(Integer offset)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> state = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (row == <span class="keyword">null</span>) &#123;</span><br><span class="line">            row = sheet.getRow(offset - <span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            row = sheet.getRow(row.getRowNum() + offset);</span><br><span class="line">            <span class="keyword">if</span> (row == <span class="keyword">null</span>) &#123;</span><br><span class="line">                state = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 设置行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> index 索引</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">setRow</span><span class="params">(Integer index)</span> </span>&#123;</span><br><span class="line">        row = sheet.getRow(index);</span><br><span class="line">        <span class="keyword">return</span> row != <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 偏移一行</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">nextRow</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> offsetRow(<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 偏移到下一个 Sheet</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Boolean <span class="title">nextSheet</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">boolean</span> state = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (sheet == <span class="keyword">null</span>) &#123;</span><br><span class="line">            sheet = workbook.getSheetAt(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> index = workbook.getSheetIndex(sheet) + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (index &gt;= sheetCount) &#123;</span><br><span class="line">                sheet = <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                sheet = workbook.getSheetAt(index);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (sheet == <span class="keyword">null</span>) &#123;</span><br><span class="line">                state = <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        row = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">return</span> state;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><ul>
+<li><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-easypoi">https://github.com/Mosiki/learning-modules/tree/master/learning-easypoi</a></li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><a href="https://zkhdev.github.io/2018/10/14/java-dev6/">https://zkhdev.github.io/2018/10/14/java-dev6/</a></li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-08-24T02:50:58.079Z" itemprop="dateUpdated">2020-08-24 10:50:58</time>
+</span><br>
+
+
+        
+        本文链接：<a href="/custom-read-poi.html" target="_blank" rel="external">http://nullpointer.pw/custom-read-poi.html</a>
+        
+    </div>
+    <footer>
+        <a href="http://nullpointer.pw">
+            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
+            WeJan
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EasyPoi不规则数据导入/">EasyPoi不规则数据导入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Poi复杂表格数据导入/">Poi复杂表格数据导入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Poi读取指定位置的单元格/">Poi读取指定位置的单元格</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/custom-read-poi.html&title=《Poi不规则表格导入》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/custom-read-poi.html&title=《Poi不规则表格导入》 — WeJan's Blog&source=在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/custom-read-poi.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Poi不规则表格导入》 — WeJan's Blog&url=http://nullpointer.pw/custom-read-poi.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/custom-read-poi.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/flyway-best-practice.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">【实战】Flyway迁移指南最佳实践</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+  -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'true' == 'true',
+            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
+            avatar: "monsterid",
+            placeholder: "Just go go",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        点开打赏说明本文值一块钱哈哈~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/" alt="打赏二维码">
+        </div>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>WeJan &copy; 2016 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/custom-read-poi.html&title=《Poi不规则表格导入》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/custom-read-poi.html&title=《Poi不规则表格导入》 — WeJan's Blog&source=在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/custom-read-poi.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Poi不规则表格导入》 — WeJan's Blog&url=http://nullpointer.pw/custom-read-poi.html&via=http://nullpointer.pw" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/custom-read-poi.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAAByklEQVR42u3aQY6DMAwFUO5/aWaLNEPm2wkpql5WFaXlZWPh7xxHvM7L+n3len38q/H1ZQsXF3eaew7X9Z67z3ffJujcgIuLu597VzF6jxwXu2STt9dxcXFfzB0XrASKi4v7Hdz826RBwsXFfT83L0C9LeWFclmvhouLO8HNU8rnPj+S7+Li4ra458RKmqKZkPSPJ+Li4m7hVotO9c4qLopgcHFxt3Cr0UZyqKIQcwRjmKP3R7i4uC1ub1iSEJMYpTpwxcXF3cPNG5Lkt3nYUY1fo3KGi4u7lNtLLNcOXB9Jf3FxcVvcpEj1DknkrziF+3FxcTdyew/rBaDV64U94eLiLuVWW6DqYDWJRKPXJlxc3I3cMat3PKsal0RxDC4u7mu41SAjP3iRj2RwcXF3cnvj1eRh1bFrofDh4uI+zJ1pfvIYtIdb3Kvh4uIWa1EecDxRsMqNEC4u7sPcs7hy0PwopbAPXFzcpdxVR7KqG86LJi4u7qe4veKVNzwzASsuLu5nuclf5/f0NlPu1XBxcV/ATdqVfMjaO6iBi4v7Nm617UleWfJ4BRcXdz931YDkn4dNbBgXF3cnNw9M8/I3c2hjWb6Li4vb4f4A7Z6LspAgW4cAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '出Bug了快来看！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '对不起，我看错啦~';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
