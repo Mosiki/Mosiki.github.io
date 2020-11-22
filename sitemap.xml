@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://nullpointer.pw/binary-tag.html</loc>
+    
+    <lastmod>2020-11-22T03:20:29.145Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://nullpointer.pw/custom-read-poi.html</loc>
     
     <lastmod>2020-08-31T12:31:42.009Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://nullpointer.pw/custom-springboot-starter.html</loc>
     
     <lastmod>2020-05-16T11:51:56.548Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/binary-tag.html</loc>
-    
-    <lastmod>2020-05-01T03:47:54.895Z</lastmod>
     
   </url>
   
