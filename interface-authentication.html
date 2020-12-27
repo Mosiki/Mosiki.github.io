@@ -1,219 +1,294 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>接口鉴权签名实践 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/interface-authentication.html">
-    
-    
-    <title>接口鉴权签名实践 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="接口鉴权,接口签名">
-    <meta name="description" content="工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是">
-<meta name="keywords" content="接口鉴权,接口签名">
-<meta property="og:type" content="article">
-<meta property="og:title" content="接口鉴权签名实践">
-<meta property="og:url" content="http://nullpointer.pw/interface-authentication.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-06-06T09:08:44.110Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="接口鉴权签名实践">
-<meta name="twitter:description" content="工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">接口鉴权签名实践</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a10.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="接口鉴权签名实践">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-06-01 22:36" pubdate>
+        2020年6月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">接口鉴权签名实践</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2020-06-01T14:36:34.000Z" itemprop="datePublished" class="page-time">
-  2020-06-01
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接口签名作用"><span class="post-toc-number">1.</span> <span class="post-toc-text">接口签名作用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#接口签名方式"><span class="post-toc-number">2.</span> <span class="post-toc-text">接口签名方式</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#依赖添加"><span class="post-toc-number">3.</span> <span class="post-toc-text">依赖添加</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成签名与验签"><span class="post-toc-number">4.</span> <span class="post-toc-text">生成签名与验签</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-接口鉴权签名实践"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">接口鉴权签名实践</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2020-06-01 22:36:34" datetime="2020-06-01T14:36:34.000Z"  itemprop="datePublished">2020-06-01</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">接口鉴权签名实践</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。<br>IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服务器或者减少服务器就要更新白名单，对于接口提供方不是很友好，最好使用签名的方式一劳永逸，因此本文主要讲讲常用的接口签名方式，主要应用与服务端与服务端之间的接口交互。<br>因为生成签名过程中使用到了 appSecret，因此这种方式最好不要用于客户端与服务端之间的接口加密，appSecret 写死在 APP 中，逆向技术获取不是太困难的事情，当然非要使用，appSecret 最好通过登录时动态生成，写死的方式一向是不推荐的做法。</p>
+            <div class="markdown-body">
+              <p>工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。<br>IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服务器或者减少服务器就要更新白名单，对于接口提供方不是很友好，最好使用签名的方式一劳永逸，因此本文主要讲讲常用的接口签名方式，主要应用与服务端与服务端之间的接口交互。<br>因为生成签名过程中使用到了 appSecret，因此这种方式最好不要用于客户端与服务端之间的接口加密，appSecret 写死在 APP 中，逆向技术获取不是太困难的事情，当然非要使用，appSecret 最好通过登录时动态生成，写死的方式一向是不推荐的做法。</p>
 <a id="more"></a>
+
 <h2 id="接口签名作用"><a href="#接口签名作用" class="headerlink" title="接口签名作用"></a>接口签名作用</h2><p>接口签名解决了如下这些问题：</p>
 <ul>
 <li>防止接口非法调用</li>
@@ -231,315 +306,280 @@
 <p>话不多少，开始实践一下~</p>
 <p>为了方便演示，就再 main 方法中实现签名与验签的逻辑。<br>在日常开发中，可以集成为 springboot starter，通过拦截器进行统一校验。如何自定义 springboot starter，可以参考我上一篇文章：<a href="http://nullpointer.pw/custom-springboot-starter.html">实用主义之自定义 SpringBootStarter
 </a></p>
-<h2 id="依赖添加"><a href="#依赖添加" class="headerlink" title="依赖添加"></a>依赖添加</h2><p>因为加密算法使用到了开源工具包 <code>commons-codec</code>，先添加这个依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-codec<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.14<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="生成签名与验签"><a href="#生成签名与验签" class="headerlink" title="生成签名与验签"></a>生成签名与验签</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Base64;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.digest.HmacAlgorithms;</span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.digest.HmacUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.time.Duration;</span><br><span class="line"><span class="keyword">import</span> java.time.Instant;</span><br><span class="line"><span class="keyword">import</span> java.time.LocalDateTime;</span><br><span class="line"><span class="keyword">import</span> java.time.ZoneOffset;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.time.temporal.ChronoUnit.SECONDS;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WeJan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-05-31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AuthTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"********************************* 签名 *********************************"</span>);</span><br><span class="line"><span class="comment">//        long timestamp = LocalDateTime.now().plusMinutes(-10).toInstant(ZoneOffset.ofHours(8)).toEpochMilli();</span></span><br><span class="line">        <span class="keyword">long</span> timestamp = System.currentTimeMillis();</span><br><span class="line">        String appKey = <span class="string">"testtest"</span>;</span><br><span class="line">        String appSecret = <span class="string">"123456"</span>;</span><br><span class="line"></span><br><span class="line">        Map&lt;String, String&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="string">"appKey"</span>, appKey);</span><br><span class="line">        map.put(<span class="string">"k1"</span>, <span class="string">"k1"</span>);</span><br><span class="line">        map.put(<span class="string">"k2"</span>, <span class="string">"k2"</span>);</span><br><span class="line">        map.put(<span class="string">"timestamp"</span>, String.valueOf(timestamp));</span><br><span class="line">        String outSignData = getSignData(map);</span><br><span class="line">        <span class="keyword">byte</span>[] hmac = <span class="keyword">new</span> HmacUtils(HmacAlgorithms.HMAC_SHA_1, appSecret).hmac(outSignData);</span><br><span class="line">        String sign = <span class="keyword">new</span> String(Base64.encodeBase64(hmac));</span><br><span class="line">        map.put(<span class="string">"sign"</span>, sign);</span><br><span class="line">        System.out.println(<span class="string">"outSign: "</span> + sign);</span><br><span class="line">        System.out.println(<span class="string">"outSignData: "</span> + outSignData);</span><br><span class="line">        String outParams = JSONObject.toJSONString(map);</span><br><span class="line">        System.out.println(<span class="string">"outParams: "</span> + outParams);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"\n\n********************************* 验签 *********************************"</span>);</span><br><span class="line">        Map&lt;String, String&gt; inMap = JSONObject.parseObject(outParams, <span class="keyword">new</span> TypeReference&lt;Map&lt;String, String&gt;&gt;() &#123;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 校验请求是否过期</span></span><br><span class="line">        String inTimeStamp = inMap.getOrDefault(<span class="string">"timestamp"</span>, <span class="string">"0"</span>);</span><br><span class="line">        LocalDateTime inTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(inTimeStamp)), ZoneOffset.ofHours(<span class="number">8</span>));</span><br><span class="line">        Duration duration = Duration.between(inTime, LocalDateTime.now());</span><br><span class="line">        <span class="keyword">long</span> seconds = duration.get(SECONDS);</span><br><span class="line">        System.out.println(<span class="string">"seconds: "</span> + seconds);</span><br><span class="line">        <span class="keyword">if</span> (seconds &gt; <span class="number">10</span> * <span class="number">60</span>) &#123;</span><br><span class="line">            System.out.println(<span class="string">"请求超时"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String inSignData = getSignData(inMap);</span><br><span class="line">        System.out.println(<span class="string">"inSignData: "</span> + inSignData);</span><br><span class="line">        <span class="keyword">byte</span>[] inHmac = <span class="keyword">new</span> HmacUtils(HmacAlgorithms.HMAC_SHA_1, appSecret).hmac(inSignData);</span><br><span class="line">        String sign2 = <span class="keyword">new</span> String(Base64.encodeBase64(inHmac));</span><br><span class="line">        System.out.println(<span class="string">"sign2: "</span> + sign2);</span><br><span class="line">        System.out.println(<span class="string">"验签结果: "</span> + sign.equals(sign2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getSignData</span><span class="params">(Map&lt;String, String&gt; params)</span> </span>&#123;</span><br><span class="line">        StringBuilder content = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="comment">// key 自然排序</span></span><br><span class="line">        List&lt;String&gt; keys = <span class="keyword">new</span> ArrayList&lt;&gt;(params.keySet());</span><br><span class="line">        Collections.sort(keys);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; keys.size(); i++) &#123;</span><br><span class="line">            String key = keys.get(i);</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">"sign"</span>.equals(key)) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            String value = params.get(key);</span><br><span class="line">            <span class="keyword">if</span> (value != <span class="keyword">null</span>) &#123;</span><br><span class="line">                content.append(i == <span class="number">0</span> ? <span class="string">""</span> : <span class="string">"&amp;"</span>).append(key).append(<span class="string">"="</span>).append(value);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                content.append(i == <span class="number">0</span> ? <span class="string">""</span> : <span class="string">"&amp;"</span>).append(key).append(<span class="string">"="</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> content.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>运行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">********************************* 签名 *********************************</span><br><span class="line">outSign: eADUCnVqcArdexcdMVcHkPJQyXU=</span><br><span class="line">outSignData: appKey=testtest&amp;k1=k1&amp;k2=k2&amp;timestamp=1590996917340</span><br><span class="line">outParams: &#123;&quot;k1&quot;:&quot;k1&quot;,&quot;k2&quot;:&quot;k2&quot;,&quot;sign&quot;:&quot;eADUCnVqcArdexcdMVcHkPJQyXU=&quot;,&quot;appKey&quot;:&quot;testtest&quot;,&quot;timestamp&quot;:&quot;1590996917340&quot;&#125;</span><br><span class="line"></span><br><span class="line">********************************* 验签 *********************************</span><br><span class="line">seconds: 0</span><br><span class="line">inSignData: appKey=testtest&amp;k1=k1&amp;k2=k2&amp;timestamp=1590996917340</span><br><span class="line">sign2: eADUCnVqcArdexcdMVcHkPJQyXU=</span><br><span class="line">验签结果: true</span><br></pre></td></tr></table></figure></p>
-
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-06-06T09:08:44.110Z" itemprop="dateUpdated">2020-06-06 17:08:44</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/interface-authentication.html" target="_blank" rel="external">http://nullpointer.pw/interface-authentication.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/接口签名/">接口签名</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/接口鉴权/">接口鉴权</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/interface-authentication.html&title=《接口鉴权签名实践》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/interface-authentication.html&title=《接口鉴权签名实践》 — WeJan's Blog&source=工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/interface-authentication.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《接口鉴权签名实践》 — WeJan's Blog&url=http://nullpointer.pw/interface-authentication.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/interface-authentication.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/redis-block-queue.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">实战基于Redis实现阻塞队列</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/custom-springboot-starter.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">实用主义之自定义SpringBootStarter</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+<h2 id="依赖添加"><a href="#依赖添加" class="headerlink" title="依赖添加"></a>依赖添加</h2><p>因为加密算法使用到了开源工具包 <code>commons-codec</code>，先添加这个依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>commons-codec<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-codec<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.14<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
+<h2 id="生成签名与验签"><a href="#生成签名与验签" class="headerlink" title="生成签名与验签"></a>生成签名与验签</h2><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> org.apache.commons.codec.binary.Base64;<br><span class="hljs-keyword">import</span> org.apache.commons.codec.digest.HmacAlgorithms;<br><span class="hljs-keyword">import</span> org.apache.commons.codec.digest.HmacUtils;<br><br><span class="hljs-keyword">import</span> java.time.Duration;<br><span class="hljs-keyword">import</span> java.time.Instant;<br><span class="hljs-keyword">import</span> java.time.LocalDateTime;<br><span class="hljs-keyword">import</span> java.time.ZoneOffset;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.time.temporal.ChronoUnit.SECONDS;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> WeJan</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2020-05-31</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthTest</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;********************************* 签名 *********************************&quot;</span>);<br><span class="hljs-comment">//        long timestamp = LocalDateTime.now().plusMinutes(-10).toInstant(ZoneOffset.ofHours(8)).toEpochMilli();</span><br>        <span class="hljs-keyword">long</span> timestamp = System.currentTimeMillis();<br>        String appKey = <span class="hljs-string">&quot;testtest&quot;</span>;<br>        String appSecret = <span class="hljs-string">&quot;123456&quot;</span>;<br><br>        Map&lt;String, String&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>        map.put(<span class="hljs-string">&quot;appKey&quot;</span>, appKey);<br>        map.put(<span class="hljs-string">&quot;k1&quot;</span>, <span class="hljs-string">&quot;k1&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;k2&quot;</span>, <span class="hljs-string">&quot;k2&quot;</span>);<br>        map.put(<span class="hljs-string">&quot;timestamp&quot;</span>, String.valueOf(timestamp));<br>        String outSignData = getSignData(map);<br>        <span class="hljs-keyword">byte</span>[] hmac = <span class="hljs-keyword">new</span> HmacUtils(HmacAlgorithms.HMAC_SHA_1, appSecret).hmac(outSignData);<br>        String sign = <span class="hljs-keyword">new</span> String(Base64.encodeBase64(hmac));<br>        map.put(<span class="hljs-string">&quot;sign&quot;</span>, sign);<br>        System.out.println(<span class="hljs-string">&quot;outSign: &quot;</span> + sign);<br>        System.out.println(<span class="hljs-string">&quot;outSignData: &quot;</span> + outSignData);<br>        String outParams = JSONObject.toJSONString(map);<br>        System.out.println(<span class="hljs-string">&quot;outParams: &quot;</span> + outParams);<br><br>        System.out.println(<span class="hljs-string">&quot;\n\n********************************* 验签 *********************************&quot;</span>);<br>        Map&lt;String, String&gt; inMap = JSONObject.parseObject(outParams, <span class="hljs-keyword">new</span> TypeReference&lt;Map&lt;String, String&gt;&gt;() &#123;<br>        &#125;);<br>        <span class="hljs-comment">// 校验请求是否过期</span><br>        String inTimeStamp = inMap.getOrDefault(<span class="hljs-string">&quot;timestamp&quot;</span>, <span class="hljs-string">&quot;0&quot;</span>);<br>        LocalDateTime inTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(inTimeStamp)), ZoneOffset.ofHours(<span class="hljs-number">8</span>));<br>        Duration duration = Duration.between(inTime, LocalDateTime.now());<br>        <span class="hljs-keyword">long</span> seconds = duration.get(SECONDS);<br>        System.out.println(<span class="hljs-string">&quot;seconds: &quot;</span> + seconds);<br>        <span class="hljs-keyword">if</span> (seconds &gt; <span class="hljs-number">10</span> * <span class="hljs-number">60</span>) &#123;<br>            System.out.println(<span class="hljs-string">&quot;请求超时&quot;</span>);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>        String inSignData = getSignData(inMap);<br>        System.out.println(<span class="hljs-string">&quot;inSignData: &quot;</span> + inSignData);<br>        <span class="hljs-keyword">byte</span>[] inHmac = <span class="hljs-keyword">new</span> HmacUtils(HmacAlgorithms.HMAC_SHA_1, appSecret).hmac(inSignData);<br>        String sign2 = <span class="hljs-keyword">new</span> String(Base64.encodeBase64(inHmac));<br>        System.out.println(<span class="hljs-string">&quot;sign2: &quot;</span> + sign2);<br>        System.out.println(<span class="hljs-string">&quot;验签结果: &quot;</span> + sign.equals(sign2));<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getSignData</span><span class="hljs-params">(Map&lt;String, String&gt; params)</span> </span>&#123;<br>        StringBuilder content = <span class="hljs-keyword">new</span> StringBuilder();<br>        <span class="hljs-comment">// key 自然排序</span><br>        List&lt;String&gt; keys = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;(params.keySet());<br>        Collections.sort(keys);<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; keys.size(); i++) &#123;<br>            String key = keys.get(i);<br>            <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;sign&quot;</span>.equals(key)) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            String value = params.get(key);<br>            <span class="hljs-keyword">if</span> (value != <span class="hljs-keyword">null</span>) &#123;<br>                content.append(i == <span class="hljs-number">0</span> ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;&amp;&quot;</span>).append(key).append(<span class="hljs-string">&quot;=&quot;</span>).append(value);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                content.append(i == <span class="hljs-number">0</span> ? <span class="hljs-string">&quot;&quot;</span> : <span class="hljs-string">&quot;&amp;&quot;</span>).append(key).append(<span class="hljs-string">&quot;=&quot;</span>);<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> content.toString();<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>运行结果：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs markdown"><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-emphasis">* 签名 <span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>*</span><br>outSign: eADUCnVqcArdexcdMVcHkPJQyXU=<br>outSignData: appKey=testtest&amp;k1=k1&amp;k2=k2&amp;timestamp=1590996917340<br>outParams: &#123;&quot;k1&quot;:&quot;k1&quot;,&quot;k2&quot;:&quot;k2&quot;,&quot;sign&quot;:&quot;eADUCnVqcArdexcdMVcHkPJQyXU=&quot;,&quot;appKey&quot;:&quot;testtest&quot;,&quot;timestamp&quot;:&quot;1590996917340&quot;&#125;<br><br><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-emphasis">* 验签 <span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span><span class="hljs-strong">****</span>*</span><br>seconds: 0<br>inSignData: appKey=testtest&amp;k1=k1&amp;k2=k2&amp;timestamp=1590996917340<br>sign2: eADUCnVqcArdexcdMVcHkPJQyXU=<br>验签结果: true<br></code></pre></div></td></tr></table></figure>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%A5%E5%8F%A3%E9%89%B4%E6%9D%83/">接口鉴权</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8E%A5%E5%8F%A3%E7%AD%BE%E5%90%8D/">接口签名</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/redis-block-queue.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实战基于Redis实现阻塞队列</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/custom-springboot-starter.html">
+                        <span class="hidden-mobile">实用主义之自定义SpringBootStarter</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/interface-authentication.html&title=《接口鉴权签名实践》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/interface-authentication.html&title=《接口鉴权签名实践》 — WeJan's Blog&source=工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/interface-authentication.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《接口鉴权签名实践》 — WeJan's Blog&url=http://nullpointer.pw/interface-authentication.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/interface-authentication.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIElEQVR42u3aQYrDMAwF0N7/0pltoZPwJaWF2M+rEtwkrwUhyXq94nW8rfcrZ3smOz/337YwMDAeyzguV2/P5/2Tz73nYmBg7MM4i2DJnmtAHkaTYH16HQMDAyMIo0kITmAYGBgYvwy4STBNrmBgYGDkBWr15Xrl69drcQwMjAcy8q777z9/5XwDAwPjUYyjuPLUsHowmQfZf56IgYGxNCMPcHmyWB3OiArU4P4YGBirMnrBtPw73dqAKz8SAwPj4YxqGpcMflUTvutwXAjZGBgYSzMmAbQaIu8ayMDAwNiTUS1TJwMZSTsvuY6BgbEDI0/Oeg/O73lDLY6BgbE0Iw92k3I0P/Isj4BgYGAszUjabdVQO/9uNd3EwMBYm5GMczXDX5x6Vkvo0/8BAwNjUca8S5ccaubjX/OdGBgY6zHytlfS6cobcHmgj0I2BgbGNozkMGBSuObNu/ynxMDA2IExasTH17+dUGJgYOzAuGvkohcce8MWp3NtGBgY2zCq4xf5YWQemvP0FAMDYzdGr7zMk7xqmpg3/jAwMHZg9BKy3neraWUUgjEwMBZlHMVVLX0TxvyYEwMDY21G9UggP5KsJprVtLKQMmJgYCzBqDb95wVn725Ruw0DA2NpRv6w+eBXr4iN8lwMDAyMVppYDcHVIwQMDAyMKmleADePHzAwMDZgVIe6eq81p2JgYOzJGJWO8UtPCte77oCBgfFAxh/qpLJQ5pSokwAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

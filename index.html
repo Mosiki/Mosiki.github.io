@@ -1,794 +1,965 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/">
-    
-    
-    <title>WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="">
-    <meta name="description" content="WeJan&apos;s Blog的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WeJan&#39;s Blog">
-<meta property="og:url" content="http://nullpointer.pw/index.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="WeJan&apos;s Blog的博客">
-<meta property="og:locale" content="zh-CN">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WeJan&#39;s Blog">
-<meta name="twitter:description" content="WeJan&apos;s Blog的博客">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-    <!-- custom head -->
-    
 
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect active">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">WeJan&#39;s Blog</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header index-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">WeJan&#39;s Blog</h1>
-        <h5 class="subtitle">
-            
-                实战为王，记录在工作中技术使用的点点滴滴。
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-<div class="container body-wrap">
-
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-Poi不规则表格导入"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-08-23 21:42:56" datetime="2020-08-23T13:42:56.000Z"  itemprop="datePublished">2020-08-23</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Tools/">Tools</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/custom-read-poi.html">Poi不规则表格导入</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。
-本文源码地址：
-    
-
-        <a href="/custom-read-poi.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/EasyPoi不规则数据导入/">EasyPoi不规则数据导入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Poi复杂表格数据导入/">Poi复杂表格数据导入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Poi读取指定位置的单元格/">Poi读取指定位置的单元格</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-【实战】Flyway迁移指南最佳实践"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-06-20 14:02:22" datetime="2020-06-20T06:02:22.000Z"  itemprop="datePublished">2020-06-20</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据库/">数据库</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/flyway-best-practice.html">【实战】Flyway迁移指南最佳实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        项目在多环境迭代开发过程中，数据库的表结构不断变更，在部署时，往往会出现数据库表结构未及时变更导致出现问题，耗费在表结构上的时间相当多，上线过程持续痛苦，代码有 GIT/SVN 来控制，数据库中的表版本也可以做到版本控制，本文讲解通过 flyway 的方式来管理数据库版本变动。
-    
-
-        <a href="/flyway-best-practice.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Flyway迁移/">Flyway迁移</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库SQL版本控制/">数据库SQL版本控制</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-基于Redis实现阻塞队列实战"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-06-14 15:02:17" datetime="2020-06-14T07:02:17.000Z"  itemprop="datePublished">2020-06-14</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/redis-block-queue.html">实战基于Redis实现阻塞队列</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        日常需求开发过程中，不免会遇到需要通过代码进行异步处理的情况，比如批量发送邮件，批量发送短信，数据导入，为了减少用户的等待，不希望一直菊花转啊转，因此需要进行异步处理，做法就是讲要处理的数据添加到队列当中，然后按照排队的先后顺序进行异步处理。  
-这个队列，可以是专业的消息队列，如 RocketMQ/RabbitMQ 等，一般项目中，如果只是为了进行异步，未免有点杀鸡用牛刀的意味。也可以使用基于 JVM 内存实现队列，但是如果项目进行了重启，就会造成队列数据丢失。大部分的项目都会用到 Redis 中间件作为缓存使用，此时使用 Redis 的 list 结构来实现队列则是非常合适的选择。  
-因此，本文主要讲解基于 Redis 的方式实现异步队列。
-    
-
-        <a href="/redis-block-queue.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis阻塞队列实现/">Redis阻塞队列实现</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/异步队列处理/">异步队列处理</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-接口鉴权签名实践"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-06-01 22:36:34" datetime="2020-06-01T14:36:34.000Z"  itemprop="datePublished">2020-06-01</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/interface-authentication.html">接口鉴权签名实践</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服务器或者减少服务器就要更新白名单，对于接口提供方不是很友好，最好使用签名的方式一劳永逸，因此本文主要讲讲常用的接口签名方式，主要应用与服务端与服务端之间的接口交互。因为生成签名过程中使用到了 appSecret，因此这种方式最好不要用于客户端与服务端之间的接口加密，appSecret 写死在 APP 中，逆向技术获取不是太困难的事情，当然非要使用，appSecret 最好通过登录时动态生成，写死的方式一向是不推荐的做法。
-    
-
-        <a href="/interface-authentication.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/接口签名/">接口签名</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/接口鉴权/">接口鉴权</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-实用主义之自定义SpringBootStarter"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-05-16 18:50:32" datetime="2020-05-16T10:50:32.000Z"  itemprop="datePublished">2020-05-16</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/custom-springboot-starter.html">实用主义之自定义SpringBootStarter</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。
-SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们自己也会封装一些比较通用的代码 jar 包，引入到新的项目中很难避免添加相应的配置，比如 Bean 的声明。借鉴 SpringBoot 官方做法，我们自己也可以自定义所需要的 Starter。
-今天以统一项目日期格式化功能为例，从头到尾地介绍如何自定义一个 Starter。
-    
-
-        <a href="/custom-springboot-starter.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LocalDateTime格式化/">LocalDateTime格式化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBootStarter实际应用/">SpringBootStarter实际应用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义SpringBootStarter/">自定义SpringBootStarter</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-利用Spring的@ConditionXXX注解实现策略模式"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-04-29 20:55:11" datetime="2020-04-29T12:55:11.000Z"  itemprop="datePublished">2020-04-29</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Spring/">Spring</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/spring-condition-annotation.html">利用Spring的@ConditionXXX注解实现策略模式</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        在项目开发过程中，有这样的一种常见的场景，比如根据环境的不同，发短信的服务也是不同的，但是依赖短信服务的系统调用的都是相同的接口，这样就需要针对环境来做区分，调用不同的短信通道接口。举例的这种情况，你可能会想到使用策略模式的方式来实现，当然这也是可以的。
-但是只有两种策略而且在一个环境当中，只会有一种固定策略可以生效的情况下，使用策略模式未免过于麻烦，本文尤其适合私有化项目部署，会根据私有化环境执行不同策略的情况。
-    
-
-        <a href="/spring-condition-annotation.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ConditionalOnExpression注解的应用/">ConditionalOnExpression注解的应用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ConditionalOnMissingBean注解的应用/">ConditionalOnMissingBean注解的应用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ConditionalOnProperty注解的应用/">ConditionalOnProperty注解的应用</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-项目二进制标位实战应用"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-04-23 20:37:10" datetime="2020-04-23T12:37:10.000Z"  itemprop="datePublished">2020-04-23</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/binary-tag.html">项目二进制标位实战应用</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        四月已过大半，紧急补上一篇博客，本文将讲解二进制状态位在项目中的实战应用，技术原理很简单，就是利用二级制与位运算实现。这种方式的应用场景还是比较广泛，希望对你有用~
-    
-
-        <a href="/binary-tag.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制标位使用/">二进制标位使用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二进制状态位使用/">二进制状态位使用</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-【对你无用请揍我系列】必会Linux技巧"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-28 18:46:37" datetime="2020-03-28T10:46:37.000Z"  itemprop="datePublished">2020-03-28</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Linux/">Linux</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/linux-command.html">【对你无用请揍我系列】必会 Linux 技巧</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。
-    
-
-        <a href="/linux-command.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-设计模式之观察者模式实战"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-05 22:18:10" datetime="2020-03-05T14:18:10.000Z"  itemprop="datePublished">2020-03-05</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/design-patterns-observer.html">设计模式之观察者模式实战</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文介绍观察者模式在项目中的实际应用。
-    
-
-        <a href="/design-patterns-observer.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-设计模式之责任链模式实战"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2020-03-04 07:29:43" datetime="2020-03-03T23:29:43.000Z"  itemprop="datePublished">2020-03-04</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/设计模式/">设计模式</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/design-patterns-chain-responsibility.html">设计模式之责任链模式实战</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        本文以电商系统订单金额计算为例，电商订单最终的金额可能是这样的
-应支付金额=订单金额-优惠券优惠金额-促销活动优惠金额-会员权益优惠金额
-当然也有可能还会增加其他的计算步骤，使用责任链模式来实现订单金额计算，若增加了其他计算步骤，直接将步骤加入到链中即可，而无需改动以前的代码，最大程度减小出错的可能性。责任链分为纯责任链与不纯责任链，在日常开发中，很少有纯的责任链，所谓纯的责任链，就是单个链上处理器要么独立处理，要么处理不了交给下一个处理器进行处理。
-    
-
-        <a href="/design-patterns-chain-responsibility.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/结合Spring实践责任链模式/">结合Spring实践责任链模式</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-<nav id="page-nav">
-    <div class="inner">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
-    </div>
 </nav>
 
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="实战为王，记录在工作中技术使用的点点滴滴。">
+              
             </span>
-        </p>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
     </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/notice.html" target="_self">
+          <img src="/img/sys/notice.png" srcset="/img/loading.gif" alt="网站公告">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+          <i class="index-pin iconfont icon-top" title="Pin on top"></i>
+        
+        <a href="/notice.html">网站公告</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/notice.html">
+          
+          
+            
+          
+          
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-12-27 19:12" pubdate>
+              2020-12-27
+            </time>
+          </div>
+        
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/custom-read-poi.html" target="_self">
+          <img src="/img/bg/a7.jpg" srcset="/img/loading.gif" alt="Poi不规则表格导入">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/custom-read-poi.html">Poi不规则表格导入</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/custom-read-poi.html">
+          
+          
+            
+          
+          在之前的文章中 easypoi 导入 Excel 最佳实践  详细介绍了如何使用 EasyPoi 来进行数据的导入与多重校验，但是 EasyPoi 更擅长与比较规整的表格输入导入，如果遇到不规则的表格时，可能就没那么轻松搞定导入了。本文主要介绍如何实现不规则表格数据导入。
+本文源码地址：
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-08-23 21:42" pubdate>
+              2020-08-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Poi%E8%AF%BB%E5%8F%96%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC/">Poi读取指定位置的单元格</a>
+            
+              <a href="/tags/EasyPoi%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5/">EasyPoi不规则数据导入</a>
+            
+              <a href="/tags/Poi%E5%A4%8D%E6%9D%82%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5/">Poi复杂表格数据导入</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/flyway-best-practice.html" target="_self">
+          <img src="/img/bg/a8.jpg" srcset="/img/loading.gif" alt="【实战】Flyway迁移指南最佳实践">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/flyway-best-practice.html">【实战】Flyway迁移指南最佳实践</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/flyway-best-practice.html">
+          
+          
+            
+          
+          项目在多环境迭代开发过程中，数据库的表结构不断变更，在部署时，往往会出现数据库表结构未及时变更导致出现问题，耗费在表结构上的时间相当多，上线过程持续痛苦，代码有 GIT/SVN 来控制，数据库中的表版本也可以做到版本控制，本文讲解通过 flyway 的方式来管理数据库版本变动。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-20 14:02" pubdate>
+              2020-06-20
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Flyway%E8%BF%81%E7%A7%BB/">Flyway迁移</a>
+            
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">数据库SQL版本控制</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/redis-block-queue.html" target="_self">
+          <img src="/img/bg/a9.jpg" srcset="/img/loading.gif" alt="实战基于Redis实现阻塞队列">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/redis-block-queue.html">实战基于Redis实现阻塞队列</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/redis-block-queue.html">
+          
+          
+            
+          
+          日常需求开发过程中，不免会遇到需要通过代码进行异步处理的情况，比如批量发送邮件，批量发送短信，数据导入，为了减少用户的等待，不希望一直菊花转啊转，因此需要进行异步处理，做法就是讲要处理的数据添加到队列当中，然后按照排队的先后顺序进行异步处理。  
+这个队列，可以是专业的消息队列，如 RocketMQ/RabbitMQ 等，一般项目中，如果只是为了进行异步，未免有点杀鸡用牛刀的意味。也可以使用基于 
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-14 15:02" pubdate>
+              2020-06-14
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Redis/">Redis</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Redis%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/">Redis阻塞队列实现</a>
+            
+              <a href="/tags/%E5%BC%82%E6%AD%A5%E9%98%9F%E5%88%97%E5%A4%84%E7%90%86/">异步队列处理</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/interface-authentication.html" target="_self">
+          <img src="/img/bg/a10.jpg" srcset="/img/loading.gif" alt="接口鉴权签名实践">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/interface-authentication.html">接口鉴权签名实践</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/interface-authentication.html">
+          
+          
+            
+          
+          工作当中不免要与其他的公司进行打交道，比如调用对方的接口完成某项操作，或者提供接口给对方调用，这些接口可能使用者有很多公司，为了保证接口的安全性，需要设计一些方式来对接口进行保护，常见的保护措施有 IP 白名单与接口签名。IP 白名单这种方式就不多说很简单，判断接口调用者 IP 是否在设定的白名单 IP 之中即可。但是 IP 白名单这种方式有个弊端就是维护白名单 IP 列表成了体力活，调用方增加服
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-06-01 22:36" pubdate>
+              2020-06-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E9%89%B4%E6%9D%83/">接口鉴权</a>
+            
+              <a href="/tags/%E6%8E%A5%E5%8F%A3%E7%AD%BE%E5%90%8D/">接口签名</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/custom-springboot-starter.html" target="_self">
+          <img src="/img/bg/a11.jpg" srcset="/img/loading.gif" alt="实用主义之自定义SpringBootStarter">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/custom-springboot-starter.html">实用主义之自定义SpringBootStarter</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/custom-springboot-starter.html">
+          
+          
+            
+          
+          今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。
+SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们自己也会封装一些比较通用的代码 jar 包，引入到新的项目中很难避免添加相应的配
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-05-16 18:50" pubdate>
+              2020-05-16
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89SpringBootStarter/">自定义SpringBootStarter</a>
+            
+              <a href="/tags/LocalDateTime%E6%A0%BC%E5%BC%8F%E5%8C%96/">LocalDateTime格式化</a>
+            
+              <a href="/tags/SpringBootStarter%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">SpringBootStarter实际应用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/spring-condition-annotation.html" target="_self">
+          <img src="/img/bg/a12.jpg" srcset="/img/loading.gif" alt="利用Spring的@ConditionXXX注解实现策略模式">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/spring-condition-annotation.html">利用Spring的@ConditionXXX注解实现策略模式</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/spring-condition-annotation.html">
+          
+          
+            
+          
+          在项目开发过程中，有这样的一种常见的场景，比如根据环境的不同，发短信的服务也是不同的，但是依赖短信服务的系统调用的都是相同的接口，这样就需要针对环境来做区分，调用不同的短信通道接口。举例的这种情况，你可能会想到使用策略模式的方式来实现，当然这也是可以的。
+但是只有两种策略而且在一个环境当中，只会有一种固定策略可以生效的情况下，使用策略模式未免过于麻烦，本文尤其适合私有化项目部署，会根据私有化环境执
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-29 20:55" pubdate>
+              2020-04-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ConditionalOnProperty%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/">ConditionalOnProperty注解的应用</a>
+            
+              <a href="/tags/ConditionalOnMissingBean%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/">ConditionalOnMissingBean注解的应用</a>
+            
+              <a href="/tags/ConditionalOnExpression%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/">ConditionalOnExpression注解的应用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/binary-tag.html" target="_self">
+          <img src="/img/bg/a13.jpg" srcset="/img/loading.gif" alt="项目二进制标位实战应用">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/binary-tag.html">项目二进制标位实战应用</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/binary-tag.html">
+          
+          
+            
+          
+          四月已过大半，紧急补上一篇博客，本文将讲解二进制状态位在项目中的实战应用，技术原理很简单，就是利用二级制与位运算实现。这种方式的应用场景还是比较广泛，希望对你有用~
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-04-23 20:37" pubdate>
+              2020-04-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A0%87%E4%BD%8D%E4%BD%BF%E7%94%A8/">二进制标位使用</a>
+            
+              <a href="/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%8A%B6%E6%80%81%E4%BD%8D%E4%BD%BF%E7%94%A8/">二进制状态位使用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/linux-command.html" target="_self">
+          <img src="/img/bg/a19.jpg" srcset="/img/loading.gif" alt="【对你无用请揍我系列】必会 Linux 技巧">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/linux-command.html">【对你无用请揍我系列】必会 Linux 技巧</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/linux-command.html">
+          
+          
+            
+          
+          前言本文非单纯网上介绍 Linux 命令及参数的雷同文章，而是真正在实际工作中能派上用场的 Linux 实用技巧。主要介绍日志排查相关的技巧，捎带常见的其他 Linux 操作以及 vim 技巧。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-28 18:46" pubdate>
+              2020-03-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/design-patterns-observer.html" target="_self">
+          <img src="/img/bg/a20.jpg" srcset="/img/loading.gif" alt="设计模式之观察者模式实战">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/design-patterns-observer.html">设计模式之观察者模式实战</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/design-patterns-observer.html">
+          
+          
+            
+          
+          本文介绍观察者模式在项目中的实际应用。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2020-03-05 22:18" pubdate>
+              2020-03-05
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/&title=WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/&title=WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=WeJan's Blog&url=http://nullpointer.pw/&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAAAAAAZai4+AAABU0lEQVR42u3auw4DIQxE0f3/nyZtpAgzZrxF7Eu1IhEcCrB5PI9c1ldRft19FxdYsBqxVljijn+7jGuUvmDBmszazdC7zvR2tvWwYMEKm4tDr7KswIIFq2qBuKPAggUrZilJszIYZVtbnMvDgtWCpZ/q+N+vnG/BgvXnrJUsyhFSXC/1AgvWMJYTdJVLF6t9WLCGsbIHtXqNnjofBgALVmuWns7qwbsgpYYFaxjL2bhm0fr/YcGazNLVzlY2vTzBgjWMFU9g/3i3IGzDgtWalZ3wyv+zR1EF6xAsWC1Yfrh1Wji8g4AFawxLCdJVg5EWJliwxrCcBwdKQqwPFRasySznDOcuhF9epcCCNYCVXRSU6a2H/8MjPFiwhrGcSW7do2bvXmDBgmVvX9M3PLBgwTIWBeVy9PKFICxYrVn+g1e9Jn3nAwvWANZ7iXVxGg0LVk/WB9CLP9eRmUkqAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  
 
 
 
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      $.ajax({
+        type: 'GET',
+        url: 'https://v1.hitokoto.cn/?c=i',
+        headers: {},
+        dataType: 'json',
+        success: function (result) {
+          var text;
+          if (result) {
+            var keys = 'hitokoto'.split('.')
+            if (result instanceof Array) {
+              result = result[0]
+            }
+            for (const k of keys) {
+              var value = result[k]
+              if (typeof value === 'string') {
+                text = value
+                break
+              } else if (value instanceof Object) {
+                result = value
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function () {
+          typing(title)
         }
-    });
-})();
-</script>
+      })
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

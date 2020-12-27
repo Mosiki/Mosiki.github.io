@@ -1,560 +1,598 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>Java生成sitemap网站地图 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/Java生成sitemap网站地图.html">
-    
-    
-    <title>Java生成sitemap网站地图 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="java生成sitemap,sitemapgen4j生成sitemap,seo">
-    <meta name="description" content="sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。  Sitemap（即站点地图）就是您网站上各网页的列表。创建并提交Sitemap有助于百度发现并了解您网站上的所有网页。您还可以使用Sitemap提供有关您网站的其他信息，如上次更新日期、Sitemap文件的更新频率">
-<meta name="keywords" content="java生成sitemap,sitemapgen4j生成sitemap,seo">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java生成sitemap网站地图">
-<meta property="og:url" content="http://nullpointer.pw/Java生成sitemap网站地图.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。  Sitemap（即站点地图）就是您网站上各网页的列表。创建并提交Sitemap有助于百度发现并了解您网站上的所有网页。您还可以使用Sitemap提供有关您网站的其他信息，如上次更新日期、Sitemap文件的更新频率等，供百度Spider参考  简单来说，sitemap 就是搜索引擎爬虫便于爬取">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/2018102115401243528566.png">
-<meta property="og:image" content="http://img12345.5-project.com/20181021154012451648209.png">
-<meta property="og:updated_time" content="2020-01-22T14:39:44.774Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java生成sitemap网站地图">
-<meta name="twitter:description" content="sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。  Sitemap（即站点地图）就是您网站上各网页的列表。创建并提交Sitemap有助于百度发现并了解您网站上的所有网页。您还可以使用Sitemap提供有关您网站的其他信息，如上次更新日期、Sitemap文件的更新频率等，供百度Spider参考  简单来说，sitemap 就是搜索引擎爬虫便于爬取">
-<meta name="twitter:image" content="http://img12345.5-project.com/2018102115401243528566.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Java生成sitemap网站地图</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a61.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java生成sitemap网站地图">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-10-21 20:47" pubdate>
+        2018年10月21日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      17
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">Java生成sitemap网站地图</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-10-21T12:47:31.000Z" itemprop="datePublished" class="page-time">
-  2018-10-21
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/seo/">seo</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#SEO之初"><span class="post-toc-number">1.</span> <span class="post-toc-text">SEO之初</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求探讨"><span class="post-toc-number">2.</span> <span class="post-toc-text">需求探讨</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#生成-sitemap-文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">生成 sitemap 文件</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-Nginx-提供给外部访问"><span class="post-toc-number">4.</span> <span class="post-toc-text">通过 Nginx 提供给外部访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有疑问"><span class="post-toc-number">5.</span> <span class="post-toc-text">有疑问?</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Java生成sitemap网站地图"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Java生成sitemap网站地图</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-10-21 20:47:31" datetime="2018-10-21T12:47:31.000Z"  itemprop="datePublished">2018-10-21</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java生成sitemap网站地图</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/seo/">seo</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 下午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。</p>
+            <div class="markdown-body">
+              <p>sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。</p>
 <blockquote>
 <p>Sitemap（即站点地图）就是您网站上各网页的列表。创建并提交Sitemap有助于百度发现并了解您网站上的所有网页。您还可以使用Sitemap提供有关您网站的其他信息，如上次更新日期、Sitemap文件的更新频率等，供百度Spider参考</p>
 </blockquote>
 <p>简单来说，sitemap 就是搜索引擎爬虫便于爬取到网站内的所有网页。</p>
 <a id="more"></a>
+
 <h2 id="SEO之初"><a href="#SEO之初" class="headerlink" title="SEO之初"></a>SEO之初</h2><p>之前特意通过 <code>site</code> 指令查询过公司同行业网站的收录情况，发现搜索引擎对于我司的网站收录数量真的不是差了一星半点-.-，原因嘛，就是一直没有专门的人做 SEO 优化工作。</p>
 <p>前几个月我倒是生成了网站的一部分 sitemap 提交到神马搜索站长平台，但是明明是按照官方文档格式生成的，却一直提示格式不对，也不知道什么情况，也没有官方反馈渠道，就不了了之了。最近公司新招了 SEO 专员，于是便有了定时生成 sitemap 文件的需求。这种生成的文件一般都是对外直接可以访问的，可以通过 nginx 配置静态资源文件来完成。</p>
-<h2 id="需求探讨"><a href="#需求探讨" class="headerlink" title="需求探讨"></a>需求探讨</h2><p>sitemap 的格式一般是 XML 格式的，第一反应就是可以使用 DOM4J 来完成，但是做 SEO 的同事说了，因为 sitemap 文件的限制，同一个 sitemap 文件最多有 5 万条 URL，超出 5 万条，就应该放入到下一个 sitemap 文件当中去。通过 DOM4J 来做的话，还需要判断条数感觉有点麻烦(懒)，就上 gayhub 搜了一下相关的轮子 generate sitemap，找到了现成的轮子 <strong><a href="https://github.com/dfabulich/sitemapgen4j">sitemapgen4j</a></strong>，项目的 README 中使用方法写的比较完善，这里不再多说。</p>
+<h2 id="需求探讨"><a href="#需求探讨" class="headerlink" title="需求探讨"></a>需求探讨</h2><p>sitemap 的格式一般是 XML 格式的，第一反应就是可以使用 DOM4J 来完成，但是做 SEO 的同事说了，因为 sitemap 文件的限制，同一个 sitemap 文件最多有 5 万条 URL，超出 5 万条，就应该放入到下一个 sitemap 文件当中去。通过 DOM4J 来做的话，还需要判断条数感觉有点麻烦(懒)，就上 gayhub 搜了一下相关的轮子 generate sitemap，找到了现成的轮子 **<a href="https://github.com/dfabulich/sitemapgen4j">sitemapgen4j</a>**，项目的 README 中使用方法写的比较完善，这里不再多说。</p>
 <p>为什么文档很完善的情况下，我要写这篇博客呢？(10月第一篇，凑数的(逃~)</p>
-<p>上文提到了，如果超出了 5 万条需要写入另外一个 sitemap 当中，这个功能 sitemapgen4j 已经替我们实现了，无需担心。如果超出，生成的文件就像是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- article1.xml</span><br><span class="line">- article2.xml</span><br><span class="line">- article3.xml</span><br><span class="line">- article4.xml</span><br></pre></td></tr></table></figure></p>
+<p>上文提到了，如果超出了 5 万条需要写入另外一个 sitemap 当中，这个功能 sitemapgen4j 已经替我们实现了，无需担心。如果超出，生成的文件就像是这样的：</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">- article1.xml<br>- article2.xml<br>- article3.xml<br>- article4.xml<br></code></pre></div></td></tr></table></figure>
 <p>这样的话，在站长平台这里，如果新增了文件就要新增一条sitemap 网址记录，很麻烦。</p>
-<p><img src="http://img12345.5-project.com/2018102115401243528566.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/2018102115401243528566.png" srcset="/img/loading.gif"></p>
 <p>好在，搜索引擎考虑到了这种问题，有相应的解决方法。</p>
-<p><img src="http://img12345.5-project.com/20181021154012451648209.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20181021154012451648209.png" srcset="/img/loading.gif"></p>
 <p>我们把每次生成的 sitemap 文件的地址，添加到一个 sitemap 索引文件当中去，这样，我们只需要向平台提交一个 sitemap 索引文件的地址即可。</p>
 <p>不多说，代码见。</p>
 <h2 id="生成-sitemap-文件"><a href="#生成-sitemap-文件" class="headerlink" title="生成 sitemap 文件"></a>生成 sitemap 文件</h2><p>首先引入 sitemapgen4j 依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.dfabulich<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>sitemapgen4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.github.dfabulich<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sitemapgen4j<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <p>编写生成 sitemap 代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">generateSitemap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String tempPath = <span class="string">"/home/seo"</span>;</span><br><span class="line">    <span class="comment">//String tempPath = System.getProperty("java.io.tmpdir") + File.separator + "/seo/";</span></span><br><span class="line">    File file = <span class="keyword">new</span> File(tempPath);</span><br><span class="line">    <span class="keyword">if</span> (!file.exists()) &#123;</span><br><span class="line">        file.mkdirs();</span><br><span class="line">    &#125;</span><br><span class="line">    String domain = <span class="string">"https://www.domain.com"</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        WebSitemapGenerator g1 = WebSitemapGenerator.builder(domain, file)</span><br><span class="line">                .fileNamePrefix(<span class="string">"article"</span>).build();</span><br><span class="line">        Date date = <span class="keyword">new</span> Date();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">21</span>; i++) &#123;</span><br><span class="line">            WebSitemapUrl url = <span class="keyword">new</span> WebSitemapUrl.Options(domain + <span class="string">"/article/"</span> + i ).lastMod(date).build();</span><br><span class="line">            g1.addUrl(url);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        WebSitemapGenerator g2 = WebSitemapGenerator.builder(domain, file)</span><br><span class="line">                .fileNamePrefix(<span class="string">"issue"</span>).build();</span><br><span class="line">        Date date2 = <span class="keyword">new</span> Date();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; <span class="number">21</span>; i++) &#123;</span><br><span class="line">            WebSitemapUrl url = <span class="keyword">new</span> WebSitemapUrl.Options(domain + <span class="string">"/issue/"</span> + i ).lastMod(date2).build();</span><br><span class="line">            g2.addUrl(url);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        List&lt;String&gt; fileNames = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成 sitemap 文件</span></span><br><span class="line">        List&lt;File&gt; articleFiles = g1.write();</span><br><span class="line">        articleFiles.forEach(e -&gt; fileNames.add(e.getName()));</span><br><span class="line">        List&lt;File&gt; issueFiles = g2.write();</span><br><span class="line">        issueFiles.forEach(e -&gt; fileNames.add(e.getName()));</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造 sitemap_index 生成器</span></span><br><span class="line">        W3CDateFormat dateFormat = <span class="keyword">new</span> W3CDateFormat(W3CDateFormat.Pattern.DAY);</span><br><span class="line">        SitemapIndexGenerator sitemapIndexGenerator = <span class="keyword">new</span> SitemapIndexGenerator</span><br><span class="line">                .Options(domain, <span class="keyword">new</span> File(tempPath + <span class="string">"sitemap_index.xml"</span>))</span><br><span class="line">                .dateFormat(dateFormat)</span><br><span class="line">                .autoValidate(<span class="keyword">true</span>)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        fileNames.forEach(e -&gt; &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 组装 sitemap 文件 URL 地址</span></span><br><span class="line">                sitemapIndexGenerator.addUrl(domain + <span class="string">"/"</span> + e);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (MalformedURLException e1) &#123;</span><br><span class="line">                e1.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 生成 sitemap_index 文件</span></span><br><span class="line">        sitemapIndexGenerator.write();</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">generateSitemap</span><span class="hljs-params">()</span> </span>&#123;<br>    String tempPath = <span class="hljs-string">&quot;/home/seo&quot;</span>;<br>    <span class="hljs-comment">//String tempPath = System.getProperty(&quot;java.io.tmpdir&quot;) + File.separator + &quot;/seo/&quot;;</span><br>    File file = <span class="hljs-keyword">new</span> File(tempPath);<br>    <span class="hljs-keyword">if</span> (!file.exists()) &#123;<br>        file.mkdirs();<br>    &#125;<br>    String domain = <span class="hljs-string">&quot;https://www.domain.com&quot;</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>        WebSitemapGenerator g1 = WebSitemapGenerator.builder(domain, file)<br>                .fileNamePrefix(<span class="hljs-string">&quot;article&quot;</span>).build();<br>        Date date = <span class="hljs-keyword">new</span> Date();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">21</span>; i++) &#123;<br>            WebSitemapUrl url = <span class="hljs-keyword">new</span> WebSitemapUrl.Options(domain + <span class="hljs-string">&quot;/article/&quot;</span> + i ).lastMod(date).build();<br>            g1.addUrl(url);<br>        &#125;<br><br>        WebSitemapGenerator g2 = WebSitemapGenerator.builder(domain, file)<br>                .fileNamePrefix(<span class="hljs-string">&quot;issue&quot;</span>).build();<br>        Date date2 = <span class="hljs-keyword">new</span> Date();<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">21</span>; i++) &#123;<br>            WebSitemapUrl url = <span class="hljs-keyword">new</span> WebSitemapUrl.Options(domain + <span class="hljs-string">&quot;/issue/&quot;</span> + i ).lastMod(date2).build();<br>            g2.addUrl(url);<br>        &#125;<br><br>        List&lt;String&gt; fileNames = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br><br>        <span class="hljs-comment">// 生成 sitemap 文件</span><br>        List&lt;File&gt; articleFiles = g1.write();<br>        articleFiles.forEach(e -&gt; fileNames.add(e.getName()));<br>        List&lt;File&gt; issueFiles = g2.write();<br>        issueFiles.forEach(e -&gt; fileNames.add(e.getName()));<br><br>        <span class="hljs-comment">// 构造 sitemap_index 生成器</span><br>        W3CDateFormat dateFormat = <span class="hljs-keyword">new</span> W3CDateFormat(W3CDateFormat.Pattern.DAY);<br>        SitemapIndexGenerator sitemapIndexGenerator = <span class="hljs-keyword">new</span> SitemapIndexGenerator<br>                .Options(domain, <span class="hljs-keyword">new</span> File(tempPath + <span class="hljs-string">&quot;sitemap_index.xml&quot;</span>))<br>                .dateFormat(dateFormat)<br>                .autoValidate(<span class="hljs-keyword">true</span>)<br>                .build();<br><br>        fileNames.forEach(e -&gt; &#123;<br>            <span class="hljs-keyword">try</span> &#123;<br>                <span class="hljs-comment">// 组装 sitemap 文件 URL 地址</span><br>                sitemapIndexGenerator.addUrl(domain + <span class="hljs-string">&quot;/&quot;</span> + e);<br>            &#125; <span class="hljs-keyword">catch</span> (MalformedURLException e1) &#123;<br>                e1.printStackTrace();<br>            &#125;<br>        &#125;);<br><br>        <span class="hljs-comment">// 生成 sitemap_index 文件</span><br>        sitemapIndexGenerator.write();<br><br>    &#125; <span class="hljs-keyword">catch</span> (MalformedURLException e) &#123;<br>        e.printStackTrace();<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h2 id="通过-Nginx-提供给外部访问"><a href="#通过-Nginx-提供给外部访问" class="headerlink" title="通过 Nginx 提供给外部访问"></a>通过 Nginx 提供给外部访问</h2><p>文件已经生成了，就需要对外提供访问了，这里使用 nginx 来实现，如果用 apache 也是可以的。</p>
-<p>上文生成的文件我放在了 <strong>/home/seo</strong> 目录下，文件有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- seo</span><br><span class="line">    - article1.xml</span><br><span class="line">    - article2.xml</span><br><span class="line">    - article3.xml</span><br><span class="line">    - article4.xml</span><br><span class="line">    - sitemap_index.xml</span><br></pre></td></tr></table></figure></p>
+<p>上文生成的文件我放在了 <strong>/home/seo</strong> 目录下，文件有</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">- seo<br>    - article1.xml<br>    - article2.xml<br>    - article3.xml<br>    - article4.xml<br>    - sitemap_index.xml<br></code></pre></div></td></tr></table></figure>
 <p>现在修改 nginx 配置文件，这里说明一下，因为 sitemap 生成一份就可以了，但是要通过域名能直接访问到，所以需要在 nginx 跳转一下到有 sitemap 文件的服务器。</p>
-<p>存放 sitemap 文件的 nginx 配置如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen          8888;</span><br><span class="line">    server_name     111.112.113.114;</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    access_log logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        alias /home/seo/;</span><br><span class="line">        sendfile on;</span><br><span class="line">        autoindex on;</span><br><span class="line">        autoindex_exact_size off;</span><br><span class="line">        autoindex_localtime on;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>根域名的 nginx 配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen          80;</span><br><span class="line">    server_name     www.domain.com;</span><br><span class="line">    charset utf8;</span><br><span class="line"></span><br><span class="line">    access_log logs/access.log  main;</span><br><span class="line"></span><br><span class="line">    location /seo/ &#123;</span><br><span class="line">        proxy_pass http://111.112.113.114:8888;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    location / &#123;</span><br><span class="line">        proxy_pass http://homeServer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>存放 sitemap 文件的 nginx 配置如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">server &#123;<br>    listen          8888;<br>    server_name     111.112.113.114;<br>    charset utf8;<br><br>    access_log logs&#x2F;access.log  main;<br><br>    location &#x2F; &#123;<br>        alias &#x2F;home&#x2F;seo&#x2F;;<br>        sendfile on;<br>        autoindex on;<br>        autoindex_exact_size off;<br>        autoindex_localtime on;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>根域名的 nginx 配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">server &#123;<br>    listen          80;<br>    server_name     www.domain.com;<br>    charset utf8;<br><br>    access_log logs&#x2F;access.log  main;<br><br>    location &#x2F;seo&#x2F; &#123;<br>        proxy_pass http:&#x2F;&#x2F;111.112.113.114:8888;<br>    &#125;<br>    <br>    location &#x2F; &#123;<br>        proxy_pass http:&#x2F;&#x2F;homeServer;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p><strong>注意: 第一个 location块 中的 proxy_pass 行尾有个 /</strong></p>
-<p>www.domain.com/seo/sitemap_index.xml<br>就会在 www.domain.com 这里直接反代到 111.112.113.114 这台服务器上了。</p>
-<p>站长平台只用提交这一个 URL <strong>www.domain.com/seo/sitemap_index.xml</strong> 即可。</p>
-<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
+<p><a href="http://www.domain.com/seo/sitemap_index.xml">www.domain.com/seo/sitemap_index.xml</a><br>就会在 <a href="http://www.domain.com/">www.domain.com</a> 这里直接反代到 111.112.113.114 这台服务器上了。</p>
+<p>站长平台只用提交这一个 URL <strong><a href="http://www.domain.com/seo/sitemap_index.xml">www.domain.com/seo/sitemap_index.xml</a></strong> 即可。</p>
+<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:39:44.774Z" itemprop="dateUpdated">2020-01-22 22:39:44</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/Java生成sitemap网站地图.html" target="_blank" rel="external">http://nullpointer.pw/Java生成sitemap网站地图.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java生成sitemap/">java生成sitemap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/seo/">seo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sitemapgen4j生成sitemap/">sitemapgen4j生成sitemap</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java生成sitemap网站地图.html&title=《Java生成sitemap网站地图》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java生成sitemap网站地图.html&title=《Java生成sitemap网站地图》 — WeJan's Blog&source=sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。
-
-Sitemap（即站点地图）就是您网站上各网页的..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java生成sitemap网站地图.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java生成sitemap网站地图》 — WeJan's Blog&url=http://nullpointer.pw/Java生成sitemap网站地图.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java生成sitemap网站地图.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/MongoDB极简实践入门.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">MongoDB 极简实践入门</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/java%E7%94%9F%E6%88%90sitemap/">java生成sitemap</a>
+                    
+                      <a class="hover-with-bg" href="/tags/sitemapgen4j%E7%94%9F%E6%88%90sitemap/">sitemapgen4j生成sitemap</a>
+                    
+                      <a class="hover-with-bg" href="/tags/seo/">seo</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/MongoDB%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MongoDB 极简实践入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html">
+                        <span class="hidden-mobile">和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java生成sitemap网站地图.html&title=《Java生成sitemap网站地图》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java生成sitemap网站地图.html&title=《Java生成sitemap网站地图》 — WeJan's Blog&source=sitemap 是什么？对应没有接触过网站 SEO 的同学可能不知道，这里引用一下百度站长的一段解释。
-
-Sitemap（即站点地图）就是您网站上各网页的..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java生成sitemap网站地图.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java生成sitemap网站地图》 — WeJan's Blog&url=http://nullpointer.pw/Java生成sitemap网站地图.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java生成sitemap网站地图.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
+  
 
 
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNklEQVR42u3ay27CUAwFQP7/p1Opq1aUcGzTqjhzVxGBJJOFuX7cbvE6PtfX4/t1f/b8ar3fjhYGBsbbMo7T9Yhxf/zok/wu+Sv74S4YGBgXYORBNrlZEpqTF5E8GwYGBsb5d/Lv5yQMDAyMVwXcaqKbgDEwMDDOGdUiWnI2SWh7pT0MDIyrMXqNgb85/vX+BgYGxr9nHMWVNwOqAfcYLAwMjN2MeRuyN4pRbT9E4RgDA2MpI29DJsF0MiJWvcLDUIuBgbGOMcl9J1vG3oay/L+BgYGxgjEpwedjE5ORsqiZioGBsZpRHmgYpKx5czQv5D0pt2FgYKxg5A9aHbnopbJ5Iv3tcwwMjNWMXsJZDZHV0YoqGAMD4zqMauG+Goh7jYFJYQ4DA2MHI09Hq5u53jBHc5OKgYFxAcY8jCakajAt/GNgYGCsZvTSy7xtWUWOhjkwMDCWMqo3SMJxsu3rFf2f9GAxMDCWMubNy2rzIC+9TZoQGBgY+xiT0YrkoXPM6AoYGBhLGdUxrGrRLW9V9u6IgYFxHcZ5QpsXwpKX0ivJPTnGwMBYzehNivU2cJOAG5XbMDAwljKO4urhz1PWXqM0mlDDwMBYwchXL1z2XkG1qIeBgXEFRhJk80GuV4XUcosUAwPjAow8yPY2lIWhrlbQx8DAwOiNRySk/DU92SBiYGBgxMMTvQGO6hjZywIuBgbGWzHmITIvvVWvX+7EYmBgrGP0Bixe1VasbhNHvQ4MDIz3Y3wA0AgZBg+Zlc8AAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
-
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

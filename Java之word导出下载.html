@@ -1,242 +1,308 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>Java之word导出下载 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/Java之word导出下载.html">
-    
-    
-    <title>Java之word导出下载 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="word,freemarker">
-    <meta name="description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
-<meta name="keywords" content="word,freemarker">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java之word导出下载">
-<meta property="og:url" content="http://nullpointer.pw/Java之word导出下载.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/222116065.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/223450741.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/223613199.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/224610046.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170726/224037421.png">
-<meta property="og:updated_time" content="2020-01-22T14:40:35.298Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java之word导出下载">
-<meta name="twitter:description" content="前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170726/222116065.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Java之word导出下载</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a64.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java之word导出下载">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-07-27 22:12" pubdate>
+        2017年7月27日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">Java之word导出下载</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2017-07-27T14:12:07.000Z" itemprop="datePublished" class="page-time">
-  2017-07-27
-</time>
-
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实现步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">实现步骤</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#文章涉及工具类"><span class="post-toc-number">3.</span> <span class="post-toc-text">文章涉及工具类</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码下载"><span class="post-toc-number">4.</span> <span class="post-toc-text">源码下载</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考链接"><span class="post-toc-number">5.</span> <span class="post-toc-text">参考链接</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Java之word导出下载"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Java之word导出下载</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2017-07-27 22:12:07" datetime="2017-07-27T14:12:07.000Z"  itemprop="datePublished">2017-07-27</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java之word导出下载</h1>
             
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 下午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。</p>
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该功能，在此记录下来。</p>
 <a id="more"></a>
+
 <p>导出结果如下：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20170726/222116065.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20170726/222116065.png" srcset="/img/loading.gif"></p>
 <p>图中为导出的其中两条新闻。</p>
 <p>搜索网上导出 word 的方式有很多种，但是很多都是一笔带过，有示例代码的只找到了 POI 导出，和通过 FreeMarker 方式导出，但是只是具有参考意义。本文采取使用 FreeMark 方式。</p>
 <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
 <li><p>Maven 工程引入FreeMarker 的依赖，非 Maven 工程添加 jar 包</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.freemarker<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>freemarker<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.26-incubating<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>freemarker<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.26-incubating<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure></li>
 <li><p>创建 word 模板</p>
 <ol>
 <li><p>新建 word 替换内容为占位符  </p>
-<p> <img src="http://img12345.5-project.com/blog/20170726/223450741.png" alt=""></p>
+<p> <img src="http://img12345.5-project.com/blog/20170726/223450741.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>另存模板为 XML 文件  </p>
-<p><img src="http://img12345.5-project.com/blog/20170726/223613199.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170726/223613199.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>使用 NotePad++ 打开 xml 文件</p>
 </li>
@@ -246,340 +312,304 @@
 </li>
 <li><p>因为我的 word 的内容是一个列表，所以需要添加一个 freemarer 标签标识</p>
 </li>
-<li><p>找到<code>&lt;w:document&gt;</code> 元素下面的 <code>&lt;w:body&gt;</code> 元素，添加<code>&lt;#list newsList news&gt;</code> ， 并在<code>&lt;/w:body&gt;</code>结束标签之前闭合 <code>&lt;/#list&gt;</code>， 此处的 <strong>newsList</strong> 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。  </p>
-<p><img src="http://img12345.5-project.com/blog/20170726/224610046.png" alt=""></p>
+<li><p>找到<code> &lt;w:document&gt;</code> 元素下面的 <code>&lt;w:body&gt;</code> 元素，添加<code> &lt;#list newsList news&gt;</code> ， 并在<code>&lt;/w:body&gt;</code>结束标签之前闭合 <code>&lt;/#list&gt;</code>， 此处的 <strong>newsList</strong> 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。  </p>
+<p><img src="http://img12345.5-project.com/blog/20170726/224610046.png" srcset="/img/loading.gif"></p>
 </li>
-<li><p>替换模板中的占位符 <code>&lt;w:t&gt;${news.title}&lt;/w:t&gt;</code> 与 <code>&lt;w:t&gt;${news.content}&lt;/w:t&gt;</code> 为遍历集合的值，这里的 FreeMarker 语法可以参考网上的教程。</p>
+<li><p> 替换模板中的占位符 <code>&lt;w:t&gt;$&#123;news.title&#125;&lt;/w:t&gt;</code> 与 <code>&lt;w:t&gt;$&#123;news.content&#125;&lt;/w:t&gt;</code> 为遍历集合的值，这里的 FreeMarker 语法可以参考网上的教程。</p>
 </li>
 <li><p>保存为 FreeMarker 的模板文件，后缀为 ftl 格式，拷贝到项目中  </p>
-<p><img src="http://img12345.5-project.com/blog/20170726/224037421.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170726/224037421.png" srcset="/img/loading.gif"></p>
 </li>
 </ol>
 </li>
 <li><p>编写代码</p>
 <ol>
-<li><p>从数据中查询数据集合放入Map中， 调用工具方法，返回流</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Object&gt; root = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">root.put(<span class="string">"newsList"</span>, newsList);<span class="comment">//newsList为新闻对象集合</span></span><br><span class="line">String template = <span class="string">"/temp.ftl"</span>;  <span class="comment">//模板文件的地址</span></span><br><span class="line">ByteArrayOutputStream outputStream = WordUtil.process(root, template);</span><br><span class="line"><span class="keyword">return</span> outputStream;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>调用下载工具类进行下载即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DownloadUtil.download(byteArrayOutputStream, response, returnname);</span><br></pre></td></tr></table></figure>
+<li>从数据中查询数据集合放入Map中， 调用工具方法，返回流<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Map&lt;String, Object&gt; root = <span class="hljs-keyword">new</span> HashMap&lt;String, Object&gt;();<br>root.put(<span class="hljs-string">&quot;newsList&quot;</span>, newsList);<span class="hljs-comment">//newsList为新闻对象集合</span><br>String template = <span class="hljs-string">&quot;/temp.ftl&quot;</span>;  <span class="hljs-comment">//模板文件的地址</span><br>ByteArrayOutputStream outputStream = WordUtil.process(root, template);<br><span class="hljs-keyword">return</span> outputStream;<br></code></pre></div></td></tr></table></figure></li>
+<li>调用下载工具类进行下载即可。<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">DownloadUtil.download(byteArrayOutputStream, response, returnname);<br></code></pre></div></td></tr></table></figure>
+
 </li>
 </ol>
 <p>注：在实现功能的时候，由于采取的是 ajax 请求方式，导致只是将流写入 Response 时， Response 为 xml 格式的数据。但是想要实现的效果是弹出下载框，下载 word 文档。最后查询资料，修改ajax请求为form表单提交方式(ajax form)，才弹出下载框实现了功能。</p>
 </li>
 </ol>
-<h2 id="文章涉及工具类"><a href="#文章涉及工具类" class="headerlink" title="文章涉及工具类"></a>文章涉及工具类</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WordUtil.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.Writer;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> freemarker.template.Configuration;</span><br><span class="line"><span class="keyword">import</span> freemarker.template.Template;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">WordUtil</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">static</span> Configuration configuration = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="title">WordUtil</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">throw</span> <span class="keyword">new</span> AssertionError();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 根据模板生成相应的文件</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> root 保存数据的map</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> template 模板文件的地址</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> path 生成的word文档输出地址</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> ByteArrayOutputStream <span class="title">process</span><span class="params">(Map&lt;?, ?&gt; root, String template)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == root ) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数据不能为空"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == template) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"模板文件不能为空"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ByteArrayOutputStream outputStream = <span class="keyword">new</span> ByteArrayOutputStream();</span><br><span class="line">	String templatePath = template.substring(<span class="number">0</span>, template.lastIndexOf(<span class="string">"/"</span>));</span><br><span class="line">	String templateName = template.substring(template.lastIndexOf(<span class="string">"/"</span>) + <span class="number">1</span>, template.length());</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">null</span> == configuration) &#123;</span><br><span class="line">	  configuration = <span class="keyword">new</span> Configuration(Configuration.VERSION_2_3_23);  <span class="comment">// 这里Configurantion对象不能有两个，否则多线程访问会报错</span></span><br><span class="line">	  configuration.setDefaultEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	  configuration.setClassicCompatible(<span class="keyword">true</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	configuration.setClassForTemplateLoading(WordUtil.class, templatePath);</span><br><span class="line"></span><br><span class="line">	Template t = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">	  t = configuration.getTemplate(templateName);</span><br><span class="line">	  Writer w = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(outputStream, <span class="string">"utf-8"</span>));</span><br><span class="line">	  t.process(root, w);  <span class="comment">// 这里w是一个输出地址，可以输出到任何位置，如控制台，网页等</span></span><br><span class="line">	  w.close();</span><br><span class="line">	&#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">	  <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> outputStream;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//DownloadUtil.java</span></span><br><span class="line"><span class="keyword">import</span> java.io.ByteArrayOutputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStream;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.ServletOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.io.FileUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DownloadUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> byteArrayOutputStream 将文件内容写入ByteArrayOutputStream</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> response HttpServletResponse	写入response</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> returnName 返回的文件名</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">download</span><span class="params">(ByteArrayOutputStream byteArrayOutputStream, HttpServletResponse response, String returnName)</span> <span class="keyword">throws</span> IOException</span>&#123;</span><br><span class="line">	  response.setContentType(<span class="string">"application/msword"</span>);</span><br><span class="line">	  response.setHeader(<span class="string">"Content-Disposition"</span>, <span class="string">"attachment; filename="</span> + returnName);</span><br><span class="line">	  response.setContentLength(byteArrayOutputStream.size());</span><br><span class="line">	  OutputStream outputstream = response.getOutputStream();			<span class="comment">//取得输出流</span></span><br><span class="line">	  byteArrayOutputStream.writeTo(outputstream);					<span class="comment">//写到输出流</span></span><br><span class="line">	  byteArrayOutputStream.close();									<span class="comment">//关闭</span></span><br><span class="line">	  outputstream.flush();											<span class="comment">//刷数据</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="文章涉及工具类"><a href="#文章涉及工具类" class="headerlink" title="文章涉及工具类"></a>文章涉及工具类</h2><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//WordUtil.java</span><br><span class="hljs-keyword">import</span> java.io.BufferedWriter;<br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.OutputStreamWriter;<br><span class="hljs-keyword">import</span> java.io.Writer;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">import</span> freemarker.template.Configuration;<br><span class="hljs-keyword">import</span> freemarker.template.Template;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WordUtil</span> </span>&#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Configuration configuration = <span class="hljs-keyword">null</span>;<br><br>  <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">WordUtil</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> AssertionError();<br>  &#125;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 根据模板生成相应的文件</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> root 保存数据的map</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> template 模板文件的地址</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> path 生成的word文档输出地址</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">synchronized</span> ByteArrayOutputStream <span class="hljs-title">process</span><span class="hljs-params">(Map&lt;?, ?&gt; root, String template)</span> </span>&#123;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == root ) &#123;<br>	  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;数据不能为空&quot;</span>);<br>	&#125;<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == template) &#123;<br>	  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;模板文件不能为空&quot;</span>);<br>	&#125;<br><br>	ByteArrayOutputStream outputStream = <span class="hljs-keyword">new</span> ByteArrayOutputStream();<br>	String templatePath = template.substring(<span class="hljs-number">0</span>, template.lastIndexOf(<span class="hljs-string">&quot;/&quot;</span>));<br>	String templateName = template.substring(template.lastIndexOf(<span class="hljs-string">&quot;/&quot;</span>) + <span class="hljs-number">1</span>, template.length());<br><br>	<span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> == configuration) &#123;<br>	  configuration = <span class="hljs-keyword">new</span> Configuration(Configuration.VERSION_2_3_23);  <span class="hljs-comment">// 这里Configurantion对象不能有两个，否则多线程访问会报错</span><br>	  configuration.setDefaultEncoding(<span class="hljs-string">&quot;utf-8&quot;</span>);<br>	  configuration.setClassicCompatible(<span class="hljs-keyword">true</span>);<br>	&#125;<br>	configuration.setClassForTemplateLoading(WordUtil.class, templatePath);<br><br>	Template t = <span class="hljs-keyword">null</span>;<br>	<span class="hljs-keyword">try</span> &#123;<br>	  t = configuration.getTemplate(templateName);<br>	  Writer w = <span class="hljs-keyword">new</span> BufferedWriter(<span class="hljs-keyword">new</span> OutputStreamWriter(outputStream, <span class="hljs-string">&quot;utf-8&quot;</span>));<br>	  t.process(root, w);  <span class="hljs-comment">// 这里w是一个输出地址，可以输出到任何位置，如控制台，网页等</span><br>	  w.close();<br>	&#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>	  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(e);<br>	&#125;<br>	<span class="hljs-keyword">return</span> outputStream;<br>  &#125;<br><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//DownloadUtil.java</span><br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.OutputStream;<br><br><span class="hljs-keyword">import</span> javax.servlet.ServletOutputStream;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;<br><br><span class="hljs-keyword">import</span> org.apache.commons.io.FileUtils;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadUtil</span> </span>&#123;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> byteArrayOutputStream 将文件内容写入ByteArrayOutputStream</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> response HttpServletResponse	写入response</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> returnName 返回的文件名</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">download</span><span class="hljs-params">(ByteArrayOutputStream byteArrayOutputStream, HttpServletResponse response, String returnName)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;<br>	  response.setContentType(<span class="hljs-string">&quot;application/msword&quot;</span>);<br>	  response.setHeader(<span class="hljs-string">&quot;Content-Disposition&quot;</span>, <span class="hljs-string">&quot;attachment; filename=&quot;</span> + returnName);<br>	  response.setContentLength(byteArrayOutputStream.size());<br>	  OutputStream outputstream = response.getOutputStream();			<span class="hljs-comment">//取得输出流</span><br>	  byteArrayOutputStream.writeTo(outputstream);					<span class="hljs-comment">//写到输出流</span><br>	  byteArrayOutputStream.close();									<span class="hljs-comment">//关闭</span><br>	  outputstream.flush();											<span class="hljs-comment">//刷数据</span><br>  &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+
+
 <h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://img12345.5-project.com/wordDemo.zip">点我下载</a></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F">http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F</a></li>
 </ul>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:40:35.298Z" itemprop="dateUpdated">2020-01-22 22:40:35</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/Java之word导出下载.html" target="_blank" rel="external">http://nullpointer.pw/Java之word导出下载.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/freemarker/">freemarker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/word/">word</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java之word导出下载.html&title=《Java之word导出下载》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java之word导出下载.html&title=《Java之word导出下载》 — WeJan's Blog&source=前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java之word导出下载.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java之word导出下载》 — WeJan's Blog&url=http://nullpointer.pw/Java之word导出下载.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java之word导出下载.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/CentOS快速安装.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">CentOS快速安装</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/Java配置分离之远程配置.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Java配置分离之Spring远程配置</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/word/">word</a>
+                    
+                      <a class="hover-with-bg" href="/tags/freemarker/">freemarker</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CentOS快速安装</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Java%E9%85%8D%E7%BD%AE%E5%88%86%E7%A6%BB%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE.html">
+                        <span class="hidden-mobile">Java配置分离之Spring远程配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java之word导出下载.html&title=《Java之word导出下载》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java之word导出下载.html&title=《Java之word导出下载》 — WeJan's Blog&source=前言最近遇到项目需求需要将数据库中的部分数据导出到 word 中，具体是在一个新闻列表中将选中的新闻导出到一个 word 中。参考了网上一些教程，实现了该..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java之word导出下载.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java之word导出下载》 — WeJan's Blog&url=http://nullpointer.pw/Java之word导出下载.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java之word导出下载.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACF0lEQVR42u3aQWoDMQwF0Nz/0il0G2q+JKcw9vMqhMTjNwshWXq94vX+XZ/f5Otzn8/Pn7/fvDAwMB7L6D1+fYi/2PkO+dkwMDDuYayD7K6g2eMl+2BgYGDkR2yGSwwMDIytAbdX6OavBgMDA2NSxCYHnRfGX6/FMTAwHsioNgb+8/MX+xsYGBgPYbwHa9JJTAJu4SQYGBhHM9bp3aRYraaPk6s3DAyMGxi9ZkDeelz/dx2sm68eAwPjOEbv2qtXiOa/yTEYGBh3MpLgmPPWZeqkFYqBgXEPIwdUk7z8Pr936VaosDEwMB7OyMcgqp3EahN0dIWHgYFxKGOyxSTtm1zkYWBg3MzIU7G86M2bl9V/Fe4LMTAwHs5IAL3WY9Lg3JyAYmBgHM3Y9oek0fjl0hcDA+M8Rh7yJqVp9UXkaSIGBsZtjDxNnCR5zf7qGoyBgXEBIz9KMv5VPXTz6BgYGNcwqqVsr+itButkt/IrwMDAeDhj8vi8eZC3FnpjHBgYGLcx5u3G3oDFBIyBgXE2o1oi5iXu3ly1PGCBgYFxBONdXPnV/4RRbkhgYGAczZiPdvWCaZ4UYmBgYMwHLPJitVemFgpdDAyMCxh5QZsXn9VQWy1iMTAwMKrjX4VHxnuWW5gYGBjXM9Zht9oErSaCozobAwPjCEZ+lPkoWB6OC8/CwMA4mlENynvHwnoXfBv6GxgYGM9g/ACplRkG65U2PgAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

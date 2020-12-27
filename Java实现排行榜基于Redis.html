@@ -1,554 +1,588 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>Java实现排行榜基于Redis - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/Java实现排行榜基于Redis.html">
-    
-    
-    <title>Java实现排行榜基于Redis | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Redis排行榜,Java排行榜">
-    <meta name="description" content="前言排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进">
-<meta name="keywords" content="Redis排行榜,Java排行榜">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java实现排行榜基于Redis">
-<meta property="og:url" content="http://nullpointer.pw/Java实现排行榜基于Redis.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。 需求 按照商品销量进行排行 可以获得指定商品的排名 显示实时销售动态情">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/20180610152859148695744.png">
-<meta property="og:updated_time" content="2020-01-22T14:39:44.757Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java实现排行榜基于Redis">
-<meta name="twitter:description" content="前言排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。 需求 按照商品销量进行排行 可以获得指定商品的排名 显示实时销售动态情">
-<meta name="twitter:image" content="http://img12345.5-project.com/20180610152859148695744.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Java实现排行榜基于Redis</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a62.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java实现排行榜基于Redis">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-06-10 09:45" pubdate>
+        2018年6月10日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      850 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">Java实现排行榜基于Redis</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-06-10T01:45:52.000Z" itemprop="datePublished" class="page-time">
-  2018-06-10
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求"><span class="post-toc-number">2.</span> <span class="post-toc-text">需求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#需求分析"><span class="post-toc-number">3.</span> <span class="post-toc-text">需求分析</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#排行榜预览"><span class="post-toc-number">4.</span> <span class="post-toc-text">排行榜预览</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#通过-Java-实现排行榜"><span class="post-toc-number">5.</span> <span class="post-toc-text">通过 Java 实现排行榜</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入依赖"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">引入依赖</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开发逻辑"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">开发逻辑</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#源码下载"><span class="post-toc-number">6.</span> <span class="post-toc-text">源码下载</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Java实现排行榜基于Redis"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Java实现排行榜基于Redis</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-06-10 09:45:52" datetime="2018-06-10T01:45:52.000Z"  itemprop="datePublished">2018-06-10</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java实现排行榜基于Redis</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 下午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。</p>
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>排行榜作为互联网应用中几乎必不可少的一个元素，其能够勾起人类自身对比的欲望，从而来增加商品的销量。排行榜的实现方式基本大同小异，大部分都基于 Redis 的有序集合 sorted set 来实现。不久前，负责开发一个活动，就有排行榜这个需求，笔者也使用 Redis 进行了实现。本文通过了商品销售排行榜这一模型，来进行演示。</p>
 <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><ol>
 <li>按照商品销量进行排行</li>
 <li>可以获得指定商品的排名</li>
 <li>显示实时销售动态情况</li>
 </ol>
-<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>分析需求，以上这些都可以通过 Redis 的有序集合相关命令进行实现，首先看一下使用到的具体 Redis 命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">redis&gt; ZADD bangdan 1 &quot;one&quot;</span><br><span class="line">(integer) 1</span><br><span class="line"># 对有序集合中指定成员的分数加上增量</span><br><span class="line"></span><br><span class="line">redis&gt; zadd bangdan 1 &quot;one&quot; 4 &quot;three&quot; 3 &quot;two&quot;</span><br><span class="line">(integer) 2</span><br><span class="line"># 将一个或多个成员以及分数加入到有序集合中</span><br><span class="line"></span><br><span class="line">redis&gt; zrange bangdan 0 1</span><br><span class="line">1) &quot;one&quot;</span><br><span class="line">2) &quot;three&quot;</span><br><span class="line"># 按照 score 升序排列 ,取出前两名</span><br><span class="line"></span><br><span class="line">redis&gt; zscore bangdan three</span><br><span class="line">&quot;4&quot;</span><br><span class="line"># 获得榜单中指定元素的score</span><br><span class="line"></span><br><span class="line">redis&gt; zrank bangdan one</span><br><span class="line">(integer) 0</span><br><span class="line"># 在升序榜中的名次 第一返回0</span><br><span class="line"></span><br><span class="line"># 第三个需求需要使用 Redis 的 list 来进行实现</span><br><span class="line"></span><br><span class="line">redis&gt; LPUSH dynamic abc</span><br><span class="line">(integer) 1</span><br><span class="line"># 向队列左侧头部 push 数据</span><br><span class="line"></span><br><span class="line">redis&gt; LINDEX dynamic 0</span><br><span class="line">&quot;abc&quot;</span><br><span class="line"># 通过索引获取列表中的元素</span><br><span class="line"></span><br><span class="line">redis&gt; LTRIM dynamic 0 2</span><br><span class="line">&quot;abc&quot;</span><br><span class="line"># 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</span><br></pre></td></tr></table></figure></p>
+<h2 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h2><p>分析需求，以上这些都可以通过 Redis 的有序集合相关命令进行实现，首先看一下使用到的具体 Redis 命令。</p>
+<figure class="highlight vala"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vala">redis&gt; ZADD bangdan <span class="hljs-number">1</span> <span class="hljs-string">&quot;one&quot;</span><br>(integer) <span class="hljs-number">1</span><br><span class="hljs-meta"># 对有序集合中指定成员的分数加上增量</span><br><br>redis&gt; zadd bangdan <span class="hljs-number">1</span> <span class="hljs-string">&quot;one&quot;</span> <span class="hljs-number">4</span> <span class="hljs-string">&quot;three&quot;</span> <span class="hljs-number">3</span> <span class="hljs-string">&quot;two&quot;</span><br>(integer) <span class="hljs-number">2</span><br><span class="hljs-meta"># 将一个或多个成员以及分数加入到有序集合中</span><br><br>redis&gt; zrange bangdan <span class="hljs-number">0</span> <span class="hljs-number">1</span><br><span class="hljs-number">1</span>) <span class="hljs-string">&quot;one&quot;</span><br><span class="hljs-number">2</span>) <span class="hljs-string">&quot;three&quot;</span><br><span class="hljs-meta"># 按照 score 升序排列 ,取出前两名</span><br><br>redis&gt; zscore bangdan three<br><span class="hljs-string">&quot;4&quot;</span><br><span class="hljs-meta"># 获得榜单中指定元素的score</span><br><br>redis&gt; zrank bangdan one<br>(integer) <span class="hljs-number">0</span><br><span class="hljs-meta"># 在升序榜中的名次 第一返回0</span><br><br><span class="hljs-meta"># 第三个需求需要使用 Redis 的 list 来进行实现</span><br><br>redis&gt; LPUSH dynamic abc<br>(integer) <span class="hljs-number">1</span><br><span class="hljs-meta"># 向队列左侧头部 push 数据</span><br><br>redis&gt; LINDEX dynamic <span class="hljs-number">0</span><br><span class="hljs-string">&quot;abc&quot;</span><br><span class="hljs-meta"># 通过索引获取列表中的元素</span><br><br>redis&gt; LTRIM dynamic <span class="hljs-number">0</span> <span class="hljs-number">2</span><br><span class="hljs-string">&quot;abc&quot;</span><br><span class="hljs-meta"># 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除</span><br><br></code></pre></div></td></tr></table></figure>
 <h2 id="排行榜预览"><a href="#排行榜预览" class="headerlink" title="排行榜预览"></a>排行榜预览</h2><p>按照需求开发，最后的效果如下：  </p>
-<p><img src="http://img12345.5-project.com/20180610152859148695744.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180610152859148695744.png" srcset="/img/loading.gif"></p>
 <p>以下通过 Java 代码实现。</p>
-<h2 id="通过-Java-实现排行榜"><a href="#通过-Java-实现排行榜" class="headerlink" title="通过 Java 实现排行榜"></a>通过 Java 实现排行榜</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><p>项目中使用到了 Redis，因此需要引入相关依赖，为了简明演示，这里没有使用 JedisPool。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.7.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="通过-Java-实现排行榜"><a href="#通过-Java-实现排行榜" class="headerlink" title="通过 Java 实现排行榜"></a>通过 Java 实现排行榜</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><p>项目中使用到了 Redis，因此需要引入相关依赖，为了简明演示，这里没有使用 JedisPool。</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>redis.clients<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jedis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.3<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="开发逻辑"><a href="#开发逻辑" class="headerlink" title="开发逻辑"></a>开发逻辑</h3><ol>
 <li><p>页面上点击一次购买按钮，则对该手机的销量加 1，同时将销售动态添加到队列当中</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jedis.zincrby(Constants.SALES_LIST, <span class="number">1</span>, String.valueOf(phoneId));</span><br><span class="line">jedis.lpush(Constants.BUY_DYNAMIC, msg);</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">jedis.zincrby(Constants.SALES_LIST, <span class="hljs-number">1</span>, String.valueOf(phoneId));<br>jedis.lpush(Constants.BUY_DYNAMIC, msg);<br></code></pre></div></td></tr></table></figure></li>
 <li><p>获得排行榜</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照scope升序排名，取出前五</span></span><br><span class="line">jedis.zrevrangeWithScores(Constants.SALES_LIST, <span class="number">0</span>, <span class="number">4</span>);</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 按照scope升序排名，取出前五</span><br>jedis.zrevrangeWithScores(Constants.SALES_LIST, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>);<br></code></pre></div></td></tr></table></figure></li>
 <li><p>获得指定手机的排名情况</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jedis.zrevrank(Constants.SALES_LIST, String.valueOf(phoneId));</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">jedis.zrevrank(Constants.SALES_LIST, String.valueOf(phoneId));<br></code></pre></div></td></tr></table></figure></li>
 <li><p>获得销售动态，此处只取 3 条，同时队列只保存最新的 20 条动态</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">List&lt;DynamicVO&gt; dynamicList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">        String result = jedis.lindex(Constants.BUY_DYNAMIC, i);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(result)) &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String[] arr = result.split(Constants.separator);</span><br><span class="line">        <span class="keyword">long</span> time = Long.valueOf(arr[<span class="number">0</span>]);</span><br><span class="line">        String phone = arr[<span class="number">1</span>];</span><br><span class="line">        DynamicVO vo = <span class="keyword">new</span> DynamicVO();</span><br><span class="line">        vo.setPhone(phone);</span><br><span class="line">        vo.setTime(StringUtil.showTime(<span class="keyword">new</span> Date(time)));</span><br><span class="line">        dynamicList.add(vo);</span><br><span class="line">&#125;</span><br><span class="line">jedis.ltrim(Constants.BUY_DYNAMIC, <span class="number">0</span>, <span class="number">19</span>);</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">List&lt;DynamicVO&gt; dynamicList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) &#123;<br>        String result = jedis.lindex(Constants.BUY_DYNAMIC, i);<br>        <span class="hljs-keyword">if</span> (StringUtils.isEmpty(result)) &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>        String[] arr = result.split(Constants.separator);<br>        <span class="hljs-keyword">long</span> time = Long.valueOf(arr[<span class="hljs-number">0</span>]);<br>        String phone = arr[<span class="hljs-number">1</span>];<br>        DynamicVO vo = <span class="hljs-keyword">new</span> DynamicVO();<br>        vo.setPhone(phone);<br>        vo.setTime(StringUtil.showTime(<span class="hljs-keyword">new</span> Date(time)));<br>        dynamicList.add(vo);<br>&#125;<br>jedis.ltrim(Constants.BUY_DYNAMIC, <span class="hljs-number">0</span>, <span class="hljs-number">19</span>);<br><br></code></pre></div></td></tr></table></figure></li>
 <li><p>因为排行榜这种实时性比较强的数据，更新比较快，个人觉得没有必要进行持久化，如果 Redis 的排行榜数据丢失，可以通过代码重新计算排行，通过 zadd 命令，重新添加到 Redis 中即可。</p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String, Double&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    map.put(<span class="string">"1"</span>, <span class="number">4.0</span>);</span><br><span class="line">    map.put(<span class="string">"2"</span>, <span class="number">2.0</span>);</span><br><span class="line">    map.put(<span class="string">"3"</span>, <span class="number">3.0</span>);</span><br><span class="line">jedis.zadd(Constants.SALES_LIST, map);</span><br></pre></td></tr></table></figure>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Map&lt;String, Double&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();<br>    map.put(<span class="hljs-string">&quot;1&quot;</span>, <span class="hljs-number">4.0</span>);<br>    map.put(<span class="hljs-string">&quot;2&quot;</span>, <span class="hljs-number">2.0</span>);<br>    map.put(<span class="hljs-string">&quot;3&quot;</span>, <span class="hljs-number">3.0</span>);<br>jedis.zadd(Constants.SALES_LIST, map);<br></code></pre></div></td></tr></table></figure>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="https://github.com/Mosiki/RedisListExample">点我下载</a></p>
 </li>
 </ol>
-<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="https://github.com/Mosiki/RedisListExample">点我下载</a></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:39:44.757Z" itemprop="dateUpdated">2020-01-22 22:39:44</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/Java实现排行榜基于Redis.html" target="_blank" rel="external">http://nullpointer.pw/Java实现排行榜基于Redis.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java排行榜/">Java排行榜</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis排行榜/">Redis排行榜</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java实现排行榜基于Redis.html&title=《Java实现排行榜基于Redis》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java实现排行榜基于Redis.html&title=《Java实现排行榜基于Redis》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java实现排行榜基于Redis.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java实现排行榜基于Redis》 — WeJan's Blog&url=http://nullpointer.pw/Java实现排行榜基于Redis.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java实现排行榜基于Redis.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/微信公众号强制关注的实现.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">微信公众号强制关注</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/Dom4J生成XML.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Dom4j生成XML</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis%E6%8E%92%E8%A1%8C%E6%A6%9C/">Redis排行榜</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Java%E6%8E%92%E8%A1%8C%E6%A6%9C/">Java排行榜</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8%E7%9A%84%E5%AE%9E%E7%8E%B0.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微信公众号强制关注</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Dom4J%E7%94%9F%E6%88%90XML.html">
+                        <span class="hidden-mobile">Dom4j生成XML</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java实现排行榜基于Redis.html&title=《Java实现排行榜基于Redis》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java实现排行榜基于Redis.html&title=《Java实现排行榜基于Redis》 — WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java实现排行榜基于Redis.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java实现排行榜基于Redis》 — WeJan's Blog&url=http://nullpointer.pw/Java实现排行榜基于Redis.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java实现排行榜基于Redis.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aS1IDMQwFQO5/6WFNhThPEkkxdntFwXzcsxCSpa+veF0Pa/3Xx2ser3/28/re0cLAwLgt41quNWN9Tb7F/L1Pn4OBgXEAIw+LvTC63vr6N+t3YWBgYORbqYbsdaKJgYGBMWEkKWNebyYhGAMDAyMPl88ekW8ov/eNtTgGBsYNGXmI/PzPb+lvYGBg3IpxFVevyMwTvuauMDAwtmZUD/2rLcz83qSoflEGY2BgHMaohtpekpe3MJMiGQMDY2/G5OC+F6DzRuao0MXAwNiIUX1NniBOnj/qxGJgYGzH6CVt1SGJJLAmAb3w3wMDA2NTRjIMMW9w5uMXvf1gYGDsx8hDXjVlrIbL/L2/XI+BgbEpI3lQApsf/U8KYAwMjHMY+WF9Dq6G12r7s3BeiIGBsR2jlw7m7cleaoiBgXEmo3qIlo9HTNqWebMBAwPjBMY8XOYhOx8gy4ctfhSxGBgYWzPmqVjynPLm4tCPgYGxN2MSRufI6od741wbBgbGv2dUj+PnqV4eoAuJIwYGxgGMvARNEr48mUu2GKWYGBgYxzDy7fYGvKrHagkYAwNjb8ZVXNWGZfWj5J+p2cLEwMC4IaM6eFEdI8s/1iT1xMDAOIHRG9vKD/fzAnVyFwYGxgmM6qjE5K5J2vciz8XAwMBoba7XFk2STgwMDIy/TeDmpBdPw8DAOIDxmdC5/mSTgTMMDIy9GdXSscdOCte8adrscmBgYNyP8Q3RAYmHCNXd7AAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,221 +1,297 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>解决WebMagic抓HTTPS时出现SSLException - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/解决WebMagic抓HTTPS时出现SSLException.html">
-    
-    
-    <title>解决WebMagic抓HTTPS时出现SSLException | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="WebMagic出现SSLException,爬虫异常,反向代理到其他域名">
-    <meta name="description" content="前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。">
-<meta name="keywords" content="WebMagic出现SSLException,爬虫异常,反向代理到其他域名">
-<meta property="og:type" content="article">
-<meta property="og:title" content="解决WebMagic抓HTTPS时出现SSLException">
-<meta property="og:url" content="http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-22T14:33:12.956Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决WebMagic抓HTTPS时出现SSLException">
-<meta name="twitter:description" content="前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">解决WebMagic抓HTTPS时出现SSLException</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a37.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="解决WebMagic抓HTTPS时出现SSLException">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-05-12 15:03" pubdate>
+        2018年5月12日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      972 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">解决WebMagic抓HTTPS时出现SSLException</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-05-12T07:03:47.000Z" itemprop="datePublished" class="page-time">
-  2018-05-12
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#一、问题复现"><span class="post-toc-number">2.</span> <span class="post-toc-text">一、问题复现</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#二、解决问题方法（一）"><span class="post-toc-number">3.</span> <span class="post-toc-text">二、解决问题方法（一）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#三、解决问题方法（二）"><span class="post-toc-number">4.</span> <span class="post-toc-text">三、解决问题方法（二）</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#后记"><span class="post-toc-number">5.</span> <span class="post-toc-text">后记</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-解决WebMagic抓HTTPS时出现SSLException"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">解决WebMagic抓HTTPS时出现SSLException</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-05-12 15:03:47" datetime="2018-05-12T07:03:47.000Z"  itemprop="datePublished">2018-05-12</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">解决WebMagic抓HTTPS时出现SSLException</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在今年二月份在项目中引入了 <strong>WebMagic</strong> 技术，用来抓取合作方的书籍，详见之前文章：<a href="http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">WebMagic之爬虫监控</a>，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。</p>
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在今年二月份在项目中引入了 <strong>WebMagic</strong> 技术，用来抓取合作方的书籍，详见之前文章：<a href="http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">WebMagic之爬虫监控</a>，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。</p>
 <a id="more"></a>
+
 <h2 id="一、问题复现"><a href="#一、问题复现" class="headerlink" title="一、问题复现"></a>一、问题复现</h2><p>在 WebMagic-core 包中，<code>us.codecraft.webmagic.processor.example.GithubRepoPageProcessor</code> 这个包下面是作者放的示例代码，拷贝这个类代码到新建的类中，右键运行这个类，运行后控制台报出错误：<br><code>[WARN ] 2018-05-12 13:28:11,828 download page https://github.com/code4craft error [us.codecraft.webmagic.downloader.HttpClientDownloader.download(HttpClientDownloader.java:91)]</code></p>
-<p>进入这个类，定位到 <strong>HttpClientDownloader</strong> 源代码 85 行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Page <span class="title">download</span><span class="params">(Request request, Task task)</span> </span>&#123;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        httpResponse = httpClient.execute(requestContext.getHttpUriRequest(), requestContext.getHttpClientContext());</span><br><span class="line">        page = handleResponse(request, task.getSite().getCharset(), httpResponse, task);</span><br><span class="line">        onSuccess(request);</span><br><span class="line">        logger.info(<span class="string">"downloading page success &#123;&#125;"</span>, request.getUrl());</span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        logger.warn(<span class="string">"download page &#123;&#125; error"</span>, request.getUrl(), e);</span><br><span class="line">        onError(request);</span><br><span class="line">        <span class="keyword">return</span> page;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>进入这个类，定位到 <strong>HttpClientDownloader</strong> 源代码 85 行</p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> Page <span class="hljs-title">download</span><span class="hljs-params">(Request request, Task task)</span> </span>&#123;<br>    ......<br>    <span class="hljs-keyword">try</span> &#123;<br>        httpResponse = httpClient.execute(requestContext.getHttpUriRequest(), requestContext.getHttpClientContext());<br>        page = handleResponse(request, task.getSite().getCharset(), httpResponse, task);<br>        onSuccess(request);<br>        logger.info(<span class="hljs-string">&quot;downloading page success &#123;&#125;&quot;</span>, request.getUrl());<br>        <span class="hljs-keyword">return</span> page;<br>    &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>        logger.warn(<span class="hljs-string">&quot;download page &#123;&#125; error&quot;</span>, request.getUrl(), e);<br>        onError(request);<br>        <span class="hljs-keyword">return</span> page;<br>    &#125; <span class="hljs-keyword">finally</span> &#123;<br>      ...<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>在 85 行此处断点 Debug 运行，发现此行抛出了 SSLException 异常。异常的内容是：<br><code>javax.net.ssl.SSLException: Received fatal alert: protocol_version</code></p>
 <h2 id="二、解决问题方法（一）"><a href="#二、解决问题方法（一）" class="headerlink" title="二、解决问题方法（一）"></a>二、解决问题方法（一）</h2><p>出现异常后，通过 Google 搜索了一下，找到了 WebMagic 作者黄大的解决方式，详见 <a href="https://github.com/code4craft/webmagic/issues/701">Https下无法抓取只支持TLS1.2的站点</a></p>
 <p>于是按照黄大说的方式来做</p>
@@ -223,346 +299,294 @@
 <li><p>首先复制源码中的 <strong>HttpClientGenerator</strong> 与 <strong>HttpClientDownloader</strong> 到自己的项目中。</p>
 </li>
 <li><p>修改 <strong>HttpClientGenerator</strong> 的代码，只需要修改 <strong>buildSSLConnectionSocketFactory</strong> 这个方法为如下即可。    </p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    ...</span><br><span class="line"><span class="function"><span class="keyword">private</span> SSLConnectionSocketFactory <span class="title">buildSSLConnectionSocketFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SSLConnectionSocketFactory(createIgnoreVerifySSL(), <span class="keyword">new</span> String[]&#123;<span class="string">"SSLv3"</span>, <span class="string">"TLSv1"</span>, <span class="string">"TLSv1.1"</span>, <span class="string">"TLSv1.2"</span>&#125;,</span><br><span class="line">                <span class="keyword">null</span>,</span><br><span class="line">                <span class="keyword">new</span> DefaultHostnameVerifier()); <span class="comment">// 优先绕过安全证书</span></span><br><span class="line">	&#125; <span class="keyword">catch</span> (KeyManagementException e) &#123;</span><br><span class="line">        logger.error(<span class="string">"ssl connection fail"</span>, e);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</span><br><span class="line">        logger.error(<span class="string">"ssl connection fail"</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">return</span> SSLConnectionSocketFactory.getSocketFactory();</span><br><span class="line">&#125;</span><br><span class="line">	...</span><br></pre></td></tr></table></figure>
-<p> <strong>注意：</strong> DefaultHostnameVerifier 需要使用 <strong><code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code></strong>，而不要使用 <del><code>sun.net.www.protocol.https.DefaultHostnameVerifier</code></del> </p>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">    ...<br><span class="hljs-function"><span class="hljs-keyword">private</span> SSLConnectionSocketFactory <span class="hljs-title">buildSSLConnectionSocketFactory</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">try</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SSLConnectionSocketFactory(createIgnoreVerifySSL(), <span class="hljs-keyword">new</span> String[]&#123;<span class="hljs-string">&quot;SSLv3&quot;</span>, <span class="hljs-string">&quot;TLSv1&quot;</span>, <span class="hljs-string">&quot;TLSv1.1&quot;</span>, <span class="hljs-string">&quot;TLSv1.2&quot;</span>&#125;,<br>                <span class="hljs-keyword">null</span>,<br>                <span class="hljs-keyword">new</span> DefaultHostnameVerifier()); <span class="hljs-comment">// 优先绕过安全证书</span><br>	&#125; <span class="hljs-keyword">catch</span> (KeyManagementException e) &#123;<br>        logger.error(<span class="hljs-string">&quot;ssl connection fail&quot;</span>, e);<br>    &#125; <span class="hljs-keyword">catch</span> (NoSuchAlgorithmException e) &#123;<br>        logger.error(<span class="hljs-string">&quot;ssl connection fail&quot;</span>, e);<br>    &#125;<br>	<span class="hljs-keyword">return</span> SSLConnectionSocketFactory.getSocketFactory();<br>&#125;<br>	...<br></code></pre></div></td></tr></table></figure>
+<p> <strong>注意：</strong> DefaultHostnameVerifier 需要使用 **<code>org.apache.http.conn.ssl.DefaultHostnameVerifier</code>**，而不要使用 <del><code>sun.net.www.protocol.https.DefaultHostnameVerifier</code></del> </p>
 </li>
-<li>修改 <strong>HttpClientDownloader</strong> 中引用的 <strong>HttpClientGenerator</strong> 为你修改后的类。</li>
+<li><p>修改 <strong>HttpClientDownloader</strong> 中引用的 <strong>HttpClientGenerator</strong> 为你修改后的类。</p>
+</li>
 <li><p>设置爬虫 Spider 的 Downloader 为 你修改的 <strong>HttpClientDownloader</strong>。  </p>
- <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Spider.create(<span class="keyword">new</span> GithubRepoPageProcessor()).setDownloader(<span class="keyword">new</span> HttpClientDownloader()).addUrl(<span class="string">"https://github.com/code4craft"</span>).thread(<span class="number">5</span>).run();</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java">Spider.create(<span class="hljs-keyword">new</span> GithubRepoPageProcessor()).setDownloader(<span class="hljs-keyword">new</span> HttpClientDownloader()).addUrl(<span class="hljs-string">&quot;https://github.com/code4craft&quot;</span>).thread(<span class="hljs-number">5</span>).run();<br></code></pre></div></td></tr></table></figure></li>
 <li><p>运行后，发现控制台已经可以正常输出所抓取网页的内容了</p>
 </li>
 </ol>
 <h2 id="三、解决问题方法（二）"><a href="#三、解决问题方法（二）" class="headerlink" title="三、解决问题方法（二）"></a>三、解决问题方法（二）</h2><p>既然对方接口地址是 HTTPS 的，那我们访问他的 HTTP 接口不就没有这个问题了么？但是事实是，访问对方 HTTP 接口时，会自动跳转到 HTTPS 网址，所以这条路行不通。这时我忽然想到，之前使用 Nginx 解决前端跨域的方法，使用我方的 HTTP 域名，反向代理到对方的 HTTPS 网址是不是就解决了问题呢？于是对 Nginx 进行配置。  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  partner.domain.com;</span><br><span class="line"></span><br><span class="line">      location / &#123;</span><br><span class="line">          proxy_set_header Host github.com;</span><br><span class="line">          proxy_pass https://github.com/;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动/重启 Nginx，将爬虫的地址由 <strong><code>https://github.com/code4craft</code></strong> 修改为 <strong><code>http://partner.domain.com/code4craft</code></strong>，使用 WebMagic 默认的 Downloader，启动爬虫  </p>
-<pre><code class="java"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GithubRepoPageProcessor</span> <span class="keyword">implements</span> <span class="title">PageProcessor</span> </span>{
-
-    <span class="keyword">private</span> Site site = Site.me().setRetryTimes(<span class="number">3</span>).setSleepTime(<span class="number">1000</span>).setTimeOut(<span class="number">10000</span>);
-
-    <span class="meta">@Override</span>
-    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">process</span><span class="params">(Page page)</span> </span>{
-        System.out.println(page.getRawText());
-    }
-
-    <span class="meta">@Override</span>
-    <span class="function"><span class="keyword">public</span> Site <span class="title">getSite</span><span class="params">()</span> </span>{
-        <span class="keyword">return</span> site;
-    }
-
-    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{
-        Spider.create(<span class="keyword">new</span> GithubRepoPageProcessor()).addUrl(<span class="string">"http://partner.domain.com/code4craft"</span>).thread(<span class="number">5</span>).run();
-    }
-}
-</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs conf">server &#123;<br>    listen       80;<br>    server_name  partner.domain.com;<br><br>      location &#x2F; &#123;<br>          proxy_set_header Host github.com;<br>          proxy_pass https:&#x2F;&#x2F;github.com&#x2F;;<br>      &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>启动/重启 Nginx，将爬虫的地址由 <strong><code>https://github.com/code4craft</code></strong> 修改为 **<code>http://partner.domain.com/code4craft</code>**，使用 WebMagic 默认的 Downloader，启动爬虫  </p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GithubRepoPageProcessor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">PageProcessor</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> Site site = Site.me().setRetryTimes(<span class="hljs-number">3</span>).setSleepTime(<span class="hljs-number">1000</span>).setTimeOut(<span class="hljs-number">10000</span>);<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(Page page)</span> </span>&#123;<br>        System.out.println(page.getRawText());<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Site <span class="hljs-title">getSite</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> site;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        Spider.create(<span class="hljs-keyword">new</span> GithubRepoPageProcessor()).addUrl(<span class="hljs-string">&quot;http://partner.domain.com/code4craft&quot;</span>).thread(<span class="hljs-number">5</span>).run();<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>发现控制台成功打印出了页面的内容，测试中，如果页面，页面的其他请求还是会错误，只有第一个页面是正确的，因此此方法<strong>只适合与 Ajax 类似的接口</strong>，我们是这样处理抓取 Https 问题的，因为第一种方法对于我们 JDK1.6 项目无效，第一种方法在 JDK 1.8 测试时可以正常抓取的。</p>
 <h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>如果第一种方法解决不了你的问题，那就跟我一样弄一个临时域名反向代理吧，Nginx 在这方面还是蛮好用的。</p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:33:12.956Z" itemprop="dateUpdated">2020-01-22 22:33:12</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/解决WebMagic抓HTTPS时出现SSLException.html" target="_blank" rel="external">http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebMagic出现SSLException/">WebMagic出现SSLException</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/反向代理到其他域名/">反向代理到其他域名</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫异常/">爬虫异常</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&title=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&title=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&source=前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/jsonpath解析.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">jsonpath解析</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/Charles抓包实战详解.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Charles抓包实战详解</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WebMagic/">WebMagic</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/WebMagic%E5%87%BA%E7%8E%B0SSLException/">WebMagic出现SSLException</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB%E5%BC%82%E5%B8%B8/">爬虫异常</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%88%B0%E5%85%B6%E4%BB%96%E5%9F%9F%E5%90%8D/">反向代理到其他域名</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/jsonpath%E8%A7%A3%E6%9E%90.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">jsonpath解析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html">
+                        <span class="hidden-mobile">Charles抓包实战详解</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&title=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&title=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&source=前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《解决WebMagic抓HTTPS时出现SSLException》 — WeJan's Blog&url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/解决WebMagic抓HTTPS时出现SSLException.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACrElEQVR42u3ay07DQAwFUP7/p0FiCyHXj0mLdLKqSMnMmUXs2v74iK/P76v6l+Tu548rv7t24eHh4bW2fnUlmGThq+/nsKv/ujkCPDw8vGO83Q39/VpPttU7UDw8PLx34+XbrR5KvjoeHh7e/+JVk+mElBzKC+IeHh4eXsDb+vGfl2LzFfNAhYeHh/cMr9oAe4fPB/t7eHh4eIOuenLNhwlyTHlveHh4eAd4f5cMqtvaTabztW52joeHh3eMl2xr0vivPrl3oL+sjoeHh3eAl7/K83R5XvjopeyFGIiHh4e3ypu0/+ehIhnnSu7i4eHhneD1HpeXMPLWfl7aKAQwPDw8vAO8XmqbN7fysuyJ6iseHh7eCd68/JqHh97dZKTg8vt4eHh4j/C22mCTEa78KG+CCh4eHt4BXrKVaj6eL5802KoDW4WKCB4eHt6Y12vG5wsnd3uttZsCCh4eHt4qr1qMqA5OTQqyeTi5fBoeHh7eAV7vRV/dVn5wybhANTXHw8PD2+XlW88HC/KkudpsqxZT8PDw8J7h9dpXeYLbYzcDEh4eHt4BXvWqJtZ5yKkGg2qwwcPDw9vl5a/jfJigV0RI0vFyiRkPDw9vlZe3u6rF1skWq+WMm5CAh4eHt8qbl1/zEsakCDI5FDw8PLznedWUt/cq7xU4mr8b8PDw8Ma8XhiYnGWCrNZULg8IDw8P7xgvLxzkr+zecyYDAVEDDA8PD2/A6w1XVVtZ+ThCNSkvhAQ8PDy8JV7vhVvd+rluVJLc4+Hh4Z3gJcEgH5zqMbZKGHh4eHhP8iado0lZYVLCKDfA8PDw8N6Al5cwtoJNufGGh4eH91JedSiqN1zVG/laSKnx8PDwDhQjqk2y/DmTevPN9/Hw8PAO8HaHovJG/iQpL6TUeHh4eJu8L2lGAyewUvEwAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,559 +1,588 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>Java上传图片到OSS的实现 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/Java上传图片到OSS的实现.html">
-    
-    
-    <title>Java上传图片到OSS的实现 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="OSS,对象存储系统">
-    <meta name="description" content="前言：  以前做项目用的都是开源的分布式系统，如FastDFS。最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。比如Amazon S3，阿里云的OSS，腾讯云的COS。今天我选择使用阿里云的OSS来作为例子，来实现图片的上传。">
-<meta name="keywords" content="OSS,对象存储系统">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java上传图片到OSS的实现">
-<meta property="og:url" content="http://nullpointer.pw/Java上传图片到OSS的实现.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言：  以前做项目用的都是开源的分布式系统，如FastDFS。最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。比如Amazon S3，阿里云的OSS，腾讯云的COS。今天我选择使用阿里云的OSS来作为例子，来实现图片的上传。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170506/221118419.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170506/222456581.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170506/224108910.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170506/224449951.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20170506/224526048.png">
-<meta property="og:updated_time" content="2020-01-22T14:39:44.786Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java上传图片到OSS的实现">
-<meta name="twitter:description" content="前言：  以前做项目用的都是开源的分布式系统，如FastDFS。最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。比如Amazon S3，阿里云的OSS，腾讯云的COS。今天我选择使用阿里云的OSS来作为例子，来实现图片的上传。">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20170506/221118419.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Java上传图片到OSS的实现</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a60.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java上传图片到OSS的实现">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2017-05-06 23:01" pubdate>
+        2017年5月6日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">Java上传图片到OSS的实现</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2017-05-06T15:01:57.000Z" itemprop="datePublished" class="page-time">
-  2017-05-06
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阿里云/">阿里云</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#准备工作"><span class="post-toc-number">1.</span> <span class="post-toc-text">准备工作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、开通阿里云OSS"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">一、开通阿里云OSS</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、maven项目中引入依赖"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">二、maven项目中引入依赖</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#编写代码"><span class="post-toc-number">2.</span> <span class="post-toc-text">编写代码</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、上传文件到OSS之HelloWorld"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">一、上传文件到OSS之HelloWorld</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、编写图片上传服务类"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">二、编写图片上传服务类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、编写Controller层的上传接口"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">三、编写Controller层的上传接口</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、编写页面JSP"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">四、编写页面JSP</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#五、测试图片上传"><span class="post-toc-number">2.5.</span> <span class="post-toc-text">五、测试图片上传</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Java上传图片到OSS的实现"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Java上传图片到OSS的实现</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2017-05-06 23:01:57" datetime="2017-05-06T15:01:57.000Z"  itemprop="datePublished">2017-05-06</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java上传图片到OSS的实现</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阿里云/">阿里云</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 下午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>前言：  以前做项目用的都是开源的分布式系统，如FastDFS。<br>最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。<br>比如Amazon S3，阿里云的OSS，腾讯云的COS。<br>今天我选择使用阿里云的OSS来作为例子，来实现图片的上传。</p>
+            <div class="markdown-body">
+              <p>前言：  以前做项目用的都是开源的分布式系统，如FastDFS。<br>最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。<br>比如Amazon S3，阿里云的OSS，腾讯云的COS。<br>今天我选择使用阿里云的OSS来作为例子，来实现图片的上传。</p>
 <a id="more"></a>
 <h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p><a href="https://help.aliyun.com/document_detail/32008.html">阿里云OSS官方文档地址</a></p>
 <h3 id="一、开通阿里云OSS"><a href="#一、开通阿里云OSS" class="headerlink" title="一、开通阿里云OSS"></a>一、开通阿里云OSS</h3><ol>
 <li>登录阿里云控制台开通OSS服务，并创建<code>AccessKeyId</code>和<code>AccessKeySecret</code></li>
-<li>在OSS控制面板上新建Bucket<br><img src="http://img12345.5-project.com/blog/20170506/221118419.png" alt=""></li>
+<li>在OSS控制面板上新建Bucket<br><img src="http://img12345.5-project.com/blog/20170506/221118419.png" srcset="/img/loading.gif"></li>
 <li>进入新建的Bucket<br>选择左侧的Object管理，新建一个<code>img</code>的文件夹，便于存储归类</li>
 </ol>
-<h3 id="二、maven项目中引入依赖"><a href="#二、maven项目中引入依赖" class="headerlink" title="二、maven项目中引入依赖"></a>二、maven项目中引入依赖</h3><p>在maven工程中的pom.xml添加依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.aliyun.oss<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>aliyun-sdk-oss<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="二、maven项目中引入依赖"><a href="#二、maven项目中引入依赖" class="headerlink" title="二、maven项目中引入依赖"></a>二、maven项目中引入依赖</h3><p>在maven工程中的pom.xml添加依赖  </p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.aliyun.oss<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aliyun-sdk-oss<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.6.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><blockquote>
 <p>注：我所使用的的框架是：SpringMVC+Spring+Mybatis  </p>
 </blockquote>
-<h3 id="一、上传文件到OSS之HelloWorld"><a href="#一、上传文件到OSS之HelloWorld" class="headerlink" title="一、上传文件到OSS之HelloWorld"></a>一、上传文件到OSS之HelloWorld</h3><p>上传图片之前，先惯例来一个HelloWorld示例！<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> com.aliyun.oss.OSSClient;</span><br><span class="line"><span class="keyword">import</span> com.aliyun.oss.model.ObjectMetadata;</span><br><span class="line"><span class="keyword">import</span> com.aliyun.oss.model.PutObjectResult;</span><br><span class="line"><span class="keyword">import</span> com.nullpointer.common.Constants;</span><br><span class="line"><span class="keyword">import</span> com.nullpointer.service.AliyunOSSService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.annotation.PostConstruct;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliyunOSSServiceImpl</span> <span class="keyword">implements</span> <span class="title">AliyunOSSService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String IMG = <span class="string">"img/"</span>;<span class="comment">//对应Object的文件夹名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> maxLength = <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>;<span class="comment">//简单上传OSS限制为5G以下</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String ENDPOINT = File.separatorChar == <span class="string">'/'</span> ? <span class="string">"oss-cn-hangzhou-internal.aliyuncs.com"</span> : <span class="string">"http://oss-cn-hangzhou.aliyuncs.com"</span>;<span class="comment">//用于选择不同的域名</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OSSClient client;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String bucketName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化OSSClient</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String accessId = <span class="string">"xxxxxxxxxxxxx"</span>;<span class="comment">//你的AccessId， 在OSS控制台可以生成</span></span><br><span class="line">        String accessKey = <span class="string">"xxxxxxxxxxxxxxxxx"</span>;<span class="comment">//你的AccessKey</span></span><br><span class="line">        bucketName = <span class="string">"xxxxx"</span>;<span class="comment">//创建的Bucket的名称，注意要一致区分大小写</span></span><br><span class="line"></span><br><span class="line">        client = <span class="keyword">new</span> OSSClient(ENDPOINT, accessId, accessKey);<span class="comment">//初始化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">uploadIm</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String content = <span class="string">"Hello OSS"</span>;</span><br><span class="line">        PutObjectResult test01 = client.putObject(bucketName, <span class="string">"test01"</span>, <span class="keyword">new</span> ByteArrayInputStream(content.getBytes()));</span><br><span class="line">        <span class="keyword">return</span> test01.getETag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>打开OSS控制台的Object管理，是不是发现新增了一个文件呢？<br><img src="http://img12345.5-project.com/blog/20170506/222456581.png" alt=""></p>
+<h3 id="一、上传文件到OSS之HelloWorld"><a href="#一、上传文件到OSS之HelloWorld" class="headerlink" title="一、上传文件到OSS之HelloWorld"></a>一、上传文件到OSS之HelloWorld</h3><p>上传图片之前，先惯例来一个HelloWorld示例！  </p>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">import</span> com.aliyun.oss.OSSClient;<br><span class="hljs-keyword">import</span> com.aliyun.oss.model.ObjectMetadata;<br><span class="hljs-keyword">import</span> com.aliyun.oss.model.PutObjectResult;<br><span class="hljs-keyword">import</span> com.nullpointer.common.Constants;<br><span class="hljs-keyword">import</span> com.nullpointer.service.AliyunOSSService;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;<br><span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;<br><br><span class="hljs-keyword">import</span> javax.annotation.PostConstruct;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.InputStream;<br><br><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AliyunOSSServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AliyunOSSService</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String IMG = <span class="hljs-string">&quot;img/&quot;</span>;<span class="hljs-comment">//对应Object的文件夹名称</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> maxLength = <span class="hljs-number">5</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span>;<span class="hljs-comment">//简单上传OSS限制为5G以下</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String ENDPOINT = File.separatorChar == <span class="hljs-string">&#x27;/&#x27;</span> ? <span class="hljs-string">&quot;oss-cn-hangzhou-internal.aliyuncs.com&quot;</span> : <span class="hljs-string">&quot;http://oss-cn-hangzhou.aliyuncs.com&quot;</span>;<span class="hljs-comment">//用于选择不同的域名</span><br><br>    <span class="hljs-keyword">private</span> OSSClient client;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String bucketName;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化OSSClient</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;<br>        String accessId = <span class="hljs-string">&quot;xxxxxxxxxxxxx&quot;</span>;<span class="hljs-comment">//你的AccessId， 在OSS控制台可以生成</span><br>        String accessKey = <span class="hljs-string">&quot;xxxxxxxxxxxxxxxxx&quot;</span>;<span class="hljs-comment">//你的AccessKey</span><br>        bucketName = <span class="hljs-string">&quot;xxxxx&quot;</span>;<span class="hljs-comment">//创建的Bucket的名称，注意要一致区分大小写</span><br><br>        client = <span class="hljs-keyword">new</span> OSSClient(ENDPOINT, accessId, accessKey);<span class="hljs-comment">//初始化</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">uploadIm</span><span class="hljs-params">()</span> </span>&#123;<br>        String content = <span class="hljs-string">&quot;Hello OSS&quot;</span>;<br>        PutObjectResult test01 = client.putObject(bucketName, <span class="hljs-string">&quot;test01&quot;</span>, <span class="hljs-keyword">new</span> ByteArrayInputStream(content.getBytes()));<br>        <span class="hljs-keyword">return</span> test01.getETag();<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>打开OSS控制台的Object管理，是不是发现新增了一个文件呢？<br><img src="http://img12345.5-project.com/blog/20170506/222456581.png" srcset="/img/loading.gif"></p>
 <h3 id="二、编写图片上传服务类"><a href="#二、编写图片上传服务类" class="headerlink" title="二、编写图片上传服务类"></a>二、编写图片上传服务类</h3><p>HelloWorld示例完成了，开始正式编写图片上传代码了。注释都有。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AliyunOSSServiceImpl</span> <span class="keyword">implements</span> <span class="title">AliyunOSSService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String IMG = <span class="string">"img/"</span>;<span class="comment">//对应Object的文件夹名称</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> maxLength = <span class="number">5</span> * <span class="number">1024</span> * <span class="number">1024</span>;<span class="comment">//简单上传OSS限制为5G以下</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String ENDPOINT = File.separatorChar == <span class="string">'/'</span> ? <span class="string">"oss-cn-hangzhou-internal.aliyuncs.com"</span> : <span class="string">"http://oss-cn-hangzhou.aliyuncs.com"</span>;<span class="comment">//用于选择不同的域名</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> OSSClient client;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String bucketName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 初始化OSSClient</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String accessId = <span class="string">"xxxxxxxxxxxxx"</span>;<span class="comment">//你的AccessId， 在OSS控制台可以生成</span></span><br><span class="line">        String accessKey = <span class="string">"xxxxxxxxxxxxxxxxx"</span>;<span class="comment">//你的AccessKey</span></span><br><span class="line">        bucketName = <span class="string">"xxxxx"</span>;<span class="comment">//创建的Bucket的名称，注意要一致区分大小写</span></span><br><span class="line"></span><br><span class="line">        client = <span class="keyword">new</span> OSSClient(ENDPOINT, accessId, accessKey);<span class="comment">//初始化</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*public String uploadIm() &#123;</span></span><br><span class="line"><span class="comment">        String content = "Hello OSS";</span></span><br><span class="line"><span class="comment">        PutObjectResult test01 = client.putObject(bucketName, "test01", new ByteArrayInputStream(content.getBytes()));</span></span><br><span class="line"><span class="comment">        return test01.getETag();</span></span><br><span class="line"><span class="comment">    &#125;*/</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">saveImage</span><span class="params">(MultipartFile file)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String fileName = <span class="keyword">this</span>.saveImage(file.getSize(), file.getOriginalFilename(), file.hashCode(), file.getInputStream());</span><br><span class="line">            <span class="keyword">return</span> getHttpUrl(fileName);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> String <span class="title">getHttpUrl</span><span class="params">(String fileName)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Constants.OSS_HTTP + <span class="string">"/"</span> + IMG + fileName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">saveImage</span><span class="params">(<span class="keyword">long</span> size, String extName, <span class="keyword">int</span> hashCode, InputStream is)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (size &gt; maxLength)<span class="comment">//超过5G</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">        String name = extName.toLowerCase();</span><br><span class="line">        name = name.substring(name.indexOf(<span class="string">"."</span>));<span class="comment">//获得上传文件的后缀名称如 .jpg</span></span><br><span class="line">        String fileName = System.currentTimeMillis() + <span class="string">"_"</span> + hashCode + name;<span class="comment">//为了防止重复， 使用时间戳+hashcode的方式来命名</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.saveImage(size, fileName, is);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">saveImage</span><span class="params">(<span class="keyword">long</span> size, String fileName, InputStream is)</span> </span>&#123;</span><br><span class="line">        String key = IMG + fileName;<span class="comment">//保存到img文件夹下</span></span><br><span class="line">        <span class="keyword">this</span>.uploadObject(key, size, is);</span><br><span class="line">        <span class="keyword">return</span> fileName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uploadObject</span><span class="params">(String key, <span class="keyword">long</span> size, InputStream is)</span> </span>&#123;</span><br><span class="line">        ObjectMetadata metadata = <span class="keyword">new</span> ObjectMetadata();<span class="comment">//设置文件的meta信息</span></span><br><span class="line">        metadata.setContentLength(size);</span><br><span class="line">        metadata.setContentType(<span class="string">"image/jpeg"</span>);</span><br><span class="line"></span><br><span class="line">        PutObjectResult result = client.putObject(bucketName, key, is);<span class="comment">//调用SDK的上传方法</span></span><br><span class="line">        System.out.println(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="三、编写Controller层的上传接口"><a href="#三、编写Controller层的上传接口" class="headerlink" title="三、编写Controller层的上传接口"></a>三、编写Controller层的上传接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/upload"</span>, method = RequestMethod.POST)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">uploadOSS</span><span class="params">(MultipartFile pic, HttpServletResponse response,  Model model)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">    String imgUrl = aliyunOSSService.saveImage(pic);</span><br><span class="line">    System.out.println(<span class="string">"path = "</span> + imgUrl);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//图片回显</span></span><br><span class="line">    JSONObject jsonObject = <span class="keyword">new</span> JSONObject();</span><br><span class="line">    jsonObject.put(<span class="string">"path"</span>, imgUrl);</span><br><span class="line">    response.setContentType(<span class="string">"application/json;charset=UTF-8"</span>);</span><br><span class="line">    response.getWriter().write(jsonObject.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>需要注意的是：入参中的MultipartFIle是一个接口，需要在Spring的配置文件<code>applicationContext.xml</code>中将其实现类注入。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"multipartResolver"</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.multipart.commons.CommonsMultipartResolver"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="四、编写页面JSP"><a href="#四、编写页面JSP" class="headerlink" title="四、编写页面JSP"></a>四、编写页面JSP</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">contentType</span>=<span class="string">"text/html;charset=UTF-8"</span> <span class="attr">language</span>=<span class="string">"java"</span> %&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/jquery.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"/static/js/jquery.form.js"</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">isELIgnored</span>=<span class="string">"false"</span> %&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>home<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"application/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        function uploadPic() &#123;</span></span><br><span class="line"><span class="undefined">            var options = &#123;</span></span><br><span class="line"><span class="undefined">                url: "/upload",</span></span><br><span class="line"><span class="undefined">                type: "POST",</span></span><br><span class="line"><span class="undefined">                dataType: "json",</span></span><br><span class="line"><span class="undefined">                success: function (data) &#123;</span></span><br><span class="line"><span class="undefined">                    $("#imgUrl").attr("src", data.path);</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">            $("#jform").ajaxSubmit(options);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container-fluid"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"row-fluid"</span> <span class="attr">align</span>=<span class="string">"content"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"/uploadOSS"</span> <span class="attr">method</span>=<span class="string">"POST"</span> <span class="attr">id</span>=<span class="string">"jform"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"span12"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"img"</span> <span class="attr">class</span>=<span class="string">"img-polaroid"</span> <span class="attr">id</span>=<span class="string">"imgUrl"</span>/&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">name</span>=<span class="string">"pic"</span> <span class="attr">onchange</span>=<span class="string">"uploadPic()"</span>/&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AliyunOSSServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AliyunOSSService</span> </span>&#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String IMG = <span class="hljs-string">&quot;img/&quot;</span>;<span class="hljs-comment">//对应Object的文件夹名称</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> maxLength = <span class="hljs-number">5</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span>;<span class="hljs-comment">//简单上传OSS限制为5G以下</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String ENDPOINT = File.separatorChar == <span class="hljs-string">&#x27;/&#x27;</span> ? <span class="hljs-string">&quot;oss-cn-hangzhou-internal.aliyuncs.com&quot;</span> : <span class="hljs-string">&quot;http://oss-cn-hangzhou.aliyuncs.com&quot;</span>;<span class="hljs-comment">//用于选择不同的域名</span><br><br>    <span class="hljs-keyword">private</span> OSSClient client;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String bucketName;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化OSSClient</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;<br>        String accessId = <span class="hljs-string">&quot;xxxxxxxxxxxxx&quot;</span>;<span class="hljs-comment">//你的AccessId， 在OSS控制台可以生成</span><br>        String accessKey = <span class="hljs-string">&quot;xxxxxxxxxxxxxxxxx&quot;</span>;<span class="hljs-comment">//你的AccessKey</span><br>        bucketName = <span class="hljs-string">&quot;xxxxx&quot;</span>;<span class="hljs-comment">//创建的Bucket的名称，注意要一致区分大小写</span><br><br>        client = <span class="hljs-keyword">new</span> OSSClient(ENDPOINT, accessId, accessKey);<span class="hljs-comment">//初始化</span><br>    &#125;<br><br><br>    <span class="hljs-comment">/*public String uploadIm() &#123;</span><br><span class="hljs-comment">        String content = &quot;Hello OSS&quot;;</span><br><span class="hljs-comment">        PutObjectResult test01 = client.putObject(bucketName, &quot;test01&quot;, new ByteArrayInputStream(content.getBytes()));</span><br><span class="hljs-comment">        return test01.getETag();</span><br><span class="hljs-comment">    &#125;*/</span><br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">saveImage</span><span class="hljs-params">(MultipartFile file)</span> </span>&#123;<br><br>        <span class="hljs-keyword">try</span> &#123;<br>            String fileName = <span class="hljs-keyword">this</span>.saveImage(file.getSize(), file.getOriginalFilename(), file.hashCode(), file.getInputStream());<br>            <span class="hljs-keyword">return</span> getHttpUrl(fileName);<br>        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">getHttpUrl</span><span class="hljs-params">(String fileName)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> Constants.OSS_HTTP + <span class="hljs-string">&quot;/&quot;</span> + IMG + fileName;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">saveImage</span><span class="hljs-params">(<span class="hljs-keyword">long</span> size, String extName, <span class="hljs-keyword">int</span> hashCode, InputStream is)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (size &gt; maxLength)<span class="hljs-comment">//超过5G</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br><br>        String name = extName.toLowerCase();<br>        name = name.substring(name.indexOf(<span class="hljs-string">&quot;.&quot;</span>));<span class="hljs-comment">//获得上传文件的后缀名称如 .jpg</span><br>        String fileName = System.currentTimeMillis() + <span class="hljs-string">&quot;_&quot;</span> + hashCode + name;<span class="hljs-comment">//为了防止重复， 使用时间戳+hashcode的方式来命名</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.saveImage(size, fileName, is);<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">saveImage</span><span class="hljs-params">(<span class="hljs-keyword">long</span> size, String fileName, InputStream is)</span> </span>&#123;<br>        String key = IMG + fileName;<span class="hljs-comment">//保存到img文件夹下</span><br>        <span class="hljs-keyword">this</span>.uploadObject(key, size, is);<br>        <span class="hljs-keyword">return</span> fileName;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">uploadObject</span><span class="hljs-params">(String key, <span class="hljs-keyword">long</span> size, InputStream is)</span> </span>&#123;<br>        ObjectMetadata metadata = <span class="hljs-keyword">new</span> ObjectMetadata();<span class="hljs-comment">//设置文件的meta信息</span><br>        metadata.setContentLength(size);<br>        metadata.setContentType(<span class="hljs-string">&quot;image/jpeg&quot;</span>);<br><br>        PutObjectResult result = client.putObject(bucketName, key, is);<span class="hljs-comment">//调用SDK的上传方法</span><br>        System.out.println(result);<br>    &#125;<br>&#125;<br><br></code></pre></div></td></tr></table></figure>
+<h3 id="三、编写Controller层的上传接口"><a href="#三、编写Controller层的上传接口" class="headerlink" title="三、编写Controller层的上传接口"></a>三、编写Controller层的上传接口</h3><figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@RequestMapping(value = &quot;/upload&quot;, method = RequestMethod.POST)</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">uploadOSS</span><span class="hljs-params">(MultipartFile pic, HttpServletResponse response,  Model model)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br><br>    String imgUrl = aliyunOSSService.saveImage(pic);<br>    System.out.println(<span class="hljs-string">&quot;path = &quot;</span> + imgUrl);<br><br>    <span class="hljs-comment">//图片回显</span><br>    JSONObject jsonObject = <span class="hljs-keyword">new</span> JSONObject();<br>    jsonObject.put(<span class="hljs-string">&quot;path&quot;</span>, imgUrl);<br>    response.setContentType(<span class="hljs-string">&quot;application/json;charset=UTF-8&quot;</span>);<br>    response.getWriter().write(jsonObject.toString());<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>需要注意的是：入参中的MultipartFIle是一个接口，需要在Spring的配置文件<code>applicationContext.xml</code>中将其实现类注入。</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;multipartResolver&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;org.springframework.web.multipart.commons.CommonsMultipartResolver&quot;</span>/&gt;</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="四、编写页面JSP"><a href="#四、编写页面JSP" class="headerlink" title="四、编写页面JSP"></a>四、编写页面JSP</h3><figure class="highlight html"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs html">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;<br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/js/jquery.js&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/static/js/jquery.form.js&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><br>    &lt;%@ page isELIgnored=&quot;false&quot; %&gt;<br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>home<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;application/javascript&quot;</span>&gt;</span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">uploadPic</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">            <span class="hljs-keyword">var</span> options = &#123;</span><br><span class="javascript">                url: <span class="hljs-string">&quot;/upload&quot;</span>,</span><br><span class="javascript">                type: <span class="hljs-string">&quot;POST&quot;</span>,</span><br><span class="javascript">                dataType: <span class="hljs-string">&quot;json&quot;</span>,</span><br><span class="javascript">                success: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;</span><br><span class="javascript">                    $(<span class="hljs-string">&quot;#imgUrl&quot;</span>).attr(<span class="hljs-string">&quot;src&quot;</span>, data.path);</span><br>                &#125;<br>            &#125;<br><span class="javascript">            $(<span class="hljs-string">&quot;#jform&quot;</span>).ajaxSubmit(options);</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container-fluid&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;row-fluid&quot;</span> <span class="hljs-attr">align</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;/uploadOSS&quot;</span> <span class="hljs-attr">method</span>=<span class="hljs-string">&quot;POST&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;jform&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;span12&quot;</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;img&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;img-polaroid&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;imgUrl&quot;</span>/&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;file&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;pic&quot;</span> <span class="hljs-attr">onchange</span>=<span class="hljs-string">&quot;uploadPic()&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br><br></code></pre></div></td></tr></table></figure>
 <p>页面不是我所擅长，能显示效果即可。</p>
 <h3 id="五、测试图片上传"><a href="#五、测试图片上传" class="headerlink" title="五、测试图片上传"></a>五、测试图片上传</h3><p><strong>启动项目，进入图片上传的页面。</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20170506/224108910.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p><strong>上传图片</strong><br>控制台打印了如下内容：<br><img src="http://img12345.5-project.com/blog/20170506/224449951.png" alt=""></p>
-<p>页面显示：<br><img src="http://img12345.5-project.com/blog/20170506/224526048.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20170506/224108910.png" srcset="/img/loading.gif"></p>
+<p><strong>上传图片</strong><br>控制台打印了如下内容：<br><img src="http://img12345.5-project.com/blog/20170506/224449951.png" srcset="/img/loading.gif"></p>
+<p>页面显示：<br><img src="http://img12345.5-project.com/blog/20170506/224526048.png" srcset="/img/loading.gif"></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:39:44.786Z" itemprop="dateUpdated">2020-01-22 22:39:44</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/Java上传图片到OSS的实现.html" target="_blank" rel="external">http://nullpointer.pw/Java上传图片到OSS的实现.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSS/">OSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象存储系统/">对象存储系统</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java上传图片到OSS的实现.html&title=《Java上传图片到OSS的实现》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java上传图片到OSS的实现.html&title=《Java上传图片到OSS的实现》 — WeJan's Blog&source=前言：  以前做项目用的都是开源的分布式系统，如FastDFS。最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。比如Amazon..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java上传图片到OSS的实现.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java上传图片到OSS的实现》 — WeJan's Blog&url=http://nullpointer.pw/Java上传图片到OSS的实现.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java上传图片到OSS的实现.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/Java配置分离之远程配置.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Java配置分离之Spring远程配置</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/Nginx实现Tomcat集群.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Nginx实现Tomcat集群</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/OSS/">OSS</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/">对象存储系统</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Java%E9%85%8D%E7%BD%AE%E5%88%86%E7%A6%BB%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java配置分离之Spring远程配置</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4.html">
+                        <span class="hidden-mobile">Nginx实现Tomcat集群</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Java上传图片到OSS的实现.html&title=《Java上传图片到OSS的实现》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Java上传图片到OSS的实现.html&title=《Java上传图片到OSS的实现》 — WeJan's Blog&source=前言：  以前做项目用的都是开源的分布式系统，如FastDFS。最近几年，随着云的发展，国内外的巨头公司也相应的推出了相关商用的类似产品。比如Amazon..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Java上传图片到OSS的实现.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Java上传图片到OSS的实现》 — WeJan's Blog&url=http://nullpointer.pw/Java上传图片到OSS的实现.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Java上传图片到OSS的实现.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACIUlEQVR42u3a0W7DIAwF0P7/T2fSXrck1yatVHN4qtaQcphk2eDXKx7H7zj7y9/PZ99W5z48MDAwvpZxXI6zpSSLPlvi9UKvZ52+AQMDYwNG/rreM8kbrjfiZs0YGBgYxSCY/zwGBgbGuwNuNaXL52JgYGD0ith8cb008UO1OAYGxhcyqhcDn/z8xvsNDAyML2EcxdE7YsuvE3oDAwNjNiM/AqsmfHkwzVPSm3CMgYGxAaN6WFZt/6r+bh64MTAwZjN615C9QLxyYXlzYIeBgTGaUS04e00VOaZaNmNgYOzDWGmeyBPK3qz8igIDA2M2Iw+FvTQxKYbz0vemFsfAwBjHyI/jy3vztkL3n1kYGBjbMAoHWwttZNUL1HLPCAYGxjhGEgqX6uDg6K23HRgYGPswEkASdqvP5NsXlbgYGBijGdUjs+R1+fVAHljLAAwMjKGMpG0iD7W9hVY3CAMDYzdGsqxq80QvlFc3EQMDYwdG0jCaJH/Jk+vXD6dPYmBgDGWst3zlx3OPdbEV/kEYGBhzGHmql7fFJ5jegR0GBsZujHzaOwC9VrMow8XAwBjEOIpj/fgsTzQL32JgYIxmVINdNZavLPSpMI2BgTGDkQTZPOBWGY8llxgYGBsw1g/jknJ3PZW8abbAwMDYnlEtX9fxyVwMDAyMKqm3KevNHBgYGDswmmGulcblxW2yKRgYGDswnlrWs+9ZuVjFwMAYxPgBz4xLqUWSDtIAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

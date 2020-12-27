@@ -1,233 +1,295 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>Charles抓包之HTTPS抓包配置 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/Charles抓包之HTTPS抓包配置.html">
-    
-    
-    <title>Charles抓包之HTTPS抓包配置 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="Charles抓包,HTTPS抓包,Windows抓包,抓包显示unknown">
-    <meta name="description" content="前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。 在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和">
-<meta name="keywords" content="Charles抓包,HTTPS抓包,Windows抓包,抓包显示unknown">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Charles抓包之HTTPS抓包配置">
-<meta property="og:url" content="http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。 在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和之前的设置相同，但是死活抓不了包，或者抓不了 Https 的包， 总之总会出现各">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180415/192924472.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180413/175314107.png?imageslim">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180413/175426039.png?imageslim">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180413/175511643.png?imageslim">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180413/175547783.png?imageslim">
-<meta property="og:image" content="http://img12345.5-project.com/20180415152379485069600.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180415152379262077868.png">
-<meta property="og:image" content="http://img12345.5-project.com/2018041515237927135136.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180415152379295633941.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180415152379304426547.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180415152379397996806.jpg">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20180413/165008375.png?imageslim">
-<meta property="og:updated_time" content="2020-01-22T14:35:59.462Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Charles抓包之HTTPS抓包配置">
-<meta name="twitter:description" content="前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。 在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和之前的设置相同，但是死活抓不了包，或者抓不了 Https 的包， 总之总会出现各">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20180415/192924472.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">Charles抓包之HTTPS抓包配置</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a49.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Charles抓包之HTTPS抓包配置">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-04-15 20:36" pubdate>
+        2018年4月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">Charles抓包之HTTPS抓包配置</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-04-15T12:36:40.000Z" itemprop="datePublished" class="page-time">
-  2018-04-15
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#抓包准备之-Charles-下载以及激活"><span class="post-toc-number">2.</span> <span class="post-toc-text">抓包准备之 Charles 下载以及激活</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#抓包准备之-Charles-配置-HTTPS-抓包基础配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">抓包准备之 Charles 配置 HTTPS 抓包基础配置</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Charles-抓-Windows-上的-HTTPS-请求"><span class="post-toc-number">4.</span> <span class="post-toc-text">Charles 抓 Windows 上的 HTTPS 请求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Charles-抓-APP-的-HTTPS-请求"><span class="post-toc-number">5.</span> <span class="post-toc-text">Charles 抓 APP 的 HTTPS 请求</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#常见问题"><span class="post-toc-number">6.</span> <span class="post-toc-text">常见问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#最后说几句"><span class="post-toc-number">7.</span> <span class="post-toc-text">最后说几句</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-Charles抓包之HTTPS抓包配置"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">Charles抓包之HTTPS抓包配置</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-04-15 20:36:40" datetime="2018-04-15T12:36:40.000Z"  itemprop="datePublished">2018-04-15</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Charles抓包之HTTPS抓包配置</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。</p>
+            <div class="markdown-body">
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。</p>
 <p>在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和之前的设置相同，但是死活抓不了包，或者抓不了 Https 的包， 总之总会出现各种奇怪的问题，如果出了问题，简直让人抓狂！</p>
 <a id="more"></a>
+
 <p>去年年底，给自己换了一台 MBP，日常学习中也需要用到抓包，为了和公司中的工具保持一致，想下载 Fiddler 的 Mac 版，结果并没有。于是下载了 Charles (花瓶)，用了花瓶之后，发现其比 Fiddler 更加好用~</p>
 <p>在一次受够了 Fiddler 的莫名其妙地抓不了 Https，怒卸载之，寻寻觅觅，找到了 Win 版的 Charles (之前还以为没有 Win 版呢)，经过简单配置，开始了愉快的抓包~</p>
 <h2 id="抓包准备之-Charles-下载以及激活"><a href="#抓包准备之-Charles-下载以及激活" class="headerlink" title="抓包准备之 Charles 下载以及激活"></a>抓包准备之 Charles 下载以及激活</h2><p><a href="https://www.charlesproxy.com/latest-release/download.do">Charles 软件下载</a></p>
@@ -235,358 +297,313 @@
 <h2 id="抓包准备之-Charles-配置-HTTPS-抓包基础配置"><a href="#抓包准备之-Charles-配置-HTTPS-抓包基础配置" class="headerlink" title="抓包准备之 Charles 配置 HTTPS 抓包基础配置"></a>抓包准备之 Charles 配置 HTTPS 抓包基础配置</h2><p>如今 Https 大行其道，苹果更是强制要求 APP 通信必须要使用 Https 协议，如果只是抓普通的 HTTP 请求，无需复杂配置即可抓包，这也表明了 HTTP 的安全性很低。</p>
 <p>Charles 默认不对 HTTPS 的请求开启抓包，所以，需要先开启所有 HTTPS 请求的抓包。</p>
 <p>进入菜单 Proxy-SSL Proxying Settings<br>选择开启 SSL Proxy，并 Add 一条 Location 记录，Host 填写 <code>*</code>，代表匹配所有网址，端口 Port，填写443，即 HTTPS 端口。  选择保存。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20180415/192924472.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20180415/192924472.png" srcset="/img/loading.gif"></p>
 <p>基础配置到此就完成了，以下本文按照两方面来描述，Charles 抓 HTTPS。</p>
 <h2 id="Charles-抓-Windows-上的-HTTPS-请求"><a href="#Charles-抓-Windows-上的-HTTPS-请求" class="headerlink" title="Charles 抓 Windows 上的 HTTPS 请求"></a>Charles 抓 Windows 上的 HTTPS 请求</h2><p>进入 Help 中，选择 SSL Proxying 设置，安装根证书  </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175314107.png?imageslim" alt="">  </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175426039.png?imageslim" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20180413/175314107.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://img12345.5-project.com/blog/20180413/175426039.png?imageslim" srcset="/img/loading.gif"></p>
 <p>注意这一步一定要将证书存储到 <strong>受信任的根证书颁发机构</strong>，否则抓包 HTTPS 会提示证书不受信任！！！嗯，搞了好久，血一般的教训！ </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175511643.png?imageslim" alt="">  </p>
+<p><img src="http://img12345.5-project.com/blog/20180413/175511643.png?imageslim" srcset="/img/loading.gif">  </p>
 <p>安装期间会有安全警告，选择是即可。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20180413/175547783.png?imageslim" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>访问 <a href="https://www.baidu.com">https://www.baidu.com</a>后，查看 Charles，已经可以看到 Https 请求下的数据了。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379485069600.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/blog/20180413/175547783.png?imageslim" srcset="/img/loading.gif"></p>
+<p>访问 <a href="https://www.baidu.com/">https://www.baidu.com</a>后，查看 Charles，已经可以看到 Https 请求下的数据了。  </p>
+<p><img src="http://img12345.5-project.com/20180415152379485069600.png" srcset="/img/loading.gif"></p>
 <h2 id="Charles-抓-APP-的-HTTPS-请求"><a href="#Charles-抓-APP-的-HTTPS-请求" class="headerlink" title="Charles 抓 APP 的 HTTPS 请求"></a>Charles 抓 APP 的 HTTPS 请求</h2><p>想要 Charles 抓 HTTPS 的数据包，需要设置代理并安装 Charles 的中间 SSL 证书。</p>
 <p>选择 Help-SSL Proxying  </p>
-<p><img src="http://img12345.5-project.com/20180415152379262077868.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180415152379262077868.png" srcset="/img/loading.gif"></p>
 <p>点击会弹出对话框如下  </p>
-<p><img src="http://img12345.5-project.com/2018041515237927135136.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/2018041515237927135136.png" srcset="/img/loading.gif"></p>
 <p>按照提示，将手机连入电脑同一个网络，WIFI 处设置代理，代理的地址以及端口按照对话框中进行设置。 </p>
-<p><img src="http://img12345.5-project.com/20180415152379295633941.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180415152379295633941.png" srcset="/img/loading.gif"></p>
 <p>设置成功返回之后，此时电脑上 Charles 会自动弹出提醒，提示是否允许请求代理通过，选择 <code>Allow</code> 允许即可。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379304426547.png" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180415152379304426547.png" srcset="/img/loading.gif"></p>
 <p>连上代理之后，使用系统自带浏览器( iPhone 使用 Safari)访问地址 <code>chls.pro/ssl</code>，如果是 iPhone 会自动弹出安装描述文件，选择安装输入密码后无视警告安装即可。因为手边没有安卓设备，不过流程应该类似，就是安装一个 CA 证书文件。</p>
 <p>手机访问 <code>https://m.baidu.com</code>，查看 Charles ，发现此时已经可以拿到 HTTPS 数据内容了，如果没设置成功，里面都将会是 unknown。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379397996806.jpg" alt=""></p>
+<p><img src="http://img12345.5-project.com/20180415152379397996806.jpg" srcset="/img/loading.gif"></p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
-<li>开启 SSL Proxy 代理后，提示证书不受信任或者无效，PC 端一般都是因为证书放错了位置。</li>
+<li><p>开启 SSL Proxy 代理后，提示证书不受信任或者无效，PC 端一般都是因为证书放错了位置。</p>
+</li>
 <li><p>在 IOS11上测试时，抓包<strong>显示unknown</strong>  需要进入通用-关于本机-证书信任设置，将新增的证书进行开启操作。</p>
-<p> <img src="http://img12345.5-project.com/blog/20180413/165008375.png?imageslim" alt=""><br><del>1. 小米系统的手机安装证书方式比较繁琐，需要进入开发者选项中，在信用证书中进行安装（Fiddler安装证书是这样的，Charles 应该也差不多）</del></p>
+<p> <img src="http://img12345.5-project.com/blog/20180413/165008375.png?imageslim" srcset="/img/loading.gif"><br><del>1. 小米系统的手机安装证书方式比较繁琐，需要进入开发者选项中，在信用证书中进行安装（Fiddler安装证书是这样的，Charles 应该也差不多）</del></p>
 </li>
 </ol>
 <h2 id="最后说几句"><a href="#最后说几句" class="headerlink" title="最后说几句"></a>最后说几句</h2><p>善用搜索引擎，因为你遇到的问题肯定有别人都遇到过了，如果你搜不到，肯定是你的搜索姿势不对~</p>
 <p>实在有问题解决不了，可以找我哟! </p>
-<p><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
+<p><a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:35:59.462Z" itemprop="dateUpdated">2020-01-22 22:35:59</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/Charles抓包之HTTPS抓包配置.html" target="_blank" rel="external">http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles抓包/">Charles抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS抓包/">HTTPS抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows抓包/">Windows抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包显示unknown/">抓包显示unknown</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&title=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&title=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&source=前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。
-在公司中开发使用..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/Charles抓包实战详解.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">Charles抓包实战详解</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/微信域名防止屏蔽.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">微信域名防止屏蔽</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Charles%E6%8A%93%E5%8C%85/">Charles抓包</a>
+                    
+                      <a class="hover-with-bg" href="/tags/HTTPS%E6%8A%93%E5%8C%85/">HTTPS抓包</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Windows%E6%8A%93%E5%8C%85/">Windows抓包</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%8A%93%E5%8C%85%E6%98%BE%E7%A4%BAunknown/">抓包显示unknown</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Charles抓包实战详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html">
+                        <span class="hidden-mobile">微信域名防止屏蔽</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&title=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&title=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&source=前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。
-在公司中开发使用..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Charles抓包之HTTPS抓包配置》 — WeJan's Blog&url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/Charles抓包之HTTPS抓包配置.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKUlEQVR42u3aS27DMAwFwN7/0ummiwKF3fdEt0Ck8SrIx9ZowZAUPz7i6xVcP7/5/Z37u1399uELAwPjbRnt4pIH3y998txLKgYGxgGMqwh29fr+V23YzYP15fsYGBgYt+naPOy2z8XAwMBIAm6CWVsuBgYGxqSIXQvE7YL+vBbHwMB4Q0bedf//139yvoGBgfFWjFd53TfU2gPL+Xq+7oaBgbE1Iw9wkyPGBNwGXAwMjHMY7ThFW3CuJZ35FmBgYJzASNKy/DAgeeRTrb3LbcLAwNiOMRnbygfF2m1qi14MDIxzGO04VztskWzE4lEEBgbGAYz8dm1ozocn8rD7S+GKgYGxNSMpR58dkmi37PJTDAyMAxhrLfgcvzacUZTBGBgYWzOeLUHbkYv808XzDQwMjO0Yk4JzniYmoTb5JgYGxn6MNhFcGxSbJIjFfwUGBsamjMnjk0PNPIy2LT8MDIxzGEljKwmC7VBXMUiRbCsGBsbWjCR0TkbE8qZemwhGRwIYGBgHMJIb5QcJa4MXxRZjYGAcwFhrrq2Vx/mQRzJygYGBcSZjrVmffDpp+v+ylRgYGJsyXuU1L2LzMY5ivAMDA2NrRpverQ1MtClme1SAgYFxAiMPsvNgmpAW14CBgXEAow187SDXfLwsKmUxMDAwBuMU7bIWC1QMDAyMMhQ+FUyjO2NgYBzAaJv1a+lgSyruhoGBsTVjknetNdHa5HLyN4CBgfHmjE9AMdsZCXgYlgAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

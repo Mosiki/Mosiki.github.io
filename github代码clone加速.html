@@ -1,620 +1,610 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>github代码clone加速 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/github代码clone加速.html">
-    
-    
-    <title>github代码clone加速 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="github clone慢解决,github 下载慢解决">
-    <meta name="description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="keywords" content="github clone慢解决,github 下载慢解决">
-<meta property="og:type" content="article">
-<meta property="og:title" content="github代码clone加速">
-<meta property="og:url" content="http://nullpointer.pw/github代码clone加速.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20200421154536.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190903223934.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190903224222.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190903224448.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190616163736.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190404212331.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20190404212810.png">
-<meta property="og:image" content="http://img12345.5-project.com/blog/20181124164505.png">
-<meta property="og:updated_time" content="2020-04-21T07:47:01.252Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="github代码clone加速">
-<meta name="twitter:description" content="这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/20200421154536.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">github代码clone加速</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a53.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="github代码clone加速">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-11-24 16:52" pubdate>
+        2018年11月24日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">github代码clone加速</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-11-24T08:52:01.000Z" itemprop="datePublished" class="page-time">
-  2018-11-24
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/日常技巧/">日常技巧</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再再更新"><span class="post-toc-number">1.</span> <span class="post-toc-text">再再更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#再次更新"><span class="post-toc-number">2.</span> <span class="post-toc-text">再次更新</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#更新一下"><span class="post-toc-number">3.</span> <span class="post-toc-text">更新一下</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#加速访问"><span class="post-toc-number">4.</span> <span class="post-toc-text">加速访问</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#食用方法"><span class="post-toc-number">5.</span> <span class="post-toc-text">食用方法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试Clone速度"><span class="post-toc-number">6.</span> <span class="post-toc-text">测试Clone速度</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-github代码clone加速"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">github代码clone加速</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-11-24 16:52:01" datetime="2018-11-24T08:52:01.000Z"  itemprop="datePublished">2018-11-24</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">github代码clone加速</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/日常技巧/">日常技巧</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 下午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
+            <div class="markdown-body">
+              <p>这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原来 Github 的域名被 DNS 污染了，我说呢怎么访问 Github 一直都很慢，知道了问题原因就解决掉这个恶心的问题</p>
 <a id="more"></a>
+
 <h2 id="再再更新"><a href="#再再更新" class="headerlink" title="再再更新"></a>再再更新</h2><p>安装油猴以及加速脚本</p>
 <p>油猴安装: <a href="https://www.tampermonkey.net/">https://www.tampermonkey.net/</a></p>
 <p>油猴脚本：<a href="https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD">https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD</a></p>
 <p>直接访问GitHub查看效果。如下图</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20200421154536.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20200421154536.png" srcset="/img/loading.gif"></p>
 <p><del>与上一次同理，这次也使用的是反向代理达到加速的目的，只不过这次使用的域名非笔者提供的。使用方法：<code>https://github.com.cnpmjs.org/用户名/仓库名</code><br>如：<code>https://github.com.cnpmjs.org/apache/skywalking</code>，则clone地址为：<code>http://github-mirror.bugkiller.org/apache/skywalking.git</code></del></p>
 <h2 id="再次更新"><a href="#再次更新" class="headerlink" title="再次更新"></a>再次更新</h2><p>发现另外一种方式可以实现加速的方式，即通过一台服务器（可以是非国外服务器）通过nginx反向代理GitHub，然后直接访问代理后的地址即可。这种方式适合下载代码的zip包或者仓库里的releases文件，比如<code>https://xxxx.domain.com/Mosiki/github/archive/master.zip</code>。</p>
 <p>具体反向代理的配置读者可以自行查找教程。</p>
 <p>这里给出免费的服务，但是每日会有上限限制，可能会出现无法使用的情况，读者最好自己搭建代理服务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://git.vcmq.workers.dev/</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">https</span>://<span class="hljs-selector-tag">git</span><span class="hljs-selector-class">.vcmq</span><span class="hljs-selector-class">.workers</span><span class="hljs-selector-class">.dev</span>/<br></code></pre></div></td></tr></table></figure>
 <p>可以参考 <a href="https://mashiro.best/archives/cloudflare-worker/">此文章</a> 自行搭建代理服务</p>
 <h2 id="更新一下"><a href="#更新一下" class="headerlink" title="更新一下"></a>更新一下</h2><p>2019年09月03日更新：</p>
 <p>最近发现用 hosts 方式不太好使了，如果改 hosts 的方式也不起作用的话，可以使用这个绝招了。</p>
 <p>步骤一：fork 你想要 clone 的库</p>
 <p>步骤二：登录<a href="https://gitee.com/">码云</a>，登录成功后，点击网页右上角加号，选择 <strong>从 GitHub 导入仓库</strong></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190903223934.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20190903223934.png" srcset="/img/loading.gif"></p>
 <p>这个过程码云会让你去 GitHub 授权拉取你的仓库，选择同意就行了。</p>
 <p>步骤三：找到你在 GitHub 中 fork 的仓库选择导入，等待一会儿就行了，如果仓库较大，可能导入会花一些时间。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190903224222.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20190903224222.png" srcset="/img/loading.gif"></p>
 <p>步骤四：使用码云的地址进行 clone 即可，国内的速度还是非常快的！</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190903224448.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20190903224448.png" srcset="/img/loading.gif"></p>
 <p>备注：此方法只适用于临时下载仓库，如果要是提 PR 什么的，还是使用改 hosts 方法或者走代理的方式吧。</p>
 <hr>
 <p>2019年06月16日更新一下：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20190616163736.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/20190616163736.png" srcset="/img/loading.gif"></p>
 <p>看评论有人说不好使，我在 mac 上本地测试了一下（未开启全局代理），红框之上是未指定 hosts 的结果，速度很慢，平均不到 <strong>50k/s</strong> 的速度，红框内是切换到最新 host 之后的结果，速度一直在增加，达到 <strong>3.25MB/s</strong>，效果显而易见。</p>
 <p>Tips: 如果切换到最新 hosts 后还是很慢，可以重新开一个终端尝试，或者断开再重连一下网络，可能是 hosts 还未生效。（switch hosts 在 win 下需要使用管理员身份打开，mac 下需要输入开机密码获得权限）</p>
 <h2 id="加速访问"><a href="#加速访问" class="headerlink" title="加速访问"></a>加速访问</h2><p>在网上搜索一圈，好多文章中提速的方法就是修改 git 的代理配置，前提是有 SS 之类的{代}{理}工具，然而我开了全局{代}{理}，设置了 git 的代理配置，clone 的速度还是很慢，只能到 30kb/s，如果库大点，下个几天几夜都可能😅</p>
 <p>设置代理不好使，就继续搜索解决方法，在 github 上找到一个 issues，其中提供了 github 的 host列表。</p>
 <p><del><a href="#">GitHub中国加速访问</a></del></p>
 <p>随着 issue 找到了一个生成 hosts 的 repo，但是这个 repo 的 hosts 并不是每日更新的，于是自己 fork 了一份，写了个简单 crontab，每日执行生成更新 hosts 文件。</p>
-<p>仓库地址：<strong><a href="https://github.com/Mosiki/github">https://github.com/Mosiki/github</a></strong></p>
+<p>仓库地址：**<a href="https://github.com/Mosiki/github">https://github.com/Mosiki/github</a>**</p>
 <h2 id="食用方法"><a href="#食用方法" class="headerlink" title="食用方法"></a>食用方法</h2><p>最麻烦的方式就是去手动修改 host 文件，最简单的方式就是下载 <a href="https://oldj.github.io/SwitchHosts/">Switch Host</a> 软件进行 host 修改，跨平台，因为 hosts 文件每日都会自动更新，所以需要本地的 hosts 也能自动更新， 好在 SwitchHosts 提供了远程 hosts 的功能。</p>
 <ol>
 <li><p>复制如下 hosts 地址（测试发现GitHub的网址有可能访问不了，因而更换成了码云的镜像仓库地址）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://gitee.com/Mosiki/github/raw/master/github_hosts.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/Mosiki/gi</span>thub<span class="hljs-regexp">/raw/m</span>aster/github_hosts.txt<br></code></pre></div></td></tr></table></figure>
 </li>
-</ol>
-<ol>
-<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。<br><img src="http://img12345.5-project.com/blog/20190404212331.png" alt=""></p>
+<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。<br><img src="http://img12345.5-project.com/blog/20190404212331.png" srcset="/img/loading.gif"></p>
 </li>
-<li><p>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<br><img src="http://img12345.5-project.com/blog/20190404212810.png" alt=""><br>更新完成之后点击确定保存即可。</p>
+<li><p>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<br><img src="http://img12345.5-project.com/blog/20190404212810.png" srcset="/img/loading.gif"><br>更新完成之后点击确定保存即可。</p>
 </li>
-<li><p>打开 hosts 开关</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/20181124164505.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<p>如图设置完，把开关打开就 Ok 了。</p>
+<li><p>打开 hosts 开关<br><img src="http://img12345.5-project.com/blog/20181124164505.png" srcset="/img/loading.gif"><br>如图设置完，把开关打开就 Ok 了。</p>
 </li>
 </ol>
 <h2 id="测试Clone速度"><a href="#测试Clone速度" class="headerlink" title="测试Clone速度"></a>测试Clone速度</h2><p>由 30kb/s 变成 4M/s 了 😂</p>
 <p>修改后，在 GitHub 的 release 中下载东西也变快了。</p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-04-21T07:47:01.252Z" itemprop="dateUpdated">2020-04-21 15:47:01</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/github代码clone加速.html" target="_blank" rel="external">http://nullpointer.pw/github代码clone加速.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-clone慢解决/">github clone慢解决</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github-下载慢解决/">github 下载慢解决</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/github代码clone加速.html&title=《github代码clone加速》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/github代码clone加速.html&title=《github代码clone加速》 — WeJan's Blog&source=这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/github代码clone加速.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《github代码clone加速》 — WeJan's Blog&url=http://nullpointer.pw/github代码clone加速.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/github代码clone加速.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/ES搜索结果调优.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">ES搜索结果调优</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/IDEA之Git分支合并以及Stash使用.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">IDEA之Git分支以及Stash使用</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/github-clone%E6%85%A2%E8%A7%A3%E5%86%B3/">github clone慢解决</a>
+                    
+                      <a class="hover-with-bg" href="/tags/github-%E4%B8%8B%E8%BD%BD%E6%85%A2%E8%A7%A3%E5%86%B3/">github 下载慢解决</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/ES%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES搜索结果调优</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/IDEA%E4%B9%8BGit%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E4%BB%A5%E5%8F%8AStash%E4%BD%BF%E7%94%A8.html">
+                        <span class="hidden-mobile">IDEA之Git分支以及Stash使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/github代码clone加速.html&title=《github代码clone加速》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/github代码clone加速.html&title=《github代码clone加速》 — WeJan's Blog&source=这阵子想看看开源项目 MyBatis 的源码，结果使用 git 的 clone 命令怎么也 clone 不下来，我以为是网速慢，上 Google 一搜，原..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/github代码clone加速.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《github代码clone加速》 — WeJan's Blog&url=http://nullpointer.pw/github代码clone加速.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/github代码clone加速.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3awXKrMAwF0P7/T6fbt3iQey3SmdiHVacQ8GEhJEs/P/Hxujj+PXt1fXK35FcPHBgYGF/LeN0eaw9I7nB19v7/lyvBwMA4gHG1lPuQev+rScysn4KBgYERLG6eCGJgYGB8gpEkfGtpKAYGBsZTt25DZJJifrwWx8DA+EJGXl7+/d8f6W9gYGB8FeNVHkk7sw3lbZD9z30wMDC2ZrRbafnS2yRybWsPAwPjBEYb5pIN/UlZmw95YGBgnMPIN8ImKWA+/jVpOWBgYOzNyINgQp2H7/bFYWBgnMCYDD1MBr/WmgFvttswMDC2Y7RjDcU2fYnMA3fUX8XAwNiOsdZiTEa78ibB2phF1InFwMD4ckZyIi8v20VPttWKLwkGBsZGjDZFW2tz5q/s/vXV+4UYGBgbMdqBrbrgLIN7eyUGBsZ+jKdCZLL0eQvzcm0YGBiHMfJidXFga8wrvhUYGBgbMfLGQBJS8/I4TwTfvHoMDIytGW3UmrcY27GMeiUYGBibMtY22tqA2yZ89dgHBgbGMYwJJtmMm5TKb14ZBgbGMYy1za98kCtvQuSJIwYGxt6MV3k8lQ4mZ+sWJgYGxqaMtUZjW2S2RezDS8fAwNiC0W7Efzp0LrYlMDAwDmC0gW8+rrr2TYhqcQwMDIwgXK4NWLTx84GAi4GBsSljLb1rw3RdQmNgYBzASIrYtQfkDc7R0BgGBsbWjLx0nLcEkuvzJBIDA+MAxi/5crJQcWoikwAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

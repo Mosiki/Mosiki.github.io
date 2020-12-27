@@ -1,234 +1,308 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>实用主义之自定义SpringBootStarter - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/custom-springboot-starter.html">
-    
-    
-    <title>实用主义之自定义SpringBootStarter | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="自定义SpringBootStarter,LocalDateTime格式化,SpringBootStarter实际应用">
-    <meta name="description" content="今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。 SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们">
-<meta name="keywords" content="自定义SpringBootStarter,LocalDateTime格式化,SpringBootStarter实际应用">
-<meta property="og:type" content="article">
-<meta property="og:title" content="实用主义之自定义SpringBootStarter">
-<meta property="og:url" content="http://nullpointer.pw/custom-springboot-starter.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。 SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们自己也会封装一些比较通用的代码 jar 包，引入到新的项目中很难避免添加相应的配">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/blog/image-20200516184327486.png">
-<meta property="og:updated_time" content="2020-05-16T11:51:56.548Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="实用主义之自定义SpringBootStarter">
-<meta name="twitter:description" content="今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。 SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们自己也会封装一些比较通用的代码 jar 包，引入到新的项目中很难避免添加相应的配">
-<meta name="twitter:image" content="http://img12345.5-project.com/blog/image-20200516184327486.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">实用主义之自定义SpringBootStarter</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a11.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="实用主义之自定义SpringBootStarter">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-16 18:50" pubdate>
+        2020年5月16日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">实用主义之自定义SpringBootStarter</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2020-05-16T10:50:32.000Z" itemprop="datePublished" class="page-time">
-  2020-05-16
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#引入-Starter-初衷"><span class="post-toc-number">1.</span> <span class="post-toc-text">引入 Starter 初衷</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#自定义-Starter"><span class="post-toc-number">2.</span> <span class="post-toc-text">自定义 Starter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建一个-starter-工程"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">创建一个 starter 工程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#定义自动配置类"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">定义自动配置类</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#让配置类生效"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">让配置类生效</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Install-本地-maven-仓库"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">Install 本地 maven 仓库</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#测试-starter"><span class="post-toc-number">3.</span> <span class="post-toc-text">测试 starter</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#引入自定义的-starter"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">引入自定义的 starter</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#开启-starter-时间格式化功能"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">开启 starter 时间格式化功能</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动项目测试"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">启动项目测试</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#优化-starter-属性提示"><span class="post-toc-number">4.</span> <span class="post-toc-text">优化 starter 属性提示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#代码下载"><span class="post-toc-number">6.</span> <span class="post-toc-text">代码下载</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-实用主义之自定义SpringBootStarter"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">实用主义之自定义SpringBootStarter</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2020-05-16 18:50:32" datetime="2020-05-16T10:50:32.000Z"  itemprop="datePublished">2020-05-16</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">实用主义之自定义SpringBootStarter</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。</p>
+            <div class="markdown-body">
+              <p>今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。</p>
 <p>SpringBoot 相对于 Spring 最大的优点就是提供了相当数量的 starter，只需引入 starter 进行极少量的配置就可使用相应的功能，有效减少 Spring 冗余复杂的配置文件。但日常工作当中，我们自己也会封装一些比较通用的代码 jar 包，引入到新的项目中很难避免添加相应的配置，比如 Bean 的声明。借鉴 SpringBoot 官方做法，我们自己也可以自定义所需要的 Starter。</p>
 <p>今天以统一项目日期格式化功能为例，从头到尾地介绍如何自定义一个 Starter。</p>
 <a id="more"></a>
+
 <h2 id="引入-Starter-初衷"><a href="#引入-Starter-初衷" class="headerlink" title="引入 Starter 初衷"></a>引入 Starter 初衷</h2><p>对于一个需要提供 HTTP 接口的服务来说，日期的格式化为友好的格式返回是一个无法避免的问题。实体类结构如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Example</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> LocalDateTime localDateTime;</span><br><span class="line">    <span class="keyword">private</span> LocalDate localDate;</span><br><span class="line">    <span class="keyword">private</span> Date date;</span><br><span class="line">    <span class="keyword">private</span> LocalTime localTime;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Example</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> LocalDateTime localDateTime;<br>    <span class="hljs-keyword">private</span> LocalDate localDate;<br>    <span class="hljs-keyword">private</span> Date date;<br>    <span class="hljs-keyword">private</span> LocalTime localTime;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>做法有很多，第一种是比如数据库实体类字段使用的是 Date 类型，LocalDateTime 类型，返回给前端的 VO 中字段则使用 Long 类型或者 String 类型，在实体类进行转换的过程中转换时间类型。</p>
 <p>第二种方式是可以使用<code>@JsonFormat(pattern = &quot;yyyy-MM-dd HH:mm:ss&quot;)</code>注解的方式，不过这种方式就需要在所有的 VO 上添加这个注解。</p>
 <p>第三种方式是还可以在 application.yml 中配置如下</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  jackson:</span></span><br><span class="line"><span class="attr">    date-format:</span> <span class="string">yyyy-MM-dd</span> <span class="attr">HH:mm:ss</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">jackson:</span><br>    <span class="hljs-attr">date-format:</span> <span class="hljs-string">yyyy-MM-dd</span> <span class="hljs-string">HH:mm:ss</span><br></code></pre></div></td></tr></table></figure>
 <p>前两种方式都比较 low，暂且不谈，第三种方式可以实现统一全局 Date 类型的格式化，但是随着 Java8 的广泛应用，Java8 新的 Time 相关类使用更多，而第三种方式无法实现 LocalDateTime 等格式化。</p>
 <p>访问接口 <code>http://127.0.0.1:8083/learning-example/test</code></p>
 <p>未添加配置前返回：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"data"</span>: &#123;</span><br><span class="line">        <span class="attr">"localDateTime"</span>: <span class="string">"2020-05-14T10:15:13.311"</span>,</span><br><span class="line">        <span class="attr">"localDate"</span>: <span class="string">"2020-05-14"</span>,</span><br><span class="line">        <span class="attr">"date"</span>: <span class="string">"2020-05-14T02:15:13.306+0000"</span>,</span><br><span class="line">        <span class="attr">"localTime"</span>: <span class="string">"10:15:13.311"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"success"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>添加配置后返回：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"data"</span>: &#123;</span><br><span class="line">        <span class="attr">"localDateTime"</span>: <span class="string">"2020-05-14T10:17:37.437"</span>,</span><br><span class="line">        <span class="attr">"localDate"</span>: <span class="string">"2020-05-14"</span>,</span><br><span class="line">        <span class="attr">"date"</span>: <span class="string">"2020-05-14 02:17:37"</span>,</span><br><span class="line">        <span class="attr">"localTime"</span>: <span class="string">"10:17:37.437"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"success"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;localDateTime&quot;</span>: <span class="hljs-string">&quot;2020-05-14T10:15:13.311&quot;</span>,<br>        <span class="hljs-attr">&quot;localDate&quot;</span>: <span class="hljs-string">&quot;2020-05-14&quot;</span>,<br>        <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2020-05-14T02:15:13.306+0000&quot;</span>,<br>        <span class="hljs-attr">&quot;localTime&quot;</span>: <span class="hljs-string">&quot;10:15:13.311&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>添加配置后返回：</p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;localDateTime&quot;</span>: <span class="hljs-string">&quot;2020-05-14T10:17:37.437&quot;</span>,<br>        <span class="hljs-attr">&quot;localDate&quot;</span>: <span class="hljs-string">&quot;2020-05-14&quot;</span>,<br>        <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2020-05-14 02:17:37&quot;</span>,<br>        <span class="hljs-attr">&quot;localTime&quot;</span>: <span class="hljs-string">&quot;10:17:37.437&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>发现即便添加 <code>spring.jackson.date-format</code> 配置，也仅仅对 Date 类型的生效完成格式化，而 Java 8 新的时间对象均未起到作用。</p>
 <p>下面通过解决以上问题过程，来示范如何自定义一个 SpringBoot Starter</p>
 <h2 id="自定义-Starter"><a href="#自定义-Starter" class="headerlink" title="自定义 Starter"></a>自定义 Starter</h2><h3 id="创建一个-starter-工程"><a href="#创建一个-starter-工程" class="headerlink" title="创建一个 starter 工程"></a>创建一个 starter 工程</h3><p>spring Boot starter 的工程官方给出了规范，如下</p>
@@ -247,349 +321,309 @@
 </ul>
 </blockquote>
 <p>新建工程命名为 <code>common-spring-boot-starter</code>，添加相关依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--生成属性提示--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--jackson --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-json<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--生成属性提示--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">optional</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">optional</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-comment">&lt;!--jackson --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-json<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="定义自动配置类"><a href="#定义自动配置类" class="headerlink" title="定义自动配置类"></a>定义自动配置类</h3><p>为了使 starter 更灵活，便于自定义，比如是否启用全局格式化，格式化的格式等，提供 starter 配置开关来控制。</p>
 <p>通过配合使用 <code>@ConditionalOnProperty</code> 注解，来达到自定义是否开启全局格式化开关的目的，只有当配置中存在 <code>common.date-format.enabled</code> ，且值为 true 时，才启用。</p>
 <p>通过 <code>@EnableConfigurationProperties</code> 注解加载配置，可以自行定义格式化的格式，比如 LocalDate 默认格式为 <code>yyyy-MM-dd</code>，可以在配置文件中修改为 <code>yyyy/MM/dd</code>，可以做到相当灵活。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(DateFormatProperties.class)</span><br><span class="line"><span class="meta">@ConditionalOnProperty</span>(prefix = <span class="string">"common.date-format"</span>, name = <span class="string">"enabled"</span>, matchIfMissing = <span class="keyword">false</span>, havingValue = <span class="string">"true"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DateFormatAutoConfiguration</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> DateFormatProperties dateFormatProperties;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DateFormatAutoConfiguration</span><span class="params">(DateFormatProperties dateFormatProperties)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.dateFormatProperties = dateFormatProperties;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Jackson2ObjectMapperBuilderCustomizer <span class="title">customizer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> builder -&gt; &#123;</span><br><span class="line">            builder.locale(Locale.CHINA);</span><br><span class="line">            builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));</span><br><span class="line">            builder.simpleDateFormat(dateFormatProperties.getDatePattern());</span><br><span class="line">            builder.modules(<span class="keyword">new</span> JavaTimeModule());</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">JavaTimeModule</span> <span class="keyword">extends</span> <span class="title">SimpleModule</span> </span>&#123;</span><br><span class="line">        JavaTimeModule() &#123;</span><br><span class="line">            <span class="keyword">super</span>(PackageVersion.VERSION);</span><br><span class="line">            DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalDateTimePattern());</span><br><span class="line">            DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalDatePattern());</span><br><span class="line">            DateTimeFormatter localTimeFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalTimePattern());</span><br><span class="line"></span><br><span class="line">            <span class="keyword">this</span>.addSerializer(LocalDateTime.class, <span class="keyword">new</span> LocalDateTimeSerializer(localDateTimeFormatter));</span><br><span class="line">            <span class="keyword">this</span>.addSerializer(LocalDate.class, <span class="keyword">new</span> LocalDateSerializer(localDateFormatter));</span><br><span class="line">            <span class="keyword">this</span>.addSerializer(LocalTime.class, <span class="keyword">new</span> LocalTimeSerializer(localTimeFormatter));</span><br><span class="line">            <span class="keyword">this</span>.addDeserializer(LocalDateTime.class, <span class="keyword">new</span> LocalDateTimeDeserializer(localDateTimeFormatter));</span><br><span class="line">            <span class="keyword">this</span>.addDeserializer(LocalDate.class, <span class="keyword">new</span> LocalDateDeserializer(localDateFormatter));</span><br><span class="line">            <span class="keyword">this</span>.addDeserializer(LocalTime.class, <span class="keyword">new</span> LocalTimeDeserializer(localTimeFormatter));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> WeJan</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 2020-05-14</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(<span class="string">"common.date-format"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DateFormatProperties</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Date Format Pattern</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String datePattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * LocalDateTime Format Pattern</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String localDateTimePattern = <span class="string">"yyyy-MM-dd HH:mm:ss"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * LocalDate Format Pattern</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String localDatePattern = <span class="string">"yyyy-MM-dd"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * LocalTime Format Pattern</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String localTimePattern = <span class="string">"HH:mm:ss"</span>;</span><br><span class="line">		</span><br><span class="line">  	<span class="comment">// TODO 篇幅限制，此处省略 getter/setter 方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-meta">@EnableConfigurationProperties(DateFormatProperties.class)</span><br><span class="hljs-meta">@ConditionalOnProperty(prefix = &quot;common.date-format&quot;, name = &quot;enabled&quot;, matchIfMissing = false, havingValue = &quot;true&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateFormatAutoConfiguration</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> DateFormatProperties dateFormatProperties;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DateFormatAutoConfiguration</span><span class="hljs-params">(DateFormatProperties dateFormatProperties)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.dateFormatProperties = dateFormatProperties;<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Jackson2ObjectMapperBuilderCustomizer <span class="hljs-title">customizer</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> builder -&gt; &#123;<br>            builder.locale(Locale.CHINA);<br>            builder.timeZone(TimeZone.getTimeZone(ZoneId.systemDefault()));<br>            builder.simpleDateFormat(dateFormatProperties.getDatePattern());<br>            builder.modules(<span class="hljs-keyword">new</span> JavaTimeModule());<br>        &#125;;<br>    &#125;<br><br>    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaTimeModule</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">SimpleModule</span> </span>&#123;<br>        JavaTimeModule() &#123;<br>            <span class="hljs-keyword">super</span>(PackageVersion.VERSION);<br>            DateTimeFormatter localDateTimeFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalDateTimePattern());<br>            DateTimeFormatter localDateFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalDatePattern());<br>            DateTimeFormatter localTimeFormatter = DateTimeFormatter.ofPattern(dateFormatProperties.getLocalTimePattern());<br><br>            <span class="hljs-keyword">this</span>.addSerializer(LocalDateTime.class, <span class="hljs-keyword">new</span> LocalDateTimeSerializer(localDateTimeFormatter));<br>            <span class="hljs-keyword">this</span>.addSerializer(LocalDate.class, <span class="hljs-keyword">new</span> LocalDateSerializer(localDateFormatter));<br>            <span class="hljs-keyword">this</span>.addSerializer(LocalTime.class, <span class="hljs-keyword">new</span> LocalTimeSerializer(localTimeFormatter));<br>            <span class="hljs-keyword">this</span>.addDeserializer(LocalDateTime.class, <span class="hljs-keyword">new</span> LocalDateTimeDeserializer(localDateTimeFormatter));<br>            <span class="hljs-keyword">this</span>.addDeserializer(LocalDate.class, <span class="hljs-keyword">new</span> LocalDateDeserializer(localDateFormatter));<br>            <span class="hljs-keyword">this</span>.addDeserializer(LocalTime.class, <span class="hljs-keyword">new</span> LocalTimeDeserializer(localTimeFormatter));<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> WeJan</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@since</span> 2020-05-14</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@ConfigurationProperties(&quot;common.date-format&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DateFormatProperties</span> </span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Date Format Pattern</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String datePattern = <span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * LocalDateTime Format Pattern</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String localDateTimePattern = <span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * LocalDate Format Pattern</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String localDatePattern = <span class="hljs-string">&quot;yyyy-MM-dd&quot;</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * LocalTime Format Pattern</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String localTimePattern = <span class="hljs-string">&quot;HH:mm:ss&quot;</span>;<br>		<br>  	<span class="hljs-comment">// TODO 篇幅限制，此处省略 getter/setter 方法</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h3 id="让配置类生效"><a href="#让配置类生效" class="headerlink" title="让配置类生效"></a>让配置类生效</h3><p>上文仅定义了自动配置类，但是想要让 Spring 加载这个配置类，还需要在 starter 工程中添加 <strong>spring.factories</strong> </p>
 <p>在 <code>resources</code> 目录下建立 <strong>META-INF</strong> 文件夹，再创建 <strong>spring.factories</strong> 文件，再指定自动配置类的全限定类名。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\</span><br><span class="line">pw.nullpointer.boot.autoconfigure.date.DateFormatAutoConfiguration</span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus">org<span class="hljs-selector-class">.springframework</span><span class="hljs-selector-class">.boot</span><span class="hljs-selector-class">.autoconfigure</span>.EnableAutoConfiguration=\<br>pw<span class="hljs-selector-class">.nullpointer</span><span class="hljs-selector-class">.boot</span><span class="hljs-selector-class">.autoconfigure</span><span class="hljs-selector-class">.date</span>.DateFormatAutoConfiguration<br></code></pre></div></td></tr></table></figure>
 <h3 id="Install-本地-maven-仓库"><a href="#Install-本地-maven-仓库" class="headerlink" title="Install 本地 maven 仓库"></a>Install 本地 maven 仓库</h3><p>执行 mvn install，安装到本地 maven 仓库</p>
 <h2 id="测试-starter"><a href="#测试-starter" class="headerlink" title="测试 starter"></a>测试 starter</h2><h3 id="引入自定义的-starter"><a href="#引入自定义的-starter" class="headerlink" title="引入自定义的 starter"></a>引入自定义的 starter</h3><p>创建 example 工程，引入刚才 install 到 maven 仓库的 starter</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>pw.nullpointer.tp<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>pw.nullpointer.tp<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>common-spring-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="开启-starter-时间格式化功能"><a href="#开启-starter-时间格式化功能" class="headerlink" title="开启 starter 时间格式化功能"></a>开启 starter 时间格式化功能</h3><p>上文中自定义的 starter 默认设置的是不启用，因此需要在配置文件<code>application.yml</code>中启用一下格式化功能。</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">common:</span></span><br><span class="line"><span class="attr">  date-format:</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span>  <span class="comment"># 开启时间格式化功能</span></span><br></pre></td></tr></table></figure>
-<h3 id="启动项目测试"><a href="#启动项目测试" class="headerlink" title="启动项目测试"></a>启动项目测试</h3><p>访问接口：<a href="http://127.0.0.1:8083/learning-example/test，返回如下：">http://127.0.0.1:8083/learning-example/test，返回如下：</a></p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"data"</span>: &#123;</span><br><span class="line">        <span class="attr">"localDateTime"</span>: <span class="string">"2020-05-14 11:22:29"</span>,</span><br><span class="line">        <span class="attr">"localDate"</span>: <span class="string">"2020-05-14"</span>,</span><br><span class="line">        <span class="attr">"date"</span>: <span class="string">"2020-05-14 11:22:29"</span>,</span><br><span class="line">        <span class="attr">"localTime"</span>: <span class="string">"11:22:29"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"success"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">common:</span><br>  <span class="hljs-attr">date-format:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span>  <span class="hljs-comment"># 开启时间格式化功能</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="启动项目测试"><a href="#启动项目测试" class="headerlink" title="启动项目测试"></a>启动项目测试</h3><p>访问接口：<a href="http://127.0.0.1:8083/learning-example/test%EF%BC%8C%E8%BF%94%E5%9B%9E%E5%A6%82%E4%B8%8B%EF%BC%9A">http://127.0.0.1:8083/learning-example/test，返回如下：</a></p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;localDateTime&quot;</span>: <span class="hljs-string">&quot;2020-05-14 11:22:29&quot;</span>,<br>        <span class="hljs-attr">&quot;localDate&quot;</span>: <span class="hljs-string">&quot;2020-05-14&quot;</span>,<br>        <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2020-05-14 11:22:29&quot;</span>,<br>        <span class="hljs-attr">&quot;localTime&quot;</span>: <span class="hljs-string">&quot;11:22:29&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>可以看到格式化已经生效了，顺便测试一下自定义格式化，修改 application.yml 文件</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">common:</span></span><br><span class="line"><span class="attr">  date-format:</span></span><br><span class="line"><span class="attr">    enabled:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    local-date-pattern:</span> <span class="string">yyyy/MM/dd</span></span><br></pre></td></tr></table></figure>
-<p>再次测试，接口返回：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"data"</span>: &#123;</span><br><span class="line">        <span class="attr">"localDateTime"</span>: <span class="string">"2020-05-14 11:27:16"</span>,</span><br><span class="line">        <span class="attr">"localDate"</span>: <span class="string">"2020/05/14"</span>,</span><br><span class="line">        <span class="attr">"date"</span>: <span class="string">"2020-05-14 11:27:16"</span>,</span><br><span class="line">        <span class="attr">"localTime"</span>: <span class="string">"11:27:16"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"success"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="优化-starter-属性提示"><a href="#优化-starter-属性提示" class="headerlink" title="优化 starter 属性提示"></a>优化 starter 属性提示</h2><p>在使用 springboot 官方 starter 过程中，在编写 application.yml 的过程中，有哪些属性，IDEA 会自动提示出来，为了达到这种效果，需要引入依赖 <code>spring-boot-configuration-processor</code>，引入后，starter 在打包的过程中，会自动生成 <code>spring-configuration-metadata.json</code> 文件，使用 starter 过程中便有相应的提示了。前文初始化 starter 的过程中，我们已经引入过这个依赖了，所以就不用再重复引入了。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">common:</span><br>  <span class="hljs-attr">date-format:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">local-date-pattern:</span> <span class="hljs-string">yyyy/MM/dd</span><br></code></pre></div></td></tr></table></figure>
+<p>再次测试，接口返回：</p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;data&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;localDateTime&quot;</span>: <span class="hljs-string">&quot;2020-05-14 11:27:16&quot;</span>,<br>        <span class="hljs-attr">&quot;localDate&quot;</span>: <span class="hljs-string">&quot;2020/05/14&quot;</span>,<br>        <span class="hljs-attr">&quot;date&quot;</span>: <span class="hljs-string">&quot;2020-05-14 11:27:16&quot;</span>,<br>        <span class="hljs-attr">&quot;localTime&quot;</span>: <span class="hljs-string">&quot;11:27:16&quot;</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;success&quot;</span>: <span class="hljs-literal">true</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="优化-starter-属性提示"><a href="#优化-starter-属性提示" class="headerlink" title="优化 starter 属性提示"></a>优化 starter 属性提示</h2><p>在使用 springboot 官方 starter 过程中，在编写 application.yml 的过程中，有哪些属性，IDEA 会自动提示出来，为了达到这种效果，需要引入依赖 <code>spring-boot-configuration-processor</code>，引入后，starter 在打包的过程中，会自动生成 <code>spring-configuration-metadata.json</code> 文件，使用 starter 过程中便有相应的提示了。前文初始化 starter 的过程中，我们已经引入过这个依赖了，所以就不用再重复引入了。</p>
+<figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">optional</span>&gt;</span>true<span class="hljs-tag">&lt;/<span class="hljs-name">optional</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <p>但只根据这个依赖生成的<code>spring-configuration-metadata.json</code> 文件，使用过程中可以发现 <code>common.date-format.enabled</code> 这个属性开关是没有提示出来的，可以猜测到 <code>spring-boot-configuration-processor</code>是根据属性生成的，但是 enabled 这个非属性，所以无法生成。为了方便使用 starter 的人，我们可以追加一个 <code>additional-spring-configuration-metadata.json</code> 文件，手动添加相应的提示，文件内容：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"properties"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">"name"</span>: <span class="string">"common.date-format.enabled"</span>,</span><br><span class="line">      <span class="attr">"type"</span>: <span class="string">"java.lang.Boolean"</span>,</span><br><span class="line">      <span class="attr">"description"</span>: <span class="string">"是否开启时间格式化"</span>,</span><br><span class="line">      <span class="attr">"defaultValue"</span>: <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;properties&quot;</span>: [<br>    &#123;<br>      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;common.date-format.enabled&quot;</span>,<br>      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;java.lang.Boolean&quot;</span>,<br>      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;是否开启时间格式化&quot;</span>,<br>      <span class="hljs-attr">&quot;defaultValue&quot;</span>: <span class="hljs-literal">false</span><br>    &#125;<br>  ]<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>使用效果：</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/blog/image-20200516184327486.png" alt="image-20200516184327486" title="">
-                </div>
-                <div class="image-caption">image-20200516184327486</div>
-            </figure>
+<p><img src="http://img12345.5-project.com/blog/image-20200516184327486.png" srcset="/img/loading.gif" alt="image-20200516184327486"></p>
 <p>测试完毕，为了方便使用，可以将自定义的 starter 发布到公司的私服。<code>mvn deploy</code></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过讲解实现一个项目时间全局格式化功能，如何自定义一个 springboot starter，当然 starter 功能不仅限如此，可以自行触类旁通扩展，比如项目的登录拦截器、通用日志、全局异常处理等工程都可以作为 starter 的一部分来实现，读者若看完有帮助并实践应用，可以评论留言应用的场景。</p>
 <h2 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h2><ul>
 <li><a href="https://github.com/Mosiki/learning-modules/tree/master/learning-springboot">https://github.com/Mosiki/learning-modules/tree/master/learning-springboot</a></li>
 </ul>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-05-16T11:51:56.548Z" itemprop="dateUpdated">2020-05-16 19:51:56</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/custom-springboot-starter.html" target="_blank" rel="external">http://nullpointer.pw/custom-springboot-starter.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LocalDateTime格式化/">LocalDateTime格式化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBootStarter实际应用/">SpringBootStarter实际应用</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自定义SpringBootStarter/">自定义SpringBootStarter</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/custom-springboot-starter.html&title=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/custom-springboot-starter.html&title=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&source=今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。
-SpringBoot 相对于 Spring 最大的优..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/custom-springboot-starter.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&url=http://nullpointer.pw/custom-springboot-starter.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/custom-springboot-starter.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/interface-authentication.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">接口鉴权签名实践</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/spring-condition-annotation.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">利用Spring的@ConditionXXX注解实现策略模式</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%87%AA%E5%AE%9A%E4%B9%89SpringBootStarter/">自定义SpringBootStarter</a>
+                    
+                      <a class="hover-with-bg" href="/tags/LocalDateTime%E6%A0%BC%E5%BC%8F%E5%8C%96/">LocalDateTime格式化</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SpringBootStarter%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/">SpringBootStarter实际应用</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/interface-authentication.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">接口鉴权签名实践</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/spring-condition-annotation.html">
+                        <span class="hidden-mobile">利用Spring的@ConditionXXX注解实现策略模式</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/custom-springboot-starter.html&title=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/custom-springboot-starter.html&title=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&source=今天以实用角度切入，来示范自定义 springboot starter 在项目开发过程中的实际应用。
-SpringBoot 相对于 Spring 最大的优..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/custom-springboot-starter.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《实用主义之自定义SpringBootStarter》 — WeJan's Blog&url=http://nullpointer.pw/custom-springboot-starter.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/custom-springboot-starter.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3a0Y6DMAwEwP7/T3PPFQLWTnoSyeSpqijHcNIqdvz5xOs4rfP35+vv73b1+f63QwsDA+O1jON2zXpP93dI/u7VNRgYGPswqrGYhGnOu6Imz4aBgYFxdc39N73QxMDAwJjL6MVldQOKgYGBUS1ik9uNlKkjYY2BgbE2o1dq/s/nn5xvYGBgvIpxFNdIUZoHZfmpMDAwlmbkAZc87kjDrhq4GBgYezJ6DbX7QjQJ2aSgjV4cBgbGoow8RpshWHwR1ePMyx0uBgbGQoyRvMrHW/NydySsMTAw1mb0HqvaIMsPMqujYxgYGDsw8rj83ZYxL2If/g8YGBjLMfJHTzZ5vS3gSAH8VYtjYGAsyqiOO+RxnBelvUCPRjcwMDA2YIyMU1Tb+vn1+XgZBgbGGoxqUPZaadVyt/xaMTAwtmRUi9hq06269YxmRjAwMDZg9Jr1vSGJZMNXOEbFwMBYmlFt+n/iNdKAyxttDyMXGBgYCzGSlllvm5iEb95ie0BiYGBsyehdUx3RGAFEgYuBgbEBIx+SmNWlz4tYDAyM3Ri9LV0eo+NF8sOvMDAwFmUcxdUL6HyMI4ng5ukoBgbGaxnVRn8SynOPBKJhCwwMjA0Y1ZAt7DqDa6plbVTEYmBgLMroHS5WW2Y5pjpGhoGBgZEHX36EUB2neKBiYGBgtA4J5pIe7o+BgbEBI2/Wj28cE0b+4jAwMHZg5KVjr6E263RiwqEmBgbG+xh/az/6CD0zCOcAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

@@ -1,232 +1,298 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>和我一起打造个简单搜索之ElasticSearch集群搭建 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/和我一起打造个简单搜索之ElasticSearch集群搭建.html">
-    
-    
-    <title>和我一起打造个简单搜索之ElasticSearch集群搭建 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="ElasticSearch环境搭建">
-    <meta name="description" content="我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。 站内搜索对于一个网站几乎是标配，只是搜索的强大与否的区别，有的网站只支持关键词模糊搜索，而淘宝，京东提供了精细的筛选条件，同时支持">
-<meta name="keywords" content="ElasticSearch环境搭建">
-<meta property="og:type" content="article">
-<meta property="og:title" content="和我一起打造个简单搜索之ElasticSearch集群搭建">
-<meta property="og:url" content="http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。 站内搜索对于一个网站几乎是标配，只是搜索的强大与否的区别，有的网站只支持关键词模糊搜索，而淘宝，京东提供了精细的筛选条件，同时支持拼音搜索等更方便的搜索方式。 由于笔者在一家做网络文学的公司工作，所以实现就是以">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/201809061536241809780.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180906153624364960006.png">
-<meta property="og:updated_time" content="2020-01-22T14:31:09.646Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="和我一起打造个简单搜索之ElasticSearch集群搭建">
-<meta name="twitter:description" content="我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。 站内搜索对于一个网站几乎是标配，只是搜索的强大与否的区别，有的网站只支持关键词模糊搜索，而淘宝，京东提供了精细的筛选条件，同时支持拼音搜索等更方便的搜索方式。 由于笔者在一家做网络文学的公司工作，所以实现就是以">
-<meta name="twitter:image" content="http://img12345.5-project.com/201809061536241809780.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">和我一起打造个简单搜索之ElasticSearch集群搭建</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a30.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="和我一起打造个简单搜索之ElasticSearch集群搭建">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-09-13 21:44" pubdate>
+        2018年9月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">和我一起打造个简单搜索之ElasticSearch集群搭建</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-09-13T13:44:35.000Z" itemprop="datePublished" class="page-time">
-  2018-09-13
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系列文章"><span class="post-toc-number">2.</span> <span class="post-toc-text">系列文章</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备之-ES-集群搭建"><span class="post-toc-number">3.</span> <span class="post-toc-text">环境准备之 ES 集群搭建</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#master-配置"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">master 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#slave-配置"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">slave 配置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#添加用户"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">添加用户</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动集群中的-master"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">启动集群中的 master</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#验证启动"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">验证启动</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#后台守护进程启动-es-集群"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">后台守护进程启动 es 集群</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境准备之-elasticsearch-head-安装"><span class="post-toc-number">4.</span> <span class="post-toc-text">环境准备之 elasticsearch head 安装</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#分词"><span class="post-toc-number">5.</span> <span class="post-toc-text">分词</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有疑问"><span class="post-toc-number">6.</span> <span class="post-toc-text">有疑问?</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-和我一起打造个简单搜索之ElasticSearch集群搭建"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">和我一起打造个简单搜索之ElasticSearch集群搭建</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-09-13 21:44:35" datetime="2018-09-13T13:44:35.000Z"  itemprop="datePublished">2018-09-13</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">和我一起打造个简单搜索之ElasticSearch集群搭建</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。</p>
+            <div class="markdown-body">
+              <p>我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。</p>
 <p>站内搜索对于一个网站几乎是标配，只是搜索的强大与否的区别，有的网站只支持关键词模糊搜索，而淘宝，京东提供了精细的筛选条件，同时支持拼音搜索等更方便的搜索方式。</p>
 <p>由于笔者在一家做网络文学的公司工作，所以实现就是以小说为商品的搜索，具体可以参考起点网小说的搜索。</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/201809061536241809780.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/201809061536241809780.png" srcset="/img/loading.gif"></p>
 <p>如图所示，起点网的搜索提供了关键词搜索和排序条件以及筛选条件，接下来，我们一起来实现这个吧~</p>
 <a id="more"></a>
+
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>本文以及后续 es 系列文章都基于 <strong>5.5.3</strong> 这个版本的 elasticsearch ，这个版本比较稳定，可以用于生产环境。</p>
 <h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li>一、<a href="http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html">和我一起打造个简单搜索之ElasticSearch集群搭建</a></li>
@@ -237,338 +303,295 @@
 <li>六、<a href="http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html">和我一起打造个简单搜索之SpringDataElasticSearch关键词高亮</a></li>
 <li>…</li>
 </ul>
-<h2 id="环境准备之-ES-集群搭建"><a href="#环境准备之-ES-集群搭建" class="headerlink" title="环境准备之 ES 集群搭建"></a>环境准备之 ES 集群搭建</h2><h3 id="master-配置"><a href="#master-配置" class="headerlink" title="master 配置"></a>master 配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 下载 elasticsearch</span></span></span><br><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.3.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 创建目录</span></span></span><br><span class="line">mkdir /usr/local/es</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 解压文件到 es 目录</span></span></span><br><span class="line">tar -xvf elasticsearch-5.5.3.tar.gz -C /usr/local/es</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 修改 es 的配置文件</span></span></span><br><span class="line">cd /usr/local/es/elasticsearch-5.5.3/config</span><br><span class="line"></span><br><span class="line">vim elasticsearch.yml</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 在文件末尾增加</span></span></span><br><span class="line"></span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: "*"</span><br><span class="line">cluster.name: es-search</span><br><span class="line">node.name: slave1</span><br><span class="line">node.master: true</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 修改 es 的 jvm 设置，如果不调节，可能启动一个 master, slave 就没足够内存来启动了</span></span></span><br><span class="line"></span><br><span class="line">vim jvm.options</span><br><span class="line"></span><br><span class="line">修改</span><br><span class="line">-Xms2g </span><br><span class="line">-Xmx2g</span><br><span class="line">为</span><br><span class="line">-Xms512m</span><br><span class="line">-Xmx512m</span><br><span class="line"></span><br><span class="line">注意，如果是线上，这个内存就不要修改了，使用默认的内存 2G 即可。</span><br></pre></td></tr></table></figure>
-<h3 id="slave-配置"><a href="#slave-配置" class="headerlink" title="slave 配置"></a>slave 配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">## 准备搭建一个伪集群 1个master + 2个slave</span><br><span class="line">cd /usr/local/es</span><br><span class="line"></span><br><span class="line">## 将目录重命名为 master</span><br><span class="line">[root@localhost es]# mv elasticsearch-5.5.3/ master</span><br><span class="line"></span><br><span class="line">##拷贝两份为 slave</span><br><span class="line">[root@localhost es]# cp -r master/ slave1</span><br><span class="line">[root@localhost es]# cp -r master/ slave2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 修改两个 slave 的配置</span><br><span class="line"></span><br><span class="line">### 修改 slave1 的配置</span><br><span class="line">[root@localhost es]# vim slave1/config/elasticsearch.yml</span><br><span class="line"></span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line">cluster.name: es-search</span><br><span class="line">node.name: slave1</span><br><span class="line">## 注意 http 端口不要设置一样，以免冲突</span><br><span class="line">http.port: 8200</span><br><span class="line">#node.master: true</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line"></span><br><span class="line">### 修改 slave2 的配置</span><br><span class="line">[root@localhost es]# vim slave2/config/elasticsearch.yml</span><br><span class="line"></span><br><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br><span class="line">cluster.name: es-search</span><br><span class="line">node.name: slave2</span><br><span class="line">## 注意 http 端口不要设置一样，以免冲突</span><br><span class="line">http.port: 7200</span><br><span class="line">#node.master: true</span><br><span class="line">network.host: 0.0.0.0</span><br></pre></td></tr></table></figure>
-<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">## 启动 es 不能使用 root 用户，所以先需要增加新的用户</span><br><span class="line"></span><br><span class="line">[root@localhost es]# adduser esuser</span><br><span class="line">[root@localhost es]# chown -R esuser /usr/local/es/</span><br><span class="line"></span><br><span class="line">## 切换到 esuser 用户</span><br><span class="line">[root@localhost es]# su esuser</span><br><span class="line">[esuser@localhost es]$ chmod 777 /usr/local/es/</span><br></pre></td></tr></table></figure>
-<h3 id="启动集群中的-master"><a href="#启动集群中的-master" class="headerlink" title="启动集群中的 master"></a>启动集群中的 master</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"># 先测试能否正常启动</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/master/bin/elasticsearch</span><br><span class="line"></span><br><span class="line"># 查看打印的日志信息</span><br><span class="line">[2018-09-02T01:45:21,125][INFO ][o.e.g.GatewayService     ] [master] recovered [0] indices into cluster_state</span><br><span class="line">[2018-09-02T01:45:21,138][INFO ][o.e.h.n.Netty4HttpServerTransport] [master] publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;127.0.0.1:9200&#125;</span><br><span class="line">[2018-09-02T01:45:21,138][INFO ][o.e.n.Node               ] [master] started</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## 启动失败提示</span><br><span class="line">ERROR: [2] bootstrap checks failed</span><br><span class="line">[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]</span><br><span class="line">[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]</span><br><span class="line"></span><br><span class="line">## 切换到 root 用户，修改系统配置</span><br><span class="line">su root</span><br><span class="line"># 输入登录密码</span><br><span class="line"></span><br><span class="line">vim /etc/security/limits.conf</span><br><span class="line"></span><br><span class="line">## 在文件末尾增加，不要去掉前面的 * 号</span><br><span class="line"></span><br><span class="line">* soft nofile 300000</span><br><span class="line">* hard nofile 300000</span><br><span class="line">* soft nproc 102400</span><br><span class="line">* soft memlock unlimited</span><br><span class="line">* hard memlock unlimited</span><br><span class="line"></span><br><span class="line">## 对 sysctl.conf 文件 进行修改</span><br><span class="line">echo &quot;vm.max_map_count=262144&quot; &gt; /etc/sysctl.conf</span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line">## 修改完毕，切换回 esuser 用户身份</span><br><span class="line">su esuser</span><br><span class="line"></span><br><span class="line">## 尝试启动</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/master/bin/elasticsearch</span><br><span class="line"></span><br><span class="line"># 提示已经启动成功了</span><br><span class="line">[2018-09-02T02:10:14,285][INFO ][o.e.h.n.Netty4HttpServerTransport] [master] publish_address &#123;192.168.199.192:9200&#125;, bound_addresses &#123;[::]:9200&#125;</span><br><span class="line">[2018-09-02T02:10:14,285][INFO ][o.e.n.Node               ] [master] started</span><br><span class="line">[2018-09-02T02:10:14,289][INFO ][o.e.g.GatewayService     ] [master] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure>
-<h3 id="验证启动"><a href="#验证启动" class="headerlink" title="验证启动"></a>验证启动</h3><p>使用浏览器访问 <code>http://ip:9200</code> ip 替换你的 ip 地址，我的是 <code>http://192.168.199.192:9200</code></p>
-<p>浏览器响应内容<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    name: "master",</span><br><span class="line">    cluster_name: "es-search",</span><br><span class="line">    cluster_uuid: "JoNUMEKFS06NHNS7p3bdWg",</span><br><span class="line">    version: &#123;</span><br><span class="line">        number: "5.5.3",</span><br><span class="line">        build_hash: "9305a5e",</span><br><span class="line">        build_date: "2017-09-07T15:56:59.599Z",</span><br><span class="line">        build_snapshot: false,</span><br><span class="line">        lucene_version: "6.6.0"</span><br><span class="line">    &#125;,</span><br><span class="line">    tagline: "You Know, for Search"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="环境准备之-ES-集群搭建"><a href="#环境准备之-ES-集群搭建" class="headerlink" title="环境准备之 ES 集群搭建"></a>环境准备之 ES 集群搭建</h2><h3 id="master-配置"><a href="#master-配置" class="headerlink" title="master 配置"></a>master 配置</h3><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 下载 elasticsearch</span></span><br>wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.5.3.tar.gz<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 创建目录</span></span><br>mkdir /usr/local/es<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 解压文件到 es 目录</span></span><br>tar -xvf elasticsearch-5.5.3.tar.gz -C /usr/local/es<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 修改 es 的配置文件</span></span><br>cd /usr/local/es/elasticsearch-5.5.3/config<br><br>vim elasticsearch.yml<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 在文件末尾增加</span></span><br><br>http.cors.enabled: true<br>http.cors.allow-origin: &quot;*&quot;<br>cluster.name: es-search<br>node.name: slave1<br>node.master: true<br>network.host: 0.0.0.0<br><br><span class="hljs-meta">#</span><span class="bash"><span class="hljs-comment"># 修改 es 的 jvm 设置，如果不调节，可能启动一个 master, slave 就没足够内存来启动了</span></span><br><br>vim jvm.options<br><br>修改<br>-Xms2g <br>-Xmx2g<br>为<br>-Xms512m<br>-Xmx512m<br><br>注意，如果是线上，这个内存就不要修改了，使用默认的内存 2G 即可。<br></code></pre></div></td></tr></table></figure>
+<h3 id="slave-配置"><a href="#slave-配置" class="headerlink" title="slave 配置"></a>slave 配置</h3><figure class="highlight yaml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-comment">## 准备搭建一个伪集群 1个master + 2个slave</span><br><span class="hljs-string">cd</span> <span class="hljs-string">/usr/local/es</span><br><br><span class="hljs-comment">## 将目录重命名为 master</span><br>[<span class="hljs-string">root@localhost</span> <span class="hljs-string">es</span>]<span class="hljs-comment"># mv elasticsearch-5.5.3/ master</span><br><br><span class="hljs-comment">##拷贝两份为 slave</span><br>[<span class="hljs-string">root@localhost</span> <span class="hljs-string">es</span>]<span class="hljs-comment"># cp -r master/ slave1</span><br>[<span class="hljs-string">root@localhost</span> <span class="hljs-string">es</span>]<span class="hljs-comment"># cp -r master/ slave2</span><br><br><br><span class="hljs-comment">## 修改两个 slave 的配置</span><br><br><span class="hljs-comment">### 修改 slave1 的配置</span><br>[<span class="hljs-string">root@localhost</span> <span class="hljs-string">es</span>]<span class="hljs-comment"># vim slave1/config/elasticsearch.yml</span><br><br><span class="hljs-attr">http.cors.enabled:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">http.cors.allow-origin:</span> <span class="hljs-string">&quot;*&quot;</span><br><span class="hljs-attr">cluster.name:</span> <span class="hljs-string">es-search</span><br><span class="hljs-attr">node.name:</span> <span class="hljs-string">slave1</span><br><span class="hljs-comment">## 注意 http 端口不要设置一样，以免冲突</span><br><span class="hljs-attr">http.port:</span> <span class="hljs-number">8200</span><br><span class="hljs-comment">#node.master: true</span><br><span class="hljs-attr">network.host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br><br><span class="hljs-comment">### 修改 slave2 的配置</span><br>[<span class="hljs-string">root@localhost</span> <span class="hljs-string">es</span>]<span class="hljs-comment"># vim slave2/config/elasticsearch.yml</span><br><br><span class="hljs-attr">http.cors.enabled:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">http.cors.allow-origin:</span> <span class="hljs-string">&quot;*&quot;</span><br><span class="hljs-attr">cluster.name:</span> <span class="hljs-string">es-search</span><br><span class="hljs-attr">node.name:</span> <span class="hljs-string">slave2</span><br><span class="hljs-comment">## 注意 http 端口不要设置一样，以免冲突</span><br><span class="hljs-attr">http.port:</span> <span class="hljs-number">7200</span><br><span class="hljs-comment">#node.master: true</span><br><span class="hljs-attr">network.host:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><br></code></pre></div></td></tr></table></figure>
+<h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><figure class="highlight perl"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs perl"><span class="hljs-comment">## 启动 es 不能使用 root 用户，所以先需要增加新的用户</span><br><br>[root@localhost es]<span class="hljs-comment"># adduser esuser</span><br>[root@localhost es]<span class="hljs-comment"># chown -R esuser /usr/local/es/</span><br><br><span class="hljs-comment">## 切换到 esuser 用户</span><br>[root@localhost es]<span class="hljs-comment"># su esuser</span><br>[esuser@localhost es]$ <span class="hljs-keyword">chmod</span> <span class="hljs-number">777</span> /usr/<span class="hljs-keyword">local</span>/es/<br><br></code></pre></div></td></tr></table></figure>
+<h3 id="启动集群中的-master"><a href="#启动集群中的-master" class="headerlink" title="启动集群中的 master"></a>启动集群中的 master</h3><figure class="highlight inform7"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs inform7"># 先测试能否正常启动<br><span class="hljs-comment">[esuser@localhost es]</span>$ /usr/local/es/master/bin/elasticsearch<br><br># 查看打印的日志信息<br><span class="hljs-comment">[2018-09-02T01:45:21,125]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.g.GatewayService     ]</span> <span class="hljs-comment">[master]</span> recovered <span class="hljs-comment">[0]</span> indices into cluster_state<br><span class="hljs-comment">[2018-09-02T01:45:21,138]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.h.n.Netty4HttpServerTransport]</span> <span class="hljs-comment">[master]</span> publish_address &#123;127.0.0.1:9200&#125;, bound_addresses &#123;127.0.0.1:9200&#125;<br><span class="hljs-comment">[2018-09-02T01:45:21,138]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.n.Node               ]</span> <span class="hljs-comment">[master]</span> started<br><br><br>## 启动失败提示<br>ERROR: <span class="hljs-comment">[2]</span> bootstrap checks failed<br><span class="hljs-comment">[1]</span>: max file descriptors <span class="hljs-comment">[4096]</span> for elasticsearch process <span class="hljs-keyword">is</span> too low, increase to at least <span class="hljs-comment">[65536]</span><br><span class="hljs-comment">[2]</span>: max virtual memory areas vm.max_map_count <span class="hljs-comment">[65530]</span> <span class="hljs-keyword">is</span> too low, increase to at least <span class="hljs-comment">[262144]</span><br><br>## 切换到 root 用户，修改系统配置<br>su root<br># 输入登录密码<br><br>vim /etc/security/limits.conf<br><br>## 在文件末尾增加，不要去掉前面的 * 号<br><br>* soft nofile 300000<br>* hard nofile 300000<br>* soft nproc 102400<br>* soft memlock unlimited<br>* hard memlock unlimited<br><br>## 对 sysctl.conf 文件 进行修改<br>echo <span class="hljs-string">&quot;vm.max_map_count=262144&quot;</span> &gt; /etc/sysctl.conf<br>sysctl -p<br><br>## 修改完毕，切换回 esuser 用户身份<br>su esuser<br><br>## 尝试启动<br><span class="hljs-comment">[esuser@localhost es]</span>$ /usr/local/es/master/bin/elasticsearch<br><br># 提示已经启动成功了<br><span class="hljs-comment">[2018-09-02T02:10:14,285]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.h.n.Netty4HttpServerTransport]</span> <span class="hljs-comment">[master]</span> publish_address &#123;192.168.199.192:9200&#125;, bound_addresses &#123;<span class="hljs-comment">[::]</span>:9200&#125;<br><span class="hljs-comment">[2018-09-02T02:10:14,285]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.n.Node               ]</span> <span class="hljs-comment">[master]</span> started<br><span class="hljs-comment">[2018-09-02T02:10:14,289]</span><span class="hljs-comment">[INFO ]</span><span class="hljs-comment">[o.e.g.GatewayService     ]</span> <span class="hljs-comment">[master]</span> recovered <span class="hljs-comment">[0]</span> indices into cluster_state<br></code></pre></div></td></tr></table></figure>
+<h3 id="验证启动"><a href="#验证启动" class="headerlink" title="验证启动"></a>验证启动</h3><p>使用浏览器访问 <code>http://ip:9200 </code> ip 替换你的 ip 地址，我的是 <code>http://192.168.199.192:9200</code></p>
+<p>浏览器响应内容</p>
+<figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    name: &quot;master&quot;,<br>    cluster_name: &quot;es-search&quot;,<br>    cluster_uuid: &quot;JoNUMEKFS06NHNS7p3bdWg&quot;,<br>    version: &#123;<br>        number: &quot;5.5.3&quot;,<br>        build_hash: &quot;9305a5e&quot;,<br>        build_date: &quot;2017-09-07T15:56:59.599Z&quot;,<br>        build_snapshot: false,<br>        lucene_version: &quot;6.6.0&quot;<br>    &#125;,<br>    tagline: &quot;You Know, for Search&quot;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p><strong>注意：如果无法访问，请关闭防火墙</strong></p>
 <h3 id="后台守护进程启动-es-集群"><a href="#后台守护进程启动-es-集群" class="headerlink" title="后台守护进程启动 es 集群"></a>后台守护进程启动 es 集群</h3><p>前文是直接启动，如果按下 ctrl + c 或者结束 ssh 会话，es 会立即停止退出，因此需要通过守护进程后台启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[esuser@localhost es]$ /usr/local/es/master/bin/elasticsearch -d</span><br><span class="line"></span><br><span class="line">## 查看是否启动成功</span><br><span class="line">ps -ef | grep elasticsearch</span><br><span class="line"></span><br><span class="line">## 正常可以看到一个 elasticsearch 进程</span><br><span class="line"></span><br><span class="line">## 如前文一样，分别测试两个 slave 是否可以正常启动</span><br><span class="line"></span><br><span class="line">### 测试slave1</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/slave1/bin/elasticsearch -d</span><br><span class="line"></span><br><span class="line">### 浏览器访问 http://ip:8200，响应为：</span><br><span class="line">&#123;</span><br><span class="line">    &quot;name&quot;:&quot;slave1&quot;,</span><br><span class="line">    &quot;cluster_name&quot;:&quot;es-search&quot;,</span><br><span class="line">    &quot;cluster_uuid&quot;:&quot;JoNUMEKFS06NHNS7p3bdWg&quot;,</span><br><span class="line">    &quot;version&quot;:&#123;</span><br><span class="line">        &quot;number&quot;:&quot;5.5.3&quot;,</span><br><span class="line">        &quot;build_hash&quot;:&quot;9305a5e&quot;,</span><br><span class="line">        &quot;build_date&quot;:&quot;2017-09-07T15:56:59.599Z&quot;,</span><br><span class="line">        &quot;build_snapshot&quot;:false,</span><br><span class="line">        &quot;lucene_version&quot;:&quot;6.6.0&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;tagline&quot;:&quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">### 测试slave2</span><br><span class="line">[esuser@localhost es]$ /usr/local/es/slave2/bin/elasticsearch -d</span><br><span class="line">### 浏览器访问 http://ip:8200，响应为：</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    name: &quot;slave2&quot;,</span><br><span class="line">    cluster_name: &quot;es-search&quot;,</span><br><span class="line">    cluster_uuid: &quot;JoNUMEKFS06NHNS7p3bdWg&quot;,</span><br><span class="line">    version: &#123;</span><br><span class="line">        number: &quot;5.5.3&quot;,</span><br><span class="line">        build_hash: &quot;9305a5e&quot;,</span><br><span class="line">        build_date: &quot;2017-09-07T15:56:59.599Z&quot;,</span><br><span class="line">        build_snapshot: false,</span><br><span class="line">        lucene_version: &quot;6.6.0&quot;</span><br><span class="line">    &#125;,</span><br><span class="line">    tagline: &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dts"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs dts"><br>[esuser@localhost es]$ <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/es/</span>master<span class="hljs-meta-keyword">/bin/</span>elasticsearch -d<br><br><span class="hljs-meta">## 查看是否启动成功</span><br>ps -ef | grep elasticsearch<br><br><span class="hljs-meta">## 正常可以看到一个 elasticsearch 进程</span><br><br><span class="hljs-meta">## 如前文一样，分别测试两个 slave 是否可以正常启动</span><br><br><span class="hljs-meta">### 测试slave1</span><br>[esuser@localhost es]$ <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/es/</span>slave1<span class="hljs-meta-keyword">/bin/</span>elasticsearch -d<br><br><span class="hljs-meta">### 浏览器访问 http:<span class="hljs-comment">//ip:8200，响应为：</span></span><br>&#123;<br>    <span class="hljs-string">&quot;name&quot;</span>:<span class="hljs-string">&quot;slave1&quot;</span>,<br>    <span class="hljs-string">&quot;cluster_name&quot;</span>:<span class="hljs-string">&quot;es-search&quot;</span>,<br>    <span class="hljs-string">&quot;cluster_uuid&quot;</span>:<span class="hljs-string">&quot;JoNUMEKFS06NHNS7p3bdWg&quot;</span>,<br>    <span class="hljs-string">&quot;version&quot;</span>:&#123;<br>        <span class="hljs-string">&quot;number&quot;</span>:<span class="hljs-string">&quot;5.5.3&quot;</span>,<br>        <span class="hljs-string">&quot;build_hash&quot;</span>:<span class="hljs-string">&quot;9305a5e&quot;</span>,<br>        <span class="hljs-string">&quot;build_date&quot;</span>:<span class="hljs-string">&quot;2017-09-07T15:56:59.599Z&quot;</span>,<br>        <span class="hljs-string">&quot;build_snapshot&quot;</span>:false,<br>        <span class="hljs-string">&quot;lucene_version&quot;</span>:<span class="hljs-string">&quot;6.6.0&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;tagline&quot;</span>:<span class="hljs-string">&quot;You Know, for Search&quot;</span><br>&#125;<br><br><span class="hljs-meta">### 测试slave2</span><br>[esuser@localhost es]$ <span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/es/</span>slave2<span class="hljs-meta-keyword">/bin/</span>elasticsearch -d<br><span class="hljs-meta">### 浏览器访问 http:<span class="hljs-comment">//ip:8200，响应为：</span></span><br><br>&#123;<br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;slave2&quot;</span>,<br><span class="hljs-symbol">    cluster_name:</span> <span class="hljs-string">&quot;es-search&quot;</span>,<br><span class="hljs-symbol">    cluster_uuid:</span> <span class="hljs-string">&quot;JoNUMEKFS06NHNS7p3bdWg&quot;</span>,<br><span class="hljs-symbol">    version:</span> &#123;<br><span class="hljs-symbol">        number:</span> <span class="hljs-string">&quot;5.5.3&quot;</span>,<br><span class="hljs-symbol">        build_hash:</span> <span class="hljs-string">&quot;9305a5e&quot;</span>,<br><span class="hljs-symbol">        build_date:</span> <span class="hljs-string">&quot;2017-09-07T15:56:59.599Z&quot;</span>,<br><span class="hljs-symbol">        build_snapshot:</span> false,<br><span class="hljs-symbol">        lucene_version:</span> <span class="hljs-string">&quot;6.6.0&quot;</span><br>    &#125;,<br><span class="hljs-symbol">    tagline:</span> <span class="hljs-string">&quot;You Know, for Search&quot;</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>至此完成了 es 集群(伪)的搭建。</p>
 <h2 id="环境准备之-elasticsearch-head-安装"><a href="#环境准备之-elasticsearch-head-安装" class="headerlink" title="环境准备之 elasticsearch head 安装"></a>环境准备之 elasticsearch head 安装</h2><p>为了方便我们观察调试，安装这个 es 插件。</p>
 <p>安装步骤参考官方 <a href="https://github.com/mobz/elasticsearch-head">github</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># 把插件安装到 es 目录下</span><br><span class="line">cd /usr/local/es/</span><br><span class="line"></span><br><span class="line">git clone git://github.com/mobz/elasticsearch-head.git  </span><br><span class="line">cd elasticsearch-head  </span><br><span class="line">npm install</span><br><span class="line">npm run start</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-comment"># 把插件安装到 es 目录下</span><br>cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/es/</span><br><br>git clone git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/mobz/</span>elasticsearch-head.git  <br>cd elasticsearch-head  <br>npm install<br>npm run start<br></code></pre></div></td></tr></table></figure>
 <p>在 <code>npm install</code> 这一步，由于国内网络环境的原因，可能会失败，可以npm 换源重试。</p>
 <p>启动完成后，浏览器访问 <code>http://ip:9100</code>，我的是 <code>http://192.168.199.192:9100/</code></p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/20180906153624364960006.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<p><img src="http://img12345.5-project.com/20180906153624364960006.png" srcset="/img/loading.gif"></p>
 <p>这里需要修改连接地址，为你的 es 所在的 ip:9200。后面集群健康为绿色为正常。</p>
 <p>到这里，插件也就安好了。</p>
 <h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><p>商品搜索，分词是必不可少的，开源的中文分词最有名的莫过于 IK 分词了，同时为了给用户提供更好的体验，同时配置 pinyin 分词，即输入拼音也可以进行搜索，网上也有对应的分词器，在下文中我们一起来配置分词器。</p>
-<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&amp;email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
+<h2 id="有疑问"><a href="#有疑问" class="headerlink" title="有疑问?"></a>有疑问?</h2><p>欢迎来信，<a href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=JVNGSFRlQ0pdSERMSQtGSkg">给我写信</a></p>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-01-22T14:31:09.646Z" itemprop="dateUpdated">2020-01-22 22:31:09</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/和我一起打造个简单搜索之ElasticSearch集群搭建.html" target="_blank" rel="external">http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch环境搭建/">ElasticSearch环境搭建</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&title=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&title=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&source=我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/和我一起打造个简单搜索之ElasticSearch入门.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">和我一起打造个简单搜索之ElasticSearch入门</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/爬虫元素选择技巧.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">爬虫元素选择技巧</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ElasticSearch/">ElasticSearch</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ElasticSearch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">ElasticSearch环境搭建</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E5%85%A5%E9%97%A8.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">和我一起打造个简单搜索之ElasticSearch入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E7%88%AC%E8%99%AB%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E6%8A%80%E5%B7%A7.html">
+                        <span class="hidden-mobile">爬虫元素选择技巧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&title=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&title=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&source=我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方..." data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《和我一起打造个简单搜索之ElasticSearch集群搭建》 — WeJan's Blog&url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch集群搭建.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPElEQVR42u3aQW7bQBAEQP3/0wqQUwBHUveMFIib4skwaJK1PIy3m7dbfNx/H49+/vM3yd/+PP/5FX6e+fO4feLAxsbGvgj7/vR4dE7CeHR+skDJb5LnfLg02NjY2Mex88HTPnoyCDeLmCwrNjY2NnYySJ4DclK+uNjY2NjYM3Z+y4TRLlD7erCxsbH/H3YSKuW3mW1UZpXAx7M0bGxs7K9n74ve7/n5n/bb2NjY2F/AvpdHvs2YhUSboVgosLGxsQ9i76P22Tagjf43o6vYgWFjY2NfkL2veF+saBvZvylm+nizjY2Njf017P0t20Eym7F5zTz7NBMbGxv7uux2hd4VMCVXfldZ+yJOwsbGxr44uy1QNzdutxbtyGw/PMLGxsY+id0WAG0xsB+KSXSVxF7F+8HGxsa+LDuvYPPadVYn5OfMXhU2Njb2Sez2s8tkSLxrROVjrG4/sLGxsQ9l5/VqPpbyDUxbUbQfaL7oRrCxsbEvy86r1jzKb6vc2ZXbAgAbGxv7bHY+hPLNRh7W51doFwUbGxv7bHYe7ue1QT6QZlHUbKGjW2JjY2MfwW4XYhNFtXXvbLz95W+xsbGxD2K3BfB+a/GuCjnHYGNjY5/NbsOd5Aa30THcVMzOwcbGxj6InY+uzZZgv51ox9vwNWBjY2Nflr2vXfejKF/ovDB4sdzY2NjYR7CTUzf4NlR618eXLxYLGxsb+yB2/tBtSdDG95sly7dAdaKGjY2N/fXs/F/85BGTx51teDb1Q/SlEjY2NvbF2Xm8PuNtYqPNIr5I0bCxsbGPYM8+pmkfq12I/bZkBcbGxsa+FDsvA2Yf4rRFbDLG8sDr4TWxsbGxj2bv4/g2sp9VC8n5D8/BxsbGPoidB0b5pzPt5z7JmMyjq3pThI2NjX1x9r082i1KHkJtyt16KGJjY2MfxJ6VBJvo5xOV7eYZsLGxsc9g56HP7JhtadrwKF9obGxs7FPZs6E1S7DyiTorlYsBho2Njf2fsdu4vw36k5HW8rCxsbGxk6BnNqLaLVBbEkTNNjY2NvZB7Fmo1Mb6M/zzl5THTNjY2Ninstuitx1ySbifFMCzqOtt/TY2Njb2N7J/AdVxzko8DiZnAAAAAElFTkSuQmCC" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

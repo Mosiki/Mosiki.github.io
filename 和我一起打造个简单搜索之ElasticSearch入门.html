@@ -1,225 +1,294 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>和我一起打造个简单搜索之ElasticSearch入门 - WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/和我一起打造个简单搜索之ElasticSearch入门.html">
-    
-    
-    <title>和我一起打造个简单搜索之ElasticSearch入门 | WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="ElasticSearch语法入门">
-    <meta name="description" content="本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。">
-<meta name="keywords" content="ElasticSearch语法入门">
-<meta property="og:type" content="article">
-<meta property="og:title" content="和我一起打造个简单搜索之ElasticSearch入门">
-<meta property="og:url" content="http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://img12345.5-project.com/20180901153578638051792.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180901153578804439765.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180901153578852713262.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180901153578859766521.png">
-<meta property="og:image" content="http://img12345.5-project.com/20180901153578892736222.png">
-<meta property="og:updated_time" content="2020-03-10T10:43:43.284Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="和我一起打造个简单搜索之ElasticSearch入门">
-<meta name="twitter:description" content="本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。">
-<meta name="twitter:image" content="http://img12345.5-project.com/20180901153578638051792.png">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
 
-    <!-- custom head -->
-    
+<!-- 主题依赖的图标库，不要自行修改 -->
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu" class="hide" >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
+</nav>
 
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">和我一起打造个简单搜索之ElasticSearch入门</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a31.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="和我一起打造个简单搜索之ElasticSearch入门">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-09-13 21:45" pubdate>
+        2018年9月13日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      949 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
         </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
+      </div>
     </div>
-</header>
-<header class="content-header post-header">
+  </header>
 
-    <div class="container fade-scale">
-        <h1 class="title">和我一起打造个简单搜索之ElasticSearch入门</h1>
-        <h5 class="subtitle">
-            
-                <time datetime="2018-09-13T13:45:26.000Z" itemprop="datePublished" class="page-time">
-  2018-09-13
-</time>
-
-
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
-
-            
-        </h5>
-    </div>
-
+  <main>
     
+      
 
-
-</header>
-
-
-<div class="container body-wrap">
-    
-    <aside class="post-widget">
-        <nav class="post-toc-wrap" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#环境"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#系列文章"><span class="post-toc-number">2.</span> <span class="post-toc-text">系列文章</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基础概念"><span class="post-toc-number">3.</span> <span class="post-toc-text">基础概念</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本语法"><span class="post-toc-number">4.</span> <span class="post-toc-text">基本语法</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#索引"><span class="post-toc-number">5.</span> <span class="post-toc-text">索引</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#索引类型"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">索引类型</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#使用-RestClient-PostMan-创建结构化索引"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">使用 RestClient/PostMan 创建结构化索引</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#keyword-与-text-的区别"><span class="post-toc-number">5.2.1.</span> <span class="post-toc-text">keyword 与 text 的区别</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#es-通过-rest-接口对数据操作"><span class="post-toc-number">6.</span> <span class="post-toc-text">es 通过 rest 接口对数据操作</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#插入数据"><span class="post-toc-number">6.1.</span> <span class="post-toc-text">插入数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改数据"><span class="post-toc-number">6.2.</span> <span class="post-toc-text">修改数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#删除数据-删除索引"><span class="post-toc-number">6.3.</span> <span class="post-toc-text">删除数据/删除索引</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查询数据"><span class="post-toc-number">6.4.</span> <span class="post-toc-text">查询数据</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#高级查询"><span class="post-toc-number">6.5.</span> <span class="post-toc-text">高级查询</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参考"><span class="post-toc-number">7.</span> <span class="post-toc-text">参考</span></a></li></ol>
-        </nav>
-    </aside>
-    
-<article id="post-和我一起打造个简单搜索之ElasticSearch入门"
-  class="post-article article-type-post fade" itemprop="blogPost">
-
-    <div class="post-card">
-        <h1 class="post-card-title">和我一起打造个简单搜索之ElasticSearch入门</h1>
-        <div class="post-meta">
-            <time class="post-time" title="2018-09-13 21:45:26" datetime="2018-09-13T13:45:26.000Z"  itemprop="datePublished">2018-09-13</time>
-
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">和我一起打造个简单搜索之ElasticSearch入门</h1>
             
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
-
-
-
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月27日 中午
+                
+              </p>
             
-<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
-    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
-</span>
-
-
-        </div>
-        <div class="post-content" id="post-content" itemprop="postContent">
-            <p>本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。</p>
+            <div class="markdown-body">
+              <p>本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。</p>
 <a id="more"></a>
+
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>本文以及后续 es 系列文章都基于 <strong>5.5.3</strong> 这个版本的 elasticsearch ，这个版本比较稳定，可以用于生产环境。</p>
 <h2 id="系列文章"><a href="#系列文章" class="headerlink" title="系列文章"></a>系列文章</h2><ul>
 <li>一、<a href="http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html">和我一起打造个简单搜索之ElasticSearch集群搭建</a></li>
@@ -232,13 +301,7 @@
 </ul>
 <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>索引–相当于数据库<br>类型–相当于表<br>文档–相当于一条记录<br>分片–对索引进行分片，分布于集群各个节点上，降低单个节点的压力<br>备份–拷贝分片就完成了备份  </p>
 <hr>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/20180901153578638051792.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p><img src="http://img12345.5-project.com/20180901153578638051792.png" srcset="/img/loading.gif"></p>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
 <li>结构化索引<ul>
 <li>特点：通过接口创建，可以指定 mappings </li>
@@ -251,28 +314,22 @@
 </li>
 </ul>
 <h3 id="使用-RestClient-PostMan-创建结构化索引"><a href="#使用-RestClient-PostMan-创建结构化索引" class="headerlink" title="使用 RestClient/PostMan 创建结构化索引"></a>使用 RestClient/PostMan 创建结构化索引</h3><p>创建一个 people 的索引，包含一个类型 man</p>
-<figure class="image-bubble">
-                <div class="img-lightbox">
-                    <div class="overlay"></div>
-                    <img src="http://img12345.5-project.com/20180901153578804439765.png" alt="" title="">
-                </div>
-                <div class="image-caption"></div>
-            </figure>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"settings"</span>:&#123;</span><br><span class="line">        <span class="attr">"number_of_shards"</span>:<span class="number">3</span>,</span><br><span class="line">        <span class="attr">"number_of_replicas"</span>:<span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">"mappings"</span>:&#123;</span><br><span class="line">        <span class="attr">"man"</span>:&#123;</span><br><span class="line">            <span class="attr">"properties"</span>:&#123;</span><br><span class="line">                <span class="attr">"name"</span>:&#123;</span><br><span class="line">                    <span class="attr">"type"</span>:<span class="string">"text"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"country"</span>:&#123;</span><br><span class="line">                    <span class="attr">"type"</span>:<span class="string">"keyword"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"age"</span>:&#123;</span><br><span class="line">                    <span class="attr">"type"</span>:<span class="string">"integer"</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="attr">"date"</span>:&#123;</span><br><span class="line">                    <span class="attr">"type"</span>:<span class="string">"date"</span>,</span><br><span class="line">                    <span class="attr">"format"</span>:<span class="string">"yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis"</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://img12345.5-project.com/20180901153578804439765.png" srcset="/img/loading.gif"></p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;settings&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;number_of_shards&quot;</span>:<span class="hljs-number">3</span>,<br>        <span class="hljs-attr">&quot;number_of_replicas&quot;</span>:<span class="hljs-number">1</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;mappings&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;man&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;properties&quot;</span>:&#123;<br>                <span class="hljs-attr">&quot;name&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;text&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;country&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;keyword&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;age&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;integer&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;date&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;date&quot;</span>,<br>                    <span class="hljs-attr">&quot;format&quot;</span>:<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&quot;</span><br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h4 id="keyword-与-text-的区别"><a href="#keyword-与-text-的区别" class="headerlink" title="keyword 与 text 的区别"></a>keyword 与 text 的区别</h4><p><strong>type 类型为 keyword 的时候，ES 不会对其进行分词，而 text 会被分词</strong></p>
 <h2 id="es-通过-rest-接口对数据操作"><a href="#es-通过-rest-接口对数据操作" class="headerlink" title="es 通过 rest 接口对数据操作"></a>es 通过 rest 接口对数据操作</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><ol>
 <li>指定文档 id 插入<ol>
-<li><strong>PUT</strong> 请求：  ip:port/索引/类型/id<br><img src="http://img12345.5-project.com/20180901153578852713262.png" alt=""></li>
+<li><strong>PUT</strong> 请求：  ip:port/索引/类型/id<br><img src="http://img12345.5-project.com/20180901153578852713262.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 <li>自动产生文档 id 插入<ol>
-<li><strong>POST</strong> 请求： ip:port/索引/类型<br><img src="http://img12345.5-project.com/20180901153578859766521.png" alt=""></li>
+<li><strong>POST</strong> 请求： ip:port/索引/类型<br><img src="http://img12345.5-project.com/20180901153578859766521.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 </ol>
 <h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><ol>
-<li>直接修改<ol>
-<li><strong>POST</strong> 请求：  ip:port/索引/类型/id/_update<br><img src="http://img12345.5-project.com/20180901153578892736222.png" alt=""></li>
+<li>直接修改<ol start="2">
+<li><strong>POST</strong> 请求：  ip:port/索引/类型/id/_update<br><img src="http://img12345.5-project.com/20180901153578892736222.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 </ol>
@@ -288,25 +345,21 @@
 </ol>
 <h3 id="查询数据"><a href="#查询数据" class="headerlink" title="查询数据"></a>查询数据</h3><ol>
 <li><p>简单查询</p>
-<ol>
+<ol start="2">
 <li><strong>GET</strong> 请求： ip:端口/索引/类型/id</li>
 </ol>
 </li>
 <li><p>条件查询</p>
 <ol>
 <li><strong>POST</strong>请求： ip:端口/索引/_search</li>
-<li>指定条件查询,分页与排序 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">     <span class="attr">"query"</span>:&#123;</span><br><span class="line">         <span class="attr">"match"</span>:&#123;</span><br><span class="line">             <span class="attr">"name"</span>:<span class="string">"WeJan"</span></span><br><span class="line">         &#125;</span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="attr">"sort"</span>:[</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="attr">"age"</span>:&#123;</span><br><span class="line">                 <span class="attr">"order"</span>:<span class="string">"asc"</span></span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     ],</span><br><span class="line">     <span class="attr">"from"</span> : <span class="number">0</span>,</span><br><span class="line">     <span class="attr">"size"</span> : <span class="number">10</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>指定条件查询,分页与排序 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>     <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>         <span class="hljs-attr">&quot;match&quot;</span>:&#123;<br>             <span class="hljs-attr">&quot;name&quot;</span>:<span class="hljs-string">&quot;WeJan&quot;</span><br>         &#125;<br>     &#125;,<br>     <span class="hljs-attr">&quot;sort&quot;</span>:[<br>         &#123;<br>             <span class="hljs-attr">&quot;age&quot;</span>:&#123;<br>                 <span class="hljs-attr">&quot;order&quot;</span>:<span class="hljs-string">&quot;asc&quot;</span><br>             &#125;<br>         &#125;<br>     ],<br>     <span class="hljs-attr">&quot;from&quot;</span> : <span class="hljs-number">0</span>,<br>     <span class="hljs-attr">&quot;size&quot;</span> : <span class="hljs-number">10</span><br> &#125;<br></code></pre></div></td></tr></table></figure></li>
 </ol>
 </li>
 <li><p>聚合查询</p>
 <ol>
 <li><strong>POST</strong>请求： ip:端口/索引/_search</li>
-<li><p>分组，可以多个分组</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">        <span class="attr">"group_by_age"</span>:&#123;</span><br><span class="line">            <span class="attr">"terms"</span>:&#123;</span><br><span class="line">                <span class="attr">"field"</span>:<span class="string">"age"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>聚合计算</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"aggs"</span>:&#123;</span><br><span class="line">        <span class="attr">"age_count"</span>:&#123;</span><br><span class="line">            <span class="attr">"stats"</span>:&#123;</span><br><span class="line">                <span class="attr">"field"</span>:<span class="string">"age"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>分组，可以多个分组 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;aggs&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;group_by_age&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;terms&quot;</span>:&#123;<br>                <span class="hljs-attr">&quot;field&quot;</span>:<span class="hljs-string">&quot;age&quot;</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>聚合计算 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;aggs&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;age_count&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;stats&quot;</span>:&#123;<br>                <span class="hljs-attr">&quot;field&quot;</span>:<span class="hljs-string">&quot;age&quot;</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <ul>
 <li>sum</li>
 <li>avg</li>
@@ -319,334 +372,285 @@
 </li>
 </ol>
 <h3 id="高级查询"><a href="#高级查询" class="headerlink" title="高级查询"></a>高级查询</h3><ol>
-<li><p>习语匹配（全词匹配）</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"match_phrase"</span>:&#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"WeJan"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>多字段匹配，多个字段包含query</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"multi_match"</span>:&#123;</span><br><span class="line">            <span class="attr">"query"</span>:<span class="string">"WeJan"</span>,</span><br><span class="line">            <span class="attr">"fields"</span>:[<span class="string">"author"</span>, <span class="string">"title"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>query_string 文本查询</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"query_string"</span>:&#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"(WeJan AND Jan) OR 哈哈"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>针对多个字段的文本查询</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"query_string"</span>:&#123;</span><br><span class="line">            <span class="attr">"name"</span>:<span class="string">"WeJan OR 哈哈"</span>,</span><br><span class="line">             <span class="attr">"fields"</span>:[<span class="string">"author"</span>, <span class="string">"title"</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>字段查询,比如年龄，分类</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"term"</span>:&#123;</span><br><span class="line">           <span class="attr">"age"</span>:<span class="number">25</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>范围查询，可以对时间字段进行查询，现在使用 “now”替代</p>
- <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"query"</span>:&#123;</span><br><span class="line">        <span class="attr">"range"</span>:&#123;</span><br><span class="line">          <span class="attr">"age"</span>:&#123;</span><br><span class="line">            <span class="attr">"gte"</span>:<span class="number">26</span>,</span><br><span class="line">            <span class="attr">"lte"</span>:<span class="number">36</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>习语匹配（全词匹配） <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;match_phrase&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>:<span class="hljs-string">&quot;WeJan&quot;</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>多字段匹配，多个字段包含query <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;multi_match&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;query&quot;</span>:<span class="hljs-string">&quot;WeJan&quot;</span>,<br>            <span class="hljs-attr">&quot;fields&quot;</span>:[<span class="hljs-string">&quot;author&quot;</span>, <span class="hljs-string">&quot;title&quot;</span>]<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>query_string 文本查询 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;query_string&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>:<span class="hljs-string">&quot;(WeJan AND Jan) OR 哈哈&quot;</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>针对多个字段的文本查询 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;query_string&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;name&quot;</span>:<span class="hljs-string">&quot;WeJan OR 哈哈&quot;</span>,<br>             <span class="hljs-attr">&quot;fields&quot;</span>:[<span class="hljs-string">&quot;author&quot;</span>, <span class="hljs-string">&quot;title&quot;</span>]<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>字段查询,比如年龄，分类 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;term&quot;</span>:&#123;<br>           <span class="hljs-attr">&quot;age&quot;</span>:<span class="hljs-number">25</span><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure></li>
+<li>范围查询，可以对时间字段进行查询，现在使用 “now”替代 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;query&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;range&quot;</span>:&#123;<br>          <span class="hljs-attr">&quot;age&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;gte&quot;</span>:<span class="hljs-number">26</span>,<br>            <span class="hljs-attr">&quot;lte&quot;</span>:<span class="hljs-number">36</span><br>          &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2></li>
 </ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<ul>
 <li><a href="https://www.imooc.com/learn/889">慕课网ElasticSearch入门</a></li>
 </ul>
 
-        </div>
-
-        <blockquote class="post-copyright">
-    <div class="content">
-        
-<span class="post-time">
-    最后更新时间：<time datetime="2020-03-10T10:43:43.284Z" itemprop="dateUpdated">2020-03-10 18:43:43</time>
-</span><br>
-
-
-        
-        本文链接：<a href="/和我一起打造个简单搜索之ElasticSearch入门.html" target="_blank" rel="external">http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html</a>
-        
-    </div>
-    <footer>
-        <a href="http://nullpointer.pw">
-            <img src="http://img12345.5-project.com/blog/avatar.png" alt="WeJan">
-            WeJan
-        </a>
-    </footer>
-</blockquote>
-
-        
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
-</div>
-
-
-
-        <div class="post-footer">
-            
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch语法入门/">ElasticSearch语法入门</a></li></ul>
-
-
-            
-<div class="page-share-wrap">
-    
-
-<div class="page-share" id="pageShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&title=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&title=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&source=本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-
-    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
-        <i class="icon icon-share-alt icon-lg"></i>
-    </a>
-</div>
-
-
-
-        </div>
-    </div>
-
-    
-<nav class="post-nav flex-row flex-justify-between">
-  
-    <div class="waves-block waves-effect prev">
-      <a href="/和我一起打造个简单搜索之IK分词以及拼音分词.html" id="post-prev" class="post-nav-link">
-        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">和我一起打造个简单搜索之IK分词以及拼音分词</h4>
-      </a>
-    </div>
-  
-
-  
-    <div class="waves-block waves-effect next">
-      <a href="/和我一起打造个简单搜索之ElasticSearch集群搭建.html" id="post-next" class="post-nav-link">
-        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">和我一起打造个简单搜索之ElasticSearch集群搭建</h4>
-      </a>
-    </div>
-  
-</nav>
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-  -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'true' == 'true',
-            verify: 'true' == 'true',
-            appId: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
-            appKey: "g000TimpCo2dSkXYBxzm2Tdl",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
-
-</article>
-
-<div id="reward" class="page-modal reward-lay">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <h3 class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        点开打赏说明本文值一块钱哈哈~
-        <i class="icon icon-quote-right"></i>
-    </h3>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/" alt="打赏二维码">
-        </div>
-        
-    </div>
-</div>
-
-
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
-            </span>
-        </p>
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ElasticSearch/">ElasticSearch</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ElasticSearch%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/">ElasticSearch语法入门</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BIK%E5%88%86%E8%AF%8D%E4%BB%A5%E5%8F%8A%E6%8B%BC%E9%9F%B3%E5%88%86%E8%AF%8D.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">和我一起打造个简单搜索之IK分词以及拼音分词</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html">
+                        <span class="hidden-mobile">和我一起打造个简单搜索之ElasticSearch集群搭建</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&title=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&title=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&source=本文简单介绍了使用 Rest 接口，对 es 进行操作，更深入的学习，可以参考文末部分。" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《和我一起打造个简单搜索之ElasticSearch入门》 — WeJan's Blog&url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/和我一起打造个简单搜索之ElasticSearch入门.html" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACt0lEQVR42u3aQW4bMRAEQP//0w6QkwNBcvcMaRlB7clYyVwWDzvUND8+4uvz7/X17693Hu8/Xo/jPBs5//TYhYeHhzeaejKt17DX38zHf30nnzMeHh7ebV5eDDb4/H7Ci8bEw8PDeyvv2SSSMpNszZPR8PDw8P4PXv6wvJy088HDw8P7eV7bft0Xg2Rp2tYGHh4e3s/wZgHYe/++nu/h4eHhjVL1/Yt+c+BgNsN/RsDDw8O7wDvVKs1Dr7ZJkZeE4hcDHh4e3iFefvhptnfdLNPs8AEeHh7ebV7+Ks+bBXmjtj3sVRz8wsPDwzvKa7eqm+kO134Rs+Hh4eHd4+XBUg5r277twYX6TAQeHh7eUV6+nd0EYO34CembT/Hw8PAu85JNbd48bZsUm+8XJ8Xw8PDw1rwNOG9kzJZvFpt9Mys8PDy8NS/f/rYBf3sEYd8sLlI7PDw8vEO8ZFrtdPOGb4uP2iV4eHh4F3ibQ1d5fDVrH7QNi6cWPDw8vKO8NuLKJ1QcjSqDtLru4eHh4R3l5Y2A9juzBkS7uNET8fDw8C7w8k1qe6xqtkB54SlawHh4eHhHefugKwmoknhs0+p9asHDw8O7wEsmWteZ0Wt9c1RrdYwADw8P7xBv9rM/33zPnjUrS3h4eHi3eW2UtQnD2jKQlys8PDy8G7x2Q9y2FdrDB/lzo3KFh4eH9yO820F+WxiSdvA3/Wk8PDy8o7y2AMyirE0zYtMgxsPDw7vB+yyvdiqbsH/WzH26pcbDw8M7xLudvM9Ga0tOW3jw8PDw9rxZWDVboPzlnsRy0fLh4eHhXeNtwqf2WEDyrE04h4eHh/d7eHl435aKGbIOvfDw8PDexNuHYbOSkM9nVRjw8PDwYt5mi9z+16noK/oBgIeHh3eB1wZgbajfvuL3RWiV7+Hh4eG94v0Bfjz5Po7rfDsAAAAASUVORK5CYII=" alt="微信分享二维码">
-</div>
+  
 
 
 
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
-</script>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
 
 
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
 
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
-        }
-    });
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 

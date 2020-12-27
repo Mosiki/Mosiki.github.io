@@ -2,661 +2,1841 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://nullpointer.pw/binary-tag.html</loc>
+    <loc>http://nullpointer.pw/notice.html</loc>
     
-    <lastmod>2020-11-22T03:22:33.294Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/custom-read-poi.html</loc>
-    
-    <lastmod>2020-08-31T12:31:42.009Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/catelog/index.html</loc>
-    
-    <lastmod>2020-08-24T02:53:45.470Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/flyway-best-practice.html</loc>
-    
-    <lastmod>2020-06-20T12:09:22.032Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/redis-block-queue.html</loc>
-    
-    <lastmod>2020-06-14T09:00:19.640Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/interface-authentication.html</loc>
-    
-    <lastmod>2020-06-06T09:08:44.110Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/custom-springboot-starter.html</loc>
-    
-    <lastmod>2020-05-16T11:51:56.548Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/spring-condition-annotation.html</loc>
-    
-    <lastmod>2020-05-01T03:47:39.489Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/flags/index.html</loc>
-    
-    <lastmod>2020-04-25T07:28:15.112Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/2019%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
-    
-    <lastmod>2020-04-25T07:25:41.471Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/github%E4%BB%A3%E7%A0%81clone%E5%8A%A0%E9%80%9F.html</loc>
-    
-    <lastmod>2020-04-21T07:47:01.252Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html</loc>
-    
-    <lastmod>2020-04-01T09:41:54.189Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/linux-command.html</loc>
-    
-    <lastmod>2020-04-01T01:27:25.222Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%A5%E9%97%A8.html</loc>
-    
-    <lastmod>2020-03-12T08:53:08.136Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E5%85%A5%E9%97%A8.html</loc>
-    
-    <lastmod>2020-03-10T10:43:43.284Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BLogstash%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.html</loc>
-    
-    <lastmod>2020-03-10T02:33:46.375Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
-    
-    <lastmod>2020-03-09T22:17:46.652Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns.html</loc>
-    
-    <lastmod>2020-03-05T14:31:18.692Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-observer.html</loc>
-    
-    <lastmod>2020-03-05T14:30:33.007Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-chain-responsibility.html</loc>
-    
-    <lastmod>2020-03-04T01:12:24.386Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
-    
-    <lastmod>2020-03-03T11:43:22.034Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/design-patterns-facade.html</loc>
-    
-    <lastmod>2020-03-02T22:39:32.441Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/others/play.html</loc>
-    
-    <lastmod>2020-03-01T14:12:17.771Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/others/uml.html</loc>
-    
-    <lastmod>2020-02-29T02:09:43.447Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
-    
-    <lastmod>2020-02-23T05:06:36.806Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/project/index.html</loc>
-    
-    <lastmod>2020-02-19T12:23:23.231Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
-    
-    <lastmod>2020-02-05T02:44:03.117Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/hexo-custom-article-url.html</loc>
-    
-    <lastmod>2020-01-27T04:53:35.493Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/flow-chart-draw.html</loc>
-    
-    <lastmod>2020-01-26T13:48:47.396Z</lastmod>
+    <lastmod>2020-12-27</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/about/index.html</loc>
     
-    <lastmod>2020-01-26T13:47:34.983Z</lastmod>
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/others/play.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/others/tts.html</loc>
     
-    <lastmod>2020-01-26T10:47:20.395Z</lastmod>
+    <lastmod>2020-12-27</lastmod>
     
   </url>
   
   <url>
-    <loc>http://nullpointer.pw/404.html</loc>
+    <loc>http://nullpointer.pw/catelog/index.html</loc>
     
-    <lastmod>2020-01-26T09:30:13.409Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/ParallelsDesktop%E5%AE%89%E8%A3%85%E7%B2%BE%E7%AE%80%E7%89%88%E7%B3%BB%E7%BB%9F.html</loc>
-    
-    <lastmod>2020-01-22T14:46:28.035Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html</loc>
-    
-    <lastmod>2020-01-22T14:44:20.975Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8BSpider.html</loc>
-    
-    <lastmod>2020-01-22T14:44:09.913Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%93%E5%8F%96.html</loc>
-    
-    <lastmod>2020-01-22T14:43:59.185Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/WebMagic%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8BScheduler.html</loc>
-    
-    <lastmod>2020-01-22T14:43:59.170Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html</loc>
-    
-    <lastmod>2020-01-22T14:43:40.925Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html</loc>
-    
-    <lastmod>2020-01-22T14:43:31.507Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Ons%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.html</loc>
-    
-    <lastmod>2020-01-22T14:43:08.198Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    
-    <lastmod>2020-01-22T14:42:56.913Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4.html</loc>
-    
-    <lastmod>2020-01-22T14:42:47.539Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E9%85%8D%E7%BD%AE%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD%E7%9B%AE%E5%BD%95.html</loc>
-    
-    <lastmod>2020-01-22T14:42:36.406Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%E4%B9%8B%E6%89%8B%E5%8A%A8%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98.html</loc>
-    
-    <lastmod>2020-01-22T14:42:23.204Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
-    
-    <lastmod>2020-01-22T14:42:14.215Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
-    
-    <lastmod>2020-01-22T14:42:14.215Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Mysql%E8%A1%8C%E8%BD%AC%E5%88%97%E8%BE%93%E5%87%BA%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    
-    <lastmod>2020-01-22T14:41:50.417Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Mysql%E6%97%A5%E6%9C%9F%E5%88%86%E7%BB%84%E6%97%A0%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E5%A1%AB%E5%85%850.html</loc>
-    
-    <lastmod>2020-01-22T14:41:37.240Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/MongoDB%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.html</loc>
-    
-    <lastmod>2020-01-22T14:41:26.082Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Maven%20%E7%A7%81%E6%9C%8D%E4%B8%8A%E4%BC%A0jar%E5%8C%85.html</loc>
-    
-    <lastmod>2020-01-22T14:41:12.288Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/mapstruct%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html</loc>
-    
-    <lastmod>2020-01-22T14:41:03.401Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html</loc>
-    
-    <lastmod>2020-01-22T14:40:47.343Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/java%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1.html</loc>
-    
-    <lastmod>2020-01-22T14:40:35.314Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/jsonpath%E8%A7%A3%E6%9E%90.html</loc>
-    
-    <lastmod>2020-01-22T14:40:35.299Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E4%B9%8Bword%E5%AF%BC%E5%87%BA%E4%B8%8B%E8%BD%BD.html</loc>
-    
-    <lastmod>2020-01-22T14:40:35.298Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0OSS%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:39:44.786Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E7%94%9F%E6%88%90sitemap%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9B%BE.html</loc>
-    
-    <lastmod>2020-01-22T14:39:44.774Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E5%AE%9E%E7%8E%B0%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%9F%BA%E4%BA%8ERedis.html</loc>
-    
-    <lastmod>2020-01-22T14:39:44.757Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E9%85%8D%E7%BD%AE%E5%88%86%E7%A6%BB%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE.html</loc>
-    
-    <lastmod>2020-01-22T14:39:16.461Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Java%E5%86%85%E5%AD%98%E5%88%86%E9%A1%B5%E5%B7%A5%E5%85%B7%E7%B1%BB.html</loc>
-    
-    <lastmod>2020-01-22T14:38:21.673Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/IDEA%E4%B9%8BGit%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E4%BB%A5%E5%8F%8AStash%E4%BD%BF%E7%94%A8.html</loc>
-    
-    <lastmod>2020-01-22T14:37:59.315Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat.html</loc>
-    
-    <lastmod>2020-01-22T14:37:59.314Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%89%88%E6%9C%AC%E5%9B%9E%E6%BB%9A.html</loc>
-    
-    <lastmod>2020-01-22T14:37:33.066Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/easypoi%E5%AF%BC%E5%85%A5Excel%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html</loc>
-    
-    <lastmod>2020-01-22T14:36:59.833Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/ES%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98.html</loc>
-    
-    <lastmod>2020-01-22T14:36:59.810Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/dubbo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E4%BC%A0%E9%80%92%E4%BF%A1%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html</loc>
-    
-    <lastmod>2020-01-22T14:36:21.948Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Dom4J%E7%94%9F%E6%88%90XML.html</loc>
-    
-    <lastmod>2020-01-22T14:36:11.090Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html</loc>
-    
-    <lastmod>2020-01-22T14:35:59.462Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html</loc>
-    
-    <lastmod>2020-01-22T14:35:44.398Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html</loc>
-    
-    <lastmod>2020-01-22T14:35:27.703Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E5%BC%80%E5%8F%91%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%9B%9E%E8%B0%83%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
-    
-    <lastmod>2020-01-22T14:35:11.185Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E4%BC%9A%E6%84%9F%E8%A7%89%E5%88%B0%E5%80%A6%E6%80%A0%EF%BC%9F.html</loc>
-    
-    <lastmod>2020-01-22T14:35:11.184Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html</loc>
-    
-    <lastmod>2020-01-22T14:34:48.822Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:34:38.094Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html</loc>
-    
-    <lastmod>2020-01-22T14:34:22.909Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E4%B8%8D%E5%90%8C%E6%AD%A5%E8%B8%A9%E5%9D%91%E8%AE%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:34:11.517Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%88%A9%E7%94%A8nginx%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98.html</loc>
-    
-    <lastmod>2020-01-22T14:33:56.910Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E7%88%AC%E8%99%AB%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E6%8A%80%E5%B7%A7.html</loc>
-    
-    <lastmod>2020-01-22T14:33:56.910Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%A7%84%E5%88%92.html</loc>
-    
-    <lastmod>2020-01-22T14:33:56.895Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%A6%82%E4%BD%95%E8%AE%B0%E7%AC%94%E8%AE%B0%EF%BC%9F.html</loc>
-    
-    <lastmod>2020-01-22T14:33:56.881Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E8%A7%A3%E5%86%B3WebMagic%E6%8A%93HTTPS%E6%97%B6%E5%87%BA%E7%8E%B0SSLException.html</loc>
-    
-    <lastmod>2020-01-22T14:33:12.956Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html</loc>
-    
-    <lastmod>2020-01-22T14:32:58.748Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html</loc>
-    
-    <lastmod>2020-01-22T14:32:27.911Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BIK%E5%88%86%E8%AF%8D%E4%BB%A5%E5%8F%8A%E6%8B%BC%E9%9F%B3%E5%88%86%E8%AF%8D.html</loc>
-    
-    <lastmod>2020-01-22T14:32:10.583Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html</loc>
-    
-    <lastmod>2020-01-22T14:31:09.646Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E7%82%B9%E5%87%BB%E6%8C%89%E9%92%AE%E6%8B%B7%E8%B4%9D%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:30:55.446Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E6%96%87%E4%BB%B6%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
-    
-    <lastmod>2020-01-22T14:30:40.096Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/2018%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
-    
-    <lastmod>2020-01-22T14:30:24.241Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
-    
-    <lastmod>2020-01-22T14:30:05.081Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E9%83%BD%E7%94%A8%E6%96%B9%E6%A0%BC%E7%AC%94%E8%AE%B0%E6%9C%AC%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:29:40.868Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9A%E8%B6%85%E5%AE%9E%E7%94%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B3%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
-    
-    <lastmod>2020-01-22T14:27:15.593Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/tags/index.html</loc>
-    
-    <lastmod>2017-11-19T05:09:51.050Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://nullpointer.pw/googlebd54e18a11a9cef2.html</loc>
-    
-    <lastmod>2017-02-25T12:11:53.000Z</lastmod>
+    <lastmod>2020-12-27</lastmod>
     
   </url>
   
   <url>
     <loc>http://nullpointer.pw/categories/index.html</loc>
     
-    <lastmod>2017-02-15T14:16:47.000Z</lastmod>
+    <lastmod>2020-12-27</lastmod>
     
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/others/uml.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8BSpider.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E4%B9%8BScheduler.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/WebMagic%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%93%E5%8F%96.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/ParallelsDesktop%E5%AE%89%E8%A3%85%E7%B2%BE%E7%AE%80%E7%89%88%E7%B3%BB%E7%BB%9F.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Ons%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%AE%9E%E7%8E%B0Tomcat%E9%9B%86%E7%BE%A4.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E9%85%8D%E7%BD%AE%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD%E7%9B%AE%E5%BD%95.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE%E4%B9%8B%E6%89%8B%E5%8A%A8%E6%B8%85%E9%99%A4%E7%BC%93%E5%AD%98.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Mysql%E8%A1%8C%E8%BD%AC%E5%88%97%E8%BE%93%E5%87%BA%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Mysql%E6%97%A5%E6%9C%9F%E5%88%86%E7%BB%84%E6%97%A0%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E5%A1%AB%E5%85%850.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/MongoDB%E6%9E%81%E7%AE%80%E5%AE%9E%E8%B7%B5%E5%85%A5%E9%97%A8.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Maven%20%E7%A7%81%E6%9C%8D%E4%B8%8A%E4%BC%A0jar%E5%8C%85.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/mapstruct%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%A6%82%E4%BD%95%E8%AE%B0%E7%AC%94%E8%AE%B0%EF%BC%9F.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/jsonpath%E8%A7%A3%E6%9E%90.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/mac%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85nginx.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E4%B9%8Bword%E5%AF%BC%E5%87%BA%E4%B8%8B%E8%BD%BD.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/java%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E5%AE%9E%E7%8E%B0%E6%8E%92%E8%A1%8C%E6%A6%9C%E5%9F%BA%E4%BA%8ERedis.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E7%94%9F%E6%88%90sitemap%E7%BD%91%E7%AB%99%E5%9C%B0%E5%9B%BE.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E4%B8%8A%E4%BC%A0%E5%9B%BE%E7%89%87%E5%88%B0OSS%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E5%86%85%E5%AD%98%E5%88%86%E9%A1%B5%E5%B7%A5%E5%85%B7%E7%B1%BB.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java%E9%85%8D%E7%BD%AE%E5%88%86%E7%A6%BB%E4%B9%8B%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/IDEA%E4%B9%8BGit%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E4%BB%A5%E5%8F%8AStash%E4%BD%BF%E7%94%A8.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/IDEA%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%89%88%E6%9C%AC%E5%9B%9E%E6%BB%9A.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/github%E4%BB%A3%E7%A0%81clone%E5%8A%A0%E9%80%9F.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/ES%E6%90%9C%E7%B4%A2%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/easypoi%E5%AF%BC%E5%85%A5Excel%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/dubbo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E4%BC%A0%E9%80%92%E4%BF%A1%E6%81%AF%E4%B8%A2%E5%A4%B1%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Dom4J%E7%94%9F%E6%88%90XML.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/CentOS%E5%BF%AB%E9%80%9F%E5%AE%89%E8%A3%85.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E4%BC%9A%E6%84%9F%E8%A7%89%E5%88%B0%E5%80%A6%E6%80%A0%EF%BC%9F.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%E5%BC%80%E5%8F%91%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5%E5%9B%9E%E8%B0%83%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E4%B8%8D%E5%90%8C%E6%AD%A5%E8%B8%A9%E5%9D%91%E8%AE%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E7%88%AC%E8%99%AB%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E6%8A%80%E5%B7%A7.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E8%A7%84%E5%88%92.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%88%A9%E7%94%A8nginx%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E8%A7%A3%E5%86%B3WebMagic%E6%8A%93HTTPS%E6%97%B6%E5%87%BA%E7%8E%B0SSLException.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%A5%E9%97%A8.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BSpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BLogstash%E5%AE%9E%E6%97%B6%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BIK%E5%88%86%E8%AF%8D%E4%BB%A5%E5%8F%8A%E6%8B%BC%E9%9F%B3%E5%88%86%E8%AF%8D.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E5%85%A5%E9%97%A8.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E5%92%8C%E6%88%91%E4%B8%80%E8%B5%B7%E6%89%93%E9%80%A0%E4%B8%AA%E7%AE%80%E5%8D%95%E6%90%9C%E7%B4%A2%E4%B9%8BElasticSearch%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E7%82%B9%E5%87%BB%E6%8C%89%E9%92%AE%E6%8B%B7%E8%B4%9D%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E5%AE%9E%E7%8E%B0%E7%BD%91%E7%AB%99%E6%96%87%E4%BB%B6%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/2019%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/2018%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/2017%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9A%E8%B6%85%E5%AE%9E%E7%94%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B3%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/custom-read-poi.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/interface-authentication.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/custom-springboot-starter.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/binary-tag.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/spring-condition-annotation.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E9%83%BD%E7%94%A8%E6%96%B9%E6%A0%BC%E7%AC%94%E8%AE%B0%E6%9C%AC%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-chain-responsibility.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-facade.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-observer.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/linux-command.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/hibernate-validator-best-practice.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-state.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns-strategy.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/design-patterns.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/hexo-custom-article-url.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/flow-chart-draw.html</loc>
+    
+    <lastmod>2020-12-27</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/redis-block-queue.html</loc>
+    
+    <lastmod>2020-12-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/flyway-best-practice.html</loc>
+    
+    <lastmod>2020-12-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/flags/index.html</loc>
+    
+    <lastmod>2020-04-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/project/index.html</loc>
+    
+    <lastmod>2020-02-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/404.html</loc>
+    
+    <lastmod>2020-01-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/index.html</loc>
+    
+    <lastmod>2017-11-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/googlebd54e18a11a9cef2.html</loc>
+    
+    <lastmod>2017-02-25</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>http://nullpointer.pw/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/centos/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E5%AE%8C%E5%85%A8%E5%8C%B9%E9%85%8D%E7%BB%93%E6%9E%9C%E8%B0%83%E4%BC%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/es%E6%9F%A5%E8%AF%A2%E8%B0%83%E4%BC%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Git%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%9B%9E%E6%BB%9A/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Git%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E5%9B%9E%E6%BB%9A/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/IDEA-Git%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/IDEA-%E4%BD%BF%E7%94%A8Stash/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/IDEA-%E5%A4%84%E7%90%86%E5%88%86%E6%94%AF%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Charles%E6%8A%93%E5%8C%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/HTTPS%E6%8A%93%E5%8C%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Windows%E6%8A%93%E5%8C%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8A%93%E5%8C%85%E6%98%BE%E7%A4%BAunknown/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/XML-%E7%94%9F%E6%88%90/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Dom4j/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8A%93%E5%8C%85%E7%A0%B4%E8%A7%A3/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Tomcat%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%A7%A3%E5%86%B3IDEA%E6%97%A0%E6%B3%95%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95Tomcat/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%A7%A3%E5%86%B3IDEA%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E6%96%AD%E7%82%B9%E4%B8%8D%E7%94%9F%E6%95%88/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/java%E5%86%85%E5%AD%98%E5%88%86%E9%A1%B5%E5%B7%A5%E5%85%B7%E7%B1%BB/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/java%E5%86%85%E5%AD%98%E5%88%86%E9%A1%B5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDateTime%E8%BD%AC%E6%97%B6%E9%97%B4%E6%88%B3/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%97%B6%E9%97%B4%E6%88%B3%E8%BD%ACLocalDateTime/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Date%E8%BD%ACLocalDateTime/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDateTime%E8%BD%ACDate/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDateTime%E8%BD%ACLocalDate/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDate%E8%BD%ACLocalDateTime/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDateTime%E8%BD%ACString/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/String%E8%BD%ACLocalDateTime/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Java8%E8%8E%B7%E5%8F%96%E5%87%8C%E6%99%A8%E6%97%B6%E9%97%B4/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/java%E7%94%9F%E6%88%90sitemap/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/sitemapgen4j%E7%94%9F%E6%88%90sitemap/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/seo/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/OSS/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Redis%E6%8E%92%E8%A1%8C%E6%A6%9C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Java%E6%8E%92%E8%A1%8C%E6%A6%9C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%BF%9C%E7%A8%8B%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/word/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/freemarker/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/mysql/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%A1%8C%E8%BD%AC%E5%88%97/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/nginx/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%88%86%E7%BB%84%E6%9F%A5%E8%AF%A2%E6%97%A0%E6%95%B0%E6%8D%AE%E5%A1%AB%E5%85%850/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E6%97%B6%E9%97%B4%E6%AE%B5%E5%86%85%E7%9A%84%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F%E5%88%97%E8%A1%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/java%E7%94%9F%E6%88%90%E8%BF%9E%E7%BB%AD%E6%97%A5%E6%9C%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/VMware-Fusion/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E9%9D%99%E6%80%81IP/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/mac/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/tomcat/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Maven%E7%A7%81%E6%9C%8D/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/jar%E5%8C%85%E4%B8%8A%E4%BC%A0/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%BC%93%E5%AD%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%B5%84%E6%BA%90%E4%B8%8B%E8%BD%BD/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E9%98%B2%E7%9B%97%E9%93%BE/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Ons/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringBoot/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/WebSocket/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/JPA/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/WebMagic%E5%88%86%E5%B8%83%E5%BC%8F%E6%8A%93%E5%8F%96/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/WebMagic%E6%96%AD%E7%82%B9%E6%8A%93%E5%8F%96/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ParallelsDesktop%E5%AE%89%E8%A3%85%E7%B2%BE%E7%AE%80%E7%89%88%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Vmvare%E5%AE%89%E8%A3%85%E7%B2%BE%E7%AE%80%E7%89%88%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%B2%BE%E7%AE%80%E7%89%88win10%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85esd%E6%A0%BC%E5%BC%8F%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85wim%E6%A0%BC%E5%BC%8F%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/github-clone%E6%85%A2%E8%A7%A3%E5%86%B3/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/github-%E4%B8%8B%E8%BD%BD%E6%85%A2%E8%A7%A3%E5%86%B3/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/webmagic/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/JSONPath%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/JSONPath%E5%9C%A8%E7%BA%BF%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/JSONPath%E5%A4%9A%E5%B1%82%E5%B5%8C%E5%A5%97%E8%A7%A3%E6%9E%90/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/nginx%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/dubbo%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/dubbo%E5%BC%82%E5%B8%B8%E5%A0%86%E6%A0%88%E8%A2%AB%E5%90%83/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/dubbo%E5%A4%84%E7%90%86%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/mapstruct%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%AF%BB%E4%B9%A6/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E4%B9%8BIK%E5%88%86%E8%AF%8D%E5%99%A8%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E4%B9%8Bpinyin%E5%88%86%E8%AF%8D%E5%99%A8%E5%AE%89%E8%A3%85/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E4%B9%8BIK%E5%88%86%E8%AF%8D%E5%99%A8%E4%B8%8Epinyin%E5%88%86%E8%AF%8D%E5%99%A8%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8E%A8%E5%B9%BF/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E9%93%BE%E6%8E%A5%E6%8E%A8%E5%B9%BF/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringDataElasticSearch%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringDataElasticSearch%E6%9F%A5%E8%AF%A2/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringDataElasticSearch%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringDataElasticSearch%E9%AB%98%E4%BA%AE/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringDataElasticSearch%E5%85%B3%E9%94%AE%E8%AF%8D%E9%AB%98%E4%BA%AE/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticsearchTemplate%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%BC%BA%E5%88%B6%E5%85%B3%E6%B3%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%AE%A2%E9%98%85%E5%8F%B7%E5%8F%82%E6%95%B0%E4%BA%8C%E7%BB%B4%E7%A0%81/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/WebView%E5%90%8C%E6%AD%A5Cookie%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/nginx%E8%BD%AC%E5%8F%91/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/proxy-pass/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%9C%AC%E5%9C%B0%E6%8E%A5%E6%94%B6%E5%BC%82%E6%AD%A5%E9%80%9A%E7%9F%A5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E5%B0%81%E7%A6%81/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%A7%A3%E5%86%B3%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8E%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%97%B6%E9%97%B4%E4%B8%8D%E5%90%8C%E6%AD%A5%E5%AF%BC%E8%87%B4%E7%9A%84%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/JS/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E8%AF%AD%E6%B3%95%E5%85%A5%E9%97%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/WebMagic%E5%87%BA%E7%8E%B0SSLException/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%88%AC%E8%99%AB%E5%BC%82%E5%B8%B8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%88%B0%E5%85%B6%E4%BB%96%E5%9F%9F%E5%90%8D/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%88%AC%E8%99%AB%E6%8A%80%E5%B7%A7/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%B5%81%E7%A8%8B%E5%9B%BE%E7%BB%98%E5%88%B6/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Hibernate-Validator-%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%A0%A1%E9%AA%8C%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/hexo-%E4%BF%AE%E6%94%B9%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Spring-%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F%E5%AE%9E%E6%88%98/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E7%BB%93%E5%90%88Spring%E5%AE%9E%E8%B7%B5%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%A0%87%E4%BD%8D%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%8A%B6%E6%80%81%E4%BD%8D%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Redis%E9%98%BB%E5%A1%9E%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E5%BC%82%E6%AD%A5%E9%98%9F%E5%88%97%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Flyway%E8%BF%81%E7%A7%BB/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%95%B0%E6%8D%AE%E5%BA%93SQL%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E8%87%AA%E5%AE%9A%E4%B9%89SpringBootStarter/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/LocalDateTime%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/SpringBootStarter%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ConditionalOnProperty%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ConditionalOnMissingBean%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ConditionalOnExpression%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%BA%94%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8E%A5%E5%8F%A3%E9%89%B4%E6%9D%83/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/%E6%8E%A5%E5%8F%A3%E7%AD%BE%E5%90%8D/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Poi%E8%AF%BB%E5%8F%96%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E7%9A%84%E5%8D%95%E5%85%83%E6%A0%BC/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/EasyPoi%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/Poi%E5%A4%8D%E6%9D%82%E8%A1%A8%E6%A0%BC%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/mongodb/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/easypoi%E5%AF%BC%E5%85%A5Excel/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/easypoi%E5%AF%BC%E5%85%A5Excel%E6%97%B6%E9%97%B4%E6%A0%BC%E5%BC%8F%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/easypoi%E5%AF%BC%E5%85%A5Collection%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/easypoi%E5%AF%BC%E5%85%A5%E9%87%8D%E5%A4%8D%E8%A1%8C%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/easypoi%E5%AF%BC%E5%85%A5%E9%87%8D%E5%A4%8D%E5%80%BC%E6%A0%A1%E9%AA%8C/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/ElasticSearch%E7%B4%A2%E5%BC%95%E5%90%8C%E6%AD%A5%E5%88%9B%E5%BB%BA/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/logstash%E5%85%A8%E9%87%8F%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8Bes%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/logstash%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5%E5%BB%BA%E7%AB%8Bes%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/logstash-input-jdbc%E5%A2%9E%E9%87%8F%E5%90%8C%E6%AD%A5%E6%97%B6%E9%97%B4%E4%B8%8D%E5%AF%B9/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/tags/logstash-input-jdbc%E5%BB%BA%E7%AB%8B%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/ElasticSearch/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E5%AE%9E%E7%94%A8%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E5%85%B6%E4%BB%96/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/WebMagic/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E8%AF%BB%E4%B9%A6/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E9%97%B2%E8%B0%88/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/Redis/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://nullpointer.pw/categories/%E8%BD%AC%E8%BD%BD/</loc>
+    <lastmod>2020-12-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
   
 </urlset>

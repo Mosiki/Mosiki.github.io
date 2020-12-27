@@ -1,814 +1,1001 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
-    
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/sys/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/sys/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="WeJan&#39;s Blog的博客">
+  <meta name="author" content="WeJan">
+  <meta name="keywords" content="">
+  <title>WeJan&#39;s Blog</title>
 
-    
-
-    
-<!-- Baidu Tongji -->
-<script>var _hmt = _hmt || []</script>
-<script async src="//hm.baidu.com/hm.js?e57563c03439d3ad35210295cd32edcb"></script>
-<!-- End Baidu Tongji -->
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
 
-    <meta charset="utf-8">
-    
-    
-    <link rel="canonical" href="true/page/6/">
-    
-    
-    <title>WeJan&#39;s Blog | 实战为王，记录在工作中技术使用的点点滴滴。</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="theme-color" content="#3F51B5">
-    
-    
-    <meta name="keywords" content="">
-    <meta name="description" content="WeJan&apos;s Blog的博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WeJan&#39;s Blog">
-<meta property="og:url" content="http://nullpointer.pw/page/6/index.html">
-<meta property="og:site_name" content="WeJan&#39;s Blog">
-<meta property="og:description" content="WeJan&apos;s Blog的博客">
-<meta property="og:locale" content="zh-CN">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WeJan&#39;s Blog">
-<meta name="twitter:description" content="WeJan&apos;s Blog的博客">
-    
-        <link rel="alternate" type="application/atom+xml" title="WeJan&#39;s Blog" href="/atom.xml">
-    
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
-    <script>window.lazyScripts=[]</script>
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
-    <!-- custom head -->
-    
 
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="WeJan's Blog" type="application/atom+xml">
 </head>
 
-<body>
-    <div id="loading" class="active"></div>
 
-    <aside id="menu"  >
-  <div class="inner flex-row-vertical">
-    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
-        <i class="icon icon-lg icon-close"></i>
-    </a>
-    <div class="brand-wrap" style="background-image:url(http://img12345.5-project.com/blog/brand.jpg)">
-      <div class="brand">
-        <a href="/" class="avatar waves-effect waves-circle waves-light">
-          <img src="http://img12345.5-project.com/blog/avatar.png">
-        </a>
-        <hgroup class="introduce">
-          <h5 class="nickname">WeJan</h5>
-          <a href="mailto:vcmq@foxmail.com" title="vcmq@foxmail.com" class="mail">vcmq@foxmail.com</a>
-        </hgroup>
-      </div>
-    </div>
-    <div class="scroll-wrap flex-col">
-      <ul class="nav">
+<body>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>WeJan's Blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-            <li class="waves-block waves-effect">
-              <a href="/"  >
-                <i class="icon icon-lg icon-home"></i>
-                主页
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/catelog"  >
-                <i class="icon icon-lg icon-archives"></i>
-                文章分类目录
-              </a>
-            </li>
-        
-            <li class="waves-block waves-effect">
-              <a href="/archives"  >
-                <i class="icon icon-lg icon-th-list"></i>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
                 归档
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/tts.html"  >
-                <i class="icon icon-lg icon-arrows-h"></i>
-                TTS
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/catelog/">
+                <i class="iconfont icon-category-fill"></i>
+                文章分类目录
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/uml.html"  >
-                <i class="icon icon-lg icon-code"></i>
-                UML
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/others/play.html"  >
-                <i class="icon icon-lg icon-play"></i>
-                Video
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Mosiki">
+                <i class="iconfont icon-github-fill"></i>
+                GitHub
               </a>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="/about"  >
-                <i class="icon icon-lg icon-link"></i>
-                About
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-exp-fill"></i>
+                Tools
               </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/play.html">
+                    
+                    Video
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/uml.html">
+                    
+                    UML
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/others/tts.html">
+                    
+                    TTS
+                  </a>
+                
+              </div>
             </li>
+          
         
-            <li class="waves-block waves-effect">
-              <a href="https://github.com/Mosiki" target="_blank" >
-                <i class="icon icon-lg icon-github"></i>
-                Github
-              </a>
-            </li>
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</aside>
-
-    <main id="main">
-        <header class="top-header" id="header">
-    <div class="flex-row">
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
-          <i class="icon icon-lg icon-navicon"></i>
-        </a>
-        <div class="flex-col header-title ellipsis">WeJan&#39;s Blog</div>
-        
-        <div class="search-wrap" id="search-wrap">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
-                <i class="icon icon-lg icon-chevron-left"></i>
-            </a>
-            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
-            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
-                <i class="icon icon-lg icon-search"></i>
-            </a>
-        </div>
-        
-        
-        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
-            <i class="icon icon-lg icon-share-alt"></i>
-        </a>
-        
-    </div>
-</header>
-<header class="content-header index-header">
-
-    <div class="container fade-scale">
-        <h1 class="title">WeJan&#39;s Blog</h1>
-        <h5 class="subtitle">
-            
-                实战为王，记录在工作中技术使用的点点滴滴。
-            
-        </h5>
-    </div>
-
-    
-
-
-</header>
-
-<div class="container body-wrap">
-
-    <ul class="post-list">
-    
-        <li class="post-list-item fade">
-            <article id="post-Charles抓包实战详解"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-04-25 22:19:22" datetime="2018-04-25T14:19:22.000Z"  itemprop="datePublished">2018-04-25</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/Charles抓包实战详解.html">Charles抓包实战详解</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。
-今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP 掌阅开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。
-掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就...
-    
-
-        <a href="/Charles抓包实战详解.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles抓包/">Charles抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包实战/">抓包实战</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包破解/">抓包破解</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Charles抓包之HTTPS抓包配置"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-04-15 20:36:40" datetime="2018-04-15T12:36:40.000Z"  itemprop="datePublished">2018-04-15</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/工具/">工具</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/Charles抓包之HTTPS抓包配置.html">Charles抓包之HTTPS抓包配置</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。
-在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和之前的设置相同，但是死活抓不了包，或者抓不了 Https 的包， 总之总会出现各种奇怪的问题，如果出了问题，简直让人抓狂！
-    
-
-        <a href="/Charles抓包之HTTPS抓包配置.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Charles抓包/">Charles抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTPS抓包/">HTTPS抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Windows抓包/">Windows抓包</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/抓包显示unknown/">抓包显示unknown</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-微信域名防止屏蔽"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-03-27 21:11:17" datetime="2018-03-27T13:11:17.000Z"  itemprop="datePublished">2018-03-27</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Nginx/">Nginx</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/微信域名防止屏蔽.html">微信域名防止屏蔽</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言这几日，由于遭到他人的恶意投诉举报，导致了微信中阅读业务的根域名被屏蔽，提示如图
-
-                
-                    
-                    
-                
-                
-            
-由于我司是做网络文学的，作者的内容中不可避免地会出现些微露骨的内容，但是这些内容是经过了编辑审核之后才公开的，也不至于太露骨，但举报就被封禁了。
-公司的用户有很多是通过微信公众号进行阅读，这一封，就许多用户过来反馈了。
-    
-
-        <a href="/微信域名防止屏蔽.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信域名封禁/">微信域名封禁</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-微信分享踩坑之旅"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-03-17 16:32:52" datetime="2018-03-17T08:32:52.000Z"  itemprop="datePublished">2018-03-17</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/微信分享踩坑之旅.html">微信分享踩坑之旅</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言三月伊始，此月任务重心在于用户的拉新与传播，自然也少不了新增加些许需求。由我负责用户分享传播的需求，主要任务就是在于微信分享。在做之前觉得这个很简单，就几个接口的事情罢，实际上做起来，却是不如意料那般简单，踩坑颇多。
-    
-
-        <a href="/微信分享踩坑之旅.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebView同步Cookie问题/">WebView同步Cookie问题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/微信分享/">微信分享</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-SpringBoot与WebSocket集成"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-02-28 22:17:09" datetime="2018-02-28T14:17:09.000Z"  itemprop="datePublished">2018-02-28</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/SpringBoot与WebSocket集成.html">SpringBoot与WebSocket集成</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。
-在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公司而言，比如 Jekins 的上手难度还是较高的，配置也比较复杂繁琐，也就没有采用。
-于是想着自己能不能也搞一个简化版适用于公司的自动化部署系统呢？于是在开发的过程中，遇到了本文的问题，为了实时展示服务器命令输出情况，我使用了 WebSocket 技术来实现，同时使用 SpringBoot 框架进行快速搭建项目，该部署系统目前未开发完成，姑且作为一个练手项目。
-    
-
-        <a href="/SpringBoot与WebSocket集成.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebSocket/">WebSocket</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-WebMagic之爬虫监控"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-02-27 06:16:05" datetime="2018-02-26T22:16:05.000Z"  itemprop="datePublished">2018-02-27</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/WebMagic之爬虫监控.html">WebMagic之爬虫监控</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-；小说是连载的情况下，这种问题是亟需解决的。
-    
-
-        <a href="/WebMagic之爬虫监控.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webmagic/">webmagic</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫监控/">爬虫监控</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-SpringDataJPA快速入门"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-01-27 21:02:48" datetime="2018-01-27T13:02:48.000Z"  itemprop="datePublished">2018-01-27</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/SpringData/">SpringData</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/SpringDataJPA快速入门.html">SpringDataJPA快速入门</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。  
-JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK1.6，JDK 1.9都出来了，实在不能忍😅，果断引入了 SpringData JPA。  
-然后最近公司其他同事接手了该项目，但是不太了解 SpringData JPA 的使用，于是有了此文，不会就可以直接让他看本篇博客了哈哈。
-    
-
-        <a href="/SpringDataJPA快速入门.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JPA/">JPA</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Mac下VMwareFusion安装CentOS并设置静态IP"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-01-21 17:03:09" datetime="2018-01-21T09:03:09.000Z"  itemprop="datePublished">2018-01-21</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/服务器/">服务器</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/Mac下VMwareFusion安装CentOS并设置静态IP.html">Mac下VMwareFusion安装CentOS并设置静态IP</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言MAC下VMwareFusion安装CentOS及设置固定IP之前写过一篇文章，关于虚拟机的快速安装的教程 CentOS快速安装，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置以下即可 访问外网环境。当时使用的是 Windows 环境，前不久入手了 ...
-    
-
-        <a href="/Mac下VMwareFusion安装CentOS并设置静态IP.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VMware-Fusion/">VMware Fusion</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mac/">mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/静态IP/">静态IP</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-基于微信事件二维码推广"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2018-01-06 19:53:36" datetime="2018-01-06T11:53:36.000Z"  itemprop="datePublished">2018-01-06</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/基于微信事件二维码推广.html">基于微信事件二维码推广</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言之前写了一篇关于推广系统设计的博客，在那篇博客中介绍了统一的推广地址生成的方法，只举例说明了一种推广的方式，本篇博客讲解另外一种推广方式，基于微信事件二维码的方式。需要注意的是，事件二维码只有服务号有此接口权限，订阅号是没有该接口权限的，当然如果没有服务号的话，想学习一下接口的使用，微信官方提供的测试号可以使用该接口。
-    
-
-        <a href="/基于微信事件二维码推广.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推广/">推广</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/推广系统/">推广系统</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-2017年终总结"
-  class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2017-12-30 18:02:57" datetime="2017-12-30T10:02:57.000Z"  itemprop="datePublished">2017-12-30</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2017年终总结.html">2017年终总结</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        前言一年时间倏然而逝，今日已是年终岁尾矣！  
-总是感觉今年过得太快了，很多次下班的时候，同事说：“明天周五了”，而我的反应就是：“诶？又要放假了吗？我怎么感觉前天才上班的啊”。以前还在上学的时候，总是感叹，这一天天为何如此漫长呢！随着年龄的增长，仿佛时间的流速也同时加快了一般，每天总是觉得是在和时间赛跑，让我有些焦虑。
-今年过的让我感觉很快，但是觉得比以前充实，因为做到的事情比以前多很多。
-    
-
-        <a href="/2017年终总结.html" class="post-more waves-effect waves-button">
-            阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/年终总结/">年终总结</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-<nav id="page-nav">
-    <div class="inner">
-    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
-    </div>
 </nav>
 
-
-</div>
-
-        <footer class="footer">
-    <div class="top">
-        
-<p>
-    <span id="busuanzi_container_site_uv" style='display:none'>
-        站点总访客数：<span id="busuanzi_value_site_uv"></span>
-    </span>
-    <span id="busuanzi_container_site_pv" style='display:none'>
-        站点总访问量：<span id="busuanzi_value_site_pv"></span>
-    </span>
-</p>
-
-
-        <p>
-            
-                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
-            
-            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
-        </p>
-    </div>
-    <div class="bottom">
-        <p><span>WeJan &copy; 2016 - 2020</span>
-            <span>
-                
-                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/bg/a1.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="实战为王，记录在工作中技术使用的点点滴滴。">
+              
             </span>
-        </p>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
     </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/%E8%A7%A3%E5%86%B3WebMagic%E6%8A%93HTTPS%E6%97%B6%E5%87%BA%E7%8E%B0SSLException.html" target="_self">
+          <img src="/img/bg/a37.jpg" srcset="/img/loading.gif" alt="解决WebMagic抓HTTPS时出现SSLException">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E8%A7%A3%E5%86%B3WebMagic%E6%8A%93HTTPS%E6%97%B6%E5%87%BA%E7%8E%B0SSLException.html">解决WebMagic抓HTTPS时出现SSLException</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/%E8%A7%A3%E5%86%B3WebMagic%E6%8A%93HTTPS%E6%97%B6%E5%87%BA%E7%8E%B0SSLException.html">
+          
+          
+            
+          
+          前言在今年二月份在项目中引入了 WebMagic 技术，用来抓取合作方的书籍，详见之前文章：WebMagic之爬虫监控，这两天新接入了一个合作商，对方接口采取的是 HTTPS 协议，而以前合作商的接口全都是 HTTP 的，在接入这家合作商的时候，发现了问题，只要是 HTTPS 的 URL 全部无法爬取。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-05-12 15:03" pubdate>
+              2018-05-12
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/WebMagic/">WebMagic</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/WebMagic%E5%87%BA%E7%8E%B0SSLException/">WebMagic出现SSLException</a>
+            
+              <a href="/tags/%E7%88%AC%E8%99%AB%E5%BC%82%E5%B8%B8/">爬虫异常</a>
+            
+              <a href="/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E5%88%B0%E5%85%B6%E4%BB%96%E5%9F%9F%E5%90%8D/">反向代理到其他域名</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html" target="_self">
+          <img src="/img/bg/a48.png" srcset="/img/loading.gif" alt="Charles抓包实战详解">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html">Charles抓包实战详解</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/Charles%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98%E8%AF%A6%E8%A7%A3.html">
+          
+          
+            
+          
+          前言通过上一篇文章，想必你已经掌握了如何正确安装抓包神器 Charles，如果还是抓不了包，可以再看看。
+今天要做是抓包实战，因为我在做网络文学的公司就职，所以就拿网络文学的 APP 掌阅开刀好了，以下进入抓包实战，体会 Charles 的强大之处！。
+掌握了下面的抓包技巧，对于某些校验并不是十分严格的 APP 来说，破解他们的接口实在是轻而易举。比如修改个 isVip 参数为 true，就变身超
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-04-25 22:19" pubdate>
+              2018-04-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Charles%E6%8A%93%E5%8C%85/">Charles抓包</a>
+            
+              <a href="/tags/%E6%8A%93%E5%8C%85%E7%A0%B4%E8%A7%A3/">抓包破解</a>
+            
+              <a href="/tags/%E6%8A%93%E5%8C%85%E5%AE%9E%E6%88%98/">抓包实战</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html" target="_self">
+          <img src="/img/bg/a49.png" srcset="/img/loading.gif" alt="Charles抓包之HTTPS抓包配置">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html">Charles抓包之HTTPS抓包配置</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/Charles%E6%8A%93%E5%8C%85%E4%B9%8BHTTPS%E6%8A%93%E5%8C%85%E9%85%8D%E7%BD%AE.html">
+          
+          
+            
+          
+          前言由于工作中经常需要配置客户端开发人员对接接口，有时候对接地不太顺利，因此需要经常性地对公司 APP 进行抓包看请求，找出具体的原因。
+在公司中开发使用的 Windows 台式电脑，抓包工具选择了 Fiddler，这个工具刚开始学会抓包的时候，觉得真乃神器！在经过几次开发电脑升级之后，重新安装 Fiddler 后，和之前的设置相同，但是死活抓不了包，或者抓不了 Https 的包， 总之总会出现各
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-04-15 20:36" pubdate>
+              2018-04-15
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Charles%E6%8A%93%E5%8C%85/">Charles抓包</a>
+            
+              <a href="/tags/HTTPS%E6%8A%93%E5%8C%85/">HTTPS抓包</a>
+            
+              <a href="/tags/Windows%E6%8A%93%E5%8C%85/">Windows抓包</a>
+            
+              <a href="/tags/%E6%8A%93%E5%8C%85%E6%98%BE%E7%A4%BAunknown/">抓包显示unknown</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html" target="_self">
+          <img src="/img/bg/a44.png" srcset="/img/loading.gif" alt="微信域名防止屏蔽">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html">微信域名防止屏蔽</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E9%98%B2%E6%AD%A2%E5%B1%8F%E8%94%BD.html">
+          
+          
+            
+          
+          前言这几日，由于遭到他人的恶意投诉举报，导致了微信中阅读业务的根域名被屏蔽，提示如图
+
+由于我司是做网络文学的，作者的内容中不可避免地会出现些微露骨的内容，但是这些内容是经过了编辑审核之后才公开的，也不至于太露骨，但举报就被封禁了。
+公司的用户有很多是通过微信公众号进行阅读，这一封，就许多用户过来反馈了。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-03-27 21:11" pubdate>
+              2018-03-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">微信开发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%9F%9F%E5%90%8D%E5%B0%81%E7%A6%81/">微信域名封禁</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html" target="_self">
+          <img src="/img/bg/a43.jpg" srcset="/img/loading.gif" alt="微信分享踩坑之旅">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html">微信分享踩坑之旅</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB%E8%B8%A9%E5%9D%91%E4%B9%8B%E6%97%85.html">
+          
+          
+            
+          
+          前言三月伊始，此月任务重心在于用户的拉新与传播，自然也少不了新增加些许需求。由我负责用户分享传播的需求，主要任务就是在于微信分享。在做之前觉得这个很简单，就几个接口的事情罢，实际上做起来，却是不如意料那般简单，踩坑颇多。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-03-17 16:32" pubdate>
+              2018-03-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">微信开发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%88%86%E4%BA%AB/">微信分享</a>
+            
+              <a href="/tags/WebView%E5%90%8C%E6%AD%A5Cookie%E9%97%AE%E9%A2%98/">WebView同步Cookie问题</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html" target="_self">
+          <img src="/img/bg/a80.jpg" srcset="/img/loading.gif" alt="SpringBoot与WebSocket集成">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html">SpringBoot与WebSocket集成</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/SpringBoot%E4%B8%8EWebSocket%E9%9B%86%E6%88%90.html">
+          
+          
+            
+          
+          前言目前，公司的项目部署方式还是使用的原始的方式，通过手动运行脚本去部署。每次全部服务器部署一遍，需要耗费的时间很长，如果遇到错误，也不能立刻进行回滚，只能将错误解决提交或者将备份代码进行还原。
+在持续集成大行其道的今天，这种原始的方式实在是不应该再使用了！在调研了 Jekins 等开源持续集成工具之后，发现对于我们公司而言，比如 Jekins 的上手难度还是较高的，配置也比较复杂繁琐，也就没有采
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-28 22:17" pubdate>
+              2018-02-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/SpringBoot/">SpringBoot</a>
+            
+              <a href="/tags/WebSocket/">WebSocket</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html" target="_self">
+          <img src="/img/bg/a85.jpg" srcset="/img/loading.gif" alt="WebMagic之爬虫监控">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">WebMagic之爬虫监控</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">
+          
+          
+            
+          
+          前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-27 06:16" pubdate>
+              2018-02-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/WebMagic/">WebMagic</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/webmagic/">webmagic</a>
+            
+              <a href="/tags/%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7/">爬虫监控</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html" target="_self">
+          <img src="/img/bg/a81.jpg" srcset="/img/loading.gif" alt="SpringDataJPA快速入门">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">SpringDataJPA快速入门</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/SpringDataJPA%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.html">
+          
+          
+            
+          
+          前言之前在学习 SpringBoot 框架的时候，使用到了 SpringData JPA，但是当时只是简单的查询，没有用到稍微复杂的查询。  
+JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开发速度。不久前，在公司将用户推荐功能单独抽取出为一个独立项目，由于公司一直沿用的底层框架太老，只能使用 JDK1.6，JDK 1.9都出来了，实在不能忍😅，果断引入了 SpringData
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-01-27 21:02" pubdate>
+              2018-01-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%85%B6%E4%BB%96%E5%B7%A5%E4%BD%9C%E6%8A%80%E6%9C%AF%E6%80%BB%E7%BB%93/">其他工作技术总结</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/JPA/">JPA</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html" target="_self">
+          <img src="/img/bg/a86.jpg" srcset="/img/loading.gif" alt="Mac下VMwareFusion安装CentOS并设置静态IP">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html">Mac下VMwareFusion安装CentOS并设置静态IP</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/Mac%E4%B8%8BVMwareFusion%E5%AE%89%E8%A3%85CentOS%E5%B9%B6%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81IP.html">
+          
+          
+            
+          
+          前言MAC下VMwareFusion安装CentOS及设置固定IP之前写过一篇文章，关于虚拟机的快速安装的教程 CentOS快速安装，当时是学习中用到了 Linux 环境，为了以后无需重复进行虚拟机繁杂配置，比如配置网络连接外网，才制作的镜像。为了开发调试方便，镜像设置为了固定 IP，所以导入该镜像的时候，需要简单设置以下即可 访问外网环境。当时使用的是 Windows 环境，前不久入手了 MBP
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-01-21 17:03" pubdate>
+              2018-01-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">工具使用</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/VMware-Fusion/">VMware Fusion</a>
+            
+              <a href="/tags/%E9%9D%99%E6%80%81IP/">静态IP</a>
+            
+              <a href="/tags/mac/">mac</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html" target="_self">
+          <img src="/img/bg/a36.jpg" srcset="/img/loading.gif" alt="基于微信事件二维码推广">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html">基于微信事件二维码推广</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/%E5%9F%BA%E4%BA%8E%E5%BE%AE%E4%BF%A1%E4%BA%8B%E4%BB%B6%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%8E%A8%E5%B9%BF.html">
+          
+          
+            
+          
+          前言之前写了一篇关于推广系统设计的博客，在那篇博客中介绍了统一的推广地址生成的方法，只举例说明了一种推广的方式，本篇博客讲解另外一种推广方式，基于微信事件二维码的方式。需要注意的是，事件二维码只有服务号有此接口权限，订阅号是没有该接口权限的，当然如果没有服务号的话，想学习一下接口的使用，微信官方提供的测试号可以使用该接口。
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-01-06 19:53" pubdate>
+              2018-01-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/">微信开发</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%8E%A8%E5%B9%BF%E7%B3%BB%E7%BB%9F/">推广系统</a>
+            
+              <a href="/tags/%E6%8E%A8%E5%B9%BF/">推广</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
 </footer>
 
-    </main>
-    <div class="mask" id="mask"></div>
-<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<div class="global-share" id="globalShare">
-    <ul class="reset share-icons">
-      <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://nullpointer.pw/page/6/&title=WeJan's Blog&pic=http://img12345.5-project.com/blog/avatar.png" data-title="微博">
-          <i class="icon icon-weibo"></i>
-        </a>
-      </li>
-      <li>
-        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
-          <i class="icon icon-weixin"></i>
-        </a>
-      </li>
-      <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://nullpointer.pw/page/6/&title=WeJan's Blog&source=WeJan's Blog的博客" data-title=" QQ">
-          <i class="icon icon-qq"></i>
-        </a>
-      </li>
-      <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://nullpointer.pw/page/6/" data-title=" Facebook">
-          <i class="icon icon-facebook"></i>
-        </a>
-      </li>
-      <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=WeJan's Blog&url=http://nullpointer.pw/page/6/&via=http://nullpointer.pw" data-title=" Twitter">
-          <i class="icon icon-twitter"></i>
-        </a>
-      </li>
-      <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://nullpointer.pw/page/6/" data-title=" Google+">
-          <i class="icon icon-google-plus"></i>
-        </a>
-      </li>
-    </ul>
- </div>
-
-
-<div class="page-modal wx-share" id="wxShare">
-    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABxklEQVR42u3aQY6DMAwFUO5/6Y40msVsmn47YKj0skKIhkcXVvKd44jH63ck1//vJPePKwYuLu4297Uc+dRrUDL/+hlcXNx5blK81i/Ia866IH6w4eLiPoybl6e8qOHi4n47t/rkGoSLi/t8bnVzUr3f2xrh4uLexT03MO1d35bv4uLiFrsSSRlKApH99/7Ng4uLO8JNtiXVctZrvRSaN7i4uCPchJhHGPvHLKLNDy4u7mXcJNToHbbolacPH4yLizvI7bVA8kVMNSp9+1tcXNwRbnkdVEwyk6LW/GtwcXEv5uZLmSoiOc6VfzAuLu4M96xGSL5w2TpsgYuLO8JNtijVsKOHLmzAcHFxL+bmzY9qCJIXqcLfgYuLO8jtLWKSlyXbmyQkxcXFneRWcfnhqmrwUdiG4eLiXszNpz4hl42j2LdvxMXFHeQm1S45QpFf99q3uLi4k9x8nNV0aR74wMXFHeFWC0pe8vKNTbVQ4uLiznDzKPOsQKS6xSpUX1xc3FO51TA0P6jRa9a+fR4XF/dh3P0Wy05dwsXFfTJ3pzW7fj4qfLi4uIPcncMTeVDSK3DNWAQXF3eD2wtMq2FKPgMuLu6t3B9uJE3UemJV5wAAAABJRU5ErkJggg==" alt="微信分享二维码">
-</div>
-
-
-
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/node-waves/0.7.4/waves.min.js"></script>
-<script>
-var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
-
-
-</script>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
-
-
-<div class="search-panel" id="search-panel">
-    <ul class="search-result" id="search-result"></ul>
-</div>
-<template id="search-tpl">
-<li class="item">
-    <a href="{path}" class="waves-block waves-effect">
-        <div class="title ellipsis" title="{title}">{title}</div>
-        <div class="flex-row flex-middle">
-            <div class="tags ellipsis">
-                {tags}
-            </div>
-            <time class="flex-col time">{date}</time>
-        </div>
-    </a>
-</li>
-</template>
-
-<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+  
 
 
 
 
 
 
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-<script>
-(function() {
-    var OriginTitile = document.title, titleTime;
-    document.addEventListener('visibilitychange', function() {
-        if (document.hidden) {
-            document.title = '出Bug了快来看！';
-            clearTimeout(titleTime);
-        } else {
-            document.title = '对不起，我看错啦~';
-            titleTime = setTimeout(function() {
-                document.title = OriginTitile;
-            },2000);
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      $.ajax({
+        type: 'GET',
+        url: 'https://v1.hitokoto.cn/?c=i',
+        headers: {},
+        dataType: 'json',
+        success: function (result) {
+          var text;
+          if (result) {
+            var keys = 'hitokoto'.split('.')
+            if (result instanceof Array) {
+              result = result[0]
+            }
+            for (const k of keys) {
+              var value = result[k]
+              if (typeof value === 'string') {
+                text = value
+                break
+              } else if (value instanceof Object) {
+                result = value
+              }
+            }
+          }
+          text ? typing(text) : typing(title);
+        },
+        error: function () {
+          typing(title)
         }
-    });
-})();
-</script>
+      })
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
 
 
 
