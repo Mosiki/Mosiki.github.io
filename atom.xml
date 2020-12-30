@@ -1620,11 +1620,11 @@
     <category term="服务器" scheme="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
+    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
+    
     <category term="图片防盗链" scheme="http://nullpointer.pw/tags/%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE/"/>
     
     <category term="防盗链" scheme="http://nullpointer.pw/tags/%E9%98%B2%E7%9B%97%E9%93%BE/"/>
-    
-    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
@@ -1689,11 +1689,11 @@
     <category term="数据库" scheme="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
-    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
-    
     <category term="mysql" scheme="http://nullpointer.pw/tags/mysql/"/>
     
     <category term="行转列" scheme="http://nullpointer.pw/tags/%E8%A1%8C%E8%BD%AC%E5%88%97/"/>
+    
+    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
