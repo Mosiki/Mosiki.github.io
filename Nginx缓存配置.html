@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 下午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -329,7 +329,7 @@
 
 
 <h2 id="启动-Tomcat"><a href="#启动-Tomcat" class="headerlink" title="启动 Tomcat"></a>启动 Tomcat</h2><p>可以使用自己的项目，或者使用我提供的项目来进行测试。</p>
-<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">wget http://img12345.5-project.com/SpringDemo.war<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">wget http://qq2a49k3i.hn-bkt.clouddn.com/SpringDemo.war<br></code></pre></div></td></tr></table></figure>
 <p>将下载的 war 包放到 Tomcat 的 webapps 目录下，修改 war 包名称为 ROOT.war ，启动 Tomcat。</p>
 <h2 id="测试-Nginx-缓存"><a href="#测试-Nginx-缓存" class="headerlink" title="测试 Nginx 缓存"></a>测试 Nginx 缓存</h2><p>缓存之前</p>
 <p>查看 <strong>/tmp/cache</strong> 目录， 目录下面没有任何文件</p>
@@ -338,10 +338,10 @@
 
 
 <p>打开浏览器访问 <strong><a href="http://www.domain.com/testpage1">www.domain.com/testpage1</a></strong></p>
-<p><img src="http://img12345.5-project.com/blog/20170820/131820402.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20170820/131820402.png" srcset="/img/loading.gif"></p>
 <p>发现 <strong>X-Cache</strong> 的状态为 <strong>MISS</strong> ，说明没有缓存。</p>
 <p>再次刷新页面后  </p>
-<p><img src="http://img12345.5-project.com/blog/20170820/133616261.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20170820/133616261.png" srcset="/img/loading.gif"></p>
 <p><strong>X-Cache</strong> 的状态已经变成了 <strong>HIT</strong></p>
 <p>同时在服务器上查看 <strong>/tmp/cache</strong> 目录</p>
 <p><code>cd /tmp/cache/</code></p>

@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 下午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -356,7 +356,7 @@
 <hr>
 <p>以下通过两个在工作中遇到的实例，来使用 Mysql 的行转列。</p>
 <h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="实例一"><a href="#实例一" class="headerlink" title="实例一"></a>实例一</h3><p>网站进行推广，每个推广员都有一个唯一 ID 即 <strong>pid</strong>，现在要统计每个推广员的推广数据；需要统计推广过来的新增用户，以及新增用户的充值以及消费数据。这里简化了数据，便于理解。  </p>
-<p><img src="http://img12345.5-project.com/blog/20171009/165507766.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171009/165507766.png?imageslim" srcset="/img/loading.gif">  </p>
 <p><strong>数据说明：</strong>  </p>
 <ul>
 <li>create_time： 数据生成时间</li>
@@ -370,12 +370,12 @@
 <li>value： 对应的数据值</li>
 </ul>
 <p><strong>需求结果样式：</strong>    </p>
-<p><img src="http://img12345.5-project.com/blog/20171009/165921767.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171009/165921767.png?imageslim" srcset="/img/loading.gif">  </p>
 <p><strong>SQL 查询：</strong>  </p>
 <figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span><br>	create_time,<br><span class="hljs-built_in">MAX</span>(<span class="hljs-keyword">CASE</span> type <span class="hljs-keyword">WHEN</span> <span class="hljs-number">1</span> <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">value</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-string">&#x27;新增用户&#x27;</span>,<br><span class="hljs-built_in">MAX</span>(<span class="hljs-keyword">CASE</span> type <span class="hljs-keyword">WHEN</span> <span class="hljs-number">2</span> <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">value</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-string">&#x27;新增充值&#x27;</span>,<br><span class="hljs-built_in">MAX</span>(<span class="hljs-keyword">CASE</span> type <span class="hljs-keyword">WHEN</span> <span class="hljs-number">3</span> <span class="hljs-keyword">THEN</span> <span class="hljs-keyword">value</span> <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-string">&#x27;新增订阅&#x27;</span><br><span class="hljs-keyword">FROM</span><br>	wings_companion_analytics <span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> create_time<br></code></pre></div></td></tr></table></figure>
 <hr>
 <h3 id="实例二"><a href="#实例二" class="headerlink" title="实例二"></a>实例二</h3><p>统计网站单本书的购买次数以及购买金额  </p>
-<p><img src="http://img12345.5-project.com/blog/20171009/172010156.png?imageslim" srcset="/img/loading.gif">    </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171009/172010156.png?imageslim" srcset="/img/loading.gif">    </p>
 <p><strong>数据说明：</strong>  </p>
 <ul>
 <li>id： 主键</li>
@@ -389,12 +389,12 @@
 <li>value： 对应的数据值</li>
 </ul>
 <p><strong>需求结果样式：</strong>      </p>
-<p><img src="http://img12345.5-project.com/blog/20171009/172401490.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171009/172401490.png?imageslim" srcset="/img/loading.gif">  </p>
 <p><strong>SQL 查询：</strong>  </p>
 <figure class="highlight sql"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> bookId <span class="hljs-keyword">as</span> <span class="hljs-string">&#x27;作品ID&#x27;</span>,<br>  DATE_FORMAT(<span class="hljs-type">time</span>,<span class="hljs-string">&#x27;%Y-%m-%d&#x27;</span>) <span class="hljs-keyword">as</span> <span class="hljs-string">&#x27;日期&#x27;</span>,<br>  <span class="hljs-built_in">MAX</span>(<span class="hljs-keyword">CASE</span> task_id <span class="hljs-keyword">WHEN</span> <span class="hljs-number">706</span> <span class="hljs-keyword">THEN</span> `<span class="hljs-keyword">value</span>` <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-keyword">AS</span> <span class="hljs-string">&#x27;购买次数&#x27;</span>,<br>  <span class="hljs-built_in">MAX</span>(<span class="hljs-keyword">CASE</span> task_id <span class="hljs-keyword">WHEN</span> <span class="hljs-number">707</span> <span class="hljs-keyword">THEN</span> `<span class="hljs-keyword">value</span>` <span class="hljs-keyword">ELSE</span> <span class="hljs-number">0</span> <span class="hljs-keyword">END</span>) <span class="hljs-keyword">AS</span> <span class="hljs-string">&#x27;购买金额&#x27;</span><br><span class="hljs-keyword">from</span> `t_task_result_day`<br><span class="hljs-keyword">WHERE</span> task_id <span class="hljs-keyword">IN</span> (<span class="hljs-number">706</span>, <span class="hljs-number">707</span>)<br><span class="hljs-keyword">GROUP</span> <span class="hljs-keyword">BY</span> <span class="hljs-type">time</span>, bookId<br><span class="hljs-keyword">ORDER</span> <span class="hljs-keyword">BY</span> bookId, <span class="hljs-type">time</span>;<br></code></pre></div></td></tr></table></figure>
 
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
-<li><a href="http://img12345.5-project.com/data.sql">点我下载实例所用数据</a></li>
+<li><a href="http://qq2a49k3i.hn-bkt.clouddn.com/data.sql">点我下载实例所用数据</a></li>
 </ul>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="http://blog.csdn.net/wulantian/article/details/52687640">http://blog.csdn.net/wulantian/article/details/52687640</a></li>

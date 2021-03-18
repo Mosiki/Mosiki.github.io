@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 中午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -295,7 +295,7 @@
 <figure class="highlight css"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-tag">http</span>://<span class="hljs-selector-tag">vcmq</span><span class="hljs-selector-class">.free</span><span class="hljs-selector-class">.ngrok</span><span class="hljs-selector-class">.cc</span> <span class="hljs-selector-tag">-</span>&gt; 127.0.0.1<span class="hljs-selector-pseudo">:8080</span><br></code></pre></div></td></tr></table></figure>
 <h3 id="配置测试支付目录"><a href="#配置测试支付目录" class="headerlink" title="配置测试支付目录"></a>配置测试支付目录</h3><p>前面提到了，微信支付异步通知会对支付域名<strong>目录</strong>有要求，因此，支付时的域名必须要在设置的支付域名目录下。</p>
 <p>首先需要在 <a href="https://pay.weixin.qq.com/">微信商户平台</a> 中配置 商户秘钥，支付授权目录。  </p>
-<p><img src="http://img12345.5-project.com/blog/20171108/215523458.png" srcset="/img/loading.gif" alt="mark"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171108/215523458.png" srcset="/img/loading.gif" alt="mark"></p>
 <p>这里支付授权目录配置的是以后线上的支付授权目录</p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>pay.domain.com<span class="hljs-regexp">/wechat/</span>public/<br></code></pre></div></td></tr></table></figure>
 <p>然后再加一条本地测试支付的临时授权目录，这个目录最好在本地测试完成后，进行删除。</p>

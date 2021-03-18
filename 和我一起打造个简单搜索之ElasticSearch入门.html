@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 中午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -301,7 +301,7 @@
 </ul>
 <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>索引–相当于数据库<br>类型–相当于表<br>文档–相当于一条记录<br>分片–对索引进行分片，分布于集群各个节点上，降低单个节点的压力<br>备份–拷贝分片就完成了备份  </p>
 <hr>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p><img src="http://img12345.5-project.com/20180901153578638051792.png" srcset="/img/loading.gif"></p>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180901153578638051792.png" srcset="/img/loading.gif"></p>
 <h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><h3 id="索引类型"><a href="#索引类型" class="headerlink" title="索引类型"></a>索引类型</h3><ul>
 <li>结构化索引<ul>
 <li>特点：通过接口创建，可以指定 mappings </li>
@@ -314,22 +314,22 @@
 </li>
 </ul>
 <h3 id="使用-RestClient-PostMan-创建结构化索引"><a href="#使用-RestClient-PostMan-创建结构化索引" class="headerlink" title="使用 RestClient/PostMan 创建结构化索引"></a>使用 RestClient/PostMan 创建结构化索引</h3><p>创建一个 people 的索引，包含一个类型 man</p>
-<p><img src="http://img12345.5-project.com/20180901153578804439765.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180901153578804439765.png" srcset="/img/loading.gif"></p>
 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;settings&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;number_of_shards&quot;</span>:<span class="hljs-number">3</span>,<br>        <span class="hljs-attr">&quot;number_of_replicas&quot;</span>:<span class="hljs-number">1</span><br>    &#125;,<br>    <span class="hljs-attr">&quot;mappings&quot;</span>:&#123;<br>        <span class="hljs-attr">&quot;man&quot;</span>:&#123;<br>            <span class="hljs-attr">&quot;properties&quot;</span>:&#123;<br>                <span class="hljs-attr">&quot;name&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;text&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;country&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;keyword&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;age&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;integer&quot;</span><br>                &#125;,<br>                <span class="hljs-attr">&quot;date&quot;</span>:&#123;<br>                    <span class="hljs-attr">&quot;type&quot;</span>:<span class="hljs-string">&quot;date&quot;</span>,<br>                    <span class="hljs-attr">&quot;format&quot;</span>:<span class="hljs-string">&quot;yyyy-MM-dd HH:mm:ss||yyyy-MM-dd||epoch_millis&quot;</span><br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <h4 id="keyword-与-text-的区别"><a href="#keyword-与-text-的区别" class="headerlink" title="keyword 与 text 的区别"></a>keyword 与 text 的区别</h4><p><strong>type 类型为 keyword 的时候，ES 不会对其进行分词，而 text 会被分词</strong></p>
 <h2 id="es-通过-rest-接口对数据操作"><a href="#es-通过-rest-接口对数据操作" class="headerlink" title="es 通过 rest 接口对数据操作"></a>es 通过 rest 接口对数据操作</h2><h3 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h3><ol>
 <li>指定文档 id 插入<ol>
-<li><strong>PUT</strong> 请求：  ip:port/索引/类型/id<br><img src="http://img12345.5-project.com/20180901153578852713262.png" srcset="/img/loading.gif"></li>
+<li><strong>PUT</strong> 请求：  ip:port/索引/类型/id<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180901153578852713262.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 <li>自动产生文档 id 插入<ol>
-<li><strong>POST</strong> 请求： ip:port/索引/类型<br><img src="http://img12345.5-project.com/20180901153578859766521.png" srcset="/img/loading.gif"></li>
+<li><strong>POST</strong> 请求： ip:port/索引/类型<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180901153578859766521.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 </ol>
 <h3 id="修改数据"><a href="#修改数据" class="headerlink" title="修改数据"></a>修改数据</h3><ol>
 <li>直接修改<ol start="2">
-<li><strong>POST</strong> 请求：  ip:port/索引/类型/id/_update<br><img src="http://img12345.5-project.com/20180901153578892736222.png" srcset="/img/loading.gif"></li>
+<li><strong>POST</strong> 请求：  ip:port/索引/类型/id/_update<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180901153578892736222.png" srcset="/img/loading.gif"></li>
 </ol>
 </li>
 </ol>

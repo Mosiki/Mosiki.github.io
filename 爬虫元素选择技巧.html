@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 中午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -296,19 +296,19 @@
 </ul>
 <h2 id="选择对象"><a href="#选择对象" class="headerlink" title="选择对象"></a>选择对象</h2><p>为了方便实验，我选择对 掘金 (<a href="https://juejin.im/">https://juejin.im/</a>) 这个网站进行实验。<br>以下内容默认使用的是 Chrome。</p>
 <p>定义一个假的需求吧，需要对掘金热门进行爬取，如下所示。</p>
-<p><img src="http://img12345.5-project.com/20180831153572214928252.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180831153572214928252.png" srcset="/img/loading.gif"></p>
 <p>这里我们只想要获取这里的所有的标题</p>
 <h2 id="Xpath-抽取"><a href="#Xpath-抽取" class="headerlink" title="Xpath 抽取"></a>Xpath 抽取</h2><p>具体步骤：</p>
 <ol>
-<li>点击页面空白处，使用快捷键 <strong>ctrl + shift + x</strong> 调出 Xpath Helper 工具，调出后，按住 <strong>shift</strong> 移动鼠标可以选择元素，并且该元素的 xpath 会显示在上方框内<br> <img src="http://img12345.5-project.com/20180831153572291788354.png" srcset="/img/loading.gif"></li>
-<li>可以看到，工具生成的 XPath 路径非常长，需要进行优化。这里可以使用谷歌浏览器的开发者工具很方便得获取 Xpath 路径，打开开发者工具，使用开发者工具面板上最左侧的箭头选择工具，选择一个标题元素，右侧就会自动定位到该元素的源码处，右键源码里的这个元素，选择 Copy XPath。<br> <img src="http://img12345.5-project.com/2018083115357231057642.png" srcset="/img/loading.gif"></li>
-<li>清空 Xpath Helper 中的 QUERY 框内的内容，粘贴 Chrome 开发者工具拷贝的 Xpath 路径，可以清晰对比看到路径相纸上一步获取的要简短很多，我们可以在这个基础上进行进一步地优化。<br> <img src="http://img12345.5-project.com/20180831153572326370899.png" srcset="/img/loading.gif"></li>
-<li>由于我们需要获取的是所有的标题，所以修改 Xpath，同时 Xpath Helper 高亮了被选择的元素。因为当前标题是在一个列表页当中，把 li[2] 中的值修改为 * 就是选择所有了，// 表示从根元素查找，替代掉了前面多余的元素，  XPath 基础语法可以上 Google 搜索一下。<br> <img src="http://img12345.5-project.com/20180831153572349093818.png" srcset="/img/loading.gif"></li>
+<li>点击页面空白处，使用快捷键 <strong>ctrl + shift + x</strong> 调出 Xpath Helper 工具，调出后，按住 <strong>shift</strong> 移动鼠标可以选择元素，并且该元素的 xpath 会显示在上方框内<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180831153572291788354.png" srcset="/img/loading.gif"></li>
+<li>可以看到，工具生成的 XPath 路径非常长，需要进行优化。这里可以使用谷歌浏览器的开发者工具很方便得获取 Xpath 路径，打开开发者工具，使用开发者工具面板上最左侧的箭头选择工具，选择一个标题元素，右侧就会自动定位到该元素的源码处，右键源码里的这个元素，选择 Copy XPath。<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/2018083115357231057642.png" srcset="/img/loading.gif"></li>
+<li>清空 Xpath Helper 中的 QUERY 框内的内容，粘贴 Chrome 开发者工具拷贝的 Xpath 路径，可以清晰对比看到路径相纸上一步获取的要简短很多，我们可以在这个基础上进行进一步地优化。<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180831153572326370899.png" srcset="/img/loading.gif"></li>
+<li>由于我们需要获取的是所有的标题，所以修改 Xpath，同时 Xpath Helper 高亮了被选择的元素。因为当前标题是在一个列表页当中，把 li[2] 中的值修改为 * 就是选择所有了，// 表示从根元素查找，替代掉了前面多余的元素，  XPath 基础语法可以上 Google 搜索一下。<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180831153572349093818.png" srcset="/img/loading.gif"></li>
 </ol>
 <h2 id="CSS-选择器"><a href="#CSS-选择器" class="headerlink" title="CSS 选择器"></a>CSS 选择器</h2><p>有的网站的 HTML 结构不适合使用 XPath 来写，会写的很长，可以尝试使用 css 选择器来完成，这里还是借助 Chrome 的开发者工具。</p>
 <ol>
-<li>同上一步一样，选择一个元素后，选择 Copy selector<br> <img src="http://img12345.5-project.com/2018083115357231057642.png" srcset="/img/loading.gif"></li>
-<li>可以在 Chrome 开发者工具的 console 里验证选择器是否正确,这里正确打印出了这个元素。在 webmagic 里通过 css 方法或者 $ 方法传递 css 选择器参数，得到对象.<br> <img src="http://img12345.5-project.com/20180831153572433184741.png" srcset="/img/loading.gif"></li>
+<li>同上一步一样，选择一个元素后，选择 Copy selector<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/2018083115357231057642.png" srcset="/img/loading.gif"></li>
+<li>可以在 Chrome 开发者工具的 console 里验证选择器是否正确,这里正确打印出了这个元素。在 webmagic 里通过 css 方法或者 $ 方法传递 css 选择器参数，得到对象.<br> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180831153572433184741.png" srcset="/img/loading.gif"></li>
 </ol>
 <h2 id="json-path-方式"><a href="#json-path-方式" class="headerlink" title="json path 方式"></a>json path 方式</h2><p>详见我的另外一篇博客</p>
 <h2 id="正则表达式方式"><a href="#正则表达式方式" class="headerlink" title="正则表达式方式"></a>正则表达式方式</h2><p>这个就不用多说了，通过正则抽取正文符合的内容</p>

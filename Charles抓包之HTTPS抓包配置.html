@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 中午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -297,34 +297,34 @@
 <h2 id="抓包准备之-Charles-配置-HTTPS-抓包基础配置"><a href="#抓包准备之-Charles-配置-HTTPS-抓包基础配置" class="headerlink" title="抓包准备之 Charles 配置 HTTPS 抓包基础配置"></a>抓包准备之 Charles 配置 HTTPS 抓包基础配置</h2><p>如今 Https 大行其道，苹果更是强制要求 APP 通信必须要使用 Https 协议，如果只是抓普通的 HTTP 请求，无需复杂配置即可抓包，这也表明了 HTTP 的安全性很低。</p>
 <p>Charles 默认不对 HTTPS 的请求开启抓包，所以，需要先开启所有 HTTPS 请求的抓包。</p>
 <p>进入菜单 Proxy-SSL Proxying Settings<br>选择开启 SSL Proxy，并 Add 一条 Location 记录，Host 填写 <code>*</code>，代表匹配所有网址，端口 Port，填写443，即 HTTPS 端口。  选择保存。</p>
-<p><img src="http://img12345.5-project.com/blog/20180415/192924472.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180415/192924472.png" srcset="/img/loading.gif"></p>
 <p>基础配置到此就完成了，以下本文按照两方面来描述，Charles 抓 HTTPS。</p>
 <h2 id="Charles-抓-Windows-上的-HTTPS-请求"><a href="#Charles-抓-Windows-上的-HTTPS-请求" class="headerlink" title="Charles 抓 Windows 上的 HTTPS 请求"></a>Charles 抓 Windows 上的 HTTPS 请求</h2><p>进入 Help 中，选择 SSL Proxying 设置，安装根证书  </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175314107.png?imageslim" srcset="/img/loading.gif">  </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175426039.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180413/175314107.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180413/175426039.png?imageslim" srcset="/img/loading.gif"></p>
 <p>注意这一步一定要将证书存储到 <strong>受信任的根证书颁发机构</strong>，否则抓包 HTTPS 会提示证书不受信任！！！嗯，搞了好久，血一般的教训！ </p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175511643.png?imageslim" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180413/175511643.png?imageslim" srcset="/img/loading.gif">  </p>
 <p>安装期间会有安全警告，选择是即可。</p>
-<p><img src="http://img12345.5-project.com/blog/20180413/175547783.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180413/175547783.png?imageslim" srcset="/img/loading.gif"></p>
 <p>访问 <a href="https://www.baidu.com/">https://www.baidu.com</a>后，查看 Charles，已经可以看到 Https 请求下的数据了。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379485069600.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180415152379485069600.png" srcset="/img/loading.gif"></p>
 <h2 id="Charles-抓-APP-的-HTTPS-请求"><a href="#Charles-抓-APP-的-HTTPS-请求" class="headerlink" title="Charles 抓 APP 的 HTTPS 请求"></a>Charles 抓 APP 的 HTTPS 请求</h2><p>想要 Charles 抓 HTTPS 的数据包，需要设置代理并安装 Charles 的中间 SSL 证书。</p>
 <p>选择 Help-SSL Proxying  </p>
-<p><img src="http://img12345.5-project.com/20180415152379262077868.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180415152379262077868.png" srcset="/img/loading.gif"></p>
 <p>点击会弹出对话框如下  </p>
-<p><img src="http://img12345.5-project.com/2018041515237927135136.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/2018041515237927135136.png" srcset="/img/loading.gif"></p>
 <p>按照提示，将手机连入电脑同一个网络，WIFI 处设置代理，代理的地址以及端口按照对话框中进行设置。 </p>
-<p><img src="http://img12345.5-project.com/20180415152379295633941.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180415152379295633941.png" srcset="/img/loading.gif"></p>
 <p>设置成功返回之后，此时电脑上 Charles 会自动弹出提醒，提示是否允许请求代理通过，选择 <code>Allow</code> 允许即可。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379304426547.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180415152379304426547.png" srcset="/img/loading.gif"></p>
 <p>连上代理之后，使用系统自带浏览器( iPhone 使用 Safari)访问地址 <code>chls.pro/ssl</code>，如果是 iPhone 会自动弹出安装描述文件，选择安装输入密码后无视警告安装即可。因为手边没有安卓设备，不过流程应该类似，就是安装一个 CA 证书文件。</p>
 <p>手机访问 <code>https://m.baidu.com</code>，查看 Charles ，发现此时已经可以拿到 HTTPS 数据内容了，如果没设置成功，里面都将会是 unknown。  </p>
-<p><img src="http://img12345.5-project.com/20180415152379397996806.jpg" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180415152379397996806.jpg" srcset="/img/loading.gif"></p>
 <h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
 <li><p>开启 SSL Proxy 代理后，提示证书不受信任或者无效，PC 端一般都是因为证书放错了位置。</p>
 </li>
 <li><p>在 IOS11上测试时，抓包<strong>显示unknown</strong>  需要进入通用-关于本机-证书信任设置，将新增的证书进行开启操作。</p>
-<p> <img src="http://img12345.5-project.com/blog/20180413/165008375.png?imageslim" srcset="/img/loading.gif"><br><del>1. 小米系统的手机安装证书方式比较繁琐，需要进入开发者选项中，在信用证书中进行安装（Fiddler安装证书是这样的，Charles 应该也差不多）</del></p>
+<p> <img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20180413/165008375.png?imageslim" srcset="/img/loading.gif"><br><del>1. 小米系统的手机安装证书方式比较繁琐，需要进入开发者选项中，在信用证书中进行安装（Fiddler安装证书是这样的，Charles 应该也差不多）</del></p>
 </li>
 </ol>
 <h2 id="最后说几句"><a href="#最后说几句" class="headerlink" title="最后说几句"></a>最后说几句</h2><p>善用搜索引擎，因为你遇到的问题肯定有别人都遇到过了，如果你搜不到，肯定是你的搜索姿势不对~</p>

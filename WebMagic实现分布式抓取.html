@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 下午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -319,12 +319,12 @@
 <p><strong>所以，如果要实现分布式同时抓取同一个队列，就需要保持 多个 Spider 的 UUID 是一致的</strong></p>
 <h2 id="实现分布式抓取"><a href="#实现分布式抓取" class="headerlink" title="实现分布式抓取"></a>实现分布式抓取</h2><p>用过 WebMagic 的人都知道，爬虫启动需要给他一个起始 URL，然后通过这个 URL 获取新的 URL；所以如果需要进行分布式抓取，肯定爬虫的起始 URL 是不能相同的，因为WebMagic 会对重复的 URL 进行自动去重。</p>
 <p>因此爬虫的架构图从</p>
-<p><img src="http://img12345.5-project.com/20180804153339577157412.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180804153339577157412.png" srcset="/img/loading.gif"></p>
 <p>变成了如下架构</p>
-<p><img src="http://img12345.5-project.com/20180804153339572932005.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180804153339572932005.png" srcset="/img/loading.gif"></p>
 <p>即保证多个爬虫使用同一个 Redis 队列。具体思路就是第一只通过起始 URL 爬虫启动的时候，记录启动爬虫的设置UUID，然后启动其他爬虫的时候，设置爬虫的 UUID 为记录的 UUID 的值。</p>
 <p>代码中体现的就是如下所示：</p>
-<p><img src="http://img12345.5-project.com/20180804153339696246963.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20180804153339696246963.png" srcset="/img/loading.gif"></p>
 <p>启动其他爬虫的时候，手动从队列中获取 URL 设置为启动 URL 即可。</p>
 <h2 id="分布式爬虫任务调度"><a href="#分布式爬虫任务调度" class="headerlink" title="分布式爬虫任务调度"></a>分布式爬虫任务调度</h2><p>笔者实现的爬虫启动是通过定时任务启动的，因为其他爬虫与第一只爬虫的入口不同，因此定义了两个任务去调度，并且两个任务之间有 30s 的间隔时间，防止第一只爬虫还未添加 URL 到队列当中，而造成其他爬虫无 URL 可抓取情况的发生。</p>
 <p>基于这个思路，因 URL 放在 Redis 之中，所以同时也可以实现 <strong>断点抓取。</strong></p>

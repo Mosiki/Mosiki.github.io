@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 中午
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -291,7 +291,7 @@
 
 <h2 id="自定义文章-URL"><a href="#自定义文章-URL" class="headerlink" title="自定义文章 URL"></a>自定义文章 URL</h2><p>先说说中文转义 URL 的方式，首先需要修改 hexo 根目录下的_config.yml 文件，</p>
 <figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-comment">#permalink: :year/:month/:title/</span><br><span class="hljs-attr">permalink:</span> <span class="hljs-string">:year/:month/:urlname.html</span><br><span class="hljs-attr">permalink_defaults:</span><br>  <span class="hljs-attr">urlname:</span> <span class="hljs-string">index</span><br></code></pre></div></td></tr></table></figure>
-<p>将原永久链接 permalink 中的*:title* 替换为为 urlname.html ，同时在 permalink_defaults 增加 urlname 属性，这样就可以通过在文章内容的 Formatter 配置文章的 URL 链接地址，笔者之前修改过一次永久链接格式，只保留了标题即：<code>permalink: :title.html</code>，现在修改为了 <code>permalink: :urlname.html</code> ,本文文章配置如下图，<br><img src="http://img12345.5-project.com/blog/20200126164057.png" srcset="/img/loading.gif">  </p>
+<p>将原永久链接 permalink 中的*:title* 替换为为 urlname.html ，同时在 permalink_defaults 增加 urlname 属性，这样就可以通过在文章内容的 Formatter 配置文章的 URL 链接地址，笔者之前修改过一次永久链接格式，只保留了标题即：<code>permalink: :title.html</code>，现在修改为了 <code>permalink: :urlname.html</code> ,本文文章配置如下图，<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20200126164057.png" srcset="/img/loading.gif">  </p>
 <p>本文最终的 URL 地址就是：<code>http://nullpointer.pw/hexo-custom-article-url.html</code>  </p>
 <h2 id="修改文章模板"><a href="#修改文章模板" class="headerlink" title="修改文章模板"></a>修改文章模板</h2><p>修改 post.md</p>
 <figure class="highlight yml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-meta">---</span><br><span class="hljs-attr">title:</span> &#123;&#123; <span class="hljs-string">title</span> &#125;&#125;<br><span class="hljs-attr">date:</span> &#123;&#123; <span class="hljs-string">date</span> &#125;&#125;<br><span class="hljs-attr">urlname:</span> <br><span class="hljs-attr">tags:</span><br><span class="hljs-bullet">-</span> <span class="hljs-number">1</span><br><span class="hljs-attr">categories:</span><br><span class="hljs-bullet">-</span> <span class="hljs-number">2</span><br><span class="hljs-meta">---</span><br></code></pre></div></td></tr></table></figure>

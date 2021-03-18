@@ -197,7 +197,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('http://img12345.5-project.com/blog/1609071034305.png') no-repeat center center;
+         style="background: url('http://qq2a49k3i.hn-bkt.clouddn.com/blog/1609071034305.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月27日 晚上
+                  本文最后更新于：2021年3月17日 晚上
                 
               </p>
             
@@ -291,10 +291,10 @@
 
 <h2 id="项目痛点"><a href="#项目痛点" class="headerlink" title="项目痛点"></a>项目痛点</h2><p>一个项目单个环境迭代开发的过程中，对于数据库表的修改 DDL，可以通过版本控制工具一起进行控制。只需要在项目上线之前，人工执行新增的 DDL 即可，DDL 的版本是与当前项目迭代版本一致，细致点不至于出现问题。</p>
 <p>单个环境版本迭代，数据库的版本号变更流程如下图：    </p>
-<p><img src="http://img12345.5-project.com/blog/20200620135512.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20200620135512.png" srcset="/img/loading.gif">  </p>
 <p>对于偏企业服务的公司而言，同一个项目会同时部署到多套环境当中。随着项目迭代进行，不同环境的项目版本可能并非是同步一致的，甚至因为有的环境需要定制化开发，出现同一个项目多个分支，代码也愈行愈远。</p>
 <p>多个环境版本迭代，数据库的版本号变更流程如下图：    </p>
-<p><img src="http://img12345.5-project.com/blog/20200620135616.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20200620135616.png" srcset="/img/loading.gif">  </p>
 <p>于是在这种情况下，上线服务之前就很痛苦，要想起上线环境的当前表版本是多少，想不起来，就要对比线上库里的表，判断是否执行过了增量的 DDL，每个环境的增量 DDL 都可能是不同的，需要针对每个环境写不同的 DDL，发布时战战兢兢地生怕漏了执行哪个版本的 DDL 导致线上 Bug。</p>
 <p>那如何解决这种糟糕的情况呢？</p>
 <p>理想状态：项目启动时自动维护数据库版本到最新，不需要人工处理 DDL，避免出错。</p>
@@ -334,7 +334,7 @@
 </li>
 <li><p>Over~</p>
 </li>
-<li><p>有时候如果新版本的 DDL 写错了，可能会导致 flyway 执行失败，会在元数据表中增加一条执行 status 为 0 的记录，只要 status 有为 0 的记录，项目就无法启动，这样就很难受，网上解决方式多是手动去数据库删除这条记录，这未免太危险，可以利用 flyway 的 callback 来实现执行失败，自动删除失败记录。在 <code>resources/db</code>目录下添加名为 <code>afterMigrateError.sq</code>文件，文件内容为</p>
+<li><p>有时候如果新版本的 DDL 写错了，可能会导致 flyway 执行失败，会在元数据表中增加一条执行 status 为 0 的记录，只要 status 有为 0 的记录，项目就无法启动，这样就很难受，网上解决方式多是手动去数据库删除这条记录，这未免太危险，可以利用 flyway 的 callback 来实现执行失败，自动删除失败记录。在 <code>resources/db</code>目录下添加名为 <code>afterMigrateError.sql</code>文件，文件内容为</p>
 <figure class="highlight"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- SQL 执行失败，清理 flyway 元数据表中失败的执行记录</span><br>DELETE IGNORE FROM `$&#123;flyway-table&#125;` WHERE success = 0;<br></code></pre></div></td></tr></table></figure>
 <p>其中的变量就是当前项目元数据表的表名称。</p>
 </li>
