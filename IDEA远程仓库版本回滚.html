@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -289,19 +289,19 @@
               <p>使用 git 进行项目的版本控制时，肯定会遇到回滚版本的情况，回滚有两种，一种是本地仓库回滚，另外一种是远程仓库回滚。以下详细讲解两种回滚方式，本文主要讲解远程回滚，以及常见使用误区。</p>
 <a id="more"></a>
 
-<h2 id="本地仓库回滚"><a href="#本地仓库回滚" class="headerlink" title="本地仓库回滚"></a>本地仓库回滚</h2><p>本地回滚就很简单，只是要撤销 commit 信息即可。可以直接使用 <strong>Reset HEAD</strong>进行回滚。<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202183824.png" srcset="/img/loading.gif"></p>
+<h2 id="本地仓库回滚"><a href="#本地仓库回滚" class="headerlink" title="本地仓库回滚"></a>本地仓库回滚</h2><p>本地回滚就很简单，只是要撤销 commit 信息即可。可以直接使用 <strong>Reset HEAD</strong>进行回滚。<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202183824.png" srcset="/img/loading.gif"></p>
 <p>HEAD^ 是还原到上一个版本，HEAD^^ 是还原到上上一个版本。<br>Reset Type 有三种：</p>
 <p>mixed 默认方式，只保留源码，回退commit和index信息<br>soft 回退到某个版本，只回退了commit的信息，不会恢复到index file一级。如果还要提交，直接commit<br>hard 彻底回退，本地源码也会变成上一个版本内容</p>
 <h2 id="错误的远程仓库回滚方式"><a href="#错误的远程仓库回滚方式" class="headerlink" title="错误的远程仓库回滚方式"></a>错误的远程仓库回滚方式</h2><p>远程仓库代码回滚，如果上 Google 上一搜，基本出来的答案都是使用 <strong>Reset HEAD</strong> 加上 <strong>git push -f</strong> 强制提交的方式。</p>
 <p>我本地测试了一下，如果有两个人同时在这条分支上开发，其中一个人 小 A 如果使用这种方式进行回滚了远程仓库代码，另外一个人 小 B 此时本地还是回滚之前的代码，小 B 那里就会出现本地代码版本高于远程分支版本的情况，此时若小 B 进行了 push 操作，之前小 A 回滚的代码就又会被推送到远程的仓库了。除非小 B 在回滚后，将其本地仓库的版本也进行回滚。才能保证不会把回滚的代码重新 push 回远程仓库，但是如果开发人员多，就无法保证所有开发人员的本地分支都回滚！</p>
 <p><strong>因此，不要使用 git push -f 这种方式来强制回滚远程仓库代码！</strong></p>
-<h2 id="正确的远程仓库回滚方式"><a href="#正确的远程仓库回滚方式" class="headerlink" title="正确的远程仓库回滚方式"></a>正确的远程仓库回滚方式</h2><p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202173041.png" srcset="/img/loading.gif"></p>
+<h2 id="正确的远程仓库回滚方式"><a href="#正确的远程仓库回滚方式" class="headerlink" title="正确的远程仓库回滚方式"></a>正确的远程仓库回滚方式</h2><p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202173041.png" srcset="/img/loading.gif"></p>
 <p>如图所示，现在需要将远程仓库回滚到 dev-103 这次提交点。</p>
-<p>选中 <strong>dev-103</strong> 这一行，右键选择 Revert<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202190206.png" srcset="/img/loading.gif"></p>
+<p>选中 <strong>dev-103</strong> 这一行，右键选择 Revert<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202190206.png" srcset="/img/loading.gif"></p>
 <p>这里提示需要 commit</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202190327.png" srcset="/img/loading.gif"></p>
-<p>commit 之后，push 到远程仓库中。最终结果如下：<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202190438.png" srcset="/img/loading.gif"></p>
-<p>新增了一条提交记录，查看代码已经被回滚了<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181202190551.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202190327.png" srcset="/img/loading.gif"></p>
+<p>commit 之后，push 到远程仓库中。最终结果如下：<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202190438.png" srcset="/img/loading.gif"></p>
+<p>新增了一条提交记录，查看代码已经被回滚了<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181202190551.png" srcset="/img/loading.gif"></p>
 <p>其他开发人员如果进行了 pull，其本地仓库也被正确回滚到了 dev-103 提交点，就无需再担心回滚的代码又被重新 push 到远程仓库啦。</p>
 <p>搞定，收工！</p>
 

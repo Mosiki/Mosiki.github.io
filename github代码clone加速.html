@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -293,7 +293,7 @@
 <p>油猴安装: <a href="https://www.tampermonkey.net/">https://www.tampermonkey.net/</a></p>
 <p>油猴脚本：<a href="https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD">https://greasyfork.org/scripts/398278-github-%E9%95%9C%E5%83%8F%E8%AE%BF%E9%97%AE-%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%BD%BD</a></p>
 <p>直接访问GitHub查看效果。如下图</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20200421154536.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20200421154536.png" srcset="/img/loading.gif"></p>
 <p><del>与上一次同理，这次也使用的是反向代理达到加速的目的，只不过这次使用的域名非笔者提供的。使用方法：<code>https://github.com.cnpmjs.org/用户名/仓库名</code><br>如：<code>https://github.com.cnpmjs.org/apache/skywalking</code>，则clone地址为：<code>http://github-mirror.bugkiller.org/apache/skywalking.git</code></del></p>
 <h2 id="再次更新"><a href="#再次更新" class="headerlink" title="再次更新"></a>再次更新</h2><p>发现另外一种方式可以实现加速的方式，即通过一台服务器（可以是非国外服务器）通过nginx反向代理GitHub，然后直接访问代理后的地址即可。这种方式适合下载代码的zip包或者仓库里的releases文件，比如<code>https://xxxx.domain.com/Mosiki/github/archive/master.zip</code>。</p>
 <p>具体反向代理的配置读者可以自行查找教程。</p>
@@ -304,16 +304,16 @@
 <p>最近发现用 hosts 方式不太好使了，如果改 hosts 的方式也不起作用的话，可以使用这个绝招了。</p>
 <p>步骤一：fork 你想要 clone 的库</p>
 <p>步骤二：登录<a href="https://gitee.com/">码云</a>，登录成功后，点击网页右上角加号，选择 <strong>从 GitHub 导入仓库</strong></p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190903223934.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190903223934.png" srcset="/img/loading.gif"></p>
 <p>这个过程码云会让你去 GitHub 授权拉取你的仓库，选择同意就行了。</p>
 <p>步骤三：找到你在 GitHub 中 fork 的仓库选择导入，等待一会儿就行了，如果仓库较大，可能导入会花一些时间。</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190903224222.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190903224222.png" srcset="/img/loading.gif"></p>
 <p>步骤四：使用码云的地址进行 clone 即可，国内的速度还是非常快的！</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190903224448.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190903224448.png" srcset="/img/loading.gif"></p>
 <p>备注：此方法只适用于临时下载仓库，如果要是提 PR 什么的，还是使用改 hosts 方法或者走代理的方式吧。</p>
 <hr>
 <p>2019年06月16日更新一下：</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190616163736.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190616163736.png" srcset="/img/loading.gif"></p>
 <p>看评论有人说不好使，我在 mac 上本地测试了一下（未开启全局代理），红框之上是未指定 hosts 的结果，速度很慢，平均不到 <strong>50k/s</strong> 的速度，红框内是切换到最新 host 之后的结果，速度一直在增加，达到 <strong>3.25MB/s</strong>，效果显而易见。</p>
 <p>Tips: 如果切换到最新 hosts 后还是很慢，可以重新开一个终端尝试，或者断开再重连一下网络，可能是 hosts 还未生效。（switch hosts 在 win 下需要使用管理员身份打开，mac 下需要输入开机密码获得权限）</p>
 <h2 id="加速访问"><a href="#加速访问" class="headerlink" title="加速访问"></a>加速访问</h2><p>在网上搜索一圈，好多文章中提速的方法就是修改 git 的代理配置，前提是有 SS 之类的{代}{理}工具，然而我开了全局{代}{理}，设置了 git 的代理配置，clone 的速度还是很慢，只能到 30kb/s，如果库大点，下个几天几夜都可能😅</p>
@@ -326,11 +326,11 @@
 <li><p>复制如下 hosts 地址（测试发现GitHub的网址有可能访问不了，因而更换成了码云的镜像仓库地址）</p>
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/Mosiki/gi</span>thub<span class="hljs-regexp">/raw/m</span>aster/github_hosts.txt<br></code></pre></div></td></tr></table></figure>
 </li>
-<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190404212331.png" srcset="/img/loading.gif"></p>
+<li><p>新增远程 hosts<br>笔者在 mac 下操作，win 是同理。<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190404212331.png" srcset="/img/loading.gif"></p>
 </li>
-<li><p>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190404212810.png" srcset="/img/loading.gif"><br>更新完成之后点击确定保存即可。</p>
+<li><p>设置自动更新<br>选择 24 小时即可，第一次添加的时候需要手动点击刷新按钮，刷新获取一下远程的 hosts<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190404212810.png" srcset="/img/loading.gif"><br>更新完成之后点击确定保存即可。</p>
 </li>
-<li><p>打开 hosts 开关<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181124164505.png" srcset="/img/loading.gif"><br>如图设置完，把开关打开就 Ok 了。</p>
+<li><p>打开 hosts 开关<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181124164505.png" srcset="/img/loading.gif"><br>如图设置完，把开关打开就 Ok 了。</p>
 </li>
 </ol>
 <h2 id="测试Clone速度"><a href="#测试Clone速度" class="headerlink" title="测试Clone速度"></a>测试Clone速度</h2><p>由 30kb/s 变成 4M/s 了 😂</p>

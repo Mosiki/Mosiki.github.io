@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -293,12 +293,12 @@
 <p>比如静态资源请求的域名是 <strong>res.domain.com</strong> ， 动态请求的域名是 <strong><a href="http://www.domain.com/">www.domain.com</a></strong></p>
 <h2 id="配置-Nginx-静态资源设置"><a href="#配置-Nginx-静态资源设置" class="headerlink" title="配置 Nginx  静态资源设置"></a>配置 Nginx  静态资源设置</h2><p>参考我的上一篇文章 <a href="http://nullpointer.pw/2017/08/19/Nginx%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB/">Nginx动静分离</a></p>
 <h2 id="阿里云-CDN-配置"><a href="#阿里云-CDN-配置" class="headerlink" title="阿里云 CDN 配置"></a>阿里云 CDN 配置</h2><p>登录阿里云 CDN 控制台，添加域名。</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20170820/070050098.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170820/070050098.png" srcset="/img/loading.gif"></p>
 <p>需要注意的是资源文件只需要放到一台主机上即可，方便管理。</p>
 <p>添加 CDN 域名成功后，回到域名管理页面， 在域名列表中找到新加的域名，光标悬浮到该域名上，会出现一个 <strong>复制 CNAME</strong> 的按钮，选择复制，会得到一个类似于 <strong>res.domain.com.w.kunlunle.com</strong> 的域名。</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20170820/070354748.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170820/070354748.png" srcset="/img/loading.gif"></p>
 <h2 id="DNS-配置"><a href="#DNS-配置" class="headerlink" title="DNS 配置"></a>DNS 配置</h2><p>进入你的域名的 DNS 服务提供商控制台，我这里是 <a href="https://www.dnspod.cn/">DNSPOD</a> ， 找到静态资源域名，我的是 <strong>res.domain.com</strong> 修改记录类型为 CNAME ，记录值修改为上一步复制的 域名，如 <strong>res.domain.com.w.kunlunle.com。</strong></p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20170820/071213172.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170820/071213172.png" srcset="/img/loading.gif"></p>
 <p>选择保存，等待几分钟 DNS 生效后，访问域名试试吧！</p>
 <p>比如我的 <strong>res.domain.com/_res/a.jpg</strong> （需要事先在资源服务器上事先放置该静态文件） 如果访问不到说明配置有误或者缓存还未生效。这里有一个坑就是，自己的电脑有可能因为缓存没刷新访问不到该路径静态资源，而别人的电脑可以，可以换一台电脑尝试访问，或者通过手机浏览器访问尝试。</p>
 <p>End。</p>

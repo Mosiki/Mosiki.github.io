@@ -281,18 +281,18 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
             <div class="markdown-body">
               <p>总是觉得自己平时总是在写逻辑代码，于是学习设计模式，但是又觉得无处可施展，对于如何提高自己的编码能力总是困惑，也曾看了一些源码，但总因为难度太大而不了了之。因为大多数的开源框架源码随着版本的更迭，难度越发上升源码愈发晦涩难懂，但源码还是不能不读，所以觉得从最简单的源码开始读起吧，因为工作中，用到了 WebMagic 框架，于是决定从它开始，为了降低阅读难度，我选择了第一个 tag 版本的源码开始阅读，从易入难，由浅入深，希望自己 2019 年代码能力能有所提升!</p>
 <a id="more"></a>
-<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>首先在 IDEA 上把 WebMagic 的源码 clone 到本地<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190115211258.png" srcset="/img/loading.gif"></p>
-<p>然后 checkout 第一个版本的 tag<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190115211432.png" srcset="/img/loading.gif"></p>
-<p>在对话框中，使用智能提示快捷键展示出所有的 tag，默认快捷键是 <code>ctrl(command) + 空格</code>，因为可能会和输入法冲突，我修改成了 <code>command + ;</code><br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20190115211528.png" srcset="/img/loading.gif"></p>
+<h2 id="下载源码"><a href="#下载源码" class="headerlink" title="下载源码"></a>下载源码</h2><p>首先在 IDEA 上把 WebMagic 的源码 clone 到本地<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190115211258.png" srcset="/img/loading.gif"></p>
+<p>然后 checkout 第一个版本的 tag<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190115211432.png" srcset="/img/loading.gif"></p>
+<p>在对话框中，使用智能提示快捷键展示出所有的 tag，默认快捷键是 <code>ctrl(command) + 空格</code>，因为可能会和输入法冲突，我修改成了 <code>command + ;</code><br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190115211528.png" srcset="/img/loading.gif"></p>
 <p>我选择了 <code>version-0.1.0</code> 版本，然后基于这个 tag，创建了自己的本地分支，便于在上面进行添加注释等操作。</p>
-<h2 id="阅读-Spider-源码"><a href="#阅读-Spider-源码" class="headerlink" title="阅读 Spider 源码"></a>阅读 Spider 源码</h2><p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181226210950.png" srcset="/img/loading.gif"><br>参见官网架构图，Spider 这个组件是 WebMagic 框架的核心所在，同时也是爬虫的入口类，Spider 将各大组件串联起来，共同工作。<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181226064624.png" srcset="/img/loading.gif"></p>
+<h2 id="阅读-Spider-源码"><a href="#阅读-Spider-源码" class="headerlink" title="阅读 Spider 源码"></a>阅读 Spider 源码</h2><p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181226210950.png" srcset="/img/loading.gif"><br>参见官网架构图，Spider 这个组件是 WebMagic 框架的核心所在，同时也是爬虫的入口类，Spider 将各大组件串联起来，共同工作。<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181226064624.png" srcset="/img/loading.gif"></p>
 <p>Spider 实现了 Task 和 Runnable 接口，Task 提供了两个接口方法，一个是 getSite()，另外一个是 getUUID()，爬虫运行时，将爬虫自身引用传递到各个组件进行处理。</p>
 <p>一般使用 WebMagic 时，通过 Spider.create() 方法创建爬虫，创建时可以指定 Downloader、Scheduler、PageProcessor、Pipeline 这几个组件，作者将这四个组件抽象成了接口，方便扩展，其中 PageProcessor 是必须指定的组件，其他的组件 WebMagic 提供了对应的默认值。</p>
 <p>Spider 类主要核心是 run 方法</p>
@@ -300,7 +300,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>从源码中看到，对于多线程共享资源活跃线程数的处理，使用到了 Integer 的原子类 AtomicInteger，保证活跃线程数量在多线程情况下统计结果的正确性。</p>
 <p>作者将四大组件抽象成了接口，面向接口编程，方便扩展，很值得学习。</p>
 <p>因为是初始版本，不可避免的会有一些明显的 Bug 存在，比如在 page 类的 <code>addTargetRequests</code> 方法中应该用 <code>continue</code>，但是错用了 <code>break</code>的情况，所以初始版本源码阅读完成后，需要读读新一些版本的源码。</p>
-<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步哈哈~<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20181226212444.png" srcset="/img/loading.gif"></p>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步哈哈~<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181226212444.png" srcset="/img/loading.gif"></p>
 <p>QQ 群号:967808880</p>
 
             </div>

@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -290,7 +290,7 @@
 <a id="more"></a>
 
 <h2 id="聊聊推广"><a href="#聊聊推广" class="headerlink" title="聊聊推广"></a>聊聊推广</h2><p>常见的推广套路就是针对一个推广员生成推广链接，推广员然后其他用户通过推广链接点击进来注册，但是不可能推广的页面是注册页面，所以需要先记录下用户的来源。注册成功的同时，绑定用户与推广员的关系，便于日后通过用户的充值消费统计推广员的推广费用，以下为推广的简单流程图。</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20171203151228872026958.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/20171203151228872026958.png" srcset="/img/loading.gif"></p>
 <h2 id="推广系统实现"><a href="#推广系统实现" class="headerlink" title="推广系统实现"></a>推广系统实现</h2><h3 id="推广链接的生成"><a href="#推广链接的生成" class="headerlink" title="推广链接的生成"></a>推广链接的生成</h3><p>整个推广流程最主要的地方就是推广链接的生成与使用，为了方便推广链接的管理，需要将生成的推广链接进行保存。首先进行推广链接表的设计。最后提供给推广员的推广链接格式如：<code>http://m.domain.com/cp?code=xx</code>，其中 code 的值为推广链接的 ID。</p>
 <table>
 <thead>
@@ -364,9 +364,9 @@
 </li>
 </ol>
 <p>后台推广链接生成页面参考：  </p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20171203151228736175519.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/20171203151228736175519.png" srcset="/img/loading.gif"></p>
 <h3 id="推广链接的跳转"><a href="#推广链接的跳转" class="headerlink" title="推广链接的跳转"></a>推广链接的跳转</h3><p>首先再看看推广的流程</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/20171203151228877937882.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/20171203151228877937882.png" srcset="/img/loading.gif"></p>
 <p>首先用户通过点击推广链接，进入了推广的页面，我司就是小说的某一免费章节的阅读页面，之后到收费章节的时候，就会提示用户进行登录。<br>注册的用户，如何知道是从哪一个链接过来的呢？这就需要在用户注册之前就将推广链接的标记进行存储，最好的方式就是写入 Cookie。之前公司项目写 Cookie 是在前端进行，但是运行之后，发现不太可靠，因此我们将写 Cookie 的操作放在后端进行。</p>
 <p>推广链接地址是 <code>http://m.domain.com/cp?code=xx</code>，访问如下接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 用于推广链接的统一跳转</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RequestMapping</span> (value = <span class="hljs-string">&quot;/cp&quot;</span>, method = RequestMethod.GET)<br><span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">companionRedirect</span><span class="hljs-params">(String code,</span></span><br><span class="hljs-function"><span class="hljs-params">        HttpServletRequest request, Model m, HttpServletResponse response)</span> </span>&#123;<br><br>    <span class="hljs-keyword">try</span> &#123;<br>        <span class="hljs-keyword">int</span> id = Integer.parseInt(code);<br>        <span class="hljs-comment">// 查询出推广链接记录</span><br>        CompanionLink link = companionService.getCompanionLink(id);<br>        <span class="hljs-keyword">if</span> (link != <span class="hljs-keyword">null</span> &amp;&amp; link.getStatus() != Constants.STATUS_DELETE) &#123;<br>            JSONObject obj = JSONObject.parseObject(link.getParams());<br>            <span class="hljs-comment">// 获取推广页面的地址</span><br>            String url = obj.getString(<span class="hljs-string">&quot;url&quot;</span>);<br>            <span class="hljs-comment">// 将 code 值即推广链接的 id 写入Cookie 中， EXP为有效期 3 天</span><br>            CookieUtil.setCookie(request, response, Constants.COMPANION_COOKIE_NAME, code, EXP);<br><br>            <span class="hljs-comment">// 跳转到推广页面</span><br>            <span class="hljs-keyword">if</span> (link.getUrlType() == Constants.ABS) &#123;<br>                <span class="hljs-comment">// 绝对路径直接跳转</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;redirect:&quot;</span> + url;<br>            &#125;<span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-comment">// 相对路径拼接域名后跳转</span><br>                <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;redirect:&quot;</span> + Constants.MOBILE_SERVER_DOMAIN + url;<br>            &#125;<br>        &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (NumberFormatException e) &#123;<br><br>    &#125;<br><br>    <span class="hljs-comment">// 出现异常，跳转到首页</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;redirect:&quot;</span> + Constants.MOBILE_SERVER_DOMAIN;<br>&#125;<br></code></pre></div></td></tr></table></figure>

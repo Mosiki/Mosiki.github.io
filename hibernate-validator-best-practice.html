@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -289,7 +289,7 @@
               <p>几年前刚学习 SpringBoot 的时候，就接触并开始使用 HibernateValidator 校验框架，注解校验结合统一异常处理，对代码的整洁性提高特别有帮助。但是目前发现公司里比较新的项目中对参数进行校验还是使用以前传统的方式，需要逐一对请求对象中的属性使用 if 来判断合法性，当需要校验的属性很多时，一大坨的 if 判断校验代码就不可避免。本文介绍 HibernateValidator 校验框架的日常使用，不涉及自定义约束注解。</p>
 <a id="more"></a>
 
-<h2 id="没有对比就没有伤害"><a href="#没有对比就没有伤害" class="headerlink" title="没有对比就没有伤害"></a>没有对比就没有伤害</h2><p>首先来看一下使用校验框架前后的代码对比<br><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20200204173055.png" srcset="/img/loading.gif"></p>
+<h2 id="没有对比就没有伤害"><a href="#没有对比就没有伤害" class="headerlink" title="没有对比就没有伤害"></a>没有对比就没有伤害</h2><p>首先来看一下使用校验框架前后的代码对比<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20200204173055.png" srcset="/img/loading.gif"></p>
 <p>使用校验框架后，代码简洁很多有木有~</p>
 <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>首先需要引入依赖，<strong>需要注意是否依赖有冲突，如果有一定要解决掉冲突</strong></p>
 <figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.hibernate.validator<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>hibernate-validator<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.1.0.Final<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>

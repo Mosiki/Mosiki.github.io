@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年3月17日 晚上
+                  本文最后更新于：2021年4月15日 上午
                 
               </p>
             
@@ -295,11 +295,11 @@
 <li>服务器 B：192.168.200.131</li>
 </ul>
 <h2 id="Nginx-安装"><a href="#Nginx-安装" class="headerlink" title="Nginx 安装"></a>Nginx 安装</h2><p>参考博文 <a href="http://nullpointer.pw/2017/08/20/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE/">Nginx缓存配置</a> 的 Nginx 环境搭建部分。</p>
-<h2 id="Nginx-防盗链设置"><a href="#Nginx-防盗链设置" class="headerlink" title="Nginx 防盗链设置"></a>Nginx 防盗链设置</h2><h3 id="一、配置-Nginx-的防盗链"><a href="#一、配置-Nginx-的防盗链" class="headerlink" title="一、配置 Nginx 的防盗链"></a>一、配置 Nginx 的防盗链</h3><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-comment"># 修改 nginx.conf 配置文件</span><br><span class="hljs-attribute">vim</span> /usr/local/nginx/conf/nginx.conf<br><br><span class="hljs-comment"># 添加 server 节点</span><br>server &#123;<br>    <span class="hljs-attribute">listen</span>       <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span>  www.vcmq.com;<br>    <span class="hljs-comment">#access_log  logs/host.access.log  main;</span><br><br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* \.(jpg|png|gif)$</span> &#123;<br>        <span class="hljs-attribute">root</span> /home/resources;<br>        <span class="hljs-attribute">valid_referers</span> <span class="hljs-literal">none</span> server_names <span class="hljs-regexp">*.test</span>1.com ~\.test2\.;<br>        <span class="hljs-attribute">if</span> ($invalid_referer)&#123;<br>            <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/</span> http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171028/214345352.png;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-attribute">location</span> / &#123;<br>	<span class="hljs-attribute">root</span>   html;<br>	<span class="hljs-attribute">index</span>  index.html index.htm;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<h2 id="Nginx-防盗链设置"><a href="#Nginx-防盗链设置" class="headerlink" title="Nginx 防盗链设置"></a>Nginx 防盗链设置</h2><h3 id="一、配置-Nginx-的防盗链"><a href="#一、配置-Nginx-的防盗链" class="headerlink" title="一、配置 Nginx 的防盗链"></a>一、配置 Nginx 的防盗链</h3><figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-comment"># 修改 nginx.conf 配置文件</span><br><span class="hljs-attribute">vim</span> /usr/local/nginx/conf/nginx.conf<br><br><span class="hljs-comment"># 添加 server 节点</span><br>server &#123;<br>    <span class="hljs-attribute">listen</span>       <span class="hljs-number">80</span>;<br>    <span class="hljs-attribute">server_name</span>  www.vcmq.com;<br>    <span class="hljs-comment">#access_log  logs/host.access.log  main;</span><br><br>    <span class="hljs-attribute">location</span> <span class="hljs-regexp">~* \.(jpg|png|gif)$</span> &#123;<br>        <span class="hljs-attribute">root</span> /home/resources;<br>        <span class="hljs-attribute">valid_referers</span> <span class="hljs-literal">none</span> server_names <span class="hljs-regexp">*.test</span>1.com ~\.test2\.;<br>        <span class="hljs-attribute">if</span> ($invalid_referer)&#123;<br>            <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/</span> http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171028/214345352.png;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-attribute">location</span> / &#123;<br>	<span class="hljs-attribute">root</span>   html;<br>	<span class="hljs-attribute">index</span>  index.html index.htm;<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>可以看到，我新增的 server 的地址是 <em><a href="http://www.vcmq.com/">www.vcmq.com</a></em>。  </p>
 <figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh"><span class="hljs-keyword">location</span> <span class="hljs-title">~* \.(jpg</span>|png|gif)$<br></code></pre></div></td></tr></table></figure>
 <p>此行配置的作用是<strong>匹配以 jpg/png/gif  结尾的文件请求</strong>， 如果匹配就执行 括号内的代码。   </p>
-<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">valid_referers</span> <span class="hljs-literal">none</span> server_names <span class="hljs-regexp">*.test</span>1.com ~\.test2\.;<br><span class="hljs-attribute">if</span> ($invalid_referer)&#123;<br>    <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/</span> http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171028/214345352.png;<br>&#125;<br></code></pre></div></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">valid_referers</span> <span class="hljs-literal">none</span> server_names <span class="hljs-regexp">*.test</span>1.com ~\.test2\.;<br><span class="hljs-attribute">if</span> ($invalid_referer)&#123;<br>    <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^/</span> http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171028/214345352.png;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>首先看第一行，这行的作用是配置可以识别 refer，即可以正常获取资源文件的请求，<strong>在这里配置加入白名单的请求 refer 域名</strong>。<br>参数说明：    </p>
 <ul>
 <li><strong>none</strong> 代表请求的 refer 为空，也就是直接访问，比如在浏览器中直接访问图片 <code>www.vcmq.com/test1.png</code>，直接访问时，refer 会为空。</li>
@@ -331,13 +331,13 @@
 <ol>
 <li>浏览器访问 <a href="http://www.vcmq.com,图片正常加载/">www.vcmq.com，图片正常加载</a>  </li>
 </ol>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/130449251.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/130449251.png" srcset="/img/loading.gif">  </p>
 <ol start="2">
 <li>浏览器访问 <code>www.test1.com</code> 与 <code>www.test2.com</code> 还有直接访问图片 <code>http://www.vcmq.com/test.png</code> 都正常加载   </li>
 </ol>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/140651035.png" srcset="/img/loading.gif">  </p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/140624686.png" srcset="/img/loading.gif">  </p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/140828400.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/140651035.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/140624686.png" srcset="/img/loading.gif">  </p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/140828400.png" srcset="/img/loading.gif">  </p>
 <ol start="3">
 <li>修改 服务器 A 的 nginx.conf 配置文件</li>
 </ol>
@@ -349,16 +349,16 @@
 <p>再次分别访问 ,<strong>注意需要使用 ctrl+F5 刷新一下缓存</strong></p>
 <p><code>www.vcmq.com</code>、<code>www.test1.com</code>、<code>www.test2.com</code>、<code>http://www.vcmq.com/test.png</code>。</p>
 <p>发现只有 <code>www.vcmq.com</code> 与 <code>http://www.vcmq.com/test.png</code> 正常显示，其他请求皆返回 rewrite 的图片  </p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/141839955.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/141839955.png" srcset="/img/loading.gif"></p>
 <p>同理再次修改 nginx.conf 文件, 允许来自 test1 的访问请求</p>
 <figure class="highlight nginx"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs nginx"><span class="hljs-attribute">valid_referers</span> <span class="hljs-literal">none</span> server_names <span class="hljs-regexp">*.test</span>1.com;<br></code></pre></div></td></tr></table></figure>
 <p>结果发现<br><code>www.test1.com</code>可以获取正常图片，而<code>www.test2.com</code>还是 rewrite 之后的图片</p>
-<p><img src="http://qq2a49k3i.hn-bkt.clouddn.com/blog/20171029/142030191.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20171029/142030191.png" srcset="/img/loading.gif"></p>
 <p>至此，已经实现了基于 Nginx 的简单图片防盗链。  </p>
 <p>实际应用中，可以设置允许来自公司下的域名与空 refer 的请求通过。  </p>
 <p>这里允许 空 refer 的请求通过的原因是，有些合法的请求可能会没有带上 refer。</p>
 <h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><ul>
-<li><a href="http://qq2a49k3i.hn-bkt.clouddn.com/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.zip">文章涉及配置文件下载</a></li>
+<li><a href="http://qrl3fixk9.hb-bkt.clouddn.com/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6.zip">文章涉及配置文件下载</a></li>
 </ul>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
 <li><a href="https://www.bbsmax.com/A/xl56LLwxzr/">https://www.bbsmax.com/A/xl56LLwxzr/</a></li>
