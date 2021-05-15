@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -290,7 +290,7 @@
 <a id="more"></a>
 
 <p>导出结果如下：</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170726/222116065.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170726/222116065.png" srcset="/img/loading.gif"></p>
 <p>图中为导出的其中两条新闻。</p>
 <p>搜索网上导出 word 的方式有很多种，但是很多都是一笔带过，有示例代码的只找到了 POI 导出，和通过 FreeMarker 方式导出，但是只是具有参考意义。本文采取使用 FreeMark 方式。</p>
 <h2 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h2><ol>
@@ -299,10 +299,10 @@
 <li><p>创建 word 模板</p>
 <ol>
 <li><p>新建 word 替换内容为占位符  </p>
-<p> <img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170726/223450741.png" srcset="/img/loading.gif"></p>
+<p> <img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170726/223450741.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>另存模板为 XML 文件  </p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170726/223613199.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170726/223613199.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p>使用 NotePad++ 打开 xml 文件</p>
 </li>
@@ -313,12 +313,12 @@
 <li><p>因为我的 word 的内容是一个列表，所以需要添加一个 freemarer 标签标识</p>
 </li>
 <li><p>找到<code> &lt;w:document&gt;</code> 元素下面的 <code>&lt;w:body&gt;</code> 元素，添加<code> &lt;#list newsList news&gt;</code> ， 并在<code>&lt;/w:body&gt;</code>结束标签之前闭合 <code>&lt;/#list&gt;</code>， 此处的 <strong>newsList</strong> 为后台读取模板时需要需要渲染数据map集合的key， 其所对应的是一个list集合。  </p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170726/224610046.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170726/224610046.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p> 替换模板中的占位符 <code>&lt;w:t&gt;$&#123;news.title&#125;&lt;/w:t&gt;</code> 与 <code>&lt;w:t&gt;$&#123;news.content&#125;&lt;/w:t&gt;</code> 为遍历集合的值，这里的 FreeMarker 语法可以参考网上的教程。</p>
 </li>
 <li><p>保存为 FreeMarker 的模板文件，后缀为 ftl 格式，拷贝到项目中  </p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20170726/224037421.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170726/224037421.png" srcset="/img/loading.gif"></p>
 </li>
 </ol>
 </li>
@@ -336,7 +336,7 @@
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">//DownloadUtil.java</span><br><span class="hljs-keyword">import</span> java.io.ByteArrayOutputStream;<br><span class="hljs-keyword">import</span> java.io.File;<br><span class="hljs-keyword">import</span> java.io.FileInputStream;<br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.io.OutputStream;<br><br><span class="hljs-keyword">import</span> javax.servlet.ServletOutputStream;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;<br><br><span class="hljs-keyword">import</span> org.apache.commons.io.FileUtils;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DownloadUtil</span> </span>&#123;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> byteArrayOutputStream 将文件内容写入ByteArrayOutputStream</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> response HttpServletResponse	写入response</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> returnName 返回的文件名</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">download</span><span class="hljs-params">(ByteArrayOutputStream byteArrayOutputStream, HttpServletResponse response, String returnName)</span> <span class="hljs-keyword">throws</span> IOException</span>&#123;<br>	  response.setContentType(<span class="hljs-string">&quot;application/msword&quot;</span>);<br>	  response.setHeader(<span class="hljs-string">&quot;Content-Disposition&quot;</span>, <span class="hljs-string">&quot;attachment; filename=&quot;</span> + returnName);<br>	  response.setContentLength(byteArrayOutputStream.size());<br>	  OutputStream outputstream = response.getOutputStream();			<span class="hljs-comment">//取得输出流</span><br>	  byteArrayOutputStream.writeTo(outputstream);					<span class="hljs-comment">//写到输出流</span><br>	  byteArrayOutputStream.close();									<span class="hljs-comment">//关闭</span><br>	  outputstream.flush();											<span class="hljs-comment">//刷数据</span><br>  &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
 
-<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://qrl3fixk9.hb-bkt.clouddn.com/wordDemo.zip">点我下载</a></p>
+<h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p><a href="http://qt4vq419o.hn-bkt.clouddn.com/wordDemo.zip">点我下载</a></p>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li><a href="http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F">http://itindex.net/detail/55080-springboot-freemarker-%E6%A0%BC%E5%BC%8F</a></li>
 </ul>

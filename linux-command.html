@@ -197,7 +197,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('http://qrl3fixk9.hb-bkt.clouddn.com/blog/1609071277218.png') no-repeat center center;
+         style="background: url('http://qt4vq419o.hn-bkt.clouddn.com/blog/1609071277218.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -296,7 +296,7 @@
 <h2 id="日志相关："><a href="#日志相关：" class="headerlink" title="日志相关："></a>日志相关：</h2><p>在日常工作中，经常需要在服务器上通过查看日志的方式来定位 bug 问题，掌握一定的日志排查技巧则是很有必要的。明明有些可以通过很基础的命令就可以实现，但网上有些人偏偏喜欢炫技，故作高深弄出一些特别复杂的用法来完成，其实真的没有那种必要。本文只讲最常用实用的用法。</p>
 <p>笔者截取了一些日志作为示例，以供读者练习。</p>
 <p>Tips: 命令中包含于双引号 “ “ 中的都是关键字</p>
-<p>示例日志<a href="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20200328/info.log.zip">点我下载 </a></p>
+<p>示例日志<a href="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200328/info.log.zip">点我下载 </a></p>
 <h3 id="静态日志查找"><a href="#静态日志查找" class="headerlink" title="静态日志查找"></a>静态日志查找</h3><ol>
 <li>根据关键字查找日志<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">grep <span class="hljs-string">&quot;1584345069121&quot;</span> info.log<br></code></pre></div></td></tr></table></figure></li>
 <li>根据关键字查找日志，并显示查找结果附近 5 行(前5行与后5行)日志<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">grep <span class="hljs-string">&quot;1584345069121&quot;</span> info.log -C5<br></code></pre></div></td></tr></table></figure></li>
@@ -330,7 +330,7 @@
 <li>查看进程运行多长时间<figure class="highlight sh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sh">ps -p 8080 -o etime<br></code></pre></div></td></tr></table></figure>
 <h2 id="VIM-小技巧"><a href="#VIM-小技巧" class="headerlink" title="VIM 小技巧"></a>VIM 小技巧</h2></li>
 </ol>
-<p>列举了几个 VIM 小技巧，批量注释行、替换操作<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/111.gif" srcset="/img/loading.gif">  </p>
+<p>列举了几个 VIM 小技巧，批量注释行、替换操作<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/111.gif" srcset="/img/loading.gif">  </p>
 <ol>
 <li><p>批量注释行</p>
 <ol>
@@ -348,7 +348,7 @@
 <li>d 键进行删除</li>
 </ol>
 </li>
-<li><p>搜索并替换关键字 (INFO 替换为 ERROR)<br>全文替换：    vim 正常模式下    <code>:%s/INFO/ERROR</code> 回车确定<br>当前行替换：vim 正常模式下    <code>:s/INFO/ERROR</code> 回车确定<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/vim-replace.gif" srcset="/img/loading.gif"></p>
+<li><p>搜索并替换关键字 (INFO 替换为 ERROR)<br>全文替换：    vim 正常模式下    <code>:%s/INFO/ERROR</code> 回车确定<br>当前行替换：vim 正常模式下    <code>:s/INFO/ERROR</code> 回车确定<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/vim-replace.gif" srcset="/img/loading.gif"></p>
 </li>
 <li><p>拷贝与清空全文内容<br>拷贝全文内容：vim 正常模式下 <code>:%y</code><br>清空全文内容：vim 正常模式下 <code>:%d</code></p>
 </li>

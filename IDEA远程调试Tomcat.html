@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -290,42 +290,42 @@
 <a id="more"></a>
 <h2 id="开始之前"><a href="#开始之前" class="headerlink" title="开始之前"></a>开始之前</h2><p>本文介绍 IDEA 与 Tomcat 的远程调试，且<strong>笔者在日常工作当中也是这么做的</strong>，网上很多都是互相抄袭，没有经过验证的伪原创，让人不快。</p>
 <h2 id="一、添加运行项"><a href="#一、添加运行项" class="headerlink" title="一、添加运行项"></a>一、添加运行项</h2><p>IDEA 添加远程调试项</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180508/155321907.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180508/155321907.png?imageslim" srcset="/img/loading.gif"></p>
 <p>填写服务器 IP ，端口使用默认的即可，复制第二行参数</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180508/160344543.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180508/160344543.png?imageslim" srcset="/img/loading.gif"></p>
 <h2 id="二、修改服务器中的-Tomcat-配置"><a href="#二、修改服务器中的-Tomcat-配置" class="headerlink" title="二、修改服务器中的 Tomcat 配置"></a>二、修改服务器中的 Tomcat 配置</h2><p>连接远程服务器，进入 Tomcat 根目录下的 <code>bin</code> 目录，修改 <code>catalina.sh</code> 文件</p>
 <p>定位到 108 行左右，找到 <code>cygwin=false</code> 这一行，</p>
 <p>在这一行的前一行添加</p>
 <p><code>JAVA_OPTS=&quot;&quot;</code></p>
 <p>然后将从 IDEA 中复制的那串参数粘贴到双引号之间，保存退出。</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/102842589.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/102842589.png?imageslim" srcset="/img/loading.gif"></p>
 <p>然后启动 Tomcat，如果 Tomcat 是已经启动的话，必须要<strong>重启</strong>一下。</p>
 <h2 id="三、调试环境修改"><a href="#三、调试环境修改" class="headerlink" title="三、调试环境修改"></a>三、调试环境修改</h2><p>为了调试方便，需要暂时关闭掉防火墙，否则可能无法连接。</p>
 <figure class="highlight arduino"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs arduino">service iptables <span class="hljs-built_in">stop</span><br></code></pre></div></td></tr></table></figure>
 
 <h2 id="四、IDEA-远程调试"><a href="#四、IDEA-远程调试" class="headerlink" title="四、IDEA 远程调试"></a>四、IDEA 远程调试</h2><p>回到 IDEA，点击 Debug 按钮，启动刚才添加的 Remote，如果以上没有配置错，那么控制台将打印出</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180508/161146521.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180508/161146521.png?imageslim" srcset="/img/loading.gif"></p>
 <p>此时就和本地调试一样打断点调试就行了</p>
 <h2 id="五、解决IDEA-无法连接远程-Tomcat"><a href="#五、解决IDEA-无法连接远程-Tomcat" class="headerlink" title="五、解决IDEA 无法连接远程 Tomcat"></a>五、解决IDEA 无法连接远程 Tomcat</h2><p>如果提示无法连接，如下图  </p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180508/164001814.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180508/164001814.png?imageslim" srcset="/img/loading.gif"></p>
 <p>则检查以上配置是否正确，确认都正确的话，可能是服务器防火墙的原因导致，需要关闭防火墙。</p>
 <p><strong>如果服务器是阿里云的，还需要配置 ECS 服务器的安全组，开放 <code>5005</code> 远程调试端口。 详见第八条</strong></p>
 <h2 id="六、解决断点不生效"><a href="#六、解决断点不生效" class="headerlink" title="六、解决断点不生效"></a>六、解决断点不生效</h2><p>注意：</p>
 <p>启动 Remote 的 Debug 之后，需要等待断点变成如下图时，再去访问接口；如果断点中间没有出现对号，说明断点还未生效，需要等待一会儿。</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180508/163525309.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180508/163525309.png?imageslim" srcset="/img/loading.gif"></p>
 <p>如果有时候死活也没法断点，就把服务器上的 Tomcat 重启一下试试！</p>
 <h2 id="七、其他问题"><a href="#七、其他问题" class="headerlink" title="七、其他问题"></a>七、其他问题</h2><p>因为在 catalina.sh 中添加了远程调试的参数，导致使用 tomcat 的 bin/shutdown.sh 时，可能无法完全停止服务器。可以直接 kill 掉服务器，如果不再进行远程调试，最后把远程调试参数注释掉重启。</p>
 <h2 id="八、阿里云-ECS-安全组设置"><a href="#八、阿里云-ECS-安全组设置" class="headerlink" title="八、阿里云 ECS 安全组设置"></a>八、阿里云 ECS 安全组设置</h2><p>进入 ECS 控制台，点击安全组</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/103855731.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/103855731.png?imageslim" srcset="/img/loading.gif"></p>
 <p>然后选择 创建安全组</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/104030559.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/104030559.png?imageslim" srcset="/img/loading.gif"></p>
 <p>然后配置该安全组的规则</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/104112424.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/104112424.png?imageslim" srcset="/img/loading.gif"></p>
 <p><strong>点击公网入标签</strong>，再点击右上角 添加安全组规则</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/104517431.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/104517431.png?imageslim" srcset="/img/loading.gif"></p>
 <p>授权对象 填写你的 ip 地址即可。</p>
 <p>添加完安全组之后，进入 ECS 实例</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180727/103740709.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180727/103740709.png?imageslim" srcset="/img/loading.gif"></p>
 <p>选择右侧 加入安全组，选择加入刚才添加的安全组即可。</p>
 
             </div>

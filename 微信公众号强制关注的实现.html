@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -293,11 +293,11 @@
 
 <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>公司新开发了一个分销平台项目，可以让商户即个人公众号主拥有自己的小说网站，收入与公司进行分成，从而达到了双收的效果。</p>
 <p>商户为了增加粉丝数量，于是我们开发了上述需求的功能。但是这些商户基本上都用的是订阅号，前文也提到，订阅号无法使用参数二维码接口，所以只能另辟蹊径。</p>
-<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180705/141232778.png?imageslim" srcset="/img/loading.gif"></p>
+<h2 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h2><p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180705/141232778.png?imageslim" srcset="/img/loading.gif"></p>
 <h2 id="流程梳理"><a href="#流程梳理" class="headerlink" title="流程梳理"></a>流程梳理</h2><p>首先我们在后台配置微信二维码，然后针对某一本小说，指定开始章节与显示二维码章节的 ID，生成推广链接，如下格式：<br><code>http://m.domain.com/link?code=7788</code>，以下简称 A 链接。<br>然后商户发推文，设置阅读原文的链接地址为 A 链接。</p>
 <p>当用户访问这个 A 链接的时候，跳转阅读页，待其阅读到二维码章节时，将二维码章节的下一章节 ID 写入 Cookie 之中，同时弹出二维码提示关注。</p>
 <p>用户关注，触发了微信的 <strong>SUBSCRIBE</strong> 事件，给用户发送继续阅读的消息，如下格式：<br><code>http://m.domain.com/reading</code>，以下简称 B 链接，该链接是固定不变的。</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20180705/135619684.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180705/135619684.png?imageslim" srcset="/img/loading.gif"></p>
 <p>如果用户点击了该消息，则打开了 B 链接，读取之前存储的 Cookie 信息，得到继续阅读的章节 ID，然后组装阅读 URL，通过 redirect 跳转即可。（如果用户是正常关注，也会发送消息，如果点击，找不到该 Cookie，跳转首页即可）</p>
 <p>这是针对公司需求开发的，其实，主要的地方在于参数的传递。除了关注事件，微信还有许多其他事件可供使用，比如菜单点击事件，至于怎么用，就看你的了。</p>
 

@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -292,20 +292,20 @@
 </blockquote>
 <a id="more"></a>
 
-<h2 id="阅读Scheduler源码"><a href="#阅读Scheduler源码" class="headerlink" title="阅读Scheduler源码"></a>阅读Scheduler源码</h2><p>Scheduler 是一个接口类，源码中实现有三个，分别是  <img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181226064924.png" srcset="/img/loading.gif"></p>
+<h2 id="阅读Scheduler源码"><a href="#阅读Scheduler源码" class="headerlink" title="阅读Scheduler源码"></a>阅读Scheduler源码</h2><p>Scheduler 是一个接口类，源码中实现有三个，分别是  <img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20181226064924.png" srcset="/img/loading.gif"></p>
 <p>默认 Spider 使用 <code>QueueScheduler</code></p>
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">// 默认使用基于内存的队列</span><br><span class="hljs-keyword">private</span> Scheduler scheduler = <span class="hljs-keyword">new</span> QueueScheduler();<br></code></pre></div></td></tr></table></figure>
 <p>Scheduler 接口只有两个方法</p>
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 加入一个待抓取的链接</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> request 待抓取的链接</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> task 定义的任务，以满足单Scheduler多Task的情况</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">push</span><span class="hljs-params">(Request request,Task task)</span></span>;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 返回下一个要抓取的链接</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param</span> task 定义的任务，以满足单Scheduler多Task的情况</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@return</span> 下一个要抓取的链接</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">public</span> Request <span class="hljs-title">poll</span><span class="hljs-params">(Task task)</span></span>;<br></code></pre></div></td></tr></table></figure>
 <p>接下来，分析常用的的两个实现类 QueueScheduler 和 RedisScheduler </p>
-<h2 id="QueueScheduler"><a href="#QueueScheduler" class="headerlink" title="QueueScheduler"></a>QueueScheduler</h2><p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190116061228.png" srcset="/img/loading.gif"></p>
+<h2 id="QueueScheduler"><a href="#QueueScheduler" class="headerlink" title="QueueScheduler"></a>QueueScheduler</h2><p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20190116061228.png" srcset="/img/loading.gif"></p>
 <p>线程安全的队列实现请求的生产消费关系，push 和 poll 都是同步方法，同时因为 LinkedBlockingQueue 的长度是 Integer.MAX_VALUE，如果队列过长，会出现 OOM 的情况。</p>
-<h2 id="RedisScheduler"><a href="#RedisScheduler" class="headerlink" title="RedisScheduler"></a>RedisScheduler</h2><p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20190116062241.png" srcset="/img/loading.gif"></p>
+<h2 id="RedisScheduler"><a href="#RedisScheduler" class="headerlink" title="RedisScheduler"></a>RedisScheduler</h2><p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20190116062241.png" srcset="/img/loading.gif"></p>
 <p>源码中使用 Redis 的 list 结构做 URL 队列，通过 rpush 方法，将新的 URL 放入队列右边，通过 lpop 从队列左侧弹出一个待抓取的 URL 。</p>
 <p>使用了 Redis 的有序集合进行 URL 去重，原理是：<br>如果 url 是有序集和的成员，返回 url 的排名。 如果 url 不是有序集和的成员，返回 null。zrank 方法参数如下：<br><code>zrank(有序集合的key, 成员名称)</code></p>
 <p>当成功添加 URL 到队列，调用 zadd 方法将 URL 放入有序集合当中，便于后续 URL 判重。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>功力不足，尚且看不出这部分源码的不足之处，只看到 RedisScheduler 中 jedis 释放资源的操作未放到 final 中，有所隐患。</p>
-<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步~<br><img src="http://qrl3fixk9.hb-bkt.clouddn.com/blog/20181226212444.png" srcset="/img/loading.gif"></p>
+<h2 id="联系"><a href="#联系" class="headerlink" title="联系"></a>联系</h2><p>独行的路总是孤独的，希望能找到一些小伙伴共同进步~<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20181226212444.png" srcset="/img/loading.gif"></p>
 <p>QQ 群号:967808880</p>
 
             </div>

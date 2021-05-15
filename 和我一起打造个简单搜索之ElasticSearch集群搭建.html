@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月15日 上午
+                  本文最后更新于：2021年5月15日 下午
                 
               </p>
             
@@ -289,7 +289,7 @@
               <p>我们所常见的电商搜索如京东，搜索页面都会提供各种各样的筛选条件，比如品牌、尺寸、适用季节、价格区间等，同时提供排序，比如价格排序，信誉排序，销量排序等，方便了用户去找到自己心里理想的商品。</p>
 <p>站内搜索对于一个网站几乎是标配，只是搜索的强大与否的区别，有的网站只支持关键词模糊搜索，而淘宝，京东提供了精细的筛选条件，同时支持拼音搜索等更方便的搜索方式。</p>
 <p>由于笔者在一家做网络文学的公司工作，所以实现就是以小说为商品的搜索，具体可以参考起点网小说的搜索。</p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/201809061536241809780.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/201809061536241809780.png" srcset="/img/loading.gif"></p>
 <p>如图所示，起点网的搜索提供了关键词搜索和排序条件以及筛选条件，接下来，我们一起来实现这个吧~</p>
 <a id="more"></a>
 
@@ -319,7 +319,7 @@
 <figure class="highlight awk"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk"><span class="hljs-comment"># 把插件安装到 es 目录下</span><br>cd <span class="hljs-regexp">/usr/</span>local<span class="hljs-regexp">/es/</span><br><br>git clone git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/mobz/</span>elasticsearch-head.git  <br>cd elasticsearch-head  <br>npm install<br>npm run start<br></code></pre></div></td></tr></table></figure>
 <p>在 <code>npm install</code> 这一步，由于国内网络环境的原因，可能会失败，可以npm 换源重试。</p>
 <p>启动完成后，浏览器访问 <code>http://ip:9100</code>，我的是 <code>http://192.168.199.192:9100/</code></p>
-<p><img src="http://qrl3fixk9.hb-bkt.clouddn.com/20180906153624364960006.png" srcset="/img/loading.gif"></p>
+<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/20180906153624364960006.png" srcset="/img/loading.gif"></p>
 <p>这里需要修改连接地址，为你的 es 所在的 ip:9200。后面集群健康为绿色为正常。</p>
 <p>到这里，插件也就安好了。</p>
 <h2 id="分词"><a href="#分词" class="headerlink" title="分词"></a>分词</h2><p>商品搜索，分词是必不可少的，开源的中文分词最有名的莫过于 IK 分词了，同时为了给用户提供更好的体验，同时配置 pinyin 分词，即输入拼音也可以进行搜索，网上也有对应的分词器，在下文中我们一起来配置分词器。</p>
