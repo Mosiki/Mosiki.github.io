@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -311,14 +311,14 @@
 <h2 id="配置缓存清除"><a href="#配置缓存清除" class="headerlink" title="配置缓存清除"></a>配置缓存清除</h2><figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell">cd /usr/local/nginx/conf/include<br>vi purge.conf<br><br><span class="hljs-meta">#</span><span class="bash">purge.conf 文件内容为：</span><br>server &#123;<br>    listen       80;<br>    server_name 192.168.200.129;# 此处我配置的是本机ip<br>    charset utf8;<br><br>    location ~ /purge(/.*) &#123;<br>        allow   all;# 访问此接口的白名单，all代表所有人都可以访问该路径<br>        # tmpcache 为前文中 proxy_cache_path 里配置的 keys_zone 的值<br>        # www.domain.com$1$is_args$args 表示缓存key的名称，清除某一域名下的缓存,可以指定参数<br>        # $1 代表正则匹配中的第一组<br>        proxy_cache_purge cachefile www.domain.com$1$is_args$args;<br>    &#125;<br>&#125;<br><br><span class="hljs-meta">#</span><span class="bash"> 保存 purge.conf 文件</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="测试清除缓存"><a href="#测试清除缓存" class="headerlink" title="测试清除缓存"></a>测试清除缓存</h2><p>如果要进行缓存清除，首先需要有缓存文件，此处参照前文 <a href="http://nullpointer.pw/2017/08/20/Nginx%E7%BC%93%E5%AD%98%E9%85%8D%E7%BD%AE/">Nginx缓存配置</a> 中，访问 <strong><a href="http://www.domain.com/testpage2">www.domain.com/testpage2</a></strong>  ，刷新页面，直到缓存已经生成，即 <strong>X-Cache</strong> 的状态为 <strong>HIT</strong>。</p>
 <p>进入 <strong>cd /tmp/cache/</strong> ，查看已经生成了缓存文件</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170910/223443897.png" srcset="/img/loading.gif" alt="mark">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20170910/223443897.png" srcset="/img/loading.gif" alt="mark">  </p>
 <figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 测试 nginx 配置是否正确</span><br>/usr/local/nginx/sbin/nginx -t<br><span class="hljs-meta">#</span><span class="bash"> 如果提示 is ok，说明配置没有问题，否则需要修改</span><br><br><span class="hljs-meta">#</span><span class="bash"> 重启 Nginx</span><br>/usr/local/nginx/sbin/nginx -s reload<br></code></pre></div></td></tr></table></figure>
 <p>浏览器访问（也可以通过 curl 命令来访问）：</p>
 <figure class="highlight shell"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash"> 清除key为 www.domain.com/ 的缓存</span><br>192.168.200.129/purge/    <br><span class="hljs-meta">#</span><span class="bash"> 清除 key 为 www.domain.com/testpage2 页面缓存</span><br>192.168.200.129/purge/testpage2<br></code></pre></div></td></tr></table></figure>
 <p>如果返回  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20170911/055142311.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20170911/055142311.png" srcset="/img/loading.gif">  </p>
 <p>则表示清除成功。</p>
-<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="http://qt4vq419o.hn-bkt.clouddn.com/conf.zip">示例nginx配置文件</a></p>
+<h2 id="资源下载"><a href="#资源下载" class="headerlink" title="资源下载"></a>资源下载</h2><p><a href="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/conf.zip">示例nginx配置文件</a></p>
 
             </div>
             <hr>

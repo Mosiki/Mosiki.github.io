@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -298,7 +298,7 @@
 <h2 id="坑一"><a href="#坑一" class="headerlink" title="坑一"></a>坑一</h2><p>后台代码开发不必多说，跟着文档开发，因为需要获取 微信公众号的 AccessToken 所有需要在微信后天白名单处添加本机 IP 。</p>
 <p>在微信开发者工具中，调试微信 JSSDK 时，发现 JS-SDK 提示签名错误<code>｛errmsg：config: invalid signature｝</code>，但是通过 <a href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=jsapisign">微信 JS 接口签名校验工具</a> 提交相关参数进行校验后，发现程序生成的和微信网页生成的签名是一样的,但是这里就一直提示是无效的签名。</p>
 <p>我查看了 JS-SDK 下注册 config 信息处的输入参数，发现本该提交五个参数，但是只提交了四个，漏提交了<strong>nonceStr</strong> 参数，如果你发现程序生成的和微信网页生成的签名是一样的，但是提示无效签名，务必检查是否是这里的问题。还有提交了五个参数，但是参数的大小写不正确的的，比如 <strong>nonceStr</strong> 写成了 <strong>nonceStr</strong> 也是不行的。可以对比下图进行校验。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20180314/100655619.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20180314/100655619.png?imageslim" srcset="/img/loading.gif"></p>
 <h2 id="坑二"><a href="#坑二" class="headerlink" title="坑二"></a>坑二</h2><p>坑一种提到了 AccessToken，使用 JSSDK 时还需要另外一个 ticket，这二者都有超时时间的限制，如果过期了，那么 config 是无论如何也不会初始化成功的。</p>
 <h2 id="坑三"><a href="#坑三" class="headerlink" title="坑三"></a>坑三</h2><p>踩了前两个坑之外，其实 WAP 版的开发也都差不多调通了，但是分享之后，分享人进入分享的链接后，二次分享时，便又出现了无效签名的情况，仔细排查之后，发现是分享后，微信会在分享的链接后面自动加上了一些参数，正是因为这些参数的存在，导致签名失败。</p>
 <p>刚开始没有细看文档，因此分享 URL 的地址就没有进行动态传递到后台进行签名，所以导致了二次分享出现了问题，于是修改为了动态传递当前 URL 到后台进行签名，才解决了这个问题。</p>

@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -300,9 +300,9 @@
 <p>上文提到了，如果超出了 5 万条需要写入另外一个 sitemap 当中，这个功能 sitemapgen4j 已经替我们实现了，无需担心。如果超出，生成的文件就像是这样的：</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs crmsh">- article1.xml<br>- article2.xml<br>- article3.xml<br>- article4.xml<br></code></pre></div></td></tr></table></figure>
 <p>这样的话，在站长平台这里，如果新增了文件就要新增一条sitemap 网址记录，很麻烦。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/2018102115401243528566.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/2018102115401243528566.png" srcset="/img/loading.gif"></p>
 <p>好在，搜索引擎考虑到了这种问题，有相应的解决方法。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/20181021154012451648209.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/20181021154012451648209.png" srcset="/img/loading.gif"></p>
 <p>我们把每次生成的 sitemap 文件的地址，添加到一个 sitemap 索引文件当中去，这样，我们只需要向平台提交一个 sitemap 索引文件的地址即可。</p>
 <p>不多说，代码见。</p>
 <h2 id="生成-sitemap-文件"><a href="#生成-sitemap-文件" class="headerlink" title="生成 sitemap 文件"></a>生成 sitemap 文件</h2><p>首先引入 sitemapgen4j 依赖</p>

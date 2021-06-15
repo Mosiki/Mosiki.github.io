@@ -197,7 +197,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('http://qt4vq419o.hn-bkt.clouddn.com/blog/1609071156380.png') no-repeat center center;
+         style="background: url('https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/1609071156380.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -346,7 +346,7 @@
 <p>但只根据这个依赖生成的<code>spring-configuration-metadata.json</code> 文件，使用过程中可以发现 <code>common.date-format.enabled</code> 这个属性开关是没有提示出来的，可以猜测到 <code>spring-boot-configuration-processor</code>是根据属性生成的，但是 enabled 这个非属性，所以无法生成。为了方便使用 starter 的人，我们可以追加一个 <code>additional-spring-configuration-metadata.json</code> 文件，手动添加相应的提示，文件内容：</p>
 <figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;properties&quot;</span>: [<br>    &#123;<br>      <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;common.date-format.enabled&quot;</span>,<br>      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;java.lang.Boolean&quot;</span>,<br>      <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;是否开启时间格式化&quot;</span>,<br>      <span class="hljs-attr">&quot;defaultValue&quot;</span>: <span class="hljs-literal">false</span><br>    &#125;<br>  ]<br>&#125;<br></code></pre></div></td></tr></table></figure>
 <p>使用效果：</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/image-20200516184327486.png" srcset="/img/loading.gif" alt="image-20200516184327486"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/image-20200516184327486.png" srcset="/img/loading.gif" alt="image-20200516184327486"></p>
 <p>测试完毕，为了方便使用，可以将自定义的 starter 发布到公司的私服。<code>mvn deploy</code></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过讲解实现一个项目时间全局格式化功能，如何自定义一个 springboot starter，当然 starter 功能不仅限如此，可以自行触类旁通扩展，比如项目的登录拦截器、通用日志、全局异常处理等工程都可以作为 starter 的一部分来实现，读者若看完有帮助并实践应用，可以评论留言应用的场景。</p>
 <h2 id="代码下载"><a href="#代码下载" class="headerlink" title="代码下载"></a>代码下载</h2><ul>

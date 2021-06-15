@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -290,23 +290,23 @@
 <a id="more"></a>
 
 <h2 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h2><p>看了网上的一些关于流程图绘制的资料，组件太多，组件含义的解释如同机翻，没有具体实例，让人无从下手，看得令人头大。其实大可不必学习所有组件，因为常用的就只有那几个组件，掌握基本的组件使用，以后可以看情况逐渐扩展。</p>
-<p>首先眼熟一下几个常用的流程图基本组件：<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200114192225.png" srcset="/img/loading.gif">  </p>
-<p>再看一下流程图的结构构成：<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200114203419.png" srcset="/img/loading.gif">  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200114203447.png" srcset="/img/loading.gif">  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200114203509.png" srcset="/img/loading.gif">  </p>
+<p>首先眼熟一下几个常用的流程图基本组件：<br><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200114192225.png" srcset="/img/loading.gif">  </p>
+<p>再看一下流程图的结构构成：<br><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200114203419.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200114203447.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200114203509.png" srcset="/img/loading.gif">  </p>
 <p>常用的流程图就是顺序结构与选择结构二者结合的结构。在绘制流程图的过程中还需要注意如下几点，此处引用参考内容：</p>
 <blockquote>
 <p>（1）绘制流程图时，为了提高流程图的逻辑性，应遵循从左到右、从上到下的顺序排列。</p>
 <p>（2）绘制流程图时，为了提高流程图的逻辑性，应遵循从左到右、从上到下的顺序排列。一个流程从开始符开始，以结束符结束。开始符号只能出现一次，而结束符号可出现多次。若流程足够清晰，可省略开始、结束符号。</p>
 <p>（3）菱形为判断符号，必须要有“是和否（或Y和N）”两种处理结果，意思是说，菱形判断框一定需要有两条箭头流出；且判断符号的上下端流入流出一般用“是（或Y）”，左右端流入流出用“否（或Y）”。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122211333.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122211333.png" srcset="/img/loading.gif">  </p>
 <p>（4）同一流程图内，符号大小需要保持一致，同时连接线不能交叉，连接线不能无故弯曲。</p>
 <p>（5）流程处理关系为并行关系的，需要将流程放在同一高度。</p>
 <p>（6）必要时应采用标注，以此来清晰地说明流程，标注要用专门的标注符号。</p>
 <p>（7）处理流程须以单一入口和单一出口绘制，同一路径的指示箭头应只有一个。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122211353.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122211353.png" srcset="/img/loading.gif">  </p>
 <p>（8）同一路径的指示箭头应只有一个。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122211407.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122211407.png" srcset="/img/loading.gif">  </p>
 <p>（9）流程图中，如果有参考其他已经定义的流程，不需重复绘制，直接用已定义流程符号即可。</p>
 </blockquote>
 <p>以上为需要储备的基础流程图知识，参考地址：<a href="http://www.woshipm.com/zhichang/2329530.html">画了多年的流程图，你真的画规范了吗？</a></p>
@@ -319,15 +319,15 @@
 <h2 id="业务说明"><a href="#业务说明" class="headerlink" title="业务说明"></a>业务说明</h2><p>以下笔者就以本人前段时间开发的抽奖系统实践绘制技术流程图，以供参考。</p>
 <p>需求就是开发一个春节用的抽奖系统，代码实现上还是不难，但是步骤还是比较多的，画流程图一个原因是帮助自己理清业务设计业务，另一个原因就是可以直接将流程图提供给对应的测试，从而达到针对每个步骤进行测试的目的。</p>
 <h2 id="流程图实践绘制"><a href="#流程图实践绘制" class="headerlink" title="流程图实践绘制"></a>流程图实践绘制</h2><p>流程图的绘制规则如上文参考中的规则进行，处理组件只有一个输入一个输出，菱形判定必定有两个输出，左右端流出代表否定，不同流程使用子流程组件进行引用，连接线无交叉等。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122212251.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122212251.png" srcset="/img/loading.gif">  </p>
 <p>笔者使用Draw.io绘制本图，但是常用的组件分散于不同的分类中，为了方便使用，笔者将常用的几个基本组件放到便笺本分类。这个分类可以进行导入导出，这里分享我的导出内容，可以直接拷贝出来粘贴保存到一个文件中，然后在便笺本中导入即可。  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122213527.png" srcset="/img/loading.gif">  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122213410.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122213527.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122213410.png" srcset="/img/loading.gif"></p>
 <figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">mxlibrary</span>&gt;</span>[&#123;&quot;xml&quot;:&quot;jVFBDsIgEHwN14bCxbOtevIRRNZCAkJgtfT3QkEbD008kOzM7IQZIHyw6RKEV1cnwRB+InwIzmGdbBrAGMKoloSPhDGaD2HnHbVfVepFgAf+Y2DV8BLmCZWpRMTFNEKhzbHGnvCjFFFBcdIMZqURohe3sjfnBpmLSvgCbZpKpU7eZRdRBGzXQEBIu1FXquW8gLOAYckrs5ao6sahtqEK9KSaizdOxIqnr3PrnYdW/QO3J161nx94Aw==&quot;,&quot;w&quot;:80,&quot;h&quot;:30,&quot;aspect&quot;:&quot;fixed&quot;,&quot;title&quot;:&quot;开始/结束&quot;&#125;,&#123;&quot;xml&quot;:&quot;jVBLDsIgED3N7CnEC9hqVx6CyKSQgDQw2vb2TgvauGjigmTmfch7A6oNc5/0aG/RoAd1AdWmGKlMYW7Re5DCGVAdSCn4gbwesM3GilEnfNA/BlkML+2fWJACZFp8BSwFjtU1oM5GZ4urU/AyWUeYR31fdRM3YKz+holwPky0QTVOjzEgpYUlkzNkq0KU1MKiG2y1nSqmc9mHr3Xvx0Ot+Fn3U27cz6Xf&quot;,&quot;w&quot;:100,&quot;h&quot;:50,&quot;aspect&quot;:&quot;fixed&quot;,&quot;title&quot;:&quot;处理&quot;&#125;,&#123;&quot;xml&quot;:&quot;jZA9DsIwDIVP4z1NFmZa6MTECQK16kgJqVL37/aEJlB1qMQQ6fl7dvRsUKWb66A7uvkGLagLqDJ4z0m5uURrQQrTgKpAShEfyOuBW6yu6HTAF/8zINPAqO2AiSTQ82IzCOTdY+hBnScyjPdOPz/OFDNHRuxi6KqIMn+FgXE+jLOinKVG75DDElsm0zCljlNKLAhNS7xnuk91+5vcdosir/cttzOu3u7Kbw==&quot;,&quot;w&quot;:80,&quot;h&quot;:80,&quot;aspect&quot;:&quot;fixed&quot;,&quot;title&quot;:&quot;判定&quot;&#125;,&#123;&quot;xml&quot;:&quot;jZJRbsMgDIZPwzsF7QKla/cy7aEnoIkXUJ0QgdMkO/0coKs2qdIiRbK/3z8xdoQ2/XKKdnTvoQUU+lVoE0OgEvWLAUShpG+FPgilJL9CHZ+ou6zK0UYY6D8GVQw3ixMUUkCiFStIzo5bOMbQQEpC72fnCc6jbTY8c+/MHPXc/GHH4cU21y6GaWg/JkI/QOWtTQ6270pOPsNAR9t7XBm8Ad6AfGOrcPZf2aRqbgKGmLvRMj/MLfpuYNbwTYHFfaIYrvCn1JjtCI9450PY+tnXa0MkWJ6OLqM6txOEHiiuXDL7llytkGW80oHvXLW9VGZTybsf62MRHNRd3NPHzrP265f4Bg==&quot;,&quot;w&quot;:100,&quot;h&quot;:50,&quot;aspect&quot;:&quot;fixed&quot;,&quot;title&quot;:&quot;子流程&quot;&#125;,&#123;&quot;xml&quot;:&quot;jVJRasMwDD2N/12bHWDLln4NdgUzi9jMiYqstsntp0VJm7AVZjBIT3pPkmXjm348Ujild4xQjH8zviFEVqsfGyjFOJuj8a/GOSvXuPZB9DBH7SkQDPwfglPCJZQzKKJA5aksAAzxmQiv4g04CPgSQ03wI3AQJ3FfFrMy4Rc0WJBmqm9bK0ciKgqxg4d9ztDS5BGwB6ZJUq45ctKMJx3FJshd4j1GUALny14+VHW7m9ytwgdmKezstJdZGRXP9AlL0vb5Vt74N48DdcC/eGJshrpD8zJW9750Td/+iW8=&quot;,&quot;w&quot;:50,&quot;h&quot;:50,&quot;aspect&quot;:&quot;fixed&quot;,&quot;title&quot;:&quot;虚线&quot;&#125;]<span class="hljs-tag">&lt;/<span class="hljs-name">mxlibrary</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 
 
 <h2 id="流程图导出"><a href="#流程图导出" class="headerlink" title="流程图导出"></a>流程图导出</h2><p>本图通过桌面版客户端 Draw.io 绘制，绘制通过导出功能导出，导出方法：先 ctrl + a 选中所有组件，选择文件-导出为文件-png，设置边框宽度，勾选 仅所选内容，即可导出PNG图片。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20200122212857.png" srcset="/img/loading.gif">  </p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20200122212857.png" srcset="/img/loading.gif">  </p>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
 <li><a href="http://www.woshipm.com/zhichang/2329530.html">画了多年的流程图，你真的画规范了吗？</a></li>
 <li><a href="http://www.chanpin100.com/article/105363">深入浅出为你解读四类「流程图」，附摩拜/ofo案例分析</a></li>

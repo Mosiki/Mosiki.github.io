@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -299,26 +299,26 @@
 <li>私服环境： <a href="http://www.jfrogchina.com/open-source/">Artifactory</a></li>
 </ul>
 <p>我们公司的 maven 私服就是这货啦  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/20171130151204452196528.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/20171130151204452196528.png" srcset="/img/loading.gif"></p>
 <h2 id="上传-Jar-包到-Maven"><a href="#上传-Jar-包到-Maven" class="headerlink" title="上传 Jar 包到 Maven"></a>上传 Jar 包到 Maven</h2><h3 id="选择上传-Jar-包"><a href="#选择上传-Jar-包" class="headerlink" title="选择上传 Jar 包"></a>选择上传 Jar 包</h3><p>登录 Artifactory 后，选择 Deploy，选择要上传的 Jar 包，我这里选择上传支付宝的 SDK 的 Jar 包。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/113134666.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/113134666.png?imageslim" srcset="/img/loading.gif"></p>
 <h3 id="设置上传-Jar-包信息"><a href="#设置上传-Jar-包信息" class="headerlink" title="设置上传 Jar 包信息"></a>设置上传 Jar 包信息</h3><p>在这里选择要上传的仓库，以及设置 “GAV” 参数  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/113157073.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/113157073.png?imageslim" srcset="/img/loading.gif"></p>
 <p>由于支付宝的 Jar 包名称太长了，所以我这里精简了不必要的信息。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/113402039.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/113402039.png?imageslim" srcset="/img/loading.gif"></p>
 <p>设置完之后，点击完成即可。</p>
 <h3 id="查找上传-Jar-的-Maven-坐标"><a href="#查找上传-Jar-的-Maven-坐标" class="headerlink" title="查找上传 Jar 的 Maven 坐标"></a>查找上传 Jar 的 Maven 坐标</h3><p>找到刚才保存的库，找到上传的 Jar 包  </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/113450326.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/113450326.png?imageslim" srcset="/img/loading.gif"></p>
 <p>点击 对应的 pom 文件，查看 Maven 坐标   </p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/113512171.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/113512171.png?imageslim" srcset="/img/loading.gif"></p>
 <p>将此坐标写入 pom.xml 中即可，需要先将私服的地址写到 pom.xml 文件中。</p>
 <figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">repositories</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">repository</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">id</span>&gt;</span>repos<span class="hljs-tag">&lt;/<span class="hljs-name">id</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">url</span>&gt;</span>http://192.168.1.222:8088/artifactory/repos<span class="hljs-tag">&lt;/<span class="hljs-name">url</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">repository</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">repositories</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
 <h2 id="上传源码-Jar-包到私服仓库"><a href="#上传源码-Jar-包到私服仓库" class="headerlink" title="上传源码 Jar 包到私服仓库"></a>上传源码 Jar 包到私服仓库</h2><p>想要在开发时看可以查看源码的时候，需要将对应的源码 Jar 包一起上传到私服中去，与前面步骤相同，此时选择对应的源码的 Jar 包。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/114351967.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/114351967.png?imageslim" srcset="/img/loading.gif"></p>
 <p>需要注意这里的 目标仓库与 GAV 参数保持与上面上传对应的 Jar 包保持一致。唯一不同的地方是 <strong>Classifier</strong> 为 <strong>sources</strong>。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/20171102/133357044.png?imageslim" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20171102/133357044.png?imageslim" srcset="/img/loading.gif"></p>
 <p>上传成功后如图，源码包与工程包在同一级目录中。此时在项目中可以刷新 pom.xml 文件后，对应的源码就会一同下载下载下来了，可以愉快的看源码了。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/20171130151204689848191.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/20171130151204689848191.png" srcset="/img/loading.gif"></p>
 <p>End.</p>
 
             </div>

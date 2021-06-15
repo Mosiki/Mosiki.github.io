@@ -197,7 +197,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('http://qt4vq419o.hn-bkt.clouddn.com/blog/1609070973848.png') no-repeat center center;
+         style="background: url('https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/1609070973848.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -281,7 +281,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月15日 下午
+                  本文最后更新于：2021年6月15日 晚上
                 
               </p>
             
@@ -291,12 +291,12 @@
 <a id="more"></a>
 
 <p>首先来看一下，不规则的表格长什么样子。如图所示，这种表格如果继续使用 EasyPoi 其实比较困难做到很便捷的导入，但是这种表格一般格式相对固定，只有个别值的位置不规则（蓝色框内），而中间位置的数据格式比较规整（红色框内）。<br>我们可以取长补短，不规则的地方数据特殊处理读取，而有规则的地方依然使用 EasyPoi 进行读取。</p>
-<p><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/1598236528403.png" srcset="/img/loading.gif"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/1598236528403.png" srcset="/img/loading.gif"></p>
 <h2 id="读取示例"><a href="#读取示例" class="headerlink" title="读取示例"></a>读取示例</h2><p>红色框内的数据读取本文就不再展示了，可以参考上文的链接。本文主要讲解如何提取蓝色框内的数据。为了方便使用，笔者参考了网上的文章，抽取了一个工具类，基于所见即所得的方式去获取对应单元格的值。</p>
 <p>使用示例代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExcelReadHelperTest</span> </span>&#123;<br><br>    <span class="hljs-meta">@Test</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testImport</span><span class="hljs-params">()</span> </span>&#123;<br>        InputStream in = getClass().getResourceAsStream(<span class="hljs-string">&quot;/excel/示例 Excel3.xlsx&quot;</span>);<br>        ExcelReadHelper readHelper = <span class="hljs-keyword">new</span> ExcelReadHelper(in);<br>        <span class="hljs-comment">// 获取 B4 单元格的数据，以下同理</span><br>        String b4 = readHelper.getValueAt(<span class="hljs-string">&quot;B&quot;</span>, <span class="hljs-number">4</span>);<br>        String c23 = readHelper.getValueAt(<span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-number">23</span>);<br>        String c24 = readHelper.getValueAt(<span class="hljs-string">&quot;C&quot;</span>, <span class="hljs-number">24</span>);<br>        String m4 = readHelper.getValueAt(<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-number">4</span>);<br>        String m5 = readHelper.getValueAt(<span class="hljs-string">&quot;M&quot;</span>, <span class="hljs-number">5</span>);<br>        Assert.assertEquals(<span class="hljs-string">&quot;一众科技有限公司&quot;</span>, b4);<br>        Assert.assertEquals(<span class="hljs-string">&quot;13112345678&quot;</span>, c23);<br>        Assert.assertEquals(<span class="hljs-string">&quot;370827198801021000&quot;</span>, c24);<br>        Assert.assertEquals(<span class="hljs-string">&quot;XH-HZHY-20170504&quot;</span>, m4);<br>        Assert.assertEquals(<span class="hljs-string">&quot;2017.5.4&quot;</span>, m5);<br>        readHelper.close();<br>    &#125;<br>&#125;<br></code></pre></div></td></tr></table></figure>
 
-<p>如图所示，如果要读取联系人电话，先找到数据所在单元格，C23，代码中直接通过 <code>readHelper.getValueAt(&quot;C&quot;, 23);</code> 即可获取对应的值。<br><img src="http://qt4vq419o.hn-bkt.clouddn.com/blog/sp20200824_102152_997.png" srcset="/img/loading.gif"></p>
+<p>如图所示，如果要读取联系人电话，先找到数据所在单元格，C23，代码中直接通过 <code>readHelper.getValueAt(&quot;C&quot;, 23);</code> 即可获取对应的值。<br><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/sp20200824_102152_997.png" srcset="/img/loading.gif"></p>
 <h2 id="工具类源码"><a href="#工具类源码" class="headerlink" title="工具类源码"></a>工具类源码</h2><p>需要依赖 POI 相关依赖，如果引入了 EasyPoi 的话，就无需重复引入了。</p>
 <p>EasyPoi 的依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.afterturn<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>easypoi-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.2.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></div></td></tr></table></figure>
