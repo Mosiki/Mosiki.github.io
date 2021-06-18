@@ -17,7 +17,7 @@
   <meta name="description" content="WeJan&#39;s Blog的博客">
   <meta name="author" content="WeJan">
   <meta name="keywords" content="">
-  <title>2020年终总结 - WeJan&#39;s Blog</title>
+  <title>GithubPages博客自定义域名HTTPS化 - WeJan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -197,12 +197,12 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/bg/a41.jpg') no-repeat center center;
+         style="background: url('/img/bg/b11.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="2020年终总结">
+            <span class="h2" id="subtitle" title="GithubPages博客自定义域名HTTPS化">
               
             </span>
 
@@ -217,8 +217,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-01-27 19:55" pubdate>
-        2021年1月27日 晚上
+      <time datetime="2021-02-05 22:20" pubdate>
+        2021年2月5日 晚上
       </time>
     </span>
   
@@ -229,7 +229,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.3k 字
     </span>
   
 
@@ -239,7 +239,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      17
+      15
        分钟
     </span>
   
@@ -277,38 +277,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">2020年终总结</h1>
+            <h1 style="display: none">GithubPages博客自定义域名HTTPS化</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年6月15日 晚上
+                  本文最后更新于：2021年6月18日 晚上
                 
               </p>
             
             <div class="markdown-body">
-              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>习惯了每年大数据给自己做总结，自己工作学习上的自我年终总结却是一拖再拖，本应 2020 年 12 月份就该完成的文章被拖延到了 2021 年的 2 月份。也是因为自己没有提前规划好时间，到了 12 月底才想起这么一件事情，正好月底诸事颇多，也没什么时间来写。<br>本来拖延成不打算写年终总结了，看了一下博客归档文章，连续写了好几年的年终总结，今年也不能破例，忍着头皮写也要强迫自己写完。</p>
+              <p>玩博客从 16 年到现在，主题不知道换了多少个，但是图床服务一直依赖的七牛云没有换过，也许是白嫖惯了，没往七牛云充过一毛钱，甚至账单里显示欠了 2 块钱 😆。<br>几个月前七牛云更改了测试域名的限制，每个 bucket 分配的域名只有一个月的有效期，到期自动释放无法使用。因为这个原因，临时用了七牛玉的文件同步服务，每个月新增一个 bucket，然后再把域名释放了的 bucket 同步到新的 bucket 中，再手动全局替换博客中所有图片的域名，很是麻烦。但是也一直没找到解决的方法。<br>而且因为七牛云的测试域名是 http 的，也一直因为这个原因，导致博客迟迟没有这么久 HTTPS 化。<br>直到前两天，实在受不了每个月的重复机械操作，想办法解决了图床的问题，同时顺便把博客搞成了 HTTPS，以供参考。</p>
 <a id="more"></a>
-
-<h2 id="去年立的-Flag"><a href="#去年立的-Flag" class="headerlink" title="去年立的 Flag"></a>去年立的 Flag</h2><p>先照例过一下流水账<br><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/Snipaste_2021-01-27_19-15-11.png" srcset="/img/loading.gif">  </p>
-<ul>
-<li>2020 年博客发文 19 篇，90％都写于上半年，下半年也只是水了一篇，总文章数量少于 24 篇，每月平均博客数量不足两篇，flag 1 未完成。</li>
-<li>2020 年早起 70 天，番茄数量未达标，flag 2 未完成</li>
-<li>只读完《重构》，《Spring 源码深度分析》看了了开头，flag 3 未完成</li>
-<li>只读完《搞定》，其他没看，flag 4 未完成</li>
-</ul>
-<p>总结，2020 年 flag 一个没完成，全部打脸。<br>flag 之外，养成了每日总结，每日俯卧撑习惯，还能稍稍补救一下。</p>
-<h2 id="进步"><a href="#进步" class="headerlink" title="进步"></a>进步</h2><p>2020 这一年里，自我感觉写代码的效率提升了一大截。以前可能预估 3 天的工作量，现在可能最多一天就能搞定，而且相对以前更少地出现 bug，对自己的代码质量更有信心。</p>
-<p>抛开工作经验带来工作效率成长这方面不说，我认为助力自己效率提升主要得益于今年养成的两个习惯。<br>第一个习惯是对于 代码编辑器（IDEA） 的操作优化，掌握了 vim 模式进行编码（IdeaVim 插件）。vim 模式降低了击键次数，代码间跳转更加迅速精准；配合 IDEA 快捷键，双手很少离开键盘，大大减少了鼠标的依赖。这两点对比之前，可能正如同一个起点终点，之前是步行到达，而现在是开车到达，效率上的提升不是一点点。</p>
-<p>第二个习惯是在开始一个需求之前，先仔细过几遍 PRD 产品稿，确定需求之后，先用纸笔写下编码过程中可能会遇到的问题（主要是业务上的），列出一个清单列表后，针对这些问题去思考方案（提前思考可以减少编码过程中的停顿），有问题的点提前与产品沟通确认，降低代码返工重做修改的可能性。当这一切完成后，具体编码时写完一个点，就将清单中的列表项划掉，从而降低心理上的认知压力，写代码时心情会更加轻松愉快。</p>
-<h2 id="GTD-之路"><a href="#GTD-之路" class="headerlink" title="GTD 之路"></a>GTD 之路</h2><p>学习 GTD 一年多，把 《搞定》一书读了 2 遍，滴答清单也付费成年费会员，GTD 的实践之路并没有我所想象的那般容易。没有完完全全地按照搞定一书去理清，导致清单中的任务堆积如山，却无法从其中任何一个任务开始行动。新的一年会抽空再把《搞定》精读一遍，重构清单，达到随便哪一个理清的任务可以马上行动的地步。</p>
-<h2 id="与游戏的战役"><a href="#与游戏的战役" class="headerlink" title="与游戏的战役"></a>与游戏的战役</h2><p>2020 年，因为疫情的原因，春节放假回杭州的路不太顺利，机票总是退了又买，买了又退，回杭的日期被不断推迟，重要的事情也被自己不断拖延，这也预示了 2020 年又是一个毫无长进的一年。<br>待在家里这段时间，没忍住又玩起王者荣耀，再次走在沉迷的道路之上，放假前的假期安排自然而然地被抛诸脑后，每年都要自己都要和游戏作一番苦苦斗争，也是一件极难以理解的事情。<br>游戏于我而言，不亚于洪水猛兽，随时都可能吞噬我的一切；不碰游戏，便是最优解。</p>
-<h2 id="投资"><a href="#投资" class="headerlink" title="投资"></a>投资</h2><p>见证了 BTC 突破 2 万，3 万，4 万刀的大关，惭愧的是在 1 万刀只买了 2 千块，而且还在突破 2 万的前夕全部卖掉了。<br>高位接盘，深套好几年的 EOS 回本仍然遥遥无期，创始人 BM 第三次抛弃了项目开溜，真是 X 了狗！<br>炒币这几年有盈利有亏损，总体下来还是没回本，这几年炒币大概就只是玩了个寂寞。<br>下半年接触合约交易，依然是亏损居多，心态太差，模拟金都被亏个精光。打算多学习一些市场基础知识，日后再看吧！</p>
-<h2 id="博客"><a href="#博客" class="headerlink" title="博客"></a>博客</h2><p>2020 年，博客断更。不学习，肚子里的墨水不会无故增加，没有墨水，自然写不出任何文章。强写也是水文而已。<br>趁着年底的闲余时间，把用了 2 年多的博客主题给换了，针对自定义的部分进行了适配，花了小半天时间。<br>对于折腾这种事情，自己倒是很热衷，却偏偏对学习这件事情不那么上心，也就导致了自身能力增长停滞。</p>
-<h2 id="记录"><a href="#记录" class="headerlink" title="记录"></a>记录</h2><p>从去年 9 月份开始，逐渐养成做每日总结的习惯，一直持续到现在，虽然没有发现做总结对自己有什么实质性的提升，但是至少增加了自己每天思考的时间。那点思考时间虽微不足道，量变会引起质变，总会有发挥作用的一天。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20210123152325.png" srcset="/img/loading.gif">  </p>
-<h2 id="健身"><a href="#健身" class="headerlink" title="健身"></a>健身</h2><p>立了很多关于健身的 flag，结果无一不是狠狠打脸。<br>有一天突发奇想，既然立的 flag 都做不到，不如养成一个每天做 10 个俯卧撑的习惯吧！10 个俯卧撑很简单，只需要几十秒就可以完成；在习惯养成的过程中，觉得可以提高数量时就会多做一些，从 10 个，20 个，一直到 60 个，到了 60 个时感觉很难坚持下去，于是又降低数量到 40 个，现在每天只做 40 个俯卧撑。对于我而言，做俯卧撑的好处还是有的，胸膛开始变得宽厚，也有了一点胸肌，这都是在这一年里可见性的改变，另外也可以舒展长期握鼠标带来的后背酸痛，不出意外，这个俯卧撑的习惯自己将会一直持续下去。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/20210123152531.png" srcset="/img/loading.gif">  </p>
-<h2 id="新一年目标"><a href="#新一年目标" class="headerlink" title="新一年目标"></a>新一年目标</h2><p>目标很简单，保持现在已经保持住的习惯，完成 2020 年的目标。</p>
+<h2 id="图床迁移"><a href="#图床迁移" class="headerlink" title="图床迁移"></a>图床迁移</h2><p>众所周知，在 https 域名网页中，无法引用非 https 的资源，比如图片，会导致资源无法加载。<br>所以如果想要将博客 HTTPS 化，首当其冲就是解决图床的问题，即需要一个 https 的图床。<br>如果使用七牛云，只能自定义域名，笔者没有其他的域名，也觉得备案流程很麻烦，只能放弃这一想法。<br>如果使用公开的其他图床，又害怕不够稳定，导致资源图片全部丢失就太不划算了，这条路也只能放弃。<br>最终选择在 github 上开了一个<a href="https://github.com/Mosiki/blog-imgs">新的仓库</a>，专门用于存放博客的图片与资源。</p>
+<p>七牛云提供了一个 <a href="https://developer.qiniu.com/kodo/1302/qshell#2">qshell</a> 工具可以快速下载 bucket 中的所有文件</p>
+<p>首先去<a href="https://portal.qiniu.com/user/key">七牛云后台</a> 获取 ak/sk</p>
+<p>然后设置 qshell 的密钥</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs jboss-cli"><span class="hljs-string">./qshell</span> account ak sk<br></code></pre></div></td></tr></table></figure>
+<p>再添加一个 qn.conf 配置文件，修改dest_dir 为保存下载文件的位置，修改 bucket 为你的七牛存储库名称，cdn_domain 修改为 bucket 分配的测试域名（如果测试域名到期了，可以新建一个不同于当前 bucket区域的 bucket，比如当前是华北的，就创建一个华南的 bucket，可以通过跨区域同步将旧的 bucket 文件同步到新的 bucket 中，配置中的 bucket 值也要改成新的 bucket 名称）</p>
+<figure class="highlight json"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;dest_dir&quot;</span>   :   <span class="hljs-string">&quot;/home/wejan/Desktop/images&quot;</span>,<br>    <span class="hljs-attr">&quot;bucket&quot;</span>     :   <span class="hljs-string">&quot;test-bucket&quot;</span>,<br>    <span class="hljs-attr">&quot;prefix&quot;</span>     :   <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">&quot;suffixes&quot;</span>   :   <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">&quot;cdn_domain&quot;</span> :   <span class="hljs-string">&quot;http://opvasdfx.bkt.clouddn.com&quot;</span>,<br>    <span class="hljs-attr">&quot;referer&quot;</span>    :   <span class="hljs-string">&quot;&quot;</span>,<br>    <span class="hljs-attr">&quot;log_file&quot;</span>   :   <span class="hljs-string">&quot;download.log&quot;</span>,<br>    <span class="hljs-attr">&quot;log_level&quot;</span>  :   <span class="hljs-string">&quot;info&quot;</span>,<br>    <span class="hljs-attr">&quot;log_rotate&quot;</span> :   <span class="hljs-number">1</span>,<br>    <span class="hljs-attr">&quot;log_stdout&quot;</span> :   <span class="hljs-literal">false</span><br>&#125;<br></code></pre></div></td></tr></table></figure>
+<p>接下来就是使用 qshell 来下载文件了（如果是使用了跨区域同步，需要等待文件全部同步完成后再进行）。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs armasm">./qshell download <span class="hljs-meta">qn</span>.conf<br></code></pre></div></td></tr></table></figure>
+<p>等待全部下载完毕就好了。</p>
+<p>下面就是去 GitHub 创建一个仓库，将下载的文件全部推送到这个仓库中。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs csharp">cd /home/wejan/Desktop/images <span class="hljs-comment">// 进入下载目录</span><br>git <span class="hljs-keyword">init</span><br>git <span class="hljs-keyword">add</span> *<br>git commit -m <span class="hljs-string">&quot;init&quot;</span><br>git remote <span class="hljs-keyword">add</span> origin git@github.com:Mosiki/blog-imgs.git   <span class="hljs-comment">// 修改成你用于存放图片的 repo 地址</span><br>git push origin<br></code></pre></div></td></tr></table></figure>
+<h2 id="图床加速"><a href="#图床加速" class="headerlink" title="图床加速"></a>图床加速</h2><p>由于国内网络环境的原因，可能 GitHub 上的图片无法加载出来，就需要用到加速服务，也是免费的。<br>文件前缀格式改成如下：<br><code>https://cdn.jsdelivr.net/gh/GitHub 用户名/仓库名称/</code><br>例如笔者的：<br><code>https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs</code></p>
+<p>文件原链接(/blog 是 blog-imgs 下的一个目录名称)：<br><code>https://raw.githubusercontent.com/Mosiki/blog-imgs/master/blog/avatar.png</code><br>加速后的链接：<br><code>https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/avatar.png</code></p>
+<p>批量把博客与配置中的图片前缀替换成加速域名 <code>https://cdn.jsdelivr.net/gh/GitHub 用户名/仓库名称/</code> </p>
+<p>在网上找了批量替换的脚本发现都运行不了，索性直接用 idea 打开 hexo 的目录 <code>command + shift + r</code> 进行全局域名替换。</p>
+<h2 id="图床上传配置"><a href="#图床上传配置" class="headerlink" title="图床上传配置"></a>图床上传配置</h2><p>图床配置好了，为了方便上传图片到新图床中，笔者使用了 <a href="https://molunerfinn.com/PicGo/">PicGO</a> 这个工具。可以直接将 GitHub 当成图床使用，配置好自定义链接，上传图片后，可以直接生成加速后的图床链接。具体配置参见 <a href="https://picgo.github.io/PicGo-Doc/zh/guide/config.html#github%E5%9B%BE%E5%BA%8A">PicGO 的文档</a></p>
+<p>为了直接生成加速的图床链接，还需要一点小工作。可以参考笔者的配置。以后就可以很方便地使用 GitHub 图床了~<br><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/2021/06/18/1624027216546.png" srcset="/img/loading.gif"></p>
+<h2 id="博客HTTPS化"><a href="#博客HTTPS化" class="headerlink" title="博客HTTPS化"></a>博客HTTPS化</h2><p>啰里吧嗦了半天，终于来到本文主题，如何实现博客自定义域名 https 化，其实这个 GitHub 已经提供了这个功能，也无需借助其他的任何第三方服务即可实现。</p>
+<p>登录你的域名管理后台，笔者是在 DNSpod，添加如下两条 A 记录和一条 CNAME 配置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/2021/06/18/1624027404191.png" srcset="/img/loading.gif"></p>
+<p>笔者博客的仓库是 <code>mosiki.github.io</code> 所以在 CNAME 记录中的值填的是 <code>mosiki.github.io.</code> 这里改成你自己的博客 repo 地址即可。 </p>
+<p>打开博客 repo 的 setting -&gt; pages 页面，勾选开启 https 的按钮，等待自动配置证书即可。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/2021/06/18/1624027675363.png" srcset="/img/loading.gif"></p>
+<p>再访问你的博客，看是否 https 已经失效了呢~</p>
+<p>本文完~</p>
 
             </div>
             <hr>
@@ -325,9 +330,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/github-pages-https.html">
+                      <a href="/retry-method-invoke.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">GithubPages博客自定义域名HTTPS化</span>
+                        <span class="hidden-mobile">函数式编程牛刀小试-更优雅地进行接口重试调用</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -335,8 +340,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/notice.html">
-                        <span class="hidden-mobile">网站公告</span>
+                      <a href="/2020-year-end-summary.html">
+                        <span class="hidden-mobile">2020年终总结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
