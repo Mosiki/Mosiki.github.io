@@ -13,6 +13,8 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="WeJan&#39;s Blog的博客">
   <meta name="author" content="WeJan">
@@ -39,7 +41,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
+    var CONFIG = {"hostname":"nullpointer.pw","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"4LBKQGjj91zO3FvvTypea844-MdYXbMMI","app_key":"g000TimpCo2dSkXYBxzm2Tdl","server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -214,6 +216,62 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html" target="_self">
+          <img src="/img/bg/a85.jpg" srcset="/img/loading.gif" alt="WebMagic之爬虫监控">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">WebMagic之爬虫监控</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/WebMagic%E4%B9%8B%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7.html">
+          
+          
+            
+          
+          前言年前闲着无聊，研究了一阵子爬虫技术，接触到爬虫框架 WebMagic，感觉很好用。在之后的工作中，接手了新站与第三方接口对接的工作，主要的工作是去抓取对方接口的内容；初始的时候，之前负责该工作的同事，是手动使用多线程去抓取，在应用的过程当中暴露了不少问题。比如对于接口内容超级多的时候，虽然使用了多线程，但是抓取的效率很低，而且也没有实现增量抓取，每次都需要去全量抓取，跑一次基本需要好几天-.-
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2018-02-27 06:16" pubdate>
+              2018-02-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/WebMagic/">WebMagic</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/webmagic/">webmagic</a>
+            
+              <a href="/tags/%E7%88%AC%E8%99%AB%E7%9B%91%E6%8E%A7/">爬虫监控</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -721,64 +779,6 @@ JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开�
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html" target="_self">
-          <img src="/img/bg/a77.jpg" srcset="/img/loading.gif" alt="Nginx图片防盗链【实战】">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html">Nginx图片防盗链【实战】</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/Nginx%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE%E3%80%90%E5%AE%9E%E6%88%98%E3%80%91.html">
-          
-          
-            
-          
-          前言博主目前在一家原创小说网站公司工作，由于站内的作品全部是原创，于是乎不可避免地会被一些盗版网站爬取盗版，对于防盗版一直没有很好的对策，让公司很是苦恼。最近去一些盗版网站上搜索我们网站作品时，发现他们所用的封面图片的来源是我们网站的地址，即所谓的盗链，这对于我们网站服务器的带宽是一种损失，因此需要采取对应的手段应对。
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2017-10-29 14:28" pubdate>
-              2017-10-29
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/">服务器</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%AE%9E%E6%88%98/">实战</a>
-            
-              <a href="/tags/%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE/">图片防盗链</a>
-            
-              <a href="/tags/%E9%98%B2%E7%9B%97%E9%93%BE/">防盗链</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
@@ -916,6 +916,8 @@ JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开�
   <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
 
 
+  <script defer src="/js/leancloud.js" ></script>
+
 
 
   <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
@@ -979,6 +981,19 @@ JPA 的 JPQL 语法规则对于简单的查询实属利器，大大加快了开�
 
 
 
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
