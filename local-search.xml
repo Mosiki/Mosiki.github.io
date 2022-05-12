@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>记一次IDEA打开项目慢排查</title>
+    <link href="/idea-preparing-workspace-so-slowly.html"/>
+    <url>/idea-preparing-workspace-so-slowly.html</url>
+    
+    <content type="html"><![CDATA[<p>升级 IDEA 版本到 2022.3.1 后，最近出现了打开一个项目需要 5 分钟的情况，启动显示：Preparing workspace… ，点击 cancel 后，IDEA 就会出现假死的情况，要么等要么就只能强制杀掉进程，搞得很烦，特此记录一下解决过程。</p><a id="more"></a><p>IDEA 版本是：IntelliJ IDEA 2021.3.1 (Ultimate Edition)</p><p>参考 <a href="https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly">https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly</a> 这个链接，发现遇到的是相同的问题，通过菜单找到 idea 的日志目录(help-Show Log in Finder)，查看 idea.log 日志，搜索 <strong>FileEditorManagerImpl</strong>，耗时 27 万 ms</p><p>导致慢的元凶是 <strong>Package Search</strong> 这个插件，这个插件用于检查 maven/gradle 的依赖版本，不知道是 IDEA 的哪个版本加上去的，在设置里面禁用掉这个插件重启 IDEA 就解决了。</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>sqlite集成踩坑</title>
     <link href="/sqlite-xx.html"/>
     <url>/sqlite-xx.html</url>
@@ -1812,11 +1825,11 @@
     
     <tags>
       
-      <tag>实战</tag>
-      
       <tag>图片防盗链</tag>
       
       <tag>防盗链</tag>
+      
+      <tag>实战</tag>
       
     </tags>
     
@@ -1893,11 +1906,11 @@
     
     <tags>
       
+      <tag>实战</tag>
+      
       <tag>mysql</tag>
       
       <tag>行转列</tag>
-      
-      <tag>实战</tag>
       
     </tags>
     

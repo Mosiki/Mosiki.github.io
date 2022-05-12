@@ -19,9 +19,25 @@
   <meta name="description" content="WeJan&#39;s Blog的博客">
   <meta name="author" content="WeJan">
   <meta name="keywords" content="">
-  <title>归档 - WeJan&#39;s Blog</title>
+  <title>记一次IDEA打开项目慢排查 - WeJan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/androidstudio.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -50,7 +66,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -183,14 +199,64 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('https://cdn.jsdelivr.net/gh/Mosiki/blog-imgs/blog/a2.png') no-repeat center center;
+         style="background: url('/img/bg/a13.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="归档">
+            <span class="h2" id="subtitle" title="记一次IDEA打开项目慢排查">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      WeJan
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-05-11 21:52" pubdate>
+        2022年5月11日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      208 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      2
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
 
             
           </div>
@@ -203,58 +269,114 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 89 篇文章</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2017</p>
-    
-    <a href="/%E3%80%8A%E8%81%AA%E6%98%8E%E4%BA%BA%E9%83%BD%E7%94%A8%E6%96%B9%E6%A0%BC%E7%AC%94%E8%AE%B0%E6%9C%AC%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">《聪明人都用方格笔记本》读书笔记</span>
-      <time style="float: right;">01-22</time>
-    </a>
-  
-    
-    <a href="/%E3%80%8A%E5%A6%82%E4%BD%95%E6%9C%89%E6%95%88%E9%98%85%E8%AF%BB%E4%B8%80%E6%9C%AC%E4%B9%A6%EF%BC%9A%E8%B6%85%E5%AE%9E%E7%94%A8%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E6%B3%95%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0.html" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">《如何有效阅读一本书:超实用读书笔记法》读书笔记</span>
-      <time style="float: right;">01-15</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">记一次IDEA打开项目慢排查</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2022年5月12日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>升级 IDEA 版本到 2022.3.1 后，最近出现了打开一个项目需要 5 分钟的情况，启动显示：Preparing workspace… ，点击 cancel 后，IDEA 就会出现假死的情况，要么等要么就只能强制杀掉进程，搞得很烦，特此记录一下解决过程。</p>
+<a id="more"></a>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2017/page/2/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2017/">1</a><a class="page-number" href="/archives/2017/page/2/">2</a><span class="page-number current">3</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
-      ele.href += '#board';
-    }
-  </script>
+<p>IDEA 版本是：IntelliJ IDEA 2021.3.1 (Ultimate Edition)</p>
+<p>参考 <a href="https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly">https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly</a> 这个链接，发现遇到的是相同的问题，通过菜单找到 idea 的日志目录(help-Show Log in Finder)，查看 idea.log 日志，搜索 <strong>FileEditorManagerImpl</strong>，耗时 27 万 ms</p>
+<p>导致慢的元凶是 <strong>Package Search</strong> 这个插件，这个插件用于检查 maven/gradle 的依赖版本，不知道是 IDEA 的哪个版本加上去的，在设置里面禁用掉这个插件重启 IDEA 就解决了。</p>
 
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/sqlite-xx.html">
+                        <span class="hidden-mobile">sqlite集成踩坑</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "4LBKQGjj91zO3FvvTypea844-MdYXbMMI",
+          app_key: "g000TimpCo2dSkXYBxzm2Tdl",
+          placeholder: "说点什么",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: true,
+          serverURLs: "https://4lbkqgjj.api.lncldglobal.com",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://valine.js.org" rel="nofollow noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -358,9 +480,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 

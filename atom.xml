@@ -6,7 +6,7 @@
   <link href="http://nullpointer.pw/atom.xml" rel="self"/>
   
   <link href="http://nullpointer.pw/"/>
-  <updated>2021-11-30T09:04:25.280Z</updated>
+  <updated>2022-05-12T03:02:01.480Z</updated>
   <id>http://nullpointer.pw/</id>
   
   <author>
@@ -15,6 +15,23 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>记一次IDEA打开项目慢排查</title>
+    <link href="http://nullpointer.pw/idea-preparing-workspace-so-slowly.html"/>
+    <id>http://nullpointer.pw/idea-preparing-workspace-so-slowly.html</id>
+    <published>2022-05-11T13:52:26.000Z</published>
+    <updated>2022-05-12T03:02:01.480Z</updated>
+    
+    <content type="html"><![CDATA[<p>升级 IDEA 版本到 2022.3.1 后，最近出现了打开一个项目需要 5 分钟的情况，启动显示：Preparing workspace… ，点击 cancel 后，IDEA 就会出现假死的情况，要么等要么就只能强制杀掉进程，搞得很烦，特此记录一下解决过程。</p><a id="more"></a><p>IDEA 版本是：IntelliJ IDEA 2021.3.1 (Ultimate Edition)</p><p>参考 <a href="https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly">https://youtrack.jetbrains.com/issue/IDEA-286039/Preparing-workspace-so-slowly</a> 这个链接，发现遇到的是相同的问题，通过菜单找到 idea 的日志目录(help-Show Log in Finder)，查看 idea.log 日志，搜索 <strong>FileEditorManagerImpl</strong>，耗时 27 万 ms</p><p>导致慢的元凶是 <strong>Package Search</strong> 这个插件，这个插件用于检查 maven/gradle 的依赖版本，不知道是 IDEA 的哪个版本加上去的，在设置里面禁用掉这个插件重启 IDEA 就解决了。</p>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;升级 IDEA 版本到 2022.3.1 后，最近出现了打开一个项目需要 5 分钟的情况，启动显示：Preparing workspace… ，点击 cancel 后，IDEA 就会出现假死的情况，要么等要么就只能强制杀掉进程，搞得很烦，特此记录一下解决过程。&lt;/p&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>sqlite集成踩坑</title>
@@ -1691,11 +1708,11 @@
     <category term="服务器" scheme="http://nullpointer.pw/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
     
     
-    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
-    
     <category term="图片防盗链" scheme="http://nullpointer.pw/tags/%E5%9B%BE%E7%89%87%E9%98%B2%E7%9B%97%E9%93%BE/"/>
     
     <category term="防盗链" scheme="http://nullpointer.pw/tags/%E9%98%B2%E7%9B%97%E9%93%BE/"/>
+    
+    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
@@ -1760,11 +1777,11 @@
     <category term="数据库" scheme="http://nullpointer.pw/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     
     
+    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
+    
     <category term="mysql" scheme="http://nullpointer.pw/tags/mysql/"/>
     
     <category term="行转列" scheme="http://nullpointer.pw/tags/%E8%A1%8C%E8%BD%AC%E5%88%97/"/>
-    
-    <category term="实战" scheme="http://nullpointer.pw/tags/%E5%AE%9E%E6%88%98/"/>
     
   </entry>
   
