@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
+    <lastmod>2022-08-12</lastmod>
+  </url>
+  <url>
     <loc>http://nullpointer.pw/idea-preparing-workspace-so-slowly.html</loc>
     <lastmod>2022-05-12</lastmod>
   </url>
@@ -266,10 +270,6 @@
   </url>
   <url>
     <loc>http://nullpointer.pw/retry-method-invoke.html</loc>
-    <lastmod>2021-06-15</lastmod>
-  </url>
-  <url>
-    <loc>http://nullpointer.pw/Java8%E6%97%B6%E9%97%B4API%E5%85%A8%E9%9B%86%E5%90%88.html</loc>
     <lastmod>2021-06-15</lastmod>
   </url>
   <url>
